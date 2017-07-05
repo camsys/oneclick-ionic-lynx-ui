@@ -1,0 +1,66 @@
+ion-navbar {
+
+  .helper{
+    font-family: 'MyFontFamily';
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    background: blue;
+  }
+
+}
+
+
+page-help-me-find {
+
+  .scroll-content{
+
+    background: url(../../assets/img/background_image.jpg) no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  .background_div{
+    //background-repeat: no-repeat;
+    //background-position: center center;
+    //background-attachment: fixed;
+    text-align: center;
+  }
+
+  .hamburger{
+    color: white;
+  }
+
+  .container, .help_me_find_container{
+    background-color: #B52B83;
+    height: 19em;
+    padding-top: 15em;
+    padding-bottom: 5em;
+    color: #1A1A1A;
+    text-align: center;
+    opacity: .8;
+  }
+
+  .h1, .lynx_pink_header_1{
+    text-align: center;
+    position: relative;
+    top: -7em;
+    color: white;
+  }
+  .h3, .lynx_pink_header_3{
+    text-align: center;
+    position: relative;
+    top: -9em;
+    color: white;
+  }
+
+  .btn-default, .btn-help_me_find{
+    position: relative;
+    top: -15em;
+    color: #B52B83;
+    border-color: white;
+    background-color: white;
+    margin-top: 1em;
+    border-radius: 20px
+  }
+
+
+}
