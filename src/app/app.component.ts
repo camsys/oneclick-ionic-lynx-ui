@@ -7,6 +7,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser'
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
+import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,7 +26,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Find', component: HelpMeFindPage }
+      { title: 'Find', component: HelpMeFindPage },
+      { title: 'Categories', component: CategoriesFor211Page}
 
     ];
 

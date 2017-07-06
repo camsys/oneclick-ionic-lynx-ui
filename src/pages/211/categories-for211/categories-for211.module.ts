@@ -13,4 +13,6 @@ import { CategoriesFor211Page } from './categories-for211';
     CategoriesFor211Page
   ]
 })
-export class CategoriesFor211PageModule {}
+export class CategoriesFor211PageModule {
+
+}

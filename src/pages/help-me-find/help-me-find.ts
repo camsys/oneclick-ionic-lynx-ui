@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CategoriesFor211Page }    from '../211/categories-for211/categories-for211';
 
 /**
  * Generated class for the HelpMeFindPage page.
@@ -19,6 +20,15 @@ export class HelpMeFindPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HelpMeFindPage');
+  }
+
+  openResourcesPage() {
+    this.navCtrl.push(CategoriesFor211Page);
+  }
+
+  openTransportationPage() {
+    //TODO change this to the transportation page once it is created!
+    this.navCtrl.push(CategoriesFor211Page);
   }
 
 }

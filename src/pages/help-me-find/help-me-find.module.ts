@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { IonicPageModule} from 'ionic-angular';
 import { HelpMeFindPage } from './help-me-find';
+
+
 
 @NgModule({
   declarations: [
@@ -13,4 +15,6 @@ import { HelpMeFindPage } from './help-me-find';
     HelpMeFindPage
   ]
 })
-export class HelpMeFindPageModule {}
+
+export class HelpMeFindPageModule {
+}

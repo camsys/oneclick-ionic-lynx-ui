@@ -1,6 +1,6 @@
 <ion-menu [content]="content" side="right">
-  <ion-header dark>
-    <ion-toolbar>
+  <ion-header class="header_dark">
+    <ion-toolbar class="header_dark">
       <!--TODO we will need to make this menu contextual so it can display the username or instead promt the user to LogIn-->
       <ion-title>Hello! Log In Now</ion-title>
       <!--<button menuClose ion-item (click)="openPage(NewAccount)">-->
@@ -12,15 +12,12 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+  <ion-content class="toolbar_dark">
+    <ion-list class="toolbar_dark">
+      <button menuClose ion-item class="toolbar_dark" *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
-      <button ion-item (click)="openUrl('http://www.golynx.com/privacy-policy.stml')">
-        Terms of Use
-      </button>
-      <button ion-item (click)="openUrl('http://www.golynx.com/privacy-policy.stml')">
+      <button ion-item class="toolbar_dark" (click)="openUrl('http://www.golynx.com/privacy-policy.stml')">
         Privacy Policy
       </button>
     </ion-list>

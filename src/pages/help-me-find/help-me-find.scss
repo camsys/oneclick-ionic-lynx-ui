@@ -18,6 +18,10 @@ page-help-me-find {
     background-size: cover;
   }
 
+  .right-aligned-column{
+    text-align: right;
+  }
+
   .background_div{
     //background-repeat: no-repeat;
     //background-position: center center;
@@ -42,13 +46,13 @@ page-help-me-find {
   .h1, .lynx_pink_header_1{
     text-align: center;
     position: relative;
-    top: -7em;
+    top: -9em;
     color: white;
   }
   .h3, .lynx_pink_header_3{
     text-align: center;
     position: relative;
-    top: -9em;
+    top: -10.5em;
     color: white;
   }
 
@@ -59,7 +63,8 @@ page-help-me-find {
     border-color: white;
     background-color: white;
     margin-top: 1em;
-    border-radius: 20px
+    border-radius: 20px;
+    text-align: center;
   }
 
 

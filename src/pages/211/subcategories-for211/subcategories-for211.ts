@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import {CategoryFor211Model} from '../../../models/category-for-211';
+import {SubcategoryFor211Model} from '../../../models/subcategory-for-211'
+
 /**
  * Generated class for the SubcategoriesFor211Page page.
  *
@@ -14,7 +17,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SubcategoriesFor211Page {
 
+  category: CategoryFor211Model;
+  subcategories: SubcategoryFor211Model[];
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.category = navParams.data.selected_category;
   }
 
   ionViewDidLoad() {
