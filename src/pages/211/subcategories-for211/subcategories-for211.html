@@ -7,12 +7,23 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>SubcategoriesFor211</ion-title>
+    <ion-title>{{category.Category_Name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <div class="row">
+    <div class="col-sm-6">
+      <ul class="categroies_for_211" >
+        <span *ngFor="let subcategory of subcategories">
+          <li *ngIf="subcategory.Subcategory_Name != null" (click)="openToSubcategoryLinks(subcategory)">
+            {{subcategory.Subcategory_Name}}
+            <ion-icon name="ios-arrow-forward" end></ion-icon>
+          </li>
+        </span>
+      </ul>
+    </div>
+  </div>
 </ion-content>

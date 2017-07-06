@@ -56,6 +56,8 @@ export class ReferNet211ServiceProvider {
 
     var uri: string = encodeURI(this.refernetUrl+'SubCat_Links?API_KEY='+this.api_key+'&category_id='+categoryId+'&DeviceID=');
 
+    console.log(uri);
+
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
@@ -90,13 +92,16 @@ export class ReferNet211ServiceProvider {
     var jsonable_text: string = '[]';
 
     var start_of_json: number = xml.indexOf('[{');
+
+    console.log('start_of_json===='+start_of_json+'==');
+
     var end_of_json:number = xml.indexOf('}]');
     if(start_of_json >= 0 && end_of_json > 0)
     {
       jsonable_text = xml.substring(start_of_json, end_of_json+2);
     }
 
-    // console.log(jsonable_text);
+    console.log(jsonable_text);
 
     return jsonable_text;
   }
