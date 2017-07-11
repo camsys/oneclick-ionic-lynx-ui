@@ -29,7 +29,7 @@ export class MyApp {
       { title: 'List', component: ListPage },
       { title: 'Find', component: HelpMeFindPage },
       { title: 'Categories', component: CategoriesFor211Page},
-      { title: 'Transportation Providers', component: TransportationProvidersPage}
+      { title: 'Transportation Options', component: TransportationProvidersPage}
     ];
 
   }
