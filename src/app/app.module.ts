@@ -12,6 +12,7 @@ import { CategoriesFor211Page }    from '../pages/211/categories-for211/categori
 import { SubcategoriesFor211Page } from '../pages/211/subcategories-for211/subcategories-for211';
 import { SubcategoryLinksFor211Page } from '../pages/211/subcategory-links-for211/subcategory-links-for211';
 import { MatchListsFor211Page } from '../pages/211/match-lists-for211/match-lists-for211';
+import { TransportationProvidersPage } from '../pages/transportation-providers/transportation-providers';
 
 // import {CategoriesFor211Component}          from "../pages/211_services/211_service_categories/categories-for-211.component";
 // import {SubcategoriesFor211Component}       from "../pages/211_services/211_service_subcategories/subcategories-for-211.component";
@@ -38,6 +39,7 @@ import { MatchListFor211Model } from '../models/match-list-for-211'
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
     MatchListsFor211Page,
+    TransportationProvidersPage
   ],
   imports: [
     BrowserModule,
@@ -54,6 +56,7 @@ import { MatchListFor211Model } from '../models/match-list-for-211'
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
     MatchListsFor211Page,
+    TransportationProvidersPage
   ],
   providers: [
     StatusBar,
@@ -65,7 +68,7 @@ import { MatchListFor211Model } from '../models/match-list-for-211'
     CategoryFor211Model,
     SubcategoryFor211Model,
     SubcategoryLinkFor211Model,
-    MatchListFor211Model,
+    MatchListFor211Model
   ]
 })
 export class AppModule {}
