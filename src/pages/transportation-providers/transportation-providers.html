@@ -17,12 +17,14 @@
 
   <div class="row">
     <div class="col-sm-6">
-      <ul class="" >
+      <ul class="transportation-providers-list" >
         <span *ngFor="let provider of transportationProviders">
           <li>
-            {{provider.name}}
-            {{provider.phone}}
-            {{provider.description}}
+            <h3>
+              <a class="agency-heading" href="{{provider.url}}">{{provider.name}}</a>
+            </h3>
+            <h4><a href="tel:+1{{provider.phone}}">{{provider.phone}}</a></h4>
+            <p>{{provider.description}}</p>
           </li>
         </span>
       </ul>
