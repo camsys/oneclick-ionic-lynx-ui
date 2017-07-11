@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+// Providers
+import { OneClickProvider } from '../../providers/one-click/one-click';
+
+// Models
+import { TransportationProviderModel } from '../../models/transportation-provider';
+
+
 /**
  * Generated class for the TransportationProvidersPage page.
  *
@@ -15,10 +22,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class TransportationProvidersPage {
 
   constructor(public navCtrl: NavController, 
-              public navParams: NavParams) {}
+              public navParams: NavParams,
+              private oneClickProvider: OneClickProvider) {}
+              
+  transportationProviders: TransportationProviderModel[];
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TransportationProvidersPage');
+  ionViewDidLoad() {    
+    this.oneClickProvider.getTransportationProviders()
+    .then(tps => this.transportationProviders = tps);
   }
   
   // constructor(public navCtrl: NavController,

@@ -28,6 +28,7 @@ import { CategoryFor211Model } from '../models/category-for-211'
 import { SubcategoryFor211Model } from '../models/subcategory-for-211'
 import { SubcategoryLinkFor211Model } from '../models/subcategory-link-for-211'
 import { MatchListFor211Model } from '../models/match-list-for-211'
+import { OneClickProvider } from '../providers/one-click/one-click';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { MatchListFor211Model } from '../models/match-list-for-211'
     CategoryFor211Model,
     SubcategoryFor211Model,
     SubcategoryLinkFor211Model,
-    MatchListFor211Model
+    MatchListFor211Model,
+    OneClickProvider
   ]
 })
 export class AppModule {}
