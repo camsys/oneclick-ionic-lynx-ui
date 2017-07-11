@@ -12,6 +12,7 @@ import { CategoriesFor211Page }    from '../pages/211/categories-for211/categori
 import { SubcategoriesFor211Page } from '../pages/211/subcategories-for211/subcategories-for211';
 import { SubcategoryLinksFor211Page } from '../pages/211/subcategory-links-for211/subcategory-links-for211';
 import { MatchListsFor211Page } from '../pages/211/match-lists-for211/match-lists-for211';
+import { TransportationProvidersPage } from '../pages/transportation-providers/transportation-providers';
 
 // import {CategoriesFor211Component}          from "../pages/211_services/211_service_categories/categories-for-211.component";
 // import {SubcategoriesFor211Component}       from "../pages/211_services/211_service_subcategories/subcategories-for-211.component";
@@ -27,6 +28,7 @@ import { CategoryFor211Model } from '../models/category-for-211'
 import { SubcategoryFor211Model } from '../models/subcategory-for-211'
 import { SubcategoryLinkFor211Model } from '../models/subcategory-link-for-211'
 import { MatchListFor211Model } from '../models/match-list-for-211'
+import { OneClickProvider } from '../providers/one-click/one-click';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { MatchListFor211Model } from '../models/match-list-for-211'
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
     MatchListsFor211Page,
+    TransportationProvidersPage
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import { MatchListFor211Model } from '../models/match-list-for-211'
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
     MatchListsFor211Page,
+    TransportationProvidersPage
   ],
   providers: [
     StatusBar,
@@ -66,6 +70,7 @@ import { MatchListFor211Model } from '../models/match-list-for-211'
     SubcategoryFor211Model,
     SubcategoryLinkFor211Model,
     MatchListFor211Model,
+    OneClickProvider
   ]
 })
 export class AppModule {}

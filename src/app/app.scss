@@ -16,29 +16,29 @@
 // automatically applied to the <body> element in the app.
 
 .menu-inner > ion-header, .menu-inner > ion-content, .menu-inner > ion-footer .header_dark > .toolbar-background{
-  background-color: #000000;
+  background-color: $lynxBlack;
 }
 
 .header_dark > .toolbar-background {
-  background-color: #000000;
+  background-color: $lynxBlack;
 }
 
 .header_dark > .toolbar-background {
-  background-color: #000000;
+  background-color: $lynxBlack;
 }
 
 .toolbar_dark > .list{
-  background-color: #000000;
+  background-color: $lynxBlack;
 }
 
 .toolbar_dark, .item {
-  background-color: #000000;
+  background-color: $lynxBlack;
   color: white;
   //color: $lynxPink;
 }
 
 .toolbar_dark, .item:hover {
-  background-color: #000000;
+  background-color: $lynxBlack;
   color: #DB0F7D;
   //lynxDarkPink: #9A0959,
   //color: $lynxPink;
@@ -50,43 +50,46 @@
   background-color: #CFD8DC !important;
   color: white;
 }
-.categroies_for_211 {
+.categories_for_211 {
   margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
   /*width: 15em;*/
-}
-.categroies_for_211 li {
-  cursor: pointer;
-  position: relative;
-  left: 0;
-  background-color: #EEE;
-  border-bottom: 1px solid black;
-}
-.categroies_for_211 li.selected:hover {
-  background-color: #BBD8DC !important;
-  color: white;
-}
-.categroies_for_211 li:hover {
-  color: #607D8B;
-  background-color: #DDD;
-  left: .1em;
-}
-.categroies_for_211 .text {
-  position: relative;
-  top: -3px;
-}
-.categroies_for_211 .badge {
-  display: inline-block;
-  font-size: small;
-  color: white;
-  padding: 0.8em 0.7em 0 0.7em;
-  background-color: #607D8B;
-  line-height: 1em;
-  position: relative;
-  left: -1px;
-  top: -4px;
-  height: 1.8em;
-  margin-right: .8em;
-  border-radius: 4px 0 0 4px;
+  
+  li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    border-bottom: 1px solid $lynxBlack;
+    
+    &.selected:hover {
+      background-color: #BBD8DC !important;
+      color: white;
+    }
+    &:hover {
+      color: #607D8B;
+      background-color: #DDD;
+      left: .1em;
+    }
+  }
+
+  .text {
+    position: relative;
+    top: -3px;
+  }
+  .badge {
+    display: inline-block;
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #607D8B;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+  }
 }
