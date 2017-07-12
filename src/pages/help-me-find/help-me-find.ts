@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoriesFor211Page }    from '../211/categories-for211/categories-for211';
-import { TransportationProvidersPage } from '../transportation-providers/transportation-providers';
+import { TransportationAgenciesPage } from '../transportation-agencies/transportation-agencies';
 
 /**
  * Generated class for the HelpMeFindPage page.
@@ -28,7 +28,7 @@ export class HelpMeFindPage {
   }
 
   openTransportationPage() {
-    this.navCtrl.push(TransportationProvidersPage);
+    this.navCtrl.push(TransportationAgenciesPage);
   }
 
 }

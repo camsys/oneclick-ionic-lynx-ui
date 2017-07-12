@@ -1,4 +1,4 @@
-export class TransportationProviderModel {
+export class AgencyModel {
   name: string;
   description: string;
   email: string;
