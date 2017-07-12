@@ -10,7 +10,7 @@ import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
-
+import { ContactUsPage } from '../pages/contact-us/contact-us';
 
 @Component({
   templateUrl: 'app.html'
@@ -32,7 +32,8 @@ export class MyApp {
       { title: 'Find', component: HelpMeFindPage },
       { title: 'Categories', component: CategoriesFor211Page},
       { title: 'Transportation Options', component: TransportationAgenciesPage},
-      { title: 'About Us', component: AboutUsPage }
+      { title: 'About Us', component: AboutUsPage },
+      { title: 'Contact Us', component: ContactUsPage }
     ];
 
   }

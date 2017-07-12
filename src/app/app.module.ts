@@ -14,6 +14,7 @@ import { SubcategoryLinksFor211Page } from '../pages/211/subcategory-links-for21
 import { MatchListsFor211Page } from '../pages/211/match-lists-for211/match-lists-for211';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
+import { ContactUsPage } from '../pages/contact-us/contact-us';
 
 // import {CategoriesFor211Component}          from "../pages/211_services/211_service_categories/categories-for-211.component";
 // import {SubcategoriesFor211Component}       from "../pages/211_services/211_service_subcategories/subcategories-for-211.component";
@@ -47,7 +48,8 @@ import { AgencyModel } from '../models/agency';
     SubcategoryLinksFor211Page,
     MatchListsFor211Page,
     TransportationAgenciesPage,
-    AboutUsPage
+    AboutUsPage,
+    ContactUsPage
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,8 @@ import { AgencyModel } from '../models/agency';
     SubcategoryLinksFor211Page,
     MatchListsFor211Page,
     TransportationAgenciesPage,
-    AboutUsPage
+    AboutUsPage,
+    ContactUsPage
   ],
   providers: [
     StatusBar,
