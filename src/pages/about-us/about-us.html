@@ -1,5 +1,5 @@
 <!--
-  Generated template for the TransportationProvidersPage page.
+  Generated template for the AboutUsPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Transportation Options</ion-title>
+    <ion-title>About Us</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -20,14 +20,15 @@
 
   <div class="row">
     <div class="col-sm-6">
-      <ul class="transportation-providers-list" >
-        <span *ngFor="let provider of transportationProviders">
+      <ul class="lynx-list" >
+        <span *ngFor="let agency of agencies">
           <li>
             <h3>
-              <a class="agency-heading" href="{{provider.url}}">{{provider.name}}</a>
+              <a class="lynx-list-heading" href="{{agency.url}}">{{agency.name}}</a>
             </h3>
-            <h4><a href="tel:+1{{provider.phone}}">{{provider.phone}}</a></h4>
-            <p>{{provider.description}}</p>
+            <h5>{{agency.type}}</h5>
+            <h4><a href="tel:+1{{agency.phone}}">{{agency.phone}}</a></h4>
+            <p>{{agency.description}}</p>
           </li>
         </span>
       </ul>

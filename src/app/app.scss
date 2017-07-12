@@ -93,3 +93,38 @@
     border-radius: 4px 0 0 4px;
   }
 }
+
+/* Styling for Lists */
+ul.lynx-list {
+  background-color: $light;
+  list-style-type: none; // No bullet points
+  padding-left: 0;
+  
+  li {
+    
+    // Light gray border separates list items
+    border-bottom: 1px solid lighten($dark, 65%);
+    padding: 20px 0;
+    
+    // Header line should be pink
+    .lynx-list-heading {
+      color: $lynxPink;
+    }
+    
+    // Links should not have any underline, and should be black by default
+    a {
+      color: $lynxBlack;
+      text-decoration: none;
+    }
+    
+    h1,h2,h3,h4,h5 {
+      margin: 0;
+    }
+    
+    p {
+      margin: 5px 0;
+    }
+    
+  }
+  
+}
