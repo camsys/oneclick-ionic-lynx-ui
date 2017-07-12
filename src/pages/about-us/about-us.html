@@ -15,24 +15,25 @@
 
 </ion-header>
 
-
-<ion-content padding>
-
-  <div class="row">
-    <div class="col-sm-6">
-      <ul class="lynx-list" >
-        <span *ngFor="let agency of agencies">
-          <li>
+<ion-content>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col col-md-8 offset-md-2>
+        
+        <ion-list class="lynx-list">
+          <ion-item text-wrap *ngFor="let agency of agencies">
             <h3>
               <a class="lynx-list-heading" href="{{agency.url}}">{{agency.name}}</a>
             </h3>
-            <h5>{{agency.type}}</h5>
-            <h4><a href="tel:+1{{agency.phone}}">{{agency.phone}}</a></h4>
+            <!-- <h5>{{agency.type}}</h5> -->
+            <h4><a href="tel:{{agency.phone}}">{{agency.phone}}</a></h4>
             <p>{{agency.description}}</p>
-          </li>
-        </span>
-      </ul>
-    </div>
-  </div>
+          </ion-item>
+        </ion-list>
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   
 </ion-content>

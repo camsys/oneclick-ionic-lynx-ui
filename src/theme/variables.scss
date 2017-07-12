@@ -23,7 +23,6 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 $font-family-base: "Avenir", 'avenir next', "Helvetica Neue", "Roboto", sans-serif;
 
-
 // Named Color Variables
 
 $primary:      #488aff;
@@ -45,6 +44,8 @@ $colors: (
   lynxDarkPink: $lynxDarkPink,
   lynxBlack:    $lynxBlack
 );
+
+$background-color: $light;
 
 
 // App iOS Variables
