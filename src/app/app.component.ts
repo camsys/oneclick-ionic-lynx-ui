@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
+import { UserLocatorPage }  from '../pages/user-locator/user-locator';;
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +28,8 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
       { title: 'Find', component: HelpMeFindPage },
-      { title: 'Categories', component: CategoriesFor211Page}
+      { title: 'Categories', component: CategoriesFor211Page},
+      { title: 'Locator', component: UserLocatorPage},
 
     ];
 

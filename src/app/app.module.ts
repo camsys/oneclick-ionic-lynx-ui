@@ -3,6 +3,10 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home'; //TODO REMOVE THIS
@@ -12,16 +16,9 @@ import { CategoriesFor211Page }    from '../pages/211/categories-for211/categori
 import { SubcategoriesFor211Page } from '../pages/211/subcategories-for211/subcategories-for211';
 import { SubcategoryLinksFor211Page } from '../pages/211/subcategory-links-for211/subcategory-links-for211';
 import { MatchListsFor211Page } from '../pages/211/match-lists-for211/match-lists-for211';
+import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 
-// import {CategoriesFor211Component}          from "../pages/211_services/211_service_categories/categories-for-211.component";
-// import {SubcategoriesFor211Component}       from "../pages/211_services/211_service_subcategories/subcategories-for-211.component";
-// import {SubcategoryLinksFor211Component}    from '../pages/211_services/211_service_subcategory_links/subcategory-links-for-211.component';
-// import {MatchListsFor211Component}          from '../pages/211_services/211_services_match_lists/match-lists-for-211.component';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { ReferNet211ServiceProvider } from '../providers/refer-net211-service/refer-net211-service';
-import { InAppBrowser } from '@ionic-native/in-app-browser'
 
 import { CategoryFor211Model } from '../models/category-for-211'
 import { SubcategoryFor211Model } from '../models/subcategory-for-211'
@@ -34,6 +31,7 @@ import { MatchListFor211Model } from '../models/match-list-for-211'
     HomePage, //TODO REMOVE THIS
     ListPage, //TODO REMOVE THIS
     HelpMeFindPage,
+    UserLocatorPage,
     CategoriesFor211Page,
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
@@ -43,6 +41,7 @@ import { MatchListFor211Model } from '../models/match-list-for-211'
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -50,6 +49,7 @@ import { MatchListFor211Model } from '../models/match-list-for-211'
     HomePage,
     ListPage,
     HelpMeFindPage,
+    UserLocatorPage,
     CategoriesFor211Page,
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
@@ -59,6 +59,7 @@ import { MatchListFor211Model } from '../models/match-list-for-211'
     StatusBar,
     SplashScreen,
     InAppBrowser,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ReferNet211ServiceProvider,
 
