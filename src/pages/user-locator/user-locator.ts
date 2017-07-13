@@ -23,7 +23,7 @@ export class UserLocatorPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserLocatorPage');
-    this.platform.ready().then(() => { this.initializeMap(); });
+    this.platform.ready().then(() => { this.initializeMap();});
   }
 
   initializeMap(){
@@ -42,7 +42,7 @@ export class UserLocatorPage {
 
       this.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
     }, (err) => {
-      let latLng = new google.maps.LatLng(0, 0);
+      let latLng = new google.maps.LatLng(28.538336, -81.379234);
 
       let mapOptions = {
         center: latLng,
@@ -53,8 +53,7 @@ export class UserLocatorPage {
       };
 
       this.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-    });
-
+    }).then(() => (this.addYourLocationButton()));
   }
 
 
@@ -62,7 +61,7 @@ export class UserLocatorPage {
   {
     var controlDiv = document.createElement('div');
 
-    var firstChild = document.createElement('button');
+    var firstChild = document.createElement('locationButton');
     firstChild.style.backgroundColor = '#fff';
     firstChild.style.border = 'none';
     firstChild.style.outline = 'none';
@@ -75,41 +74,42 @@ export class UserLocatorPage {
     firstChild.style.padding = '0px';
     firstChild.title = 'Your Location';
     controlDiv.appendChild(firstChild);
-  //
-  //   var secondChild = document.createElement('div');
-  //   secondChild.style.margin = '5px';
-  //   secondChild.style.width = '18px';
-  //   secondChild.style.height = '18px';
-  //   secondChild.style.backgroundImage = 'url(https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-1x.png)';
-  //   secondChild.style.backgroundSize = '180px 18px';
-  //   secondChild.style.backgroundPosition = '0px 0px';
-  //   secondChild.style.backgroundRepeat = 'no-repeat';
-  //   secondChild.id = 'you_location_img';
-  //   firstChild.appendChild(secondChild);
-  //
-  //   google.maps.event.addListener(map, 'dragend', function() {
-  //     $('#you_location_img').css('background-position', '0px 0px');
-  //   });
-  //
-  //   firstChild.addEventListener('click', function() {
-  //
-  //     if(navigator.geolocation) {
-  //       navigator.geolocation.getCurrentPosition(function(position) {
-  //         var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-  //         marker.setPosition(latlng);
-  //         map.setCenter(latlng);
-  //         clearInterval(animationInterval);
-  //         $('#you_location_img').css('background-position', '-144px 0px');
-  //       });
-  //     }
-  //     else{
-  //       clearInterval(animationInterval);
-  //       $('#you_location_img').css('background-position', '0px 0px');
-  //     }
-  //   });
 
-  //   controlDiv.index = 1;
-  //   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+
+    var secondChild = document.createElement('div');
+    secondChild.style.margin = '5px';
+    secondChild.style.width = '18px';
+    secondChild.style.height = '18px';
+    secondChild.style.backgroundImage = 'url(https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-1x.png)';
+    secondChild.style.backgroundSize = '180px 18px';
+    secondChild.style.backgroundPosition = '0px 0px';
+    secondChild.style.backgroundRepeat = 'no-repeat';
+    secondChild.id = 'you_location_img';
+    firstChild.appendChild(secondChild);
+
+    // google.maps.event.addListener(map, 'dragend', function() {
+    //   $('#you_location_img').css('background-position', '0px 0px');
+    // });
+  //
+
+    //
+    if (this.map != null)
+    {
+      var child_scope_map: google.maps.Map = this.map;
+      firstChild.addEventListener('click', function() {
+
+        if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            console.log(latlng);
+            child_scope_map.setCenter(latlng);
+          });
+        }
+      });
+
+      var location_button = (<HTMLScriptElement[]><any>controlDiv.getElementsByTagName('locationButton'))[0];
+      this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(location_button);
+    }
   }
 
 }
