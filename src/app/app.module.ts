@@ -12,19 +12,16 @@ import { CategoriesFor211Page }    from '../pages/211/categories-for211/categori
 import { SubcategoriesFor211Page } from '../pages/211/subcategories-for211/subcategories-for211';
 import { SubcategoryLinksFor211Page } from '../pages/211/subcategory-links-for211/subcategory-links-for211';
 import { MatchListsFor211Page } from '../pages/211/match-lists-for211/match-lists-for211';
+import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
-
-// import {CategoriesFor211Component}          from "../pages/211_services/211_service_categories/categories-for-211.component";
-// import {SubcategoriesFor211Component}       from "../pages/211_services/211_service_subcategories/subcategories-for-211.component";
-// import {SubcategoryLinksFor211Component}    from '../pages/211_services/211_service_subcategory_links/subcategory-links-for-211.component';
-// import {MatchListsFor211Component}          from '../pages/211_services/211_services_match_lists/match-lists-for-211.component';
 
 // Ionic Imports
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Geolocation } from '@ionic-native/geolocation';
 
 // Providers
 import { ReferNet211ServiceProvider } from '../providers/refer-net211-service/refer-net211-service';
@@ -43,6 +40,7 @@ import { AgencyModel } from '../models/agency';
     HomePage, //TODO REMOVE THIS
     ListPage, //TODO REMOVE THIS
     HelpMeFindPage,
+    UserLocatorPage,
     CategoriesFor211Page,
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
@@ -55,6 +53,7 @@ import { AgencyModel } from '../models/agency';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -62,6 +61,7 @@ import { AgencyModel } from '../models/agency';
     HomePage,
     ListPage,
     HelpMeFindPage,
+    UserLocatorPage,
     CategoriesFor211Page,
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
@@ -74,8 +74,9 @@ import { AgencyModel } from '../models/agency';
     StatusBar,
     SplashScreen,
     InAppBrowser,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ReferNet211ServiceProvider,    
+    ReferNet211ServiceProvider,
     OneClickProvider,
 
     CategoryFor211Model,

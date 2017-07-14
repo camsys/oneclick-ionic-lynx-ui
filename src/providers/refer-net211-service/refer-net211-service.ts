@@ -101,7 +101,7 @@ export class ReferNet211ServiceProvider {
       jsonable_text = xml.substring(start_of_json, end_of_json+2);
     }
 
-    console.log(jsonable_text);
+    // console.log(jsonable_text);
 
     return jsonable_text;
   }

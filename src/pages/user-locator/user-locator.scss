@@ -1,0 +1,30 @@
+page-user-locator {
+
+  .search{
+    background-color: #DB0F7D;
+  }
+
+  .map_container, grid{
+    height: 100%;
+  }
+
+  //map_container, .row{
+  //  height: 100%;
+  //}
+
+  #map_canvas{
+    width: 100%;
+    height: 100%;
+  }
+
+  $colors: (
+    primary:      #488aff,
+    secondary:    #32db64,
+    danger:       #f53d3d,
+    light:        #f4f4f4,
+    dark:         #222,
+    lynxPink:     #DB0F7D,
+    lynxDarkPink: #9A0959,
+    lynxBlack:    #000000,
+  );
+}
