@@ -17,8 +17,11 @@
   <ion-grid>
     <ion-row>
       <ion-col col-lg-2></ion-col>
-      <ion-col col-lg-8 class="search">
-        <div>SEARCh</div>
+      <ion-col col-lg-8 class="search" text-center>
+        <ion-item color="lynxPink">
+          <ion-label color="light" text-center stacked>Where Are You?</ion-label>
+          <ion-input color="light" type="address" id="location_address" [(ngModel)]='fromValue' placeholder="Enter Address"></ion-input>
+        </ion-item>
       </ion-col>
       <ion-col col-lg-2></ion-col>
     </ion-row>

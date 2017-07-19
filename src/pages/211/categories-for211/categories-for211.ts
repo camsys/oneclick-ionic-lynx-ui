@@ -32,7 +32,6 @@ export class CategoriesFor211Page {
 
   ionViewDidLoad() {
     this.getParentLevelServices();
-    console.log('ionViewDidLoad CategoriesFor211Page');
   }
 
   openToSubcategory(category: CategoryFor211Model){

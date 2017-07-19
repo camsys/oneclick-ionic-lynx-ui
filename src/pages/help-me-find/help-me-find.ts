@@ -20,7 +20,7 @@ export class HelpMeFindPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HelpMeFindPage');
+
   }
 
   openResourcesPage() {
