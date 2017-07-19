@@ -18,6 +18,7 @@ import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
+import { UserProfilePage } from '../pages/user-profile/user-profile';
 
 // Ionic Imports
 import { StatusBar } from '@ionic-native/status-bar';
@@ -52,7 +53,8 @@ import { AgencyModel } from '../models/agency';
     ServicesFromMatchListPage,
     TransportationAgenciesPage,
     AboutUsPage,
-    ContactUsPage
+    ContactUsPage,
+    UserProfilePage
   ],
   imports: [
     BrowserModule,
@@ -75,7 +77,8 @@ import { AgencyModel } from '../models/agency';
     ServicesFromMatchListPage,
     TransportationAgenciesPage,
     AboutUsPage,
-    ContactUsPage
+    ContactUsPage,
+    UserProfilePage
   ],
   providers: [
     StatusBar,
