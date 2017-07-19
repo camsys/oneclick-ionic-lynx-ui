@@ -56,7 +56,7 @@ export class ReferNet211ServiceProvider {
 
     var uri: string = encodeURI(this.refernetUrl+'SubCat_Links?API_KEY='+this.api_key+'&category_id='+categoryId+'&DeviceID=');
 
-    console.log(uri);
+    // console.log(uri);
 
     return this.http.get(uri)
       .toPromise()
@@ -67,8 +67,6 @@ export class ReferNet211ServiceProvider {
   }
 
   getMatchListForSubcategoryLinkNameAndCountyCode(subcategroyLinkName: string, countyCode: number): Promise<MatchListFor211Model[]>{
-  // getMatchListForSubcategoryLinkNameAndCountyCode(subcategroyLinkName: string, countyCode: number): Promise<string[]>{
-
     var uri: string = encodeURI(this.refernetUrl+'MatchList?API_KEY='+this.api_key+'&zip='+'&searchterm='+subcategroyLinkName+'&county_id='+countyCode+'&DeviceID=');
 
     // console.log(uri);
@@ -77,7 +75,7 @@ export class ReferNet211ServiceProvider {
       .toPromise()
       .then(response => response.text())
       .then(str => this.stripAwayXml(str))
-      .then(jsonable => JSON.parse(jsonable) as string)
+      .then(jsonable => JSON.parse(jsonable) as MatchListFor211Model)
       .catch(this.handleError);
   }
 
@@ -93,7 +91,7 @@ export class ReferNet211ServiceProvider {
 
     var start_of_json: number = xml.indexOf('[{');
 
-    console.log('start_of_json===='+start_of_json+'==');
+    // console.log('start_of_json===='+start_of_json+'==');
 
     var end_of_json:number = xml.indexOf('}]');
     if(start_of_json >= 0 && end_of_json > 0)

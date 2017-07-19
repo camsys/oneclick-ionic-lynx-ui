@@ -12,6 +12,8 @@ import { CategoriesFor211Page }    from '../pages/211/categories-for211/categori
 import { SubcategoriesFor211Page } from '../pages/211/subcategories-for211/subcategories-for211';
 import { SubcategoryLinksFor211Page } from '../pages/211/subcategory-links-for211/subcategory-links-for211';
 import { MatchListsFor211Page } from '../pages/211/match-lists-for211/match-lists-for211';
+import { MapFor211ServicesPage } from '../pages/211/map-for211-services/map-for211-services';
+import { ServicesFromMatchListPage } from '../pages/211/services-from-match-list/services-from-match-list';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
@@ -26,6 +28,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 // Providers
 import { ReferNet211ServiceProvider } from '../providers/refer-net211-service/refer-net211-service';
 import { OneClickProvider } from '../providers/one-click/one-click';
+import { UserServiceProvider } from '../providers/user/user-service';
 
 // Models
 import { CategoryFor211Model } from '../models/category-for-211';
@@ -45,6 +48,8 @@ import { AgencyModel } from '../models/agency';
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
     MatchListsFor211Page,
+    MapFor211ServicesPage,
+    ServicesFromMatchListPage,
     TransportationAgenciesPage,
     AboutUsPage,
     ContactUsPage
@@ -66,6 +71,8 @@ import { AgencyModel } from '../models/agency';
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
     MatchListsFor211Page,
+    MapFor211ServicesPage,
+    ServicesFromMatchListPage,
     TransportationAgenciesPage,
     AboutUsPage,
     ContactUsPage
@@ -78,6 +85,7 @@ import { AgencyModel } from '../models/agency';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ReferNet211ServiceProvider,
     OneClickProvider,
+    UserServiceProvider,
 
     CategoryFor211Model,
     SubcategoryFor211Model,

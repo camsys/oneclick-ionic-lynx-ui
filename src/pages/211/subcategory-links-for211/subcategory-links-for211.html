@@ -13,15 +13,17 @@
 
 
 <ion-content padding>
-  <div class="row">
-    <div class="col-sm-6">
-      <ul class="categories_for_211" >
+  <ion-grid>
+    <ion-row>
+      <ion-col col-md-8 offset-md-2>
+        <ul class="categories_for_211" >
 
-        <li *ngFor="let subcategoryLink of subcategoryLinks" (click)="openToMatchList(subcategoryLink)">
-          {{subcategoryLink.Name}}
-          <ion-icon name="ios-arrow-forward" end></ion-icon>
-        </li>
-      </ul>
-    </div>
-  </div>
+          <li *ngFor="let subcategoryLink of subcategoryLinks" (click)="openToMatchList(subcategoryLink)">
+            {{subcategoryLink.Name}}
+            <ion-icon name="ios-arrow-forward" end></ion-icon>
+          </li>
+        </ul>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

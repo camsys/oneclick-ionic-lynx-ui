@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { UserServiceProvider } from '../../providers/user/user-service'
 
 /**
  * Generated class for the UserLocatorPage page.
@@ -19,7 +20,7 @@ export class UserLocatorPage {
   fromValue:string;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation, public userProvider: UserServiceProvider) {
     this.map = null;
     this.fromValue = '';
   }
@@ -27,6 +28,10 @@ export class UserLocatorPage {
   ionViewDidLoad() {
     this.platform.ready().then(() => { this.initializeMap();});
     this.platform.ready().then(() => { this.initializeAutocomplete();});
+
+    console.log(this.userProvider.getUser());
+    this.userProvider.setUserLocation('gdsgdsfkljl');
+    console.log(this.userProvider.getUser());
   }
 
   initializeMap() {

@@ -19,6 +19,11 @@
 //   background-color: $light;
 // }
 
+.lynx-menu-bar{
+
+
+}
+
 .menu-inner > ion-header, .menu-inner > ion-content, .menu-inner > ion-footer .header_dark > .toolbar-background{
   background-color: $lynxBlack;
 }
@@ -59,14 +64,14 @@
   list-style-type: none;
   padding: 0;
   /*width: 15em;*/
-  
+
   li {
     cursor: pointer;
     position: relative;
     left: 0;
     background-color: #EEE;
     border-bottom: 1px solid $lynxBlack;
-    
+
     &.selected:hover {
       background-color: #BBD8DC !important;
       color: white;
@@ -100,46 +105,46 @@
 
 /* Styling for Lists */
 .lynx-list {
-  
+
   .item {
-    
+
     background-color: $light;
-    
+
     // Only show dividers between list items.
     &:last-child  { border-bottom:  none; }
     &:first-child { border-top:     none; }
-    
-    
+
+
     /* FONT FORMATTING FOR LIST ITEMS */
-    
+
     // Header line should be pink
     .lynx-list-heading {
       color: $lynxPink;
     }
-    
+
     // Links should not have any underline, and should be black by default
     a {
       color: $lynxBlack;
       text-decoration: none;
     }
-    
+
     h1,h2,h3,h4,h5 {
       color: $lynxBlack;
       font-weight: 500;
     }
-    
-    h1 { font-size: 2.4rem; }  
+
+    h1 { font-size: 2.4rem; }
     h2 { font-size: 2.0rem; }
     h3 { font-size: 1.8rem; }
     h4 { font-size: 1.6rem; }
     h5 { font-size: 1.5rem; }
-    
+
     p {
       color: $lynxBlack;
       font-size: 1.5rem;
       font-weight: 300;
     }
-    
+
   }
-  
+
 }
