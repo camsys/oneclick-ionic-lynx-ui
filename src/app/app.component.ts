@@ -34,7 +34,7 @@ export class MyApp {
       { title: 'Categories', component: CategoriesFor211Page},
       { title: 'Transportation Options', component: TransportationAgenciesPage},
       { title: 'About Us', component: AboutUsPage },
-      { title: 'Contact Us', component: ContactUsPage }
+      { title: 'Contact Us', component: ContactUsPage },
       { title: 'Locator', component: UserLocatorPage},
     ];
 
