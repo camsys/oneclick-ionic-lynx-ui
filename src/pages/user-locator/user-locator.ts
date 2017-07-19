@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { UserServiceProvider } from '../../providers/user/user-service'
 
 /**
  * Generated class for the UserLocatorPage page.
@@ -16,17 +17,24 @@ import { Geolocation } from '@ionic-native/geolocation';
 export class UserLocatorPage {
 
   map: google.maps.Map;
+  fromValue:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation, public userProvider: UserServiceProvider) {
     this.map = null;
+    this.fromValue = '';
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserLocatorPage');
     this.platform.ready().then(() => { this.initializeMap();});
+    this.platform.ready().then(() => { this.initializeAutocomplete();});
+
+    console.log(this.userProvider.getUser());
+    this.userProvider.setUserLocation('gdsgdsfkljl');
+    console.log(this.userProvider.getUser());
   }
 
-  initializeMap(){
+  initializeMap() {
     let minZoomLevel = 10;
 
     this.geolocation.getCurrentPosition().then((position) => {
@@ -56,9 +64,38 @@ export class UserLocatorPage {
     }).then(() => (this.addYourLocationButton()));
   }
 
+  initializeAutocomplete() {
+    // get the field
+    // let input_from = (<HTMLInputElement>document.getElementById('location_address'));
+    //
+    // // set the options
+    // let options = {
+    //   types: [],
+    //   componentRestrictions: {country: 'us'}
+    // };
 
-  addYourLocationButton()
-  {
+    // create the autocomplete on the field
+    // let autocomplete1 = new google.maps.places.Autocomplete(input_from, options);
+
+    // // we need to save a reference to this as we lose it in the callbacks
+    // let self = this;
+
+    // add the first listener
+    // google.maps.event.addListener(autocomplete1, 'place_changed', function() {
+    //   let place = autocomplete1.getPlace();
+    //   let geometry = place.geometry;
+    //   if ((geometry) !== undefined) {
+    //
+    //     console.log(place.name);
+    //
+    //     console.log(geometry.location.lng());
+    //
+    //     console.log(geometry.location.lat());
+    //   }
+    // });
+  }
+
+  addYourLocationButton() {
     var controlDiv = document.createElement('div');
 
     var firstChild = document.createElement('locationButton');
@@ -101,7 +138,6 @@ export class UserLocatorPage {
         if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            console.log(latlng);
             child_scope_map.setCenter(latlng);
           });
         }
