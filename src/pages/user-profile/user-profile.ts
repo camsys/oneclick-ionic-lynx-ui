@@ -23,7 +23,8 @@ export class UserProfilePage {
   }
 
   ionViewDidLoad() {
-  	//console.log(this.userServiceProvider.getUser);
+  	
+  	//this.userServiceProvider.getUser().then(incoming_user => this.user = incoming_user);
   	this.user = this.userServiceProvider.getUser();
   	console.log(this.user.firstName);
     console.log('ionViewDidLoad UserProfilePage');
