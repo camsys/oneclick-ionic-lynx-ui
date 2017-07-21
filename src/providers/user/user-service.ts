@@ -32,6 +32,7 @@ export class UserServiceProvider {
       this.user = new User;
       this.user.firstName = 'TEST_FIRST_NAME';
       this.user.lastName = 'TEST_last_NAME';
+      this.user.email = "fakeEmail@example.com"
       this.user.userId = 123;
       this.user.location = 'TEST_locATION';
     }
