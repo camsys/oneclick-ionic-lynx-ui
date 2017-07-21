@@ -6,6 +6,7 @@ import { MatchListsFor211Page } from '../match-lists-for211/match-lists-for211'
 import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
 import { SubcategoryFor211Model } from '../../../models/subcategory-for-211'
 import { SubcategoryLinkFor211Model } from '../../../models/subcategory-link-for-211'
+import { MatchListFor211Model } from '../../../models/match-list-for-211'
 
 /**
  * Generated class for the SubcategoryLinksFor211Page page.
@@ -22,7 +23,6 @@ export class SubcategoryLinksFor211Page {
   subcategory: SubcategoryFor211Model;
   subcategoryLinks: SubcategoryLinkFor211Model[];
 
-
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private referNet211ServiceProvider: ReferNet211ServiceProvider)
@@ -35,12 +35,26 @@ export class SubcategoryLinksFor211Page {
     then(slinks => this.subcategoryLinks = slinks);
   }
 
+  getMatchLists(subCategoryLinkName : string): MatchListFor211Model[]{
+    let matches : MatchListFor211Model[] = [];
+
+    this.referNet211ServiceProvider.getMatchListForSubcategoryLinkNameAndCountyCode(subCategoryLinkName, 123).
+    then(value => matches = value);
+
+    return matches;
+  }
+
   ionViewDidLoad() {
     this.getSubcategoryServices();
   }
 
   openToMatchList(subCategoryLink: SubcategoryLinkFor211Model){
-    this.navCtrl.push(MatchListsFor211Page, {selected_subcategory_link: subCategoryLink});
+    this.referNet211ServiceProvider.getMatchListForSubcategoryLinkNameAndCountyCode(subCategoryLink.Name, 123).
+    then(value => this.navCtrl.push(MatchListsFor211Page, {
+        selected_subcategory_link: subCategoryLink,
+        matches_result: value
+      })
+    );
   }
 
 }

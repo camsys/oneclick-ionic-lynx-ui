@@ -1,0 +1,15 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-md-8 offset-md-2>
+        Sort by:
+        <ion-list class="lynx-list">
+          <button menuClose ion-item class="toolbar_light" *ngFor="let match of matches" (click)="openServicePage(match)">
+            <h2> {{match.Name_Agency}} </h2>
+            {{match.Address1}}, {{match.City}} {{match.State}} {{match.ZipCode}}
+          </button>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
