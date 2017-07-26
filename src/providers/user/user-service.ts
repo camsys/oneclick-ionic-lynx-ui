@@ -4,7 +4,8 @@ import { Http } from '@angular/http';
 // import 'rxjs/add/operator/toPromise';
 // import 'rxjs/add/operator/map';
 
-import {User}          from '../../models/user';
+import { User }          from '../../models/user';
+import { OneClickProvider } from '../../providers/one-click/one-click';
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -17,16 +18,18 @@ import {User}          from '../../models/user';
 export class UserServiceProvider {
 
   user: User;
-
-  constructor(private http: Http) {
+  constructor(private http: Http,
+              private oneClickProvider: OneClickProvider) {
   }
 
 
   //This method is not the ideal user option, I believe any changes made to the user this way will not propogate across pages.
   getUser(){
-    console.log('In Get user');
-    console.log(this.user);
+//    console.log(this.oneClickProvider.getTestProfile());
 
+
+    this.oneClickProvider.getTestProfile().then(ocp => console.log(ocp));
+  
     if(this.user == null)
     {
       this.user = new User;
