@@ -18,6 +18,7 @@ import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
+import { SignInPage } from '../pages/sign-in/sign-in';
 
 // Ionic Imports
 import { StatusBar } from '@ionic-native/status-bar';
@@ -29,6 +30,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { ReferNet211ServiceProvider } from '../providers/refer-net211-service/refer-net211-service';
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { UserServiceProvider } from '../providers/user/user-service';
+import { AuthProvider } from '../providers/auth/auth';
 
 // Models
 import { CategoryFor211Model } from '../models/category-for-211';
@@ -52,7 +54,8 @@ import { AgencyModel } from '../models/agency';
     ServicesFromMatchListPage,
     TransportationAgenciesPage,
     AboutUsPage,
-    ContactUsPage
+    ContactUsPage,
+    SignInPage
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ import { AgencyModel } from '../models/agency';
     ServicesFromMatchListPage,
     TransportationAgenciesPage,
     AboutUsPage,
-    ContactUsPage
+    ContactUsPage,
+    SignInPage
   ],
   providers: [
     StatusBar,
@@ -86,6 +90,7 @@ import { AgencyModel } from '../models/agency';
     ReferNet211ServiceProvider,
     OneClickProvider,
     UserServiceProvider,
+    AuthProvider,
 
     CategoryFor211Model,
     SubcategoryFor211Model,

@@ -3,14 +3,13 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { AgencyModel } from '../../models/agency';
+import { Global } from '../../app/global';
 
 // OneClick Provider handles API Calls to the OneClick Core back-end.
 @Injectable()
 export class OneClickProvider {
   
-  // Base OneClick URL
-  // TODO: should be set dynamically based on environment
-  private oneClickUrl = 'http://localhost:3000/api/v2/';
+  public oneClickUrl = Global.BASE_ONECLICK_URL;
 
   constructor(public http: Http) {}
   
