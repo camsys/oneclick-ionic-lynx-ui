@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+// Pages
+import { HomePage } from '../home/home';
+
 // Providers
 import { AuthProvider } from '../../providers/auth/auth';
 
@@ -11,17 +14,23 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class SignInPage {
 
+  user = { email: null, password: null };
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private authProvider: AuthProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log("SIGNING IN USER...");
-    this.authProvider.signIn("test_user_09@camsys.com", "testpw")
+  signIn() {
+    this.authProvider.signIn(this.user.email, this.user.password)
         .subscribe(
-          data => { console.log(data) },
-          error => { console.error(error) }
+          data => { 
+            // On successful response, redirect the user to... homepage?
+            this.navCtrl.push(HomePage);
+          },
+          error => { 
+            // On error response, display an alert and stay on page.
+          }
         );
   }
 

@@ -25,24 +25,28 @@ $font-family-base: "Avenir", 'avenir next', "Helvetica Neue", "Roboto", sans-ser
 
 // Named Color Variables
 
-$primary:      #488aff;
-$secondary:    #32db64;
-$danger:       #f53d3d;
-$light:        #f4f4f4;
-$dark:         #222;
-$lynxPink:     #DB0F7D;
-$lynxDarkPink: #9A0959;
-$lynxBlack:    #000000;
+$primary:         #488aff;
+$secondary:       #32db64;
+$danger:          #f53d3d;
+$light:           #f4f4f4;
+$dark:            #222;
+$lynxPink:        #DB0F7D;
+$lynxDarkPink:    #9A0959;
+$lynxBlack:       #000000;
+$lynxWhite:       #f4f4f4;
+$lynxLightGray:   darken($lynxWhite, 10%);
 
 $colors: (
-  primary:      $primary,
-  secondary:    $secondary,
-  danger:       $danger,
-  light:        $light,
-  dark:         $dark,
-  lynxPink:     $lynxPink,
-  lynxDarkPink: $lynxDarkPink,
-  lynxBlack:    $lynxBlack
+  primary:        $lynxDarkPink,
+  secondary:      $lynxPink,
+  danger:         $danger,
+  light:          $lynxWhite,
+  dark:           $lynxBlack,
+  lynxPink:       $lynxPink,
+  lynxDarkPink:   $lynxDarkPink,
+  lynxBlack:      $lynxBlack,
+  lynxWhite:      $lynxWhite,
+  lynxLighyGray:  $lynxLightGray
 );
 
 $background-color: $light;

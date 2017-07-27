@@ -1,0 +1,12 @@
+lynx-button-outline {
+  button.lynx-button-outline {
+    background-color: $lynxWhite;
+    border: 1px solid $lynxDarkPink;
+    color: $lynxDarkPink;
+    
+    &:active {
+      background-color: $lynxDarkPink;
+      color: $lynxWhite;
+    }
+  }
+}

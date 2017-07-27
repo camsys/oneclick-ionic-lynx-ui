@@ -39,6 +39,9 @@ import { SubcategoryFor211Model } from '../models/subcategory-for-211';
 import { SubcategoryLinkFor211Model } from '../models/subcategory-link-for-211';
 import { MatchListFor211Model } from '../models/match-list-for-211';
 import { AgencyModel } from '../models/agency';
+import { LynxButtonComponent } from '../components/lynx-button/lynx-button';
+import { LynxButtonOutlineComponent } from '../components/lynx-button-outline/lynx-button-outline';
+import { LynxButtonDarkComponent } from '../components/lynx-button-dark/lynx-button-dark';
 
 @NgModule({
   declarations: [
