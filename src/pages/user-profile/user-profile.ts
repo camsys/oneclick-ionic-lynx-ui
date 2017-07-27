@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user/user-service'
 import {User} from '../../models/user';
+import { OneClickProvider } from '../../providers/one-click/one-click';
+
 
 
 /**
@@ -19,13 +21,15 @@ export class UserProfilePage {
 
   user: User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userServiceProvider: UserServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userServiceProvider: UserServiceProvider, public oneClickProvider: OneClickProvider) {
   }
 
   ionViewDidLoad() {
   	//this.userServiceProvider.getUser().then(incoming_user => this.user = incoming_user);
-  	this.user = this.userServiceProvider.getUser();
-  	console.log(this.user.firstName);
+  	//this.user = 
+    this.oneClickProvider.getProfile()
+    .then(usr => this.user = usr);
+  	//console.log(this.user.firstName);
     console.log('ionViewDidLoad UserProfilePage');
   }
 

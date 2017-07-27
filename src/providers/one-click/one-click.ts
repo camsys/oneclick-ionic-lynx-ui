@@ -42,19 +42,9 @@ export class OneClickProvider {
       .catch(this.handleError);
   }
 
-  getUserProfile(): Promise<User> {
-    var uri: string = encodeURI(this.oneClickUrl + 'users');
-    
-    return this.http.get(uri)
-      .toPromise()
-      .then(response => response.text())
-      .then(json => JSON.parse(json).data.user as User)
-      .catch(this.handleError);
-  }
-
-  getTestProfile(): Promise<User>{
-     let headers = new Headers({ 'X-User-Email': 'admin@oneclick.com' });
-     headers.append('X-User-Token', 'Q3rPNKWY1RJcR3yysjfp');
+  getProfile(): Promise<User>{
+     let headers = new Headers({ 'X-User-Email': 'admin@oneclick.com' }); //TODO: Use the stored profile for this
+     headers.append('X-User-Token', 'Q3rPNKWY1RJcR3yysjfp'); //TODO: Use the stored profile for this
      let options = new RequestOptions({ headers: headers });
 
      var uri: string = encodeURI(this.oneClickUrl + 'users');
@@ -64,8 +54,6 @@ export class OneClickProvider {
       .then(json => JSON.parse(json).data.user as User)
       .catch(this.handleError);
   }
-
-
 
   private handleError(error: any): Promise<any> {
     console.log(error);
