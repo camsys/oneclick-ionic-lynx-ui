@@ -18,6 +18,7 @@ import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
+import { SignInPage } from '../pages/sign-in/sign-in';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 
 // Ionic Imports
@@ -30,6 +31,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { ReferNet211ServiceProvider } from '../providers/refer-net211-service/refer-net211-service';
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { UserServiceProvider } from '../providers/user/user-service';
+import { AuthProvider } from '../providers/auth/auth';
 
 // Models
 import { CategoryFor211Model } from '../models/category-for-211';
@@ -54,6 +56,7 @@ import { AgencyModel } from '../models/agency';
     TransportationAgenciesPage,
     AboutUsPage,
     ContactUsPage,
+    SignInPage,
     UserProfilePage
   ],
   imports: [
@@ -78,6 +81,7 @@ import { AgencyModel } from '../models/agency';
     TransportationAgenciesPage,
     AboutUsPage,
     ContactUsPage,
+    SignInPage,
     UserProfilePage
   ],
   providers: [
@@ -89,6 +93,7 @@ import { AgencyModel } from '../models/agency';
     ReferNet211ServiceProvider,
     OneClickProvider,
     UserServiceProvider,
+    AuthProvider,
 
     CategoryFor211Model,
     SubcategoryFor211Model,

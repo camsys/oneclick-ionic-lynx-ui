@@ -21,31 +21,48 @@ $app-direction: ltr;
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+/* TYPOGRAPHY */
 $font-family-base: "Avenir", 'avenir next', "Helvetica Neue", "Roboto", sans-serif;
 
-// Named Color Variables
 
-$primary:      #488aff;
-$secondary:    #32db64;
-$danger:       #f53d3d;
-$light:        #f4f4f4;
-$dark:         #222;
-$lynxPink:     #DB0F7D;
-$lynxDarkPink: #9A0959;
-$lynxBlack:    #000000;
+
+/* COLORS */
+
+$primary:         #488aff;
+$secondary:       #32db64;
+$danger:          #f53d3d;
+$light:           #f4f4f4;
+$dark:            #222;
+$lynxPink:        #DB0F7D;
+$lynxDarkPink:    #9A0959;
+$lynxBlack:       #000000;
+$lynxWhite:       #f4f4f4;
+$lynxLtGray:      darken($lynxWhite, 10%);
+$lynxMdGray:      darken($lynxWhite, 35%);
+$lynxDkGray:      darken($lynxWhite, 60%);
 
 $colors: (
-  primary:      $primary,
-  secondary:    $secondary,
-  danger:       $danger,
-  light:        $light,
-  dark:         $dark,
-  lynxPink:     $lynxPink,
-  lynxDarkPink: $lynxDarkPink,
-  lynxBlack:    $lynxBlack
+  primary:        $lynxDarkPink,
+  secondary:      $lynxPink,
+  danger:         $danger,
+  light:          $lynxWhite,
+  dark:           $lynxBlack,
+  lynxPink:       $lynxPink,
+  lynxDarkPink:   $lynxDarkPink,
+  lynxBlack:      $lynxBlack,
+  lynxWhite:      $lynxWhite,
+  lynxLtGray:     $lynxLtGray
 );
 
-$background-color: $light;
+$background-color: $lynxWhite;
+
+
+
+/* SIZE AND SCALE */
+// Scale configuration variables used for scale() helper function
+$scale-base: 1rem;
+$scale-increment: 1.333;
 
 
 // App iOS Variables
