@@ -25,11 +25,11 @@ export class SignInPage {
     this.authProvider.signIn(this.user.email, this.user.password)
         .subscribe(
           data => { 
-            // On successful response, redirect the user to... homepage?
+            // On successful response, redirect the user to find page
             this.navCtrl.push(HelpMeFindPage);
           },
           error => { 
-            // On error response, display an alert and stay on page.
+            // TODO: On error response, display an alert and stay on page.
           }
         );
   }
