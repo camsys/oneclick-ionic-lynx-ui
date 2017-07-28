@@ -33,7 +33,6 @@ export class AuthProvider {
   
   // Constructs a hash of necessary Auth Headers for communicating with OneClick
   authHeaders(): Headers {
-    console.log("GETTING AUTH HEADERS", this.isSignedIn(), this.session());
     if(this.isSignedIn()) {
       return new Headers({
         'Content-Type': 'application/json',

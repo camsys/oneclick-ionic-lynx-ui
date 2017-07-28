@@ -34,7 +34,9 @@ $lynxPink:        #DB0F7D;
 $lynxDarkPink:    #9A0959;
 $lynxBlack:       #000000;
 $lynxWhite:       #f4f4f4;
-$lynxLightGray:   darken($lynxWhite, 10%);
+$lynxLtGray:      darken($lynxWhite, 10%);
+$lynxMdGray:      darken($lynxWhite, 35%);
+$lynxDkGray:      darken($lynxWhite, 60%);
 
 $colors: (
   primary:        $lynxDarkPink,
@@ -46,10 +48,15 @@ $colors: (
   lynxDarkPink:   $lynxDarkPink,
   lynxBlack:      $lynxBlack,
   lynxWhite:      $lynxWhite,
-  lynxLighyGray:  $lynxLightGray
+  lynxLtGray:     $lynxLtGray
 );
 
-$background-color: $light;
+$background-color: $lynxWhite;
+
+
+// Scale configuration variables used for scale() helper function
+$scale-base: 1rem;
+$scale-increment: 1.333;
 
 
 // App iOS Variables

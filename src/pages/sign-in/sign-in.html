@@ -13,26 +13,42 @@
 
   <div>
     <form (ngSubmit)="signIn()" #signInForm="ngForm">
+      
       <ion-row>
         <ion-col>
-          <ion-list inset>
-            
-            <ion-item>
-              <ion-input type="text" placeholder="Email" name="email" [(ngModel)]="user.email" required></ion-input>
-            </ion-item>
-            
-            <ion-item>
-              <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="user.password" required></ion-input>
-            </ion-item>
-            
-          </ion-list>
+
+          <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png"/>
+          
         </ion-col>
       </ion-row>
       
       <ion-row>
         <ion-col>
-          <button ion-button full type="submit" [disabled]="!signInForm.form.valid">Login</button>
-          <!-- <button ion-button class="register-btn" block clear (click)="createAccount()">Create New Account</button> -->
+
+          <ion-input  class="lynx-input" 
+                      type="text" 
+                      placeholder="Email" 
+                      name="email" 
+                      [(ngModel)]="user.email" 
+                      required>
+          </ion-input>
+          
+          <ion-input  class="lynx-input" 
+                      type="password" 
+                      placeholder="Password" 
+                      name="password" 
+                      [(ngModel)]="user.password" 
+                      required>
+          </ion-input>
+          
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <button ion-button round class="lynx-button-dark center" type="submit" [disabled]="!signInForm.form.valid">
+            Login
+          </button>
         </ion-col>
       </ion-row>
       

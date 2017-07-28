@@ -1,0 +1,46 @@
+/* LISTS */
+
+.lynx-list {
+
+  .item {
+
+    background-color: $light;
+
+    // Only show dividers between list items.
+    &:last-child  { border-bottom:  none; }
+    &:first-child { border-top:     none; }
+
+
+    /* FONT FORMATTING FOR LIST ITEMS */
+
+    // Header line should be pink
+    .lynx-list-heading {
+      color: $lynxPink;
+    }
+
+    // Links should not have any underline, and should be black by default
+    a {
+      color: $lynxBlack;
+      text-decoration: none;
+    }
+
+    h1,h2,h3,h4,h5 {
+      color: $lynxBlack;
+      font-weight: 500;
+    }
+
+    h1 { font-size: 2.4rem; }
+    h2 { font-size: 2.0rem; }
+    h3 { font-size: 1.8rem; }
+    h4 { font-size: 1.6rem; }
+    h5 { font-size: 1.5rem; }
+
+    p {
+      color: $lynxBlack;
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+
+  }
+
+}

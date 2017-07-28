@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 // Pages
-import { HomePage } from '../home/home';
+import { HelpMeFindPage } from '../help-me-find/help-me-find';
 
 // Providers
 import { AuthProvider } from '../../providers/auth/auth';
@@ -26,7 +26,7 @@ export class SignInPage {
         .subscribe(
           data => { 
             // On successful response, redirect the user to... homepage?
-            this.navCtrl.push(HomePage);
+            this.navCtrl.push(HelpMeFindPage);
           },
           error => { 
             // On error response, display an alert and stay on page.
