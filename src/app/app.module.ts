@@ -15,6 +15,7 @@ import { MatchListsFor211Page } from '../pages/211/match-lists-for211/match-list
 import { MapFor211ServicesPage } from '../pages/211/map-for211-services/map-for211-services';
 import { ServicesFromMatchListPage } from '../pages/211/services-from-match-list/services-from-match-list';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
+import { LocationAutoCompletePage }  from '../pages/location-auto-complete/location-auto-complete';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
@@ -29,6 +30,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { ReferNet211ServiceProvider } from '../providers/refer-net211-service/refer-net211-service';
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { UserServiceProvider } from '../providers/user/user-service';
+import { GeocodeServiceProvider } from '../providers/google/geocode-service'
 
 // Models
 import { CategoryFor211Model } from '../models/category-for-211';
@@ -36,6 +38,8 @@ import { SubcategoryFor211Model } from '../models/subcategory-for-211';
 import { SubcategoryLinkFor211Model } from '../models/subcategory-link-for-211';
 import { MatchListFor211Model } from '../models/match-list-for-211';
 import { AgencyModel } from '../models/agency';
+import { AddressComponentModel } from '../models/addressComponent';
+import { LocationModel } from '../models/location';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,7 @@ import { AgencyModel } from '../models/agency';
     ListPage, //TODO REMOVE THIS
     HelpMeFindPage,
     UserLocatorPage,
+    LocationAutoCompletePage,
     CategoriesFor211Page,
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
@@ -67,6 +72,7 @@ import { AgencyModel } from '../models/agency';
     ListPage,
     HelpMeFindPage,
     UserLocatorPage,
+    LocationAutoCompletePage,
     CategoriesFor211Page,
     SubcategoriesFor211Page,
     SubcategoryLinksFor211Page,
@@ -86,12 +92,15 @@ import { AgencyModel } from '../models/agency';
     ReferNet211ServiceProvider,
     OneClickProvider,
     UserServiceProvider,
+    GeocodeServiceProvider,
 
     CategoryFor211Model,
     SubcategoryFor211Model,
     SubcategoryLinkFor211Model,
     MatchListFor211Model,
-    AgencyModel
+    AgencyModel,
+    AddressComponentModel,
+    LocationModel
   ]
 })
 export class AppModule {}

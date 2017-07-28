@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, Platform, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, Platform, NavController, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+
 import { UserServiceProvider } from '../../providers/user/user-service'
+
+import { LocationAutoCompletePage } from '../location-auto-complete/location-auto-complete'
+import { CategoriesFor211Page } from '../211/categories-for211/categories-for211'
 
 /**
  * Generated class for the UserLocatorPage page.
@@ -20,18 +24,13 @@ export class UserLocatorPage {
   fromValue:string;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation, public userProvider: UserServiceProvider) {
+  constructor(public navCtrl: NavController, public modalController: ModalController, public platform: Platform, public geolocation: Geolocation, public userProvider: UserServiceProvider) {
     this.map = null;
     this.fromValue = '';
   }
 
   ionViewDidLoad() {
     this.platform.ready().then(() => { this.initializeMap();});
-    this.platform.ready().then(() => { this.initializeAutocomplete();});
-
-    console.log(this.userProvider.getUser());
-    this.userProvider.setUserLocation('gdsgdsfkljl');
-    console.log(this.userProvider.getUser());
   }
 
   initializeMap() {
@@ -62,37 +61,6 @@ export class UserLocatorPage {
 
       this.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
     }).then(() => (this.addYourLocationButton()));
-  }
-
-  initializeAutocomplete() {
-    // get the field
-    // let input_from = (<HTMLInputElement>document.getElementById('location_address'));
-    //
-    // // set the options
-    // let options = {
-    //   types: [],
-    //   componentRestrictions: {country: 'us'}
-    // };
-
-    // create the autocomplete on the field
-    // let autocomplete1 = new google.maps.places.Autocomplete(input_from, options);
-
-    // // we need to save a reference to this as we lose it in the callbacks
-    // let self = this;
-
-    // add the first listener
-    // google.maps.event.addListener(autocomplete1, 'place_changed', function() {
-    //   let place = autocomplete1.getPlace();
-    //   let geometry = place.geometry;
-    //   if ((geometry) !== undefined) {
-    //
-    //     console.log(place.name);
-    //
-    //     console.log(geometry.location.lng());
-    //
-    //     console.log(geometry.location.lat());
-    //   }
-    // });
   }
 
   addYourLocationButton() {
@@ -148,4 +116,12 @@ export class UserLocatorPage {
     }
   }
 
+  showAddressModal() {
+    let modal = this.modalController.create(LocationAutoCompletePage);
+    let me = this;
+    modal.onDidDismiss(data => {
+      this.fromValue = data.description;
+    });
+    modal.present();
+  }
 }
