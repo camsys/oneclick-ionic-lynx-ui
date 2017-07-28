@@ -4,7 +4,7 @@
 
   .item {
 
-    background-color: $light;
+    background-color: $lynxWhite;
 
     // Only show dividers between list items.
     &:last-child  { border-bottom:  none; }
@@ -29,15 +29,15 @@
       font-weight: 500;
     }
 
-    h1 { font-size: 2.4rem; }
-    h2 { font-size: 2.0rem; }
-    h3 { font-size: 1.8rem; }
-    h4 { font-size: 1.6rem; }
-    h5 { font-size: 1.5rem; }
+    h1 { font-size: scale(4); }
+    h2 { font-size: scale(3); }
+    h3 { font-size: scale(2); }
+    h4 { font-size: scale(2); }
+    h5 { font-size: scale(1); }
 
     p {
       color: $lynxBlack;
-      font-size: 1.5rem;
+      font-size: scale(1);
       font-weight: 300;
     }
 

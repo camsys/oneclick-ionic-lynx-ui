@@ -21,9 +21,13 @@ $app-direction: ltr;
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+/* TYPOGRAPHY */
 $font-family-base: "Avenir", 'avenir next', "Helvetica Neue", "Roboto", sans-serif;
 
-// Named Color Variables
+
+
+/* COLORS */
 
 $primary:         #488aff;
 $secondary:       #32db64;
@@ -54,6 +58,8 @@ $colors: (
 $background-color: $lynxWhite;
 
 
+
+/* SIZE AND SCALE */
 // Scale configuration variables used for scale() helper function
 $scale-base: 1rem;
 $scale-increment: 1.333;
