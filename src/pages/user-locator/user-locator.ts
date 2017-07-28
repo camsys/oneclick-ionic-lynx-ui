@@ -30,7 +30,7 @@ export class UserLocatorPage {
     this.platform.ready().then(() => { this.initializeAutocomplete();});
 
     console.log(this.userProvider.getUser());
-    this.userProvider.setUserLocation('gdsgdsfkljl');
+    //this.userProvider.setUserLocation('gdsgdsfkljl');
     console.log(this.userProvider.getUser());
   }
 

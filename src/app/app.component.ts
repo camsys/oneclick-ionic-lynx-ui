@@ -13,6 +13,7 @@ import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { SignInPage }  from '../pages/sign-in/sign-in';
+import { UserProfilePage } from '../pages/user-profile/user-profile';
 
 @Component({
   templateUrl: 'app.html'
@@ -37,7 +38,8 @@ export class MyApp {
       { title: 'About Us', component: AboutUsPage },
       { title: 'Contact Us', component: ContactUsPage },
       { title: 'Locator', component: UserLocatorPage},
-      { title: 'Sign In', component: SignInPage}
+      { title: 'Sign In', component: SignInPage},
+      { title: 'User Profile', component: UserProfilePage}
     ];
 
   }
