@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-
-// import 'rxjs/add/operator/toPromise';
-// import 'rxjs/add/operator/map';
 
 import {User}          from '../../models/user';
 
@@ -18,7 +14,7 @@ export class UserServiceProvider {
 
   user: User;
 
-  constructor(private http: Http) {
+  constructor() {
   }
 
 

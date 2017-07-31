@@ -16,11 +16,11 @@ import { MatchListFor211Model } from '../../../models/match-list-for-211'
 })
 export class MapFor211ServicesPage {
 
-  map: google.maps.Map;
+  service_map: google.maps.Map;
   matches: MatchListFor211Model[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation) {
-    this.map = null;
+    this.service_map = null;
     this.matches = navParams.data;
   }
 
@@ -38,7 +38,7 @@ export class MapFor211ServicesPage {
       streetViewControl: false
     };
 
-    this.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+    this.service_map = new google.maps.Map(document.getElementById('service_map_canvas'), mapOptions);
 
     for (let service of this.matches) {
 
@@ -50,7 +50,7 @@ export class MapFor211ServicesPage {
 
         let marker : google.maps.Marker = new google.maps.Marker;
         marker.setPosition(service_location);
-        marker.setMap(this.map);
+        marker.setMap(this.service_map);
         // marker.setLabel(service.Name_Agency);
         marker.setValues(service);
         console.log(marker);

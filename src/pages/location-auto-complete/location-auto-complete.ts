@@ -59,23 +59,18 @@ export class LocationAutoCompletePage {
       }
     });
 
-    // this.googleServiceProvider.getGooglePlaces(this.autocomplete.query).forEach(places => {
-    //   for(let place of places){
-    //     if(this.AlreadyPresentPlace(place) === false)
-    //     {
-    //       this.autocompleteItems.push(place);
-    //     }
-    //   }
-    // });
-
-
-
-    // console.log(this.autocompleteItems);
+    this.googleServiceProvider.getGooglePlaces(this.autocomplete.query).forEach(places => {
+      for(let place of places){
+        if(this.AlreadyPresentPlace(place) === false)
+        {
+          this.autocompleteItems.push(place);
+        }
+      }
+    });
   }
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LocationAutoCompletePage');
   }
 
   AlreadyPresentPlace(place: PlaceModel): boolean

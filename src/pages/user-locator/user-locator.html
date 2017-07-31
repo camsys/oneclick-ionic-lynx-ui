@@ -19,12 +19,16 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col col-md-8 offset-md-2>
-        <ion-list>
-          <ion-item>
-            <ion-input (click)="showAddressModal()" [(ngModel)]="fromValue" type="text" placeholder="Where are you?"></ion-input>
-          </ion-item>
-        </ion-list>
+      <ion-col col-md-7 offset-md-2>
+        <!--<ion-list>-->
+          <!--<ion-item>-->
+            <!--TODO style this correctly-->
+            <ion-input (click)="showAddressModal()" [(ngModel)]="fromPlaceAddress" type="text" placeholder="Where are you?"></ion-input>
+          <!--</ion-item>-->
+        <!--</ion-list>-->
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="searchForServices()">Search</button>
       </ion-col>
     </ion-row>
   </ion-grid>
