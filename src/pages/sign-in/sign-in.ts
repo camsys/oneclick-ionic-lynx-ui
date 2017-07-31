@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {  IonicPage, 
+          NavController, 
+          NavParams, 
+          ToastController } from 'ionic-angular';
 
 // Pages
 import { HelpMeFindPage } from '../help-me-find/help-me-find';
@@ -18,7 +21,8 @@ export class SignInPage {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              private authProvider: AuthProvider) {
+              private authProvider: AuthProvider,
+              private toastCtrl: ToastController) {
   }
 
   signIn() {
@@ -28,8 +32,15 @@ export class SignInPage {
             // On successful response, redirect the user to find page
             this.navCtrl.push(HelpMeFindPage);
           },
-          error => { 
-            // TODO: On error response, display an alert and stay on page.
+          error => {
+            // On failed response, display a pop-up error message and remain on page.
+            console.error(error.json().data.errors);
+            let errorToast = this.toastCtrl.create({
+              message: "There was a problem logging in. Please check your username and password and try again.",
+              position: "top",
+              duration: 3000
+            });
+            errorToast.present();
           }
         );
   }
