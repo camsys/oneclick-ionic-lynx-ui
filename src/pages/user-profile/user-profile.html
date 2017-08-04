@@ -19,7 +19,7 @@
     <ion-row>
       <ion-col col-md-8 offset-md-2 *ngIf="user">
         <ion-row>
-        {{user.first_name}}
+        {{user.first_name}} {{user.last_name}}
         </ion-row>
         <ion-row>
         {{user.email}}
@@ -27,6 +27,22 @@
         <ion-row>
         {{user.preferred_locale}}
         </ion-row>
+        <ion-row>
+          <ion-list class="lynx-list">
+            <button menuClose ion-item class="toolbar_light" *ngFor="let eligibility of eligibilities">
+              {{eligibility.name}}: {{eligibility.value}}
+            </button>
+          </ion-list>
+        </ion-row>
+
+        <ion-row>
+          <ion-list class="lynx-list">
+            <button menuClose ion-item class="toolbar_light" *ngFor="let accommodation of accommodations">
+              {{accommodation.name}}: {{accommodation.value}}
+            </button>
+          </ion-list>
+        </ion-row>
+
 
         
       </ion-col>

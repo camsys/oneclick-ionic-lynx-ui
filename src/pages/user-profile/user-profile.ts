@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user/user-service'
 import {User} from '../../models/user';
+import {Eligibility} from '../../models/user';
+import {Accommodation} from '../../models/user';
 import { OneClickProvider } from '../../providers/one-click/one-click';
 
 
@@ -20,6 +22,8 @@ import { OneClickProvider } from '../../providers/one-click/one-click';
 export class UserProfilePage {
 
   user: User;
+  eligibilities: Eligibility[];
+  accommodations: Accommodation[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userServiceProvider: UserServiceProvider, public oneClickProvider: OneClickProvider) {
   }
@@ -28,7 +32,9 @@ export class UserProfilePage {
   	//this.userServiceProvider.getUser().then(incoming_user => this.user = incoming_user);
   	//this.user = 
     this.oneClickProvider.getProfile()
-    .then(usr => this.user = usr);
+    .then(usr => this.user = usr)
+    .then(usr => this.eligibilities = this.user.eligibilities)
+    .then(usr => this.accommodations = this.user.accommodations)
   	//console.log(this.user.firstName);
     console.log('ionViewDidLoad UserProfilePage');
   }
