@@ -9,7 +9,7 @@ export class User {
   email: string;
   //accommodations: string[]; //should be real object
   //eligibilities: string[];  //should be real object
-  //preferred_locale: string;
+  preferred_locale: string;
   //preferred_trip_types: string[]; 
   //location: string;
 }
