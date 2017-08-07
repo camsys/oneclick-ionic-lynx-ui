@@ -14,6 +14,7 @@ import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { SignInPage }  from '../pages/sign-in/sign-in';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
+import { AuthProvider } from '../providers/auth/auth'
 
 @Component({
   templateUrl: 'app.html'
@@ -25,22 +26,37 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private inAppBrowser: InAppBrowser) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private inAppBrowser: InAppBrowser, private auth: AuthProvider) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'Find', component: HelpMeFindPage },
-      { title: 'Categories', component: CategoriesFor211Page},
-      { title: 'Transportation Options', component: TransportationAgenciesPage},
-      { title: 'About Us', component: AboutUsPage },
-      { title: 'Contact Us', component: ContactUsPage },
-      { title: 'Locator', component: UserLocatorPage},
-      { title: 'Sign In', component: SignInPage},
-      { title: 'User Profile', component: UserProfilePage}
-    ];
+    // Menu if you are signed in
+    if(auth.isSignedIn()){
+      this.pages = [
+        { title: 'Home', component: HomePage },
+        { title: 'List', component: ListPage },
+        { title: 'Find', component: HelpMeFindPage },
+        { title: 'Categories', component: CategoriesFor211Page},
+        { title: 'Transportation Options', component: TransportationAgenciesPage},
+        { title: 'About Us', component: AboutUsPage },
+        { title: 'Contact Us', component: ContactUsPage },
+        { title: 'Locator', component: UserLocatorPage},
+        { title: 'User Profile', component: UserProfilePage}
+      ];
+    }
+    // Menu if you are not signed in
+    else{
+      this.pages = [
+        { title: 'Home', component: HomePage },
+        { title: 'List', component: ListPage },
+        { title: 'Find', component: HelpMeFindPage },
+        { title: 'Categories', component: CategoriesFor211Page},
+        { title: 'Transportation Options', component: TransportationAgenciesPage},
+        { title: 'About Us', component: AboutUsPage },
+        { title: 'Contact Us', component: ContactUsPage },
+        { title: 'Locator', component: UserLocatorPage},
+        { title: 'Sign In', component: SignInPage},
+      ];
+    }
 
   }
 
