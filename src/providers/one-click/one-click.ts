@@ -67,7 +67,8 @@ export class OneClickProvider {
     "first_name": user.first_name, 
     "last_name": user.last_name,
     "email": user.email,
-    "password": user.password
+    "password": user.password,
+    "preferred_locale": user.preferred_locale
   }};
      let options = new RequestOptions({ headers: headers });
 
