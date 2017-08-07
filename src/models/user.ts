@@ -10,7 +10,7 @@ export class User {
   eligibilities: Eligibility[]; 
   preferred_locale: string;
   preferred_trip_types: string[]; 
-  //location: string;
+  password: string;
 }
 
 export class Eligibility {
