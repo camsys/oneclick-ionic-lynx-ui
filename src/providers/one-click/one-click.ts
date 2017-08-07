@@ -59,13 +59,14 @@ export class OneClickProvider {
   }
 
   // Updates a User in 1-Click
-  updateProfile(): Promise<User>{
+  updateProfile(user: User): Promise<User>{
      let auth = new AuthProvider(this.http);
      let headers = auth.authHeaders();
      let body = {
   "attributes": {
-    "first_name": "Bob", 
-    "last_name": "Jones",
+    "first_name": user.first_name, 
+    "last_name": user.last_name,
+    "email": user.email
   }};
      let options = new RequestOptions({ headers: headers });
 

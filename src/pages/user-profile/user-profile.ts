@@ -36,7 +36,7 @@ export class UserProfilePage {
   }
 
   updateProfile() {
-    this.oneClickProvider.updateProfile()
+    this.oneClickProvider.updateProfile(this.user)
     .then(usr => this.user = usr)
     .then(usr => this.eligibilities = this.user.eligibilities)
     .then(usr => this.accommodations = this.user.accommodations)

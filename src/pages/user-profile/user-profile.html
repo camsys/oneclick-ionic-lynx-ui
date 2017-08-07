@@ -15,6 +15,47 @@
 
 <ion-content padding>
 
+
+  <div *ngIf="user">
+    <form (ngSubmit)="updateProfile()" #updateProfileForm="ngForm">
+      
+      <ion-row>
+        <ion-col>
+          <ion-input  class="lynx-input" 
+                      type="text" 
+                      placeholder="First Name" 
+                      name="first_name" 
+                      [(ngModel)]="user.first_name" 
+                      required>
+          </ion-input>
+          <ion-input  class="lynx-input" 
+                      type="text" 
+                      placeholder="Last name" 
+                      name="last_name" 
+                      [(ngModel)]="user.last_name" 
+                      required>
+          </ion-input>
+            <ion-input  class="lynx-input" 
+                      type="text" 
+                      placeholder="Email" 
+                      name="email" 
+                      [(ngModel)]="user.email" 
+                      required>
+            </ion-input>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <button ion-button round class="lynx-button-dark center" type="submit" [disabled]="!updateProfileForm.form.valid">
+            Update
+          </button>
+        </ion-col>
+      </ion-row>
+      
+    </form>
+  </div>
+  
   <ion-grid>
     <ion-row>
       <ion-col col-md-8 offset-md-2 *ngIf="user">
