@@ -29,7 +29,7 @@
         </ion-row>
         <ion-row>
           <ion-list class="lynx-list">
-            <button menuClose ion-item class="toolbar_light" *ngFor="let eligibility of eligibilities">
+            <button menuClose ion-item class="toolbar_light" *ngFor="let eligibility of eligibilities" (click)="updateProfile()">
               {{eligibility.name}}: {{eligibility.value}}
             </button>
           </ion-list>

@@ -29,14 +29,17 @@ export class UserProfilePage {
   }
 
   ionViewDidLoad() {
-  	//this.userServiceProvider.getUser().then(incoming_user => this.user = incoming_user);
-  	//this.user = 
     this.oneClickProvider.getProfile()
     .then(usr => this.user = usr)
     .then(usr => this.eligibilities = this.user.eligibilities)
     .then(usr => this.accommodations = this.user.accommodations)
-  	//console.log(this.user.firstName);
-    console.log('ionViewDidLoad UserProfilePage');
+  }
+
+  updateProfile() {
+    this.oneClickProvider.updateProfile()
+    .then(usr => this.user = usr)
+    .then(usr => this.eligibilities = this.user.eligibilities)
+    .then(usr => this.accommodations = this.user.accommodations)
   }
 
 }
