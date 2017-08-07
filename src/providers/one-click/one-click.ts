@@ -60,6 +60,7 @@ export class OneClickProvider {
 
   // Updates a User in 1-Click
   updateProfile(user: User): Promise<User>{
+
     let auth = new AuthProvider(this.http);
     let headers = auth.authHeaders();
     let formatted_accs = {};
@@ -84,6 +85,7 @@ export class OneClickProvider {
       "accommodations": formatted_accs,
       "eligibilities": formatted_eligs,
       };
+
      let options = new RequestOptions({ headers: headers });
 
      var uri: string = encodeURI(this.oneClickUrl + 'users');
