@@ -6,7 +6,8 @@ import 'rxjs/add/operator/map';
 
 import { AgencyModel } from '../../models/agency';
 import { Global } from '../../app/global';
-import { User } from '../../models/user'
+import { User } from '../../models/user';
+import { AuthProvider } from '../../providers/auth/auth';
 
 // OneClick Provider handles API Calls to the OneClick Core back-end.
 @Injectable()
@@ -41,13 +42,37 @@ export class OneClickProvider {
       .catch(this.handleError);
   }
 
+  // Gets a User from 1-Click
   getProfile(): Promise<User>{
-     let headers = new Headers({ 'X-User-Email': 'admin@oneclick.com' }); //TODO: Use the stored profile for this
-     headers.append('X-User-Token', 'Q3rPNKWY1RJcR3yysjfp'); //TODO: Use the stored profile for this
+
+     //Review: Should we be creating a new AuthProvider every time?
+     let auth = new AuthProvider(this.http);
+     let headers = auth.authHeaders();
      let options = new RequestOptions({ headers: headers });
 
      var uri: string = encodeURI(this.oneClickUrl + 'users');
      return this.http.get(uri, options)
+      .toPromise()
+      .then(response => response.text())
+      .then(json => JSON.parse(json).data.user as User)
+      .catch(this.handleError);
+  }
+
+  // Updates a User in 1-Click
+  updateProfile(user: User): Promise<User>{
+     let auth = new AuthProvider(this.http);
+     let headers = auth.authHeaders();
+     let body = {
+  "attributes": {
+    "first_name": user.first_name, 
+    "last_name": user.last_name,
+    "email": user.email,
+    "password": user.password
+  }};
+     let options = new RequestOptions({ headers: headers });
+
+     var uri: string = encodeURI(this.oneClickUrl + 'users');
+     return this.http.put(uri, body, options)
       .toPromise()
       .then(response => response.text())
       .then(json => JSON.parse(json).data.user as User)

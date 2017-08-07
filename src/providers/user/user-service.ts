@@ -29,18 +29,12 @@ export class UserServiceProvider {
     if(this.user == null)
     {
       this.user = new User;
-      this.user.first_name = 'TEST_FIRST_NAME';
-      this.user.last_name = 'TEST_last_NAME';
-      this.user.email = "fakeEmail@example.com"
+      this.user.first_name = 'Guest';
+      this.user.last_name = 'User';
+      this.user.email = "GuestUser@example.com" 
     }
 
     return this.user;
   }
-
-  //setUserLocation(location : string){
-  //  this.user.location = location;
- // }
-
-
 
 }
