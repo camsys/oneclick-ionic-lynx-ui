@@ -60,16 +60,30 @@ export class OneClickProvider {
 
   // Updates a User in 1-Click
   updateProfile(user: User): Promise<User>{
-     let auth = new AuthProvider(this.http);
-     let headers = auth.authHeaders();
-     let body = {
-  "attributes": {
-    "first_name": user.first_name, 
-    "last_name": user.last_name,
-    "email": user.email,
-    "password": user.password,
-    "preferred_locale": user.preferred_locale
-  }};
+    let auth = new AuthProvider(this.http);
+    let headers = auth.authHeaders();
+    let formatted_accs = {};
+    let formatted_eligs = {};
+
+    for (let acc of user.accommodations) {
+      formatted_accs[acc.code] = acc.value;
+    }  
+
+    for (let elig of user.eligibilities) {
+      formatted_eligs[elig.code] = elig.value;
+    } 
+
+    let body = {
+      "attributes": {
+      "first_name": user.first_name, 
+      "last_name": user.last_name,
+      "email": user.email,
+      "password": user.password,
+      "preferred_locale": user.preferred_locale
+      },
+      "accommodations": formatted_accs,
+      "eligibilities": formatted_eligs,
+      };
      let options = new RequestOptions({ headers: headers });
 
      var uri: string = encodeURI(this.oneClickUrl + 'users');
