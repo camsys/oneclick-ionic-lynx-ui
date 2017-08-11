@@ -1,8 +1,8 @@
-import {ApplicationModule, Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { MapFor211ServicesPage } from '../map-for211-services/map-for211-services'
-import { ServicesFromMatchListPage } from '../services-from-match-list/services-from-match-list'
+import { MapFor211ServicesPage } from '../map-for211-services/map-for211-services';
+import { ServicesFromMatchListPage } from '../services-from-match-list/services-from-match-list';
 
 // import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
 import { SubcategoryLinkFor211Model } from '../../../models/subcategory-link-for-211';
