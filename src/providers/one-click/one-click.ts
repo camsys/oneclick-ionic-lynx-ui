@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Headers } from '@angular/http';
+import { RequestOptions } from '@angular/http';
 
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
 import { AgencyModel } from '../../models/agency';
 import { PlaceModel } from '../../models/place';
+import { Global } from '../../app/global';
+import { User } from '../../models/user';
+import { AuthProvider } from '../../providers/auth/auth';
 
 // OneClick Provider handles API Calls to the OneClick Core back-end.
 @Injectable()
 export class OneClickProvider {
 
-  // Base OneClick URL
-  // TODO: should be set dynamically based on environment
-  // private oneClickUrl = 'http://localhost:3000/api/v2/';
-  private oneClickUrl = 'http://occ-lynx-qa.herokuapp.com/api/v2/';
+  public oneClickUrl = Global.BASE_ONECLICK_URL;
 
   constructor(public http: Http) {}
 
@@ -33,17 +35,6 @@ export class OneClickProvider {
     return this.getAgencies("");
   }
 
-  // public getPlaces(places_query: String ): Promise<PlaceModel[]> {
-  //
-  //   return this.http
-  //     .get(this.oneClickUrl + `places?name=%25${places_query}%25`)
-  //     .toPromise()
-  //     .then(response => response.text())
-  //     // .then(r => console.log(JSON.parse(r.text()).data))
-  //     .then(json => JSON.parse(json).data.places as PlaceModel[])
-  //     .catch(this.handleError)
-  // }
-
   public getPlaces(places_query: String ): Observable<PlaceModel[]> {
 
     return this.http.
@@ -60,6 +51,60 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(json => JSON.parse(json).data.agencies as AgencyModel[])
+      .catch(this.handleError);
+  }
+
+  // Gets a User from 1-Click
+  getProfile(): Promise<User>{
+
+     //Review: Should we be creating a new AuthProvider every time?
+     let auth = new AuthProvider(this.http);
+     let headers = auth.authHeaders();
+     let options = new RequestOptions({ headers: headers });
+
+     var uri: string = encodeURI(this.oneClickUrl + 'users');
+     return this.http.get(uri, options)
+      .toPromise()
+      .then(response => response.text())
+      .then(json => JSON.parse(json).data.user as User)
+      .catch(this.handleError);
+  }
+
+  // Updates a User in 1-Click
+  updateProfile(user: User): Promise<User>{
+
+    let auth = new AuthProvider(this.http);
+    let headers = auth.authHeaders();
+    let formatted_accs = {};
+    let formatted_eligs = {};
+
+    for (let acc of user.accommodations) {
+      formatted_accs[acc.code] = acc.value;
+    }
+
+    for (let elig of user.eligibilities) {
+      formatted_eligs[elig.code] = elig.value;
+    }
+
+    let body = {
+      "attributes": {
+      "first_name": user.first_name,
+      "last_name": user.last_name,
+      "email": user.email,
+      "password": user.password,
+      "preferred_locale": user.preferred_locale
+      },
+      "accommodations": formatted_accs,
+      "eligibilities": formatted_eligs,
+      };
+
+     let options = new RequestOptions({ headers: headers });
+
+     var uri: string = encodeURI(this.oneClickUrl + 'users');
+     return this.http.put(uri, body, options)
+      .toPromise()
+      .then(response => response.text())
+      .then(json => JSON.parse(json).data.user as User)
       .catch(this.handleError);
   }
 

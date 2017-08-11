@@ -1,0 +1,102 @@
+<!--
+  Generated template for the UserProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title><img src="../../assets/img/Lynx-logo-pink-xsm.png" alt="LYNX Icon"></ion-title>
+    <button ion-button end menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+
+  <div *ngIf="user">
+    <form (ngSubmit)="updateProfile()" #updateProfileForm="ngForm">
+      
+      <!-- Basic Attribues -->
+      <ion-row>
+        <ion-col>
+          <ion-input  class="lynx-input" 
+                      type="text" 
+                      placeholder="First Name" 
+                      name="first_name" 
+                      [(ngModel)]="user.first_name" 
+                      required>
+          </ion-input>
+          <ion-input  class="lynx-input" 
+                      type="text" 
+                      placeholder="Last name" 
+                      name="last_name" 
+                      [(ngModel)]="user.last_name" 
+                      required>
+          </ion-input>
+          <ion-input  class="lynx-input" 
+                      type="email" 
+                      placeholder="Email" 
+                      name="email" 
+                      [(ngModel)]="user.email" 
+                      required>
+          </ion-input>
+          <ion-input  class="lynx-input" 
+                      type="password" 
+                      placeholder="Password" 
+                      name="password" 
+                      [(ngModel)]="user.password">
+          </ion-input>
+      </ion-col>   
+    </ion-row>
+    
+         
+    <!-- Preferred Locale -->
+    <ion-row>
+      <ion-col>
+
+          <ion-select name="preferred_locale" [(ngModel)]="user.preferred_locale">
+            <ion-option value="en">English</ion-option>
+            <ion-option value="es">Spanish</ion-option>
+          </ion-select>
+
+      </ion-col>
+    </ion-row>
+    
+    <!-- Accomodations and Eligibilities -->
+    <ion-row>
+      <ion-col>
+          <ion-list>
+            <ion-item *ngFor="let accommodation of accommodations">
+              <ion-label>{{accommodation.note}}</ion-label>
+              <ion-checkbox [(ngModel)]=accommodation.value [ngModelOptions]="{standalone: true}"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+
+
+          <ion-list>
+            <ion-item *ngFor="let eligibility of eligibilities">
+              <ion-label>{{eligibility.note}}</ion-label>
+              <ion-checkbox [(ngModel)]=eligibility.value [ngModelOptions]="{standalone: true}"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+
+       </ion-col>
+    </ion-row>
+      
+    <!-- Submit -->
+    <ion-row>
+        <ion-col>
+          <button ion-button round class="lynx-button-dark center" type="submit" [disabled]="!updateProfileForm.form.valid">
+            Update
+          </button>
+        </ion-col>
+    </ion-row>
+      
+    </form>
+  </div>
+
+</ion-content>
+

@@ -1,0 +1,35 @@
+/* HELPER FUNCTIONS, CLASSES, and MIXINS */
+
+
+// Power function from https://css-tricks.com/snippets/sass/power-function/, used as a helper for scale function below.
+@function pow($number, $exponent) {
+  $value: 1;
+
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $value: $value * $number;
+    }
+  } @else if $exponent < 0 {
+    @for $i from 1 through -$exponent {
+      $value: $value / $number;
+    }
+  }
+
+  @return $value;
+}
+
+// Scaling Helper Function
+
+// Pass in an integer (positive or negative) to get the base value scaled up from the base
+// line by that many times, by a fixed ratio. Base and ratio values defined in variables.scss.
+@function scale($n) {
+  @return $scale-base * pow($scale-increment, $n);
+}
+
+
+
+// Centers a div (or img, button, etc.) in its container
+.center {
+  display: block;
+  margin: 0 auto;
+}

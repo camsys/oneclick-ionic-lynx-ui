@@ -1,0 +1,16 @@
+/* FORMS AND INPUTS */
+
+
+// Basic Lynx Form Input Field (white, sharp corners, small spacing between)
+// EXAMPLE: <ion-input class="lynx-input"></ion-input>
+ion-input.lynx-input {
+  
+  background-color: $lynxWhite;
+  margin: scale(-5) 0;
+  padding-left: scale(1);
+  
+  ::placeholder {
+    color: $lynxDkGray;
+  }
+  
+}

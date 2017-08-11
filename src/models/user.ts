@@ -3,8 +3,24 @@
  */
 
 export class User {
-  userId: number;
-  firstName: string;
-  lastName: string;
-  location: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  accommodations: Accommodation[];
+  eligibilities: Eligibility[]; 
+  preferred_locale: string;
+  preferred_trip_types: string[]; 
+  password: string;
+}
+
+export class Eligibility {
+  code: string;
+  name: string;
+  value: boolean;
+}
+
+export class Accommodation {
+  code: string;
+  name: string;
+  value: boolean;
 }

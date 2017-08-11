@@ -1,0 +1,53 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Sign In</ion-title>
+    <button ion-button end menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <div>
+    <form (ngSubmit)="signIn()" #signInForm="ngForm">
+      
+      <ion-row>
+        <ion-col>
+          <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png"/>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-input  class="lynx-input" 
+                      type="text" 
+                      placeholder="Email" 
+                      name="email" 
+                      [(ngModel)]="user.email" 
+                      required>
+          </ion-input>
+          <ion-input  class="lynx-input" 
+                      type="password" 
+                      placeholder="Password" 
+                      name="password" 
+                      [(ngModel)]="user.password" 
+                      required>
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <button ion-button round class="lynx-button-dark center" type="submit" [disabled]="!signInForm.form.valid">
+            Login
+          </button>
+        </ion-col>
+      </ion-row>
+      
+    </form>
+  </div>
+
+</ion-content>

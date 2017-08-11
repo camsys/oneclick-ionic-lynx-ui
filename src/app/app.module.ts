@@ -26,6 +26,8 @@ import { DirectionsOptionsPage } from '../pages/directions-options/directions-op
 import { DirectionsRouteDetailPage } from '../pages/directions-route-detail/directions-route-detail';
 import { DirectTransporationFinderPage } from '../pages/direct-transporation-finder/direct-transporation-finder';
 import { TransportationEligibilityPage } from '../pages/transportation-eligibility/transportation-eligibility';
+import { SignInPage } from '../pages/sign-in/sign-in';
+import { UserProfilePage } from '../pages/user-profile/user-profile';
 
 // Ionic Imports
 import { StatusBar } from '@ionic-native/status-bar';
@@ -37,6 +39,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { ReferNet211ServiceProvider } from '../providers/refer-net211-service/refer-net211-service';
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { UserServiceProvider } from '../providers/user/user-service';
+import { AuthProvider } from '../providers/auth/auth';
 import { GeocodeServiceProvider } from '../providers/google/geocode-service'
 
 // Models
@@ -72,6 +75,9 @@ import { LocationModel } from '../models/location';
     DirectionsOptionsPage,
     DirectionsRouteDetailPage,
     TransportationEligibilityPage
+    ContactUsPage,
+    SignInPage,
+    UserProfilePage
   ],
   imports: [
     BrowserModule,
@@ -103,6 +109,9 @@ import { LocationModel } from '../models/location';
     DirectionsOptionsPage,
     DirectionsRouteDetailPage,
     TransportationEligibilityPage
+    ContactUsPage,
+    SignInPage,
+    UserProfilePage
   ],
   providers: [
     StatusBar,
@@ -114,6 +123,7 @@ import { LocationModel } from '../models/location';
     OneClickProvider,
     UserServiceProvider,
     GeocodeServiceProvider,
+    AuthProvider,
 
     CategoryFor211Model,
     SubcategoryFor211Model,
