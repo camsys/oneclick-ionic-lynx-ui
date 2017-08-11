@@ -30,8 +30,6 @@ export class MapFor211ServicesPage {
     this.matches = navParams.data;
     this.selectedMatch = null;
     this.markerSelected = false;
-    this.selectedMatch = this.matches[0];
-
   }
 
   ionViewDidLoad() {
