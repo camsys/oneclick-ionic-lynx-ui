@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
 import { User }          from '../../models/user';
 import { OneClickProvider } from '../../providers/one-click/one-click';

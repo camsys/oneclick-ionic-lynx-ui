@@ -74,7 +74,7 @@ import { LocationModel } from '../models/location';
     DirectionsPage,
     DirectionsOptionsPage,
     DirectionsRouteDetailPage,
-    TransportationEligibilityPage
+    TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
     UserProfilePage
@@ -108,7 +108,7 @@ import { LocationModel } from '../models/location';
     DirectionsPage,
     DirectionsOptionsPage,
     DirectionsRouteDetailPage,
-    TransportationEligibilityPage
+    TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
     UserProfilePage

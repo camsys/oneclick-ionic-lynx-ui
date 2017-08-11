@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ServiceFor211DetailPage } from '../211/service-for211-detail/service-for211-detail'
 
 /**
  * Generated class for the DirectionsRouteDetailPage page.
@@ -21,10 +20,6 @@ export class DirectionsRouteDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DirectionsRouteDetailPage');
-  }
-
-  openServiceFor211DetailPage(){
-    this.navCtrl.push(ServiceFor211DetailPage);
   }
 
 }

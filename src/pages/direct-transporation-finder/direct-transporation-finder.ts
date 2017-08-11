@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { ServiceFor211DetailPage } from '../211/service-for211-detail/service-for211-detail'
+
+
 /**
  * Generated class for the DirectTransporationFinderPage page.
  *
@@ -21,4 +24,7 @@ export class DirectTransporationFinderPage {
     console.log('ionViewDidLoad DirectTransporationFinderPage');
   }
 
+  openServiceFor211DetailPage(){
+    this.navCtrl.push(ServiceFor211DetailPage);
+  }
 }
