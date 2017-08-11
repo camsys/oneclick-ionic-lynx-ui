@@ -15,10 +15,17 @@ import { MatchListsFor211Page } from '../pages/211/match-lists-for211/match-list
 import { MapFor211ServicesPage } from '../pages/211/map-for211-services/map-for211-services';
 import { ServicesFromMatchListPage } from '../pages/211/services-from-match-list/services-from-match-list';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
+import { ServiceFor211DetailPage } from '../pages/211/service-for211-detail/service-for211-detail'
+import { ServiceFor211ReviewPage } from '../pages/211/service-for211-review/service-for211-review'
 import { LocationAutoCompletePage }  from '../pages/location-auto-complete/location-auto-complete';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
+import { DirectionsPage } from '../pages/directions/directions';
+import { DirectionsOptionsPage } from '../pages/directions-options/directions-options';
+import { DirectionsRouteDetailPage } from '../pages/directions-route-detail/directions-route-detail';
+import { DirectTransporationFinderPage } from '../pages/direct-transporation-finder/direct-transporation-finder';
+import { TransportationEligibilityPage } from '../pages/transportation-eligibility/transportation-eligibility';
 
 // Ionic Imports
 import { StatusBar } from '@ionic-native/status-bar';
@@ -55,9 +62,16 @@ import { LocationModel } from '../models/location';
     MatchListsFor211Page,
     MapFor211ServicesPage,
     ServicesFromMatchListPage,
+    ServiceFor211DetailPage,
+    ServiceFor211ReviewPage,
     TransportationAgenciesPage,
     AboutUsPage,
-    ContactUsPage
+    ContactUsPage,
+    DirectTransporationFinderPage,
+    DirectionsPage,
+    DirectionsOptionsPage,
+    DirectionsRouteDetailPage,
+    TransportationEligibilityPage
   ],
   imports: [
     BrowserModule,
@@ -81,7 +95,14 @@ import { LocationModel } from '../models/location';
     ServicesFromMatchListPage,
     TransportationAgenciesPage,
     AboutUsPage,
-    ContactUsPage
+    ServiceFor211DetailPage,
+    ServiceFor211ReviewPage,
+    ContactUsPage,
+    DirectTransporationFinderPage,
+    DirectionsPage,
+    DirectionsOptionsPage,
+    DirectionsRouteDetailPage,
+    TransportationEligibilityPage
   ],
   providers: [
     StatusBar,
