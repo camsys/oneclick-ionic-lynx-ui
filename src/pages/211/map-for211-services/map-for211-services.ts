@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { MatchListFor211Model } from '../../../models/match-list-for-211'
+import { MatchListFor211Model } from '../../../models/match-list-for-211';
+
+import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 
 /**
  * Generated class for the MapFor211ServicesPage page.
@@ -16,16 +18,23 @@ import { MatchListFor211Model } from '../../../models/match-list-for-211'
 })
 export class MapFor211ServicesPage {
 
-  map: google.maps.Map;
+  //This is needed to dunamically change the div containing the marker's information
+  service_map: google.maps.Map;
   matches: MatchListFor211Model[];
+  selectedMatch: MatchListFor211Model;
+  markerSelected: boolean;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation) {
-    this.map = null;
+    this.service_map = null;
     this.matches = navParams.data;
+    this.selectedMatch = null;
+    this.markerSelected = false;
   }
 
   ionViewDidLoad() {
     this.platform.ready().then(() => { this.initializeMap();});
+    // this.markerSelected = true;
 
   }
 
@@ -38,24 +47,25 @@ export class MapFor211ServicesPage {
       streetViewControl: false
     };
 
-    this.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-
+    this.service_map = new google.maps.Map(document.getElementById('service_map_canvas'), mapOptions);
+    let me = this;
     for (let service of this.matches) {
 
       if( (typeof service.Latitude!='undefined' && service.Latitude) && (typeof service.Longitude!='undefined' && service.Longitude) )
       {
         let service_location : google.maps.LatLng = new google.maps.LatLng (Number(service.Latitude), Number(service.Longitude)*-1);
-        console.log('Latitude==='+Number(service.Latitude)+'===='+'|||||||||Longitude====='+service.Longitude+'======');
-        console.log(service_location);
 
         let marker : google.maps.Marker = new google.maps.Marker;
         marker.setPosition(service_location);
-        marker.setMap(this.map);
+        marker.setMap(this.service_map);
         // marker.setLabel(service.Name_Agency);
         marker.setValues(service);
         console.log(marker);
         marker.setTitle(service.Name_Agency);
         marker.setClickable(true);
+        marker.addListener('click', function() {
+          me.addServiceInfo(service);
+        });
       }else{
         console.log('There was a service without Lat Long');
         console.log(service);
@@ -63,5 +73,16 @@ export class MapFor211ServicesPage {
 
     }
 
+  }
+
+  addServiceInfo(serviceMatch: MatchListFor211Model){
+    this.markerSelected = true;
+    this.selectedMatch = serviceMatch;
+    console.log(this.selectedMatch);
+    console.log('this.marker_selected===='+this.selectedMatch+'====');
+  }
+
+  openServicePage(m : MatchListFor211Model){
+    this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage);
   }
 }

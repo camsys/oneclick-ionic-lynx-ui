@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, Platform, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, Platform, NavController, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { UserServiceProvider } from '../../providers/user/user-service'
+
+import { GeocodeServiceProvider } from '../../providers/google/geocode-service'
+
+import { LocationAutoCompletePage } from '../location-auto-complete/location-auto-complete'
+import { CategoriesFor211Page } from '../211/categories-for211/categories-for211'
+
+import { PlaceModel } from "../../models/place";
 
 /**
  * Generated class for the UserLocatorPage page.
@@ -17,21 +23,17 @@ import { UserServiceProvider } from '../../providers/user/user-service'
 export class UserLocatorPage {
 
   map: google.maps.Map;
-  fromValue:string;
+  fromPlace: PlaceModel;
+  fromPlaceAddress: string;
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation, public userProvider: UserServiceProvider) {
+  constructor(public navCtrl: NavController, public modalController: ModalController, public platform: Platform, public geolocation: Geolocation, public geoServiceProvider: GeocodeServiceProvider) {
     this.map = null;
-    this.fromValue = '';
+    this.fromPlace = null;
+    this.fromPlaceAddress = '';
   }
 
   ionViewDidLoad() {
     this.platform.ready().then(() => { this.initializeMap();});
-    this.platform.ready().then(() => { this.initializeAutocomplete();});
-
-    console.log(this.userProvider.getUser());
-    //this.userProvider.setUserLocation('gdsgdsfkljl');
-    console.log(this.userProvider.getUser());
   }
 
   initializeMap() {
@@ -49,8 +51,10 @@ export class UserLocatorPage {
       };
 
       this.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+      this.updatePlaceFromLatLng(latLng.lat(), latLng.lng());
     }, (err) => {
-      let latLng = new google.maps.LatLng(28.538336, -81.379234);
+      // let latLng = new google.maps.LatLng(28.538336, -81.379234);
+      let latLng = new google.maps.LatLng(42.302198,-71.064377);
 
       let mapOptions = {
         center: latLng,
@@ -61,38 +65,9 @@ export class UserLocatorPage {
       };
 
       this.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-    }).then(() => (this.addYourLocationButton()));
-  }
-
-  initializeAutocomplete() {
-    // get the field
-    // let input_from = (<HTMLInputElement>document.getElementById('location_address'));
-    //
-    // // set the options
-    // let options = {
-    //   types: [],
-    //   componentRestrictions: {country: 'us'}
-    // };
-
-    // create the autocomplete on the field
-    // let autocomplete1 = new google.maps.places.Autocomplete(input_from, options);
-
-    // // we need to save a reference to this as we lose it in the callbacks
-    // let self = this;
-
-    // add the first listener
-    // google.maps.event.addListener(autocomplete1, 'place_changed', function() {
-    //   let place = autocomplete1.getPlace();
-    //   let geometry = place.geometry;
-    //   if ((geometry) !== undefined) {
-    //
-    //     console.log(place.name);
-    //
-    //     console.log(geometry.location.lng());
-    //
-    //     console.log(geometry.location.lat());
-    //   }
-    // });
+      this.updatePlaceFromLatLng(latLng.lat(), latLng.lng());
+    }).
+    then(() => (this.addYourLocationButton()));
   }
 
   addYourLocationButton() {
@@ -124,21 +99,16 @@ export class UserLocatorPage {
     secondChild.id = 'you_location_img';
     firstChild.appendChild(secondChild);
 
-    // google.maps.event.addListener(map, 'dragend', function() {
-    //   $('#you_location_img').css('background-position', '0px 0px');
-    // });
-  //
-
-    //
     if (this.map != null)
     {
-      var child_scope_map: google.maps.Map = this.map;
+      let child_scope = this;
       firstChild.addEventListener('click', function() {
 
         if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            child_scope_map.setCenter(latlng);
+            child_scope.map.setCenter(latlng);
+            child_scope.updatePlaceFromLatLng(latlng.lat(), latlng.lng());
           });
         }
       });
@@ -148,4 +118,45 @@ export class UserLocatorPage {
     }
   }
 
+  showAddressModal() {
+    let modal = this.modalController.create(LocationAutoCompletePage);
+    modal.onDidDismiss(place => {
+      if(place != null)
+      {
+        //If the place is null we should get an actual place from google.
+        if(place.location == null)
+        {
+          place = this.updatePlaceFromFormattedAddress(place);
+        }else{
+          this.fromPlace = place;
+          this.fromPlaceAddress = this.fromPlace.formatted_address;
+        }
+      }
+
+    });
+    modal.present();
+  }
+
+  searchForServices(){
+    this.navCtrl.push(CategoriesFor211Page);
+  }
+
+  private updatePlaceFromLatLng(lat: number, lng: number) : void{
+    this.geoServiceProvider.getPlaceFromLatLng(lat, lng).forEach(places => {
+      let place = places[0];
+      this.fromPlace = place;
+      this.fromPlaceAddress = this.fromPlace.formatted_address;
+    });
+  }
+
+  private updatePlaceFromFormattedAddress(place: PlaceModel) : void{
+
+    this.geoServiceProvider.getPlaceFromFormattedAddress(place).forEach(places => {
+      let place = places[0];
+      this.fromPlace = place;
+      this.fromPlaceAddress = place.formatted_address;
+      let latLng = new google.maps.LatLng(place.geometry.lat, place.geometry.lng);
+      this.map.setCenter(latLng);
+    });
+  }
 }

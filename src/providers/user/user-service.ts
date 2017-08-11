@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-// import 'rxjs/add/operator/toPromise';
-// import 'rxjs/add/operator/map';
-
 import { User }          from '../../models/user';
 import { OneClickProvider } from '../../providers/one-click/one-click';
 
@@ -31,7 +28,7 @@ export class UserServiceProvider {
       this.user = new User;
       this.user.first_name = 'Guest';
       this.user.last_name = 'User';
-      this.user.email = "GuestUser@example.com" 
+      this.user.email = "GuestUser@example.com"
     }
 
     return this.user;

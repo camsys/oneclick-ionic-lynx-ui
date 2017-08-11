@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CategoriesFor211Page }    from '../211/categories-for211/categories-for211';
-import { TransportationAgenciesPage } from '../transportation-agencies/transportation-agencies';
+import { UserLocatorPage }    from '../user-locator/user-locator';
+// import { TransportationAgenciesPage } from '../transportation-agencies/transportation-agencies';
+import { DirectTransporationFinderPage } from '../direct-transporation-finder/direct-transporation-finder';
 
 /**
  * Generated class for the HelpMeFindPage page.
@@ -24,11 +25,11 @@ export class HelpMeFindPage {
   }
 
   openResourcesPage() {
-    this.navCtrl.push(CategoriesFor211Page);
+    this.navCtrl.push(UserLocatorPage);
   }
 
   openTransportationPage() {
-    this.navCtrl.push(TransportationAgenciesPage);
+    this.navCtrl.push(DirectTransporationFinderPage);
   }
 
 }

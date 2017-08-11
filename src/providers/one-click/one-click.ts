@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Headers } from '@angular/http';
 import { RequestOptions } from '@angular/http';
+
+import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
 import { AgencyModel } from '../../models/agency';
+import { PlaceModel } from '../../models/place';
 import { Global } from '../../app/global';
 import { User } from '../../models/user';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -12,29 +15,38 @@ import { AuthProvider } from '../../providers/auth/auth';
 // OneClick Provider handles API Calls to the OneClick Core back-end.
 @Injectable()
 export class OneClickProvider {
-  
+
   public oneClickUrl = Global.BASE_ONECLICK_URL;
 
   constructor(public http: Http) {}
-  
+
   // Gets a list of all Transportation Agencies
   getTransportationAgencies(): Promise<AgencyModel[]> {
     return this.getAgencies("transportation");
   }
-  
+
   // Gets a list of all Partner Agencies
   getPartnerAgencies(): Promise<AgencyModel[]> {
     return this.getAgencies("partner");
   }
-  
+
   // Gets a list of ALL agencies, regardless of type
   getAllAgencies(): Promise<AgencyModel[]> {
     return this.getAgencies("");
   }
-  
+
+  public getPlaces(places_query: String ): Observable<PlaceModel[]> {
+
+    return this.http.
+      get(this.oneClickUrl + `places?name=%25${places_query}%25`).
+      map( response => {
+        return (response.json().data.places as PlaceModel[])
+      })
+  }
+
   private getAgencies(type: String): Promise<AgencyModel[]> {
-    var uri: string = encodeURI(this.oneClickUrl + 'agencies?type=' + type);
-    
+    let uri: string = encodeURI(this.oneClickUrl + 'agencies?type=' + type);
+
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
@@ -68,15 +80,15 @@ export class OneClickProvider {
 
     for (let acc of user.accommodations) {
       formatted_accs[acc.code] = acc.value;
-    }  
+    }
 
     for (let elig of user.eligibilities) {
       formatted_eligs[elig.code] = elig.value;
-    } 
+    }
 
     let body = {
       "attributes": {
-      "first_name": user.first_name, 
+      "first_name": user.first_name,
       "last_name": user.last_name,
       "email": user.email,
       "password": user.password,
