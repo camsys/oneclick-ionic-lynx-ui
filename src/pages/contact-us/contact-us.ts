@@ -21,7 +21,7 @@ export class ContactUsPage {
   agencies: AgencyModel[];
 
   ionViewDidLoad() {    
-    this.oneClickProvider.getPartnerAgencies()
+    this.oneClickProvider.getAllAgencies()
     .then(agencies => this.agencies = agencies);
   }
 
