@@ -1,6 +1,6 @@
 export class AgencyModel {
   name: string;
-  description: string;
+  comments: Object;
   email: string;
   phone: string;
   url: string;
