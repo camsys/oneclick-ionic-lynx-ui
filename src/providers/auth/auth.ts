@@ -5,7 +5,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
 import { Global } from '../../app/global';
-
+import { environment } from '../../app/environment'
 
 // Models
 import { Session } from '../../models/session';
@@ -13,7 +13,7 @@ import { Session } from '../../models/session';
 @Injectable()
 export class AuthProvider {
 
-  public baseUrl = Global.BASE_ONECLICK_URL;
+  public baseUrl = environment.BASE_ONECLICK_URL;
   public defaultHeaders: Headers = new Headers({
     'Content-Type': 'application/json'
   })
