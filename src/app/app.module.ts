@@ -42,7 +42,6 @@ import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
 
 // Providers
 import { OneClickProvider } from '../providers/one-click/one-click';
-import { UserServiceProvider } from '../providers/user/user-service';
 import { AuthProvider } from '../providers/auth/auth';
 import { GeocodeServiceProvider } from '../providers/google/geocode-service'
 
@@ -130,7 +129,6 @@ import { LocationModel } from '../models/location';
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     OneClickProvider,
-    UserServiceProvider,
     GeocodeServiceProvider,
     AuthProvider,
     CategoryFor211Model,
