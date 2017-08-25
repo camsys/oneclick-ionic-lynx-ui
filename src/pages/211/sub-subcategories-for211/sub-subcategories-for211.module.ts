@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SubSubCategoriesFor211Page } from './sub-sub-categories-for211';
+import { SubSubcategoriesFor211Page } from './sub-subcategories-for211';
 
 @NgModule({
   declarations: [
-    SubSubCategoriesFor211Page,
+    SubSubcategoriesFor211Page,
   ],
   imports: [
-    IonicPageModule.forChild(SubSubCategoriesFor211Page),
+    IonicPageModule.forChild(SubSubcategoriesFor211Page),
   ],
   exports: [
-    SubSubCategoriesFor211Page
+    SubSubcategoriesFor211Page
   ]
 })
 export class SubSubCategoriesFor211PageModule {}

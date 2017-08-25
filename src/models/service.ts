@@ -2,7 +2,7 @@
  * Created by mmaranda on 6/21/17.
  */
 
-export class MatchListFor211Model {
+export class ServiceModel {
  agency_name:string;
  site_name:string;
  lat:string;

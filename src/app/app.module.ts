@@ -27,7 +27,7 @@ import { TransportationEligibilityPage } from '../pages/transportation-eligibili
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { TemporaryLanguageTestingPage } from '../pages/temporary-language-testing/temporary-language-testing';
-import { SubSubCategoriesFor211Page } from '../pages/211/sub-sub-categories-for211/sub-sub-categories-for211'
+import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for211/sub-subcategories-for211'
 import { ServicesPage } from '../pages/211/services/services'
 
 // Ionic Imports
@@ -41,7 +41,6 @@ import { TranslateModule } from "ng2-translate";
 import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
 
 // Providers
-import { ReferNet211ServiceProvider } from '../providers/refer-net211-service/refer-net211-service';
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { UserServiceProvider } from '../providers/user/user-service';
 import { AuthProvider } from '../providers/auth/auth';
@@ -50,8 +49,8 @@ import { GeocodeServiceProvider } from '../providers/google/geocode-service'
 // Models
 import { CategoryFor211Model } from '../models/category-for-211';
 import { SubcategoryFor211Model } from '../models/subcategory-for-211';
-import { SubcategoryLinkFor211Model } from '../models/subcategory-link-for-211';
-import { MatchListFor211Model } from '../models/match-list-for-211';
+import { SubSubcategoryFor211Model } from '../models/sub-subcategory-for-211';
+import { ServiceModel } from '../models/service';
 import { AgencyModel } from '../models/agency';
 import { AddressComponentModel } from '../models/addressComponent';
 import { LocationModel } from '../models/location';
@@ -67,7 +66,7 @@ import { LocationModel } from '../models/location';
     LocationAutoCompletePage,
     CategoriesFor211Page,
     SubcategoriesFor211Page,
-    SubSubCategoriesFor211Page,
+    SubSubcategoriesFor211Page,
     ServicesPage,
     MapFor211ServicesPage,
     ServicesFromMatchListPage,
@@ -106,7 +105,7 @@ import { LocationModel } from '../models/location';
     LocationAutoCompletePage,
     CategoriesFor211Page,
     SubcategoriesFor211Page,
-    SubSubCategoriesFor211Page,
+    SubSubcategoriesFor211Page,
     ServicesPage,
     MapFor211ServicesPage,
     ServicesFromMatchListPage,
@@ -130,15 +129,14 @@ import { LocationModel } from '../models/location';
     InAppBrowser,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ReferNet211ServiceProvider,
     OneClickProvider,
     UserServiceProvider,
     GeocodeServiceProvider,
     AuthProvider,
     CategoryFor211Model,
     SubcategoryFor211Model,
-    SubcategoryLinkFor211Model,
-    MatchListFor211Model,
+    SubSubcategoryFor211Model,
+    ServiceModel,
     AgencyModel,
     AddressComponentModel,
     LocationModel

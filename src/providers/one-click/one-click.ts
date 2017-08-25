@@ -10,8 +10,8 @@ import { AgencyModel } from '../../models/agency';
 import { PlaceModel } from '../../models/place';
 import { CategoryFor211Model } from '../../models/category-for-211'
 import { SubcategoryFor211Model } from '../../models/subcategory-for-211'
-import { SubcategoryLinkFor211Model } from '../../models/subcategory-link-for-211'
-import { MatchListFor211Model } from '../../models/match-list-for-211'
+import { SubSubcategoryFor211Model } from '../../models/sub-subcategory-for-211'
+import { ServiceModel } from '../../models/service'
 
 
 import { Global } from '../../app/global';
@@ -136,7 +136,7 @@ export class OneClickProvider {
       .catch(this.handleError);
   }
 
-  getSubSubcategoryForSubcategoryName(subcategoryName: string): Promise<SubcategoryLinkFor211Model[]>{
+  getSubSubcategoryForSubcategoryName(subcategoryName: string): Promise<SubSubcategoryFor211Model[]>{
 
     var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_sub_categories?sub_category='+subcategoryName);
 
@@ -145,11 +145,11 @@ export class OneClickProvider {
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
-      .then(jsonable => JSON.parse(jsonable) as SubcategoryLinkFor211Model)
+      .then(jsonable => JSON.parse(jsonable) as SubSubcategoryFor211Model)
       .catch(this.handleError);
   }
 
-  getMatchListForSubcategoryLinkNameAndCountyCode(subcategroyLinkName: string): Promise<MatchListFor211Model[]>{
+  getMatchListForSubcategoryLinkNameAndCountyCode(subcategroyLinkName: string): Promise<ServiceModel[]>{
     var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/services?sub_sub_category='+subcategroyLinkName);
 
     // console.log(uri);
@@ -157,7 +157,7 @@ export class OneClickProvider {
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
-      .then(jsonable => JSON.parse(jsonable) as MatchListFor211Model)
+      .then(jsonable => JSON.parse(jsonable) as ServiceModel)
       .catch(this.handleError);
   }
 

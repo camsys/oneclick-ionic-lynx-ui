@@ -4,8 +4,8 @@ import { MapFor211ServicesPage } from '../map-for211-services/map-for211-service
 import { ServicesFromMatchListPage } from '../services-from-match-list/services-from-match-list';
 
 // import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
-import { SubcategoryLinkFor211Model } from '../../../models/subcategory-link-for-211';
-import { MatchListFor211Model } from '../../../models/match-list-for-211';
+import { SubSubcategoryFor211Model } from '../../../models/sub-subcategory-for-211';
+import { ServiceModel } from '../../../models/service';
 
 
 /**
@@ -20,8 +20,8 @@ import { MatchListFor211Model } from '../../../models/match-list-for-211';
   templateUrl: 'services.html',
 })
 export class ServicesPage {
-  subcategoryLink: SubcategoryLinkFor211Model;
-  matches_result: MatchListFor211Model[];
+  subcategoryLink: SubSubcategoryFor211Model;
+  matches_result: ServiceModel[];
 
   mapTab: any;
   servicesFromMatchListTab: any;

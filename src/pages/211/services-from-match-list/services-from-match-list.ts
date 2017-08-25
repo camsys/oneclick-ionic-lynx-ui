@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MatchListFor211Model } from '../../../models/match-list-for-211';
+import { ServiceModel } from '../../../models/service';
 import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 
 /**
@@ -16,7 +16,7 @@ import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211
 })
 export class ServicesFromMatchListPage {
 
-  matches: MatchListFor211Model[];
+  matches: ServiceModel[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.matches = navParams.data;
@@ -25,7 +25,7 @@ export class ServicesFromMatchListPage {
   ionViewDidLoad() {
   }
 
-  openServicePage(m : MatchListFor211Model){
+  openServicePage(m : ServiceModel){
     this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage);
   }
 }
