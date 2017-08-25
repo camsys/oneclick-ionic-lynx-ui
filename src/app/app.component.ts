@@ -6,6 +6,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser'
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { TemporaryLanguageTestingPage } from '../pages/temporary-language-testing/temporary-language-testing';
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
@@ -48,6 +49,7 @@ export class MyApp {
       this.pages = [
         { title: 'Home', component: HomePage },
         { title: 'List', component: ListPage },
+        { title: 'Temporary Language Test', component: TemporaryLanguageTestingPage},
         { title: 'Find', component: HelpMeFindPage },
         { title: 'Categories', component: CategoriesFor211Page},
         { title: 'Transportation Options', component: TransportationAgenciesPage},

@@ -51,9 +51,9 @@ export class MapFor211ServicesPage {
     let me = this;
     for (let service of this.matches) {
 
-      if( (typeof service.Latitude!='undefined' && service.Latitude) && (typeof service.Longitude!='undefined' && service.Longitude) )
+      if( (typeof service.lat!='undefined' && service.lat) && (typeof service.lng!='undefined' && service.lng) )
       {
-        let service_location : google.maps.LatLng = new google.maps.LatLng (Number(service.Latitude), Number(service.Longitude)*-1);
+        let service_location : google.maps.LatLng = new google.maps.LatLng (Number(service.lat), Number(service.lng));
 
         let marker : google.maps.Marker = new google.maps.Marker;
         marker.setPosition(service_location);
@@ -61,7 +61,7 @@ export class MapFor211ServicesPage {
         // marker.setLabel(service.Name_Agency);
         marker.setValues(service);
         console.log(marker);
-        marker.setTitle(service.Name_Agency);
+        marker.setTitle(service.agency_name);
         marker.setClickable(true);
         marker.addListener('click', function() {
           me.addServiceInfo(service);

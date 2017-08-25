@@ -3,5 +3,6 @@
  */
 
 export class SubcategoryLinkFor211Model {
-  Name: string;
+  name: string;
+  service_count: number
 }

@@ -3,49 +3,9 @@
  */
 
 export class MatchListFor211Model {
- Name_Agency:string;
- Name_Site:string;
- Address1:string;
- Address2:string;
- BldgLine:string;
- City:string;
- ZipCode:number;
- State:string;
- County:string;
- Number_Phone1:string;
- Extension_Phone:string;
- Note_Phone1:string;
- Type_Phone1:string;
- Number_Phone2:string;
- Extension_Phone2:string;
- Note_Phone2:string;
- Type_Phone2:string;
- Number_Phone3:string;
- Extension_Phone3:string;
- Note_Phone3:string;
- Type_Phone3:string;
- Note1:string;
- Note1_CoNf:string;
- Note2:string;
- Note2_CoNf:string;
- email:string;
- url:string;
- PEmail:string;
- PUrl:string;
- LEmail:string;
- LUrl:string;
- ServiceGroup:string;
- Program1:string;
- Agency_Key:string;
- Site_Key:string;
- Service_ID:string;
- Location_ID:string;
- ServiceSite_ID:string;
- MLPriority:string;
- Distance:string;
- InCity:string;
- InZIP:string;
- Record_Owner:string;
- Latitude:string;
- Longitude:string;
+ agency_name:string;
+ site_name:string;
+ lat:string;
+ lng:string;
+ address:string;
 }

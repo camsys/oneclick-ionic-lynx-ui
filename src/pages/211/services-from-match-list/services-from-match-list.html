@@ -5,8 +5,8 @@
         Sort by:
         <ion-list class="lynx-list">
           <button menuClose ion-item class="toolbar_light" *ngFor="let match of matches" (click)="openServicePage(match)">
-            <h2> {{match.Name_Agency}} </h2>
-            {{match.Address1}}, {{match.City}} {{match.State}} {{match.ZipCode}}
+            <h2> {{match.name}} </h2>
+            {{match.address}}
           </button>
         </ion-list>
       </ion-col>

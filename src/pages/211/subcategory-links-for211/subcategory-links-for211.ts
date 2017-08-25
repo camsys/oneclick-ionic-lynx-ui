@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { MatchListsFor211Page } from '../match-lists-for211/match-lists-for211'
+import { SubSubCategoriesFor211Page } from '../sub-sub-categories-for211/sub-sub-categories-for211'
 
 import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
 import { SubcategoryFor211Model } from '../../../models/subcategory-for-211'
@@ -30,10 +30,10 @@ export class SubcategoryLinksFor211Page {
     this.subcategory = navParams.data.selected_subcategory;
   }
 
-  getSubcategoryServices(): void {
-    this.referNet211ServiceProvider.getSubcategoryLinkForSubcategoryId(this.subcategory.Category_ID).
-    then(slinks => this.subcategoryLinks = slinks);
-  }
+  // getSubcategoryServices(): void {
+  //   this.referNet211ServiceProvider.getSubcategoryLinkForSubcategoryId(this.subcategory.name).
+  //   then(slinks => this.subcategoryLinks = slinks);
+  // }
 
   getMatchLists(subCategoryLinkName : string): MatchListFor211Model[]{
     let matches : MatchListFor211Model[] = [];
@@ -45,12 +45,12 @@ export class SubcategoryLinksFor211Page {
   }
 
   ionViewDidLoad() {
-    this.getSubcategoryServices();
+    // this.getSubcategoryServices();
   }
 
   openToMatchList(subCategoryLink: SubcategoryLinkFor211Model){
-    this.referNet211ServiceProvider.getMatchListForSubcategoryLinkNameAndCountyCode(subCategoryLink.Name, 123).
-    then(value => this.navCtrl.push(MatchListsFor211Page, {
+    this.referNet211ServiceProvider.getMatchListForSubcategoryLinkNameAndCountyCode(subCategoryLink.name, 123).
+    then(value => this.navCtrl.push(SubSubCategoriesFor211Page, {
         selected_subcategory_link: subCategoryLink,
         matches_result: value
       })

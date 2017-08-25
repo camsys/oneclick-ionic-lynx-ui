@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { SubcategoryLinksFor211Page } from '../subcategory-links-for211/subcategory-links-for211'
+// import { SubcategoryLinksFor211Page } from '../subcategory-links-for211/subcategory-links-for211'
+import { SubSubCategoriesFor211Page } from '../sub-sub-categories-for211/sub-sub-categories-for211'
 
-import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
+// import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
+import { OneClickProvider } from '../../../providers/one-click/one-click';
 import { CategoryFor211Model } from '../../../models/category-for-211'
 import { SubcategoryFor211Model } from '../../../models/subcategory-for-211'
 
@@ -26,22 +28,23 @@ export class SubcategoriesFor211Page {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private referNet211ServiceProvider: ReferNet211ServiceProvider)
+              private oneClickProvider: OneClickProvider)
   {
     this.category = navParams.data.selected_category;
   }
 
   getSubcategoryServices(): void {
-    this.referNet211ServiceProvider.getSubcategoryForCategoryName(this.category.Category_Name).
+    this.oneClickProvider.getSubcategoryForCategoryName(this.category.name).
       then(subcategories => this.subcategories = subcategories);
   }
 
   ionViewDidLoad() {
+    console.log("IN SubcategoriesFor211Page");
     this.getSubcategoryServices();
   }
 
   openToSubcategoryLinks(subcategory: SubcategoryFor211Model){
-    this.navCtrl.push(SubcategoryLinksFor211Page, {selected_subcategory: subcategory});
+    this.navCtrl.push(SubSubCategoriesFor211Page, {selected_subcategory: subcategory});
   }
 
 }

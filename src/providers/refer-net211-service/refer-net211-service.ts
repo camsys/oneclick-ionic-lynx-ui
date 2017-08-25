@@ -30,16 +30,16 @@ export class ReferNet211ServiceProvider {
   //We are using the promise format over the observable format because we are performing a simple get request and not doing much with the data beyond displaying it.
   //We expect reasonable quick responses from the server and won't likely run into a request-cancel-new-request sequence.
 
-  getCategoriesFor211Services(): Promise<CategoryFor211Model[]> {
-    var uri: string = encodeURI(this.refernetUrl+'Category?API_KEY='+this.api_key+'&DeviceID=');
-
-    return this.http.get(uri)
-      .toPromise()
-      .then(response => response.text())
-      .then(str => this.stripAwayXml(str))
-      .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model)
-      .catch(this.handleError);
-  }
+  // getCategoriesFor211Services(): Promise<CategoryFor211Model[]> {
+  //   var uri: string = encodeURI(this.refernetUrl+'Category?API_KEY='+this.api_key+'&DeviceID=');
+  //
+  //   return this.http.get(uri)
+  //     .toPromise()
+  //     .then(response => response.text())
+  //     .then(str => this.stripAwayXml(str))
+  //     .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model)
+  //     .catch(this.handleError);
+  // }
 
   getSubcategoryForCategoryName(categoryName: string): Promise<SubcategoryFor211Model[]> {
     var uri: string = encodeURI(this.refernetUrl+'Sub_Category?API_KEY='+this.api_key+'&category_name='+categoryName+'&DeviceID=');

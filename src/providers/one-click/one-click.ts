@@ -8,6 +8,12 @@ import 'rxjs/add/operator/map';
 
 import { AgencyModel } from '../../models/agency';
 import { PlaceModel } from '../../models/place';
+import { CategoryFor211Model } from '../../models/category-for-211'
+import { SubcategoryFor211Model } from '../../models/subcategory-for-211'
+import { SubcategoryLinkFor211Model } from '../../models/subcategory-link-for-211'
+import { MatchListFor211Model } from '../../models/match-list-for-211'
+
+
 import { Global } from '../../app/global';
 import { User } from '../../models/user';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -105,6 +111,53 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(json => JSON.parse(json).data.user as User)
+      .catch(this.handleError);
+  }
+
+  getCategoriesFor211Services(): Promise<CategoryFor211Model[]> {
+    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/categories');
+
+    return this.http.get(uri)
+      .toPromise()
+      .then(response => response.text())
+      .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model)
+      .catch(this.handleError);
+  }
+
+  getSubcategoryForCategoryName(categoryName: string): Promise<SubcategoryFor211Model[]> {
+    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_categories?category='+categoryName);
+
+    console.log(uri);
+
+    return this.http.get(uri)
+      .toPromise()
+      .then(response => response.text())
+      .then(jsonable => JSON.parse(jsonable) as SubcategoryFor211Model)
+      .catch(this.handleError);
+  }
+
+  getSubSubcategoryForSubcategoryName(subcategoryName: string): Promise<SubcategoryLinkFor211Model[]>{
+
+    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_sub_categories?sub_category='+subcategoryName);
+
+    // console.log(uri);
+
+    return this.http.get(uri)
+      .toPromise()
+      .then(response => response.text())
+      .then(jsonable => JSON.parse(jsonable) as SubcategoryLinkFor211Model)
+      .catch(this.handleError);
+  }
+
+  getMatchListForSubcategoryLinkNameAndCountyCode(subcategroyLinkName: string): Promise<MatchListFor211Model[]>{
+    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/services?sub_sub_category='+subcategroyLinkName);
+
+    // console.log(uri);
+
+    return this.http.get(uri)
+      .toPromise()
+      .then(response => response.text())
+      .then(jsonable => JSON.parse(jsonable) as MatchListFor211Model)
       .catch(this.handleError);
   }
 
