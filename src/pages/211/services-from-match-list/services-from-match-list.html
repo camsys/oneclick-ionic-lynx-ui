@@ -8,11 +8,11 @@
           <!--<ion-radio>Bus</ion-radio>-->
           <ion-item>
             <ion-label><ion-icon name="car"></ion-icon> Driving</ion-label>
-            <ion-radio checked="true" value="car" ng-click="orderByDriveTime()"></ion-radio>
+            <ion-radio checked="true" value="selected" (ionSelect)="orderByDriveTime()"></ion-radio>
           </ion-item>
           <ion-item>
             <ion-label > <ion-icon name="bus"></ion-icon> transit</ion-label>
-            <ion-radio value="bus" ng-click="orderByTransitTime()"></ion-radio>
+            <ion-radio value="notSelected" (ionSelect)="orderByTransitTime()"></ion-radio>
           </ion-item>
         </ion-list>
       </ion-col>
