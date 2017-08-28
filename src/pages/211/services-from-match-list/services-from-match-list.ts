@@ -20,9 +20,52 @@ export class ServicesFromMatchListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.matches = navParams.data;
+    this.orderByDriveTime();
   }
 
   ionViewDidLoad() {
+  }
+
+  orderByTransitTime()
+  {
+    console.log('ORDER BYT TRANSIT');
+
+    return this.matches.sort(function (a : ServiceModel, b : ServiceModel) {
+      //sorts by shortest transit time
+      if( (a.transit_time == null && b.transit_time != null) ||
+           a.transit_time < b.transit_time)
+      {
+        return -1
+      }
+      else if ((a.transit_time != null && b.transit_time == null) ||
+         b.transit_time < a.transit_time)
+      {
+        return 1;
+      }
+
+      return 0;
+    })
+  }
+
+  orderByDriveTime()
+  {
+    console.log('ORDER BY DRIVE');
+
+    return this.matches.sort(function (a : ServiceModel, b : ServiceModel) {
+      //sorts by shortest transit time
+      if( (a.drive_time == null && b.drive_time != null) ||
+        a.drive_time < b.drive_time)
+      {
+        return -1
+      }
+      else if ((a.drive_time != null && b.drive_time == null) ||
+        b.drive_time < a.drive_time)
+      {
+        return 1;
+      }
+
+      return 0;
+    })
   }
 
   openServicePage(m : ServiceModel){

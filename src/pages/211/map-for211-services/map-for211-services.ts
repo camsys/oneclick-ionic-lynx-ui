@@ -50,7 +50,6 @@ export class MapFor211ServicesPage {
     this.service_map = new google.maps.Map(document.getElementById('service_map_canvas'), mapOptions);
     let me = this;
     for (let service of this.matches) {
-
       if( (typeof service.lat!='undefined' && service.lat) && (typeof service.lng!='undefined' && service.lng) )
       {
         let service_location : google.maps.LatLng = new google.maps.LatLng (Number(service.lat), Number(service.lng));
@@ -78,8 +77,6 @@ export class MapFor211ServicesPage {
   addServiceInfo(serviceMatch: ServiceModel){
     this.markerSelected = true;
     this.selectedMatch = serviceMatch;
-    console.log(this.selectedMatch);
-    console.log('this.marker_selected===='+this.selectedMatch+'====');
   }
 
   openServicePage(m : ServiceModel){

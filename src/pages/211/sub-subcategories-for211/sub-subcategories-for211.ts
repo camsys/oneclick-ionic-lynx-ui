@@ -7,7 +7,8 @@ import { OneClickProvider } from '../../../providers/one-click/one-click';
 import { SubcategoryFor211Model } from '../../../models/subcategory-for-211'
 import { SubSubcategoryFor211Model } from '../../../models/sub-subcategory-for-211'
 import { ServiceModel } from '../../../models/service'
-
+import { Session } from '../../../models/session'
+import { PlaceModel } from "../../../models/place";
 
 /**
  * Generated class for the SubSubCategoriesFor211Page page.
@@ -24,11 +25,13 @@ export class SubSubcategoriesFor211Page {
 
   subcategory: SubcategoryFor211Model;
   subcategoryLinks: SubSubcategoryFor211Model[];
+  userStartingLocation: PlaceModel;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private oneClickServiceProvider: OneClickProvider) {
     this.subcategory = navParams.data.selected_subcategory;
+    this.userStartingLocation = this.session().user_starting_location
   }
 
   getSubcategoryServices(): void {
@@ -38,7 +41,8 @@ export class SubSubcategoriesFor211Page {
   getMatchLists(subCategoryLinkName: string): ServiceModel[] {
     let matches: ServiceModel[] = [];
 
-    this.oneClickServiceProvider.getMatchListForSubcategoryLinkNameAndCountyCode(subCategoryLinkName).then(value => matches = value);
+    this.oneClickServiceProvider.getServicesFromSubSubcategoryAndLatLng(subCategoryLinkName, this.userStartingLocation.geometry.lat, this.userStartingLocation.geometry.lng).
+      then(value => matches = value);
 
     return matches;
   }
@@ -48,12 +52,17 @@ export class SubSubcategoriesFor211Page {
   }
 
   openToMatchList(subCategoryLink: SubSubcategoryFor211Model) {
-    this.oneClickServiceProvider.getMatchListForSubcategoryLinkNameAndCountyCode(subCategoryLink.name).then(value => this.navCtrl.push(ServicesPage, {
+    this.oneClickServiceProvider.getServicesFromSubSubcategoryAndLatLng(subCategoryLink.name, this.userStartingLocation.geometry.lat, this.userStartingLocation.geometry.lng).
+      then(value => this.navCtrl.push(ServicesPage, {
         selected_subcategory_link: subCategoryLink,
         matches_result: value
       })
     );
+  }
 
+  // Pulls the current session from local storage
+  session(): Session {
+    return (JSON.parse(localStorage.session || null) as Session);
   }
 }
 

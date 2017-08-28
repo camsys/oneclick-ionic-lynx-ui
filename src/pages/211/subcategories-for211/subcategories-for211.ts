@@ -39,7 +39,6 @@ export class SubcategoriesFor211Page {
   }
 
   ionViewDidLoad() {
-    console.log("IN SubcategoriesFor211Page");
     this.getSubcategoryServices();
   }
 

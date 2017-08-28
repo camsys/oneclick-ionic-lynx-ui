@@ -127,8 +127,6 @@ export class OneClickProvider {
   getSubcategoryForCategoryName(categoryName: string): Promise<SubcategoryFor211Model[]> {
     var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_categories?category='+categoryName);
 
-    console.log(uri);
-
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
@@ -149,10 +147,27 @@ export class OneClickProvider {
       .catch(this.handleError);
   }
 
-  getMatchListForSubcategoryLinkNameAndCountyCode(subcategroyLinkName: string): Promise<ServiceModel[]>{
-    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/services?sub_sub_category='+subcategroyLinkName);
+  getServicesFromSubSubcategoryWithoutLatLng(subcategroyLinkName: string): Promise<ServiceModel[]>{
+    return this.getServicesFromSubSubcategoryAndLatLng(subcategroyLinkName, null, null)
+  }
 
-    // console.log(uri);
+  getServicesFromSubSubcategoryAndLatLng(subcategroyLinkName: string, lat: number, lng: number): Promise<ServiceModel[]>{
+
+    //TODO REMOVE THIS BEFORE CHECKING IN
+    lat=28.472;
+    lng=-81.281;
+
+    let uri: string = this.oneClickUrl;
+
+    if(lat != null && lng != null)
+    {
+      uri = encodeURI(uri+'oneclick_refernet/services?sub_sub_category='+subcategroyLinkName+'&lat='+lat+'&lng='+lng);
+    }else {
+      uri = encodeURI(uri+'oneclick_refernet/services?sub_sub_category='+subcategroyLinkName);
+    }
+
+    console.log(uri);
+
 
     return this.http.get(uri)
       .toPromise()

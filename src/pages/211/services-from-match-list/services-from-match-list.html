@@ -2,11 +2,30 @@
   <ion-grid>
     <ion-row>
       <ion-col col-md-8 offset-md-2>
+        Sort By:
+        <ion-list radio-group [(ngModel)]="relationship" >
+          <!--<ion-radio>CAR</ion-radio>-->
+          <!--<ion-radio>Bus</ion-radio>-->
+          <ion-item>
+            <ion-label><ion-icon name="car"></ion-icon> Driving</ion-label>
+            <ion-radio checked="true" value="car" ng-click="orderByDriveTime()"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label > <ion-icon name="bus"></ion-icon> transit</ion-label>
+            <ion-radio value="bus" ng-click="orderByTransitTime()"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-md-8 offset-md-2>
         Sort by:
         <ion-list class="lynx-list">
           <button menuClose ion-item class="toolbar_light" *ngFor="let match of matches" (click)="openServicePage(match)">
             {{match.agency_name}}
             {{match.address}}
+            <ion-icon name="car"></ion-icon>: {{match.drive_time}}
+            <ion-icon name="bus"></ion-icon>: {{match.transit_time}}
           </button>
         </ion-list>
       </ion-col>
