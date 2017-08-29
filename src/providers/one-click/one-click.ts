@@ -15,6 +15,7 @@ import { ServiceModel } from '../../models/service'
 
 
 import { Global } from '../../app/global';
+import { environment } from '../../app/environment'
 import { User } from '../../models/user';
 import { AuthProvider } from '../../providers/auth/auth';
 
@@ -22,7 +23,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 @Injectable()
 export class OneClickProvider {
 
-  public oneClickUrl = Global.BASE_ONECLICK_URL;
+  public oneClickUrl = environment.BASE_ONECLICK_URL;
 
   constructor(public http: Http) {}
 
