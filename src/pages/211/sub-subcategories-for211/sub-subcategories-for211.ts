@@ -41,8 +41,14 @@ export class SubSubcategoriesFor211Page {
   getMatchLists(subCategoryLinkName: string): ServiceModel[] {
     let matches: ServiceModel[] = [];
 
-    this.oneClickServiceProvider.getServicesFromSubSubcategoryAndLatLng(subCategoryLinkName, this.userStartingLocation.geometry.lat, this.userStartingLocation.geometry.lng).
+    if(this.userStartingLocation == null)
+    {
+      this.oneClickServiceProvider.getServicesFromSubSubcategoryWithoutLatLng(subCategoryLinkName).
       then(value => matches = value);
+    }else{
+      this.oneClickServiceProvider.getServicesFromSubSubcategoryAndLatLng(subCategoryLinkName, this.userStartingLocation.geometry.lat, this.userStartingLocation.geometry.lng).
+      then(value => matches = value);
+    }
 
     return matches;
   }
@@ -52,12 +58,25 @@ export class SubSubcategoriesFor211Page {
   }
 
   openToMatchList(subCategoryLink: SubSubcategoryFor211Model) {
-    this.oneClickServiceProvider.getServicesFromSubSubcategoryAndLatLng(subCategoryLink.name, this.userStartingLocation.geometry.lat, this.userStartingLocation.geometry.lng).
+
+    if(this.userStartingLocation == null)
+    {
+      this.oneClickServiceProvider.getServicesFromSubSubcategoryWithoutLatLng(subCategoryLink.name).
       then(value => this.navCtrl.push(ServicesPage, {
-        selected_subcategory_link: subCategoryLink,
-        matches_result: value
-      })
-    );
+          selected_subcategory_link: subCategoryLink,
+          matches_result: value
+        })
+      );
+    }else{
+      this.oneClickServiceProvider.getServicesFromSubSubcategoryAndLatLng(subCategoryLink.name, this.userStartingLocation.geometry.lat, this.userStartingLocation.geometry.lng).
+      then(value => this.navCtrl.push(ServicesPage, {
+          selected_subcategory_link: subCategoryLink,
+          matches_result: value
+        })
+      );
+    }
+
+
   }
 
   // Pulls the current session from local storage
