@@ -8,6 +8,7 @@ import { LocationAutoCompletePage } from '../location-auto-complete/location-aut
 import { CategoriesFor211Page } from '../211/categories-for211/categories-for211'
 
 import { PlaceModel } from "../../models/place";
+import { Session } from '../../models/session';
 
 /**
  * Generated class for the UserLocatorPage page.
@@ -25,6 +26,11 @@ export class UserLocatorPage {
   map: google.maps.Map;
   fromPlace: PlaceModel;
   fromPlaceAddress: string;
+
+  // Pulls the current session from local storage
+  session(): Session {
+    return (JSON.parse(localStorage.session || new Session) as Session);
+  }
 
   constructor(public navCtrl: NavController, public modalController: ModalController, public platform: Platform, public geolocation: Geolocation, public geoServiceProvider: GeocodeServiceProvider) {
     this.map = null;
@@ -138,12 +144,18 @@ export class UserLocatorPage {
   }
 
   searchForServices(){
+
+    let session = this.session();
+
+    session.user_starting_location = this.fromPlace;
+    localStorage.setItem('session', JSON.stringify(session));
     this.navCtrl.push(CategoriesFor211Page);
   }
 
   private updatePlaceFromLatLng(lat: number, lng: number) : void{
     this.geoServiceProvider.getPlaceFromLatLng(lat, lng).forEach(places => {
       let place = places[0];
+
       this.fromPlace = place;
       this.fromPlaceAddress = this.fromPlace.formatted_address;
     });

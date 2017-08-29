@@ -6,6 +6,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser'
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { TemporaryLanguageTestingPage } from '../pages/temporary-language-testing/temporary-language-testing';
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
@@ -16,7 +17,6 @@ import { SignInPage }  from '../pages/sign-in/sign-in';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { AuthProvider } from '../providers/auth/auth'
 
-import { UserServiceProvider } from '../providers/user/user-service'
 import {User} from '../models/user';
 import {Eligibility} from '../models/user';
 import {Accommodation} from '../models/user';
@@ -81,6 +81,7 @@ export class MyApp {
       this.pages = [
         { title: 'Home', component: HomePage },
         { title: 'List', component: ListPage },
+        { title: 'Temporary Language Test', component: TemporaryLanguageTestingPage},
         { title: 'Find', component: HelpMeFindPage },
         { title: 'Categories', component: CategoriesFor211Page},
         { title: 'Transportation Options', component: TransportationAgenciesPage},
@@ -90,7 +91,7 @@ export class MyApp {
         { title: 'Sign In', component: SignInPage},
       ];
     }
-  }  
+  }
 
   openPage(page) {
     // Reset the content nav to have just this page
@@ -113,7 +114,7 @@ export class MyApp {
   signOut() {
     this.auth.signOut()
     .subscribe(
-      data => { 
+      data => {
         // On successful response, redirect the user to find page
         console.log('Signed Out');
         this.setMenu();

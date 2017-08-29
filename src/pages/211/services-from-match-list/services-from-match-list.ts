@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MatchListFor211Model } from '../../../models/match-list-for-211';
+import { ServiceModel } from '../../../models/service';
 import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 
 /**
@@ -16,16 +16,55 @@ import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211
 })
 export class ServicesFromMatchListPage {
 
-  matches: MatchListFor211Model[];
+  matches: ServiceModel[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.matches = navParams.data;
+    this.orderByDriveTime();
   }
 
   ionViewDidLoad() {
   }
 
-  openServicePage(m : MatchListFor211Model){
+  orderByTransitTime()
+  {
+    return this.matches.sort(function (a : ServiceModel, b : ServiceModel) {
+      //sorts by shortest transit time
+      if( (a.transit_time == null && b.transit_time != null) ||
+           a.transit_time < b.transit_time)
+      {
+        return -1
+      }
+      else if ((a.transit_time != null && b.transit_time == null) ||
+         b.transit_time < a.transit_time)
+      {
+        return 1;
+      }
+
+      return 0;
+    })
+  }
+
+  orderByDriveTime()
+  {
+    return this.matches.sort(function (a : ServiceModel, b : ServiceModel) {
+      //sorts by shortest transit time
+      if( (a.drive_time == null && b.drive_time != null) ||
+        a.drive_time < b.drive_time)
+      {
+        return -1
+      }
+      else if ((a.drive_time != null && b.drive_time == null) ||
+        b.drive_time < a.drive_time)
+      {
+        return 1;
+      }
+
+      return 0;
+    })
+  }
+
+  openServicePage(m : ServiceModel){
     this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage);
   }
 }

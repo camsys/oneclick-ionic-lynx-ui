@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { MatchListFor211Model } from '../../../models/match-list-for-211';
+import { ServiceModel } from '../../../models/service';
 
 import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 
@@ -20,8 +20,8 @@ export class MapFor211ServicesPage {
 
   //This is needed to dunamically change the div containing the marker's information
   service_map: google.maps.Map;
-  matches: MatchListFor211Model[];
-  selectedMatch: MatchListFor211Model;
+  matches: ServiceModel[];
+  selectedMatch: ServiceModel;
   markerSelected: boolean;
 
 
@@ -50,18 +50,16 @@ export class MapFor211ServicesPage {
     this.service_map = new google.maps.Map(document.getElementById('service_map_canvas'), mapOptions);
     let me = this;
     for (let service of this.matches) {
-
-      if( (typeof service.Latitude!='undefined' && service.Latitude) && (typeof service.Longitude!='undefined' && service.Longitude) )
+      if( (typeof service.lat!='undefined' && service.lat) && (typeof service.lng!='undefined' && service.lng) )
       {
-        let service_location : google.maps.LatLng = new google.maps.LatLng (Number(service.Latitude), Number(service.Longitude)*-1);
+        let service_location : google.maps.LatLng = new google.maps.LatLng (Number(service.lat), Number(service.lng));
 
         let marker : google.maps.Marker = new google.maps.Marker;
         marker.setPosition(service_location);
         marker.setMap(this.service_map);
         // marker.setLabel(service.Name_Agency);
         marker.setValues(service);
-        console.log(marker);
-        marker.setTitle(service.Name_Agency);
+        marker.setTitle(service.agency_name);
         marker.setClickable(true);
         marker.addListener('click', function() {
           me.addServiceInfo(service);
@@ -75,14 +73,12 @@ export class MapFor211ServicesPage {
 
   }
 
-  addServiceInfo(serviceMatch: MatchListFor211Model){
+  addServiceInfo(serviceMatch: ServiceModel){
     this.markerSelected = true;
     this.selectedMatch = serviceMatch;
-    console.log(this.selectedMatch);
-    console.log('this.marker_selected===='+this.selectedMatch+'====');
   }
 
-  openServicePage(m : MatchListFor211Model){
+  openServicePage(m : ServiceModel){
     this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage);
   }
 }

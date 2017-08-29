@@ -3,8 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { SubcategoriesFor211Page } from '../subcategories-for211/subcategories-for211';
 
-import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
-import { CategoryFor211Model } from '../../../models/category-for-211'
+// import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
+import { OneClickProvider } from '../../../providers/one-click/one-click';
+import { CategoryFor211Model } from '../../../models/category-for-211';
 
 
 /**
@@ -22,12 +23,12 @@ export class CategoriesFor211Page {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private referNet211ServiceProvider: ReferNet211ServiceProvider) {}
+              private oneClickProvider: OneClickProvider) {}
 
   categories: CategoryFor211Model[];
 
   getParentLevelServices(): void {
-    this.referNet211ServiceProvider.getCategoriesFor211Services().then(parent_services => this.categories = parent_services);
+    this.oneClickProvider.getCategoriesFor211Services().then(parent_services => this.categories = parent_services);
   }
 
   ionViewDidLoad() {

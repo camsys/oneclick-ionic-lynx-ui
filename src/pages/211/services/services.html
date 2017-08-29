@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{subcategoryLink.Name}}</ion-title>
+    <ion-title>{{subcategoryLink.name}}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -19,11 +19,11 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-        <ion-tabs tabsPlacement="top">
-          <ion-tab [root]="mapTab" tabTitle="Map" [rootParams]="this.matches_result"></ion-tab>
+      <ion-tabs tabsPlacement="top">
+        <ion-tab [root]="mapTab" tabTitle="Map" [rootParams]="this.matches_result"></ion-tab>
 
-          <ion-tab [root]="servicesFromMatchListTab" tabTitle="List" [rootParams]="this.matches_result"></ion-tab>
-        </ion-tabs>
+        <ion-tab [root]="servicesFromMatchListTab" tabTitle="List" [rootParams]="this.matches_result"></ion-tab>
+      </ion-tabs>
     </ion-row>
   </ion-grid>
 </ion-content>

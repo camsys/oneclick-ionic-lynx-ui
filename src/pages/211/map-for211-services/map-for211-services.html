@@ -14,10 +14,12 @@
     <ion-row >
       <ion-col col-md-8 offset-md-2 *ngIf="selectedMatch != null">
         <button menuClose ion-item class="toolbar_light" (click)="openServicePage(match)">
-          {{selectedMatch.Name_Agency}}
+          {{selectedMatch.agency_name}}
           <br/>
-          <ion-icon name="car"></ion-icon>: match.drivingTime
-          <ion-icon name="bus"></ion-icon>: match.transitTime
+          <!--<ion-icon name="car"></ion-icon>: {{selectedMatch.secondsToString(selectedMatch.drive_time)}}-->
+          <!--<ion-icon name="bus"></ion-icon>: {{selectedMatch.secondsToString(selectedMatch.transit_time)}}-->
+          <ion-icon name="car"></ion-icon>: {{selectedMatch.drive_time}}
+          <ion-icon name="bus"></ion-icon>: {{selectedMatch.transit_time}}
         </button>
       </ion-col>
     </ion-row>
