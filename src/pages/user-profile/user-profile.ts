@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { UserServiceProvider } from '../../providers/user/user-service'
 import {User} from '../../models/user';
 import {Eligibility} from '../../models/user';
 import {Accommodation} from '../../models/user';
@@ -25,7 +24,7 @@ export class UserProfilePage {
   eligibilities: Eligibility[];
   accommodations: Accommodation[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userServiceProvider: UserServiceProvider, public oneClickProvider: OneClickProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public oneClickProvider: OneClickProvider) {
   }
 
   ionViewDidLoad() {

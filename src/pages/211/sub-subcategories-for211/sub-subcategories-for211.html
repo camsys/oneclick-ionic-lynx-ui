@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{subcategory.Subcategory_Name}}</ion-title>
+    <ion-title>{{subcategory.name}}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -23,8 +23,8 @@
         <ul class="categories_for_211" >
 
           <li *ngFor="let subcategoryLink of subcategoryLinks" (click)="openToMatchList(subcategoryLink)">
-            {{subcategoryLink.Name}}
-            <ion-icon name="ios-arrow-forward" end></ion-icon>
+            {{subcategoryLink.name}}
+            <ion-icon name="ios-arrow-forward" end>{{subcategoryLink.service_count}}</ion-icon>
           </li>
         </ul>
       </ion-col>

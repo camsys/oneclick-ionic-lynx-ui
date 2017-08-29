@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{category.Category_Name}}</ion-title>
+    <ion-title>{{category.name}}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -23,9 +23,9 @@
       <ion-col col-md-8 offset-md-2>
         <ul class="categories_for_211" >
         <span *ngFor="let subcategory of subcategories">
-          <li *ngIf="subcategory.Subcategory_Name != null" (click)="openToSubcategoryLinks(subcategory)">
-            {{subcategory.Subcategory_Name}}
-            <ion-icon name="ios-arrow-forward" end></ion-icon>
+          <li *ngIf="subcategory.name != null" (click)="openToSubcategoryLinks(subcategory)">
+            {{subcategory.name}}
+            <ion-icon name="ios-arrow-forward" end>{{subcategory.service_count}}</ion-icon>
           </li>
         </span>
         </ul>

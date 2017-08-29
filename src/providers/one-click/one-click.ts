@@ -8,6 +8,12 @@ import 'rxjs/add/operator/map';
 
 import { AgencyModel } from '../../models/agency';
 import { PlaceModel } from '../../models/place';
+import { CategoryFor211Model } from '../../models/category-for-211'
+import { SubcategoryFor211Model } from '../../models/subcategory-for-211'
+import { SubSubcategoryFor211Model } from '../../models/sub-subcategory-for-211'
+import { ServiceModel } from '../../models/service'
+
+
 import { Global } from '../../app/global';
 import { environment } from '../../app/environment'
 import { User } from '../../models/user';
@@ -106,6 +112,68 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(json => JSON.parse(json).data.user as User)
+      .catch(this.handleError);
+  }
+
+  getCategoriesFor211Services(): Promise<CategoryFor211Model[]> {
+    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/categories');
+
+    return this.http.get(uri)
+      .toPromise()
+      .then(response => response.text())
+      .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model)
+      .catch(this.handleError);
+  }
+
+  getSubcategoryForCategoryName(categoryName: string): Promise<SubcategoryFor211Model[]> {
+    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_categories?category='+categoryName);
+
+    return this.http.get(uri)
+      .toPromise()
+      .then(response => response.text())
+      .then(jsonable => JSON.parse(jsonable) as SubcategoryFor211Model)
+      .catch(this.handleError);
+  }
+
+  getSubSubcategoryForSubcategoryName(subcategoryName: string): Promise<SubSubcategoryFor211Model[]>{
+
+    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_sub_categories?sub_category='+subcategoryName);
+
+    // console.log(uri);
+
+    return this.http.get(uri)
+      .toPromise()
+      .then(response => response.text())
+      .then(jsonable => JSON.parse(jsonable) as SubSubcategoryFor211Model)
+      .catch(this.handleError);
+  }
+
+  getServicesFromSubSubcategoryWithoutLatLng(subcategroyLinkName: string): Promise<ServiceModel[]>{
+    return this.getServicesFromSubSubcategoryAndLatLng(subcategroyLinkName, null, null)
+  }
+
+  getServicesFromSubSubcategoryAndLatLng(subcategroyLinkName: string, lat: number, lng: number): Promise<ServiceModel[]>{
+
+    //TODO REMOVE THIS BEFORE CHECKING IN
+    lat=28.472;
+    lng=-81.281;
+
+    let uri: string = this.oneClickUrl;
+
+    if(lat != null && lng != null)
+    {
+      uri = encodeURI(uri+'oneclick_refernet/services?sub_sub_category='+subcategroyLinkName+'&lat='+lat+'&lng='+lng);
+    }else {
+      uri = encodeURI(uri+'oneclick_refernet/services?sub_sub_category='+subcategroyLinkName);
+    }
+
+    console.log(uri);
+
+
+    return this.http.get(uri)
+      .toPromise()
+      .then(response => response.text())
+      .then(jsonable => JSON.parse(jsonable) as ServiceModel)
       .catch(this.handleError);
   }
 
