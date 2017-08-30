@@ -28,8 +28,6 @@ export class ServicesFromMatchListPage {
 
   orderByTransitTime()
   {
-    console.log('ORDER BYT TRANSIT');
-
     return this.matches.sort(function (a : ServiceModel, b : ServiceModel) {
       //sorts by shortest transit time
       if( (a.transit_time == null && b.transit_time != null) ||
@@ -49,8 +47,6 @@ export class ServicesFromMatchListPage {
 
   orderByDriveTime()
   {
-    console.log('ORDER BY DRIVE');
-
     return this.matches.sort(function (a : ServiceModel, b : ServiceModel) {
       //sorts by shortest transit time
       if( (a.drive_time == null && b.drive_time != null) ||

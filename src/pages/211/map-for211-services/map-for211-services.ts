@@ -59,7 +59,6 @@ export class MapFor211ServicesPage {
         marker.setMap(this.service_map);
         // marker.setLabel(service.Name_Agency);
         marker.setValues(service);
-        console.log(marker);
         marker.setTitle(service.agency_name);
         marker.setClickable(true);
         marker.addListener('click', function() {

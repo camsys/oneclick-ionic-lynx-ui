@@ -20,14 +20,12 @@
     <ion-row>
       <ion-col col-md-8 offset-md-2>
         Sort by:
-        <ion-list class="lynx-list">
+        <ion-list class="lynx-service-list">
           <button menuClose ion-item class="toolbar_light" *ngFor="let match of matches" (click)="openServicePage(match)">
             {{match.agency_name}}
             {{match.address}}
             <ion-icon name="car"></ion-icon>: {{match.drive_time}}
             <ion-icon name="bus"></ion-icon>: {{match.transit_time}}
-            <!--<ion-icon name="car"></ion-icon>: {{match.secondsToString(match.drive_time)}}-->
-            <!--<ion-icon name="bus"></ion-icon>: {{match.secondsToString(match.transit_time)}}-->
           </button>
         </ion-list>
       </ion-col>

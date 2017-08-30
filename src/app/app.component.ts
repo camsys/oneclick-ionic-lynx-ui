@@ -17,7 +17,6 @@ import { SignInPage }  from '../pages/sign-in/sign-in';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { AuthProvider } from '../providers/auth/auth'
 
-import { UserServiceProvider } from '../providers/user/user-service'
 import {User} from '../models/user';
 import {Eligibility} from '../models/user';
 import {Accommodation} from '../models/user';
@@ -92,7 +91,7 @@ export class MyApp {
         { title: 'Sign In', component: SignInPage},
       ];
     }
-  }  
+  }
 
   openPage(page) {
     // Reset the content nav to have just this page
@@ -115,7 +114,7 @@ export class MyApp {
   signOut() {
     this.auth.signOut()
     .subscribe(
-      data => { 
+      data => {
         // On successful response, redirect the user to find page
         console.log('Signed Out');
         this.setMenu();

@@ -153,11 +153,6 @@ export class OneClickProvider {
   }
 
   getServicesFromSubSubcategoryAndLatLng(subcategroyLinkName: string, lat: number, lng: number): Promise<ServiceModel[]>{
-
-    //TODO REMOVE THIS BEFORE CHECKING IN
-    lat=28.472;
-    lng=-81.281;
-
     let uri: string = this.oneClickUrl;
 
     if(lat != null && lng != null)

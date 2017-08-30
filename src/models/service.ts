@@ -11,29 +11,29 @@ export class ServiceModel {
  drive_time: string;
  transit_time: string;
 
- // drivingTimeToHumanReadable(): string
- // {
- //   console.log('IN drivingTimeToHumanReadable ==='+this.drive_time);
- //
- //   if(this.drive_time != null){
- //     return this.secondsToString(this.drive_time);
- //   }
- //
- //   return 'N/A'
- // }
- //
- // transitTimeToHumanReadable(): string
- // {
- //   console.log('IN transitTimeToHumanReadable ==='+this.transit_time);
- //
- //   if(this.transit_time != null){
- //     return this.secondsToString(this.transit_time);
- //   }
- //
- //   return 'N/A'
- // }
+ public drivingTimeToHumanReadable(): string
+ {
+   console.log('IN drivingTimeToHumanReadable ==='+this.drive_time);
 
- secondsToString(time: number): string
+   if(this.drive_time != null){
+     return this.secondsToString(this.drive_time);
+   }
+
+   return 'N/A'
+ }
+
+ public transitTimeToHumanReadable(): string
+ {
+   console.log('IN transitTimeToHumanReadable ==='+this.transit_time);
+
+   if(this.transit_time != null){
+     return this.secondsToString(this.transit_time);
+   }
+
+   return 'N/A'
+ }
+
+ secondsToString(time: string): string
  {
    if (time == null)
    {
