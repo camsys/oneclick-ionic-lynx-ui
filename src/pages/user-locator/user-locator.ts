@@ -29,7 +29,7 @@ export class UserLocatorPage {
 
   // Pulls the current session from local storage
   session(): Session {
-    return (JSON.parse(localStorage.session || new Session) as Session);
+    return (JSON.parse(localStorage.session || null) as Session);
   }
 
   constructor(public navCtrl: NavController, public modalController: ModalController, public platform: Platform, public geolocation: Geolocation, public geoServiceProvider: GeocodeServiceProvider) {
@@ -146,6 +146,11 @@ export class UserLocatorPage {
   searchForServices(){
 
     let session = this.session();
+
+    if(session == null)
+    {
+      session = new Session;
+    }
 
     session.user_starting_location = this.fromPlace;
     localStorage.setItem('session', JSON.stringify(session));
