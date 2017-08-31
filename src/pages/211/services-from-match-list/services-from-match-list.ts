@@ -64,7 +64,8 @@ export class ServicesFromMatchListPage {
     })
   }
 
-  openServicePage(m : ServiceModel){
-    this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage);
+  openServicePage(match : ServiceModel){
+    console.log(match);
+    this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage, {service: match});
   }
 }
