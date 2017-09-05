@@ -16,7 +16,7 @@ button.lynx-button-primary {
 // EXAMPLE: <button ion-button round outline class="lynx-button-outline"> BUTTON TEXT </button>
 button.lynx-button-outline {
   background-color: $lynxWhite;
-  border: scale(-5) solid $lynxDarkPink;
+  border: size(-5) solid $lynxDarkPink;
   color: $lynxDarkPink;
   
   &:active {
@@ -29,7 +29,7 @@ button.lynx-button-outline {
 // EXAMPLE: <button ion-button round class="lynx-button-dark"> BUTTON TEXT </button>
 button.lynx-button-dark {
   background-color: $lynxDarkPink;
-  border: scale(-5) solid $lynxDarkPink;
+  border: size(-5) solid $lynxDarkPink;
   color: $lynxWhite;
   
   &:active {

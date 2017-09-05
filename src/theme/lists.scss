@@ -1,4 +1,4 @@
-/* LISTS */
+/* LISTS & ITEMS */
 
 .lynx-list {
 
@@ -12,33 +12,63 @@
 
 
     /* FONT FORMATTING FOR LIST ITEMS */
+    // Format item text using section classes to be applied to div, h3, p, etc. tags.
 
     // Header line should be pink
-    .lynx-list-heading {
+    .item-heading {
       color: $lynxPink;
-    }
-
-    // Links should not have any underline, and should be black by default
-    a {
-      color: $lynxBlack;
-      text-decoration: none;
-    }
-
-    h1,h2,h3,h4,h5 {
-      color: $lynxBlack;
+      font-size: $font-size-md;
       font-weight: 500;
     }
-
-    h1 { font-size: scale(4); }
-    h2 { font-size: scale(3); }
-    h3 { font-size: scale(2); }
-    h4 { font-size: scale(2); }
-    h5 { font-size: scale(1); }
-
-    p {
+    
+    .item-subheading {
+      font-size: $font-size-sm;
+      font-weight: 500;
+      color: $lynxDkGray;
+    }
+    
+    .item-body {
       color: $lynxBlack;
-      font-size: scale(1);
+      font-size: $font-size-sm;
       font-weight: 300;
+    }
+    
+    &.list-header {
+      background-color: $lynxLtGray;
+      color: $lynxDkGray;
+      font-size: $font-size-md;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+    
+    .label {
+      .icon {
+        width: size(4);
+        text-align: center;
+      }
+    }
+    
+    .icon {
+      color: $lynxBlack;
+    }
+    
+    &.lynx-list-inline-item {
+      
+      .item-heading {
+        color: $lynxBlack;
+        font-size: $font-size-sm;
+      }
+      
+      .icon-wrapper {
+        text-align: center;
+        font-size: $font-size-xs;
+        .icon {
+          display: block;
+          font-size: $font-size-lg;
+        }
+      }
+      
+
     }
 
   }

@@ -22,10 +22,6 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
-/* TYPOGRAPHY */
-$font-family-base: "Avenir", 'avenir next', "Helvetica Neue", "Roboto", sans-serif;
-
-
 
 /* COLORS */
 
@@ -56,13 +52,24 @@ $colors: (
 );
 
 $background-color: $lynxWhite;
+// Scaling Helper Function
 
 
+/* TYPOGRAPHY */
+$font-family-base: "Avenir", 'avenir next', "Helvetica Neue", "Roboto", sans-serif;
 
-/* SIZE AND SCALE */
-// Scale configuration variables used for scale() helper function
-$scale-base: 1rem;
-$scale-increment: 1.333;
+@import 'helpers'; // for size() helper function
+
+// Font size variables
+$font-size-xs: size(0);
+$font-size-sm: size(1);
+$font-size-md: size(2);
+$font-size-lg: size(3);
+$font-size-xl: size(4);
+
+$font-size-base: $font-size-sm;
+$font-size-large: $font-size-md;
+$font-size-small: $font-size-xs;
 
 
 // App iOS Variables

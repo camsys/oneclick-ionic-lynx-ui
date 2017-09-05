@@ -17,13 +17,27 @@ import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211
 export class ServicesFromMatchListPage {
 
   matches: ServiceModel[];
+  orderBy: String;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.matches = navParams.data;
-    this.orderByDriveTime();
+    this.orderMatchList("drive_time");
   }
 
   ionViewDidLoad() {
+  }
+  
+  // Orders the match list based on the passed string
+  orderMatchList(orderBy: String) {
+    console.log("ORDERING BY", orderBy);
+    if(orderBy == "transit_time") {
+      this.orderByTransitTime();
+    } else if(orderBy == "drive_time") {
+      this.orderByDriveTime();
+    } else {
+      this.orderByDriveTime(); // by default, order by drive time
+    }
+    this.orderBy = orderBy;
   }
 
   orderByTransitTime()
