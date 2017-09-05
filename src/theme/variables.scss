@@ -72,23 +72,32 @@ $font-size-large: $font-size-md;
 $font-size-small: $font-size-xs;
 
 
+/* COMPONENT SIZING */
+
+$badge-border-radius: size(3);
+
+
+
+/* PLATFORM-SPECIFIC VARIABLES */
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
+$badge-ios-border-radius: $badge-border-radius;
 
 
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
+$badge-md-border-radius: $badge-border-radius;
 
 
 
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
+$badge-wp-border-radius: $badge-border-radius;
 
 
 
