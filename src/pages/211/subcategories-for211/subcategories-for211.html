@@ -16,20 +16,24 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
   <ion-grid>
     <ion-row>
       <ion-col col-md-8 offset-md-2>
-        <ul class="categories_for_211" >
-        <span *ngFor="let subcategory of subcategories">
-          <li *ngIf="subcategory.name != null" (click)="openToSubcategoryLinks(subcategory)">
-            {{subcategory.name}}
-            <ion-icon name="ios-arrow-forward" end>{{subcategory.service_count}}</ion-icon>
-          </li>
-        </span>
-        </ul>
+        <ion-list class="lynx-list">
+          <ion-item class="lynx-list-inline-item lynx-list-category-item" 
+                    text-wrap 
+                    *ngFor="let subcategory of subcategories"
+                    (click)="openToSubcategoryLinks(subcategory)">
+            <ion-label>
+              <h3 class="item-heading">{{subcategory.name}}</h3>
+            </ion-label>
+            <ion-badge item-end>{{subcategory.service_count}}</ion-badge>
+          </ion-item>
+        </ion-list>
       </ion-col>
     </ion-row>
+    
   </ion-grid>
 </ion-content>

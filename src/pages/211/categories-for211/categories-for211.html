@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title><img src="../../assets/img/Lynx-logo-pink-xsm.png" alt="LYNX Icon"></ion-title>
+    <ion-title>Categories</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -14,20 +14,24 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
   <ion-grid>
     <ion-row>
       <ion-col col-md-8 offset-md-2>
-        <ul class="categories_for_211" >
-
-          <li *ngFor="let category of categories" (click)="openToSubcategory(category)">
-            {{category.name}}
-
-            <ion-icon name="ios-arrow-forward" end>{{category.service_count}}</ion-icon>
-          </li>
-        </ul>
+        <ion-list class="lynx-list">
+          <ion-item class="lynx-list-inline-item lynx-list-category-item" 
+                    text-wrap 
+                    *ngFor="let category of categories" 
+                    (click)="openToSubcategory(category)">
+            <ion-label>
+              <h3 class="item-heading">{{category.name}}</h3>
+            </ion-label>
+            <ion-badge class="lynx-badge" item-end>{{category.service_count}}</ion-badge>
+          </ion-item>
+        </ion-list>
       </ion-col>
     </ion-row>
   </ion-grid>
+  
 </ion-content>

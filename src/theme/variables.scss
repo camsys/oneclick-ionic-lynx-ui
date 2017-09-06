@@ -22,12 +22,8 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
-/* TYPOGRAPHY */
-$font-family-base: "Avenir", 'avenir next', "Helvetica Neue", "Roboto", sans-serif;
 
-
-
-/* COLORS */
+/* GLOBAL COLOR VARIABLES */
 
 $primary:         #488aff;
 $secondary:       #32db64;
@@ -55,33 +51,74 @@ $colors: (
   lynxLtGray:     $lynxLtGray
 );
 
+
+/* TYPOGRAPHY */
+$font-family-base: "Avenir", 'avenir next', "Helvetica Neue", "Roboto", sans-serif;
+$text-color: $lynxBlack;
+
+@import 'helpers'; // for size() helper function
+
+// Font size variables
+$font-size-xs: size(0);
+$font-size-sm: size(1);
+$font-size-md: size(2);
+$font-size-lg: size(3);
+$font-size-xl: size(4);
+
+$font-size-base: $font-size-sm;
+$font-size-large: $font-size-md;
+$font-size-small: $font-size-xs;
+
+
+/* COMPONENT VARIABLES */
+
+// Background
 $background-color: $lynxWhite;
 
+// Badges
+$badge-border-radius: size(3);
 
+// Navbars/Toolbars
+$toolbar-background: $lynxPink;
 
-/* SIZE AND SCALE */
-// Scale configuration variables used for scale() helper function
-$scale-base: 1rem;
-$scale-increment: 1.333;
+// Cards
+$card-ios-header-color: $lynxWhite;
+$card-ios-text-color: $lynxWhite;
+$card-ios-title-text-color: $lynxWhite;
+$card-md-header-color: $lynxWhite;
+$card-md-text-color: $lynxWhite;
+$card-md-title-text-color: $lynxWhite;
+$card-wp-header-color: $lynxWhite;
+$card-wp-text-color: $lynxWhite;
+$card-wp-title-text-color: $lynxWhite;
 
+$card-ios-header-font-size: size(3);
+$card-md-header-font-size: size(3);
+$card-wp-header-font-size: size(3);
+$card-ios-font-size: size(2);
+$card-md-font-size: size(2);
+$card-wp-font-size: size(2);
+
+/* PLATFORM-SPECIFIC VARIABLES */
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
+$badge-ios-border-radius: $badge-border-radius;
 
 
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
+$badge-md-border-radius: $badge-border-radius;
 
 
 
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
+$badge-wp-border-radius: $badge-border-radius;
 
 
 

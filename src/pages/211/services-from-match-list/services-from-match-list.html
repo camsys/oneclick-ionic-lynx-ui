@@ -2,31 +2,42 @@
   <ion-grid>
     <ion-row>
       <ion-col col-md-8 offset-md-2>
-        Sort By:
-        <ion-list radio-group [(ngModel)]="relationship" >
-          <!--<ion-radio>CAR</ion-radio>-->
-          <!--<ion-radio>Bus</ion-radio>-->
+        <ion-list class="lynx-list" radio-group>
+          <ion-list-header>Sort By</ion-list-header>
           <ion-item>
-            <ion-label><ion-icon name="car"></ion-icon> Driving</ion-label>
-            <ion-radio checked="true" value="selected" (ionSelect)="orderByDriveTime()"></ion-radio>
+            <ion-label><ion-icon name="car"></ion-icon>Driving</ion-label>
+            <ion-radio checked="true" value="driveTime" (ionSelect)="orderMatchList('drive_time')"></ion-radio>
           </ion-item>
           <ion-item>
-            <ion-label > <ion-icon name="bus"></ion-icon> transit</ion-label>
-            <ion-radio value="notSelected" (ionSelect)="orderByTransitTime()"></ion-radio>
+            <ion-label><ion-icon name="bus"></ion-icon>Transit</ion-label>
+            <ion-radio value="transitTime" (ionSelect)="orderMatchList('transit_time')"></ion-radio>
           </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col col-md-8 offset-md-2>
-        Sort by:
-        <ion-list class="lynx-service-list">
-          <button menuClose ion-item class="toolbar_light" *ngFor="let match of matches" (click)="openServicePage(match)">
-            {{match.agency_name}}
-            {{match.address}}
-            <ion-icon name="car"></ion-icon>: {{match.drive_time}}
-            <ion-icon name="bus"></ion-icon>: {{match.transit_time}}
-          </button>
+        <ion-list class="lynx-list">
+          <ion-list-header>Services</ion-list-header>
+          <ion-item class="lynx-list-inline-item" text-wrap *ngFor="let match of matches" (click)="openServicePage(match)">
+            <ion-label>
+              <h3 class="item-heading"> {{match.agency_name}} </h3>
+              <h4 class="item-subheading"> {{match.address}} </h4>
+            </ion-label>
+            <div item-content>
+              <div class="icon-wrapper">
+                <div *ngIf="orderBy == 'transit_time'; then orderByTransitTime else orderByDriveTime"></div>
+              </div>
+              <ng-template #orderByDriveTime>
+                <ion-icon name="car"></ion-icon>
+                <label>{{match.drive_time}}</label>
+              </ng-template>
+              <ng-template #orderByTransitTime  class="icon-wrapper">
+                <ion-icon center name="bus"></ion-icon>
+                <label>{{match.transit_time}}</label>
+              </ng-template>
+            </div>
+          </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>

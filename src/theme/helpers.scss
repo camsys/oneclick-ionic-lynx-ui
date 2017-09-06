@@ -1,6 +1,5 @@
 /* HELPER FUNCTIONS, CLASSES, and MIXINS */
 
-
 // Power function from https://css-tricks.com/snippets/sass/power-function/, used as a helper for scale function below.
 @function pow($number, $exponent) {
   $value: 1;
@@ -19,10 +18,12 @@
 }
 
 // Scaling Helper Function
+$scale-base: 1rem;
+$scale-increment: 1.333;
 
 // Pass in an integer (positive or negative) to get the base value scaled up from the base
 // line by that many times, by a fixed ratio. Base and ratio values defined in variables.scss.
-@function scale($n) {
+@function size($n) {
   @return $scale-base * pow($scale-increment, $n);
 }
 

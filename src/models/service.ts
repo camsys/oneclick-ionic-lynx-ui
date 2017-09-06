@@ -10,6 +10,8 @@ export class ServiceModel {
  address:string;
  drive_time: string;
  transit_time: string;
+ phone: string;
+ description: string;
 
  public drivingTimeToHumanReadable(): string
  {

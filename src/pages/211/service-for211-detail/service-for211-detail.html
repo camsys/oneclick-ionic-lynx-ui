@@ -7,7 +7,8 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>ServiceFor211Detail</ion-title>
+    <ion-title>{{service.agency_name}}</ion-title>
+    {{service.address}}
   </ion-navbar>
 
 </ion-header>
@@ -15,14 +16,37 @@
 
 <ion-content padding>
   <ion-grid>
+
     <ion-row>
-      <ion-col col-md-8 offset-md-2>
-        <button ion-button (click)="openServiceReviewPage()">To Review page</button>
+      <ion-col col-md-4 offset-md-2>
+        Bus & Train
+      </ion-col>
+      <ion-col col-md-4 offset-md-2>
+        <button ion-button (click)="openDirectionsPage()">{{service.transit_time}}</button>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col col-md-8 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">To Route Options Need one for Transit, Driving, Taxi/Uber</button>
+      <ion-col col-md-4 offset-md-2>
+        Drive
+      </ion-col>
+      <ion-col col-md-4 offset-md-2>
+        <button ion-button (click)="openDirectionsPage()">{{service.drive_time}}</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-md-4 offset-md-2>
+        Taxi
+      </ion-col>
+      <ion-col col-md-4 offset-md-2>
+        <button ion-button (click)="openDirectionsPage()">{{service.drive_time}}</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-md-4 offset-md-2>
+        Uber
+      </ion-col>
+      <ion-col col-md-4 offset-md-2>
+        <button ion-button (click)="openDirectionsPage()">{{service.drive_time}}</button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -30,5 +54,17 @@
         <button ion-button (click)="openOtherTransportationOptions()">To Other Transportations Options</button>
       </ion-col>
     </ion-row>
+
+    <ion-row>
+      <ion-col col-md-8 offset-md-2>
+        <button ion-button (click)="openServiceReviewPage()">To Review page</button>
+      </ion-col>
+    </ion-row>
   </ion-grid>
+
+  {{service.description}}
+   <a href="tel:{{service.phone}}">{{service.phone}}</a>
+
 </ion-content>
+
+

@@ -1,23 +1,14 @@
-<ion-menu [content]="content" side="right" persistent="true">
-  <ion-header class="header_dark">
-    <ion-toolbar class="header_dark">
-      <!--TODO we will need to make this menu contextual so it can display the username or instead promt the user to LogIn-->
-      <ion-title>{{this.title}}</ion-title>
-      <!--<button menuClose ion-item (click)="openPage(NewAccount)">-->
-        <!--{{Don't have an account?}}-->
-      <!--</button>-->
-      <!--<button menuClose ion-item (click)="openPage(Logout)">-->
-        <!--{{Logout}}-->
-      <!--</button>-->
-    </ion-toolbar>
-  </ion-header>
+<ion-menu class="lynx-menu" [content]="content" side="right" persistent="true">
 
-  <ion-content class="toolbar_dark">
-    <ion-list class="toolbar_dark">
-      <button menuClose ion-item class="toolbar_dark" *ngFor="let p of pages" (click)="openPage(p)">
+  <ion-content>
+    
+    <ion-list class="lynx-list lynx-list-contrast">
+      <!-- TODO: Put in a header item for user log in -->
+
+      <button class="item-heading" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
-      <button ion-item class="toolbar_dark" (click)="openUrl('http://www.golynx.com/privacy-policy.stml')">
+      <button class="item-heading" ion-item (click)="openUrl('http://www.golynx.com/privacy-policy.stml')">
         Privacy Policy
       </button>
     </ion-list>
