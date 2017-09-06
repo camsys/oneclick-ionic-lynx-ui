@@ -4,8 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser'
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { TemporaryLanguageTestingPage } from '../pages/temporary-language-testing/temporary-language-testing';
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
@@ -28,7 +26,7 @@ import { OneClickProvider } from '../providers/one-click/one-click';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = HelpMeFindPage;
 
   pages: Array<{title: string, component: any}>;
   title: String;
@@ -63,9 +61,7 @@ export class MyApp {
       .then(usr => this.title = "Welcome " + this.user.first_name)
 
       this.pages = [
-        { title: 'Home', component: HomePage },
-        { title: 'List', component: ListPage },
-        { title: 'Find', component: HelpMeFindPage },
+        { title: 'Home', component: HelpMeFindPage },
         { title: 'Categories', component: CategoriesFor211Page},
         { title: 'Transportation Options', component: TransportationAgenciesPage},
         { title: 'About Us', component: AboutUsPage },
@@ -79,16 +75,14 @@ export class MyApp {
     else{
 
       this.pages = [
-        { title: 'Home', component: HomePage },
-        { title: 'List', component: ListPage },
         { title: 'Temporary Language Test', component: TemporaryLanguageTestingPage},
-        { title: 'Find', component: HelpMeFindPage },
+        { title: 'Home', component: HelpMeFindPage },
         { title: 'Categories', component: CategoriesFor211Page},
         { title: 'Transportation Options', component: TransportationAgenciesPage},
         { title: 'About Us', component: AboutUsPage },
         { title: 'Contact Us', component: ContactUsPage },
         { title: 'Locator', component: UserLocatorPage},
-        { title: 'Sign In', component: SignInPage},
+        { title: 'Sign In', component: SignInPage}
       ];
     }
   }
@@ -118,12 +112,12 @@ export class MyApp {
         // On successful response, redirect the user to find page
         console.log('Signed Out');
         this.setMenu();
-        this.nav.setRoot(HomePage);
+        this.nav.setRoot(HelpMeFindPage);
       },
       error => {
         console.log('Error Signing Out');
         this.setMenu();
-        this.nav.setRoot(HomePage);
+        this.nav.setRoot(HelpMeFindPage);
       }
     );
   }

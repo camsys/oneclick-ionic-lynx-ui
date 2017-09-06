@@ -5,8 +5,6 @@ import { Http, HttpModule } from '@angular/http';
 
 // Pages
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home'; //TODO REMOVE THIS
-import { ListPage } from '../pages/list/list'; //TODO REMOVE THIS
 import { HelpMeFindPage }          from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
 import { SubcategoriesFor211Page } from '../pages/211/subcategories-for211/subcategories-for211';
@@ -57,8 +55,6 @@ import { LocationModel } from '../models/location';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    ListPage,
     TemporaryLanguageTestingPage,
     HelpMeFindPage,
     UserLocatorPage,
@@ -96,8 +92,6 @@ import { LocationModel } from '../models/location';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ListPage,
     TemporaryLanguageTestingPage,
     HelpMeFindPage,
     UserLocatorPage,

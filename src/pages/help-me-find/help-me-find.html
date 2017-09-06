@@ -8,43 +8,50 @@
 
 <ion-content fullscreen padding>
   
+  <ion-grid>
+    <ion-row>
+      <ion-col col-md-8 offset-md-2>
 
-  <ion-card class="lynx-card-help-me-find">
-    
-    
-    <ion-card-header text-wrap text-center>
+        <ion-card class="lynx-card-help-me-find">
 
-      <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png" alt="LYNX logo" />
-      Welcome to Lynx.
-      
-    </ion-card-header>
+          <ion-card-header text-wrap text-center>
+
+            <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png" alt="LYNX logo" />
+            Welcome to Lynx.
+            
+          </ion-card-header>
 
 
-    <ion-card-content text-wrap text-center>
-      
-      How can we help you?
-      
-      <div class="lynx-help-me-find-buttons">
+          <ion-card-content text-wrap text-center>
+            
+            How can we help you?
+            
+            <div class="lynx-help-me-find-buttons">
+              
+              <button ion-button
+                      large round full
+                      class="lynx-button-white"
+                      menuClose
+                      (click)="openResourcesPage()"> 
+                Helpful Resources 
+              </button>
+              
+              <button ion-button 
+                      large round full
+                      class="lynx-button-white"
+                      menuClose
+                      (click)="openTransportationPage()"> 
+                Transportation
+              </button>
+              
+            </div>
+
+          </ion-card-content>
+
+        </ion-card>
         
-        <button ion-button
-                large round full
-                class="lynx-button-white"
-                menuClose
-                (click)="openResourcesPage()"> 
-          Helpful Resources 
-        </button>
-        
-        <button ion-button 
-                large round full
-                class="lynx-button-white"
-                menuClose
-                (click)="openTransportationPage()"> 
-          Transportation
-        </button>
-        
-      </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>        
 
-    </ion-card-content>
-
-  </ion-card>
 </ion-content>
