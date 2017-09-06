@@ -1,0 +1,13 @@
+ion-badge.badge {
+  background-color: $lynxPink;
+  font-weight: 900;
+  line-height: size(4);
+  min-width: size(4);
+  padding-top: 0;
+  padding-bottom: 0;
+  
+  // Reduce margins assigned by item-end
+  &.badge-ios,&.badge-md,&.badge-wp {
+    margin: size(-3);
+  }
+}

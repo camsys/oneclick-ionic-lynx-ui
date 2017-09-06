@@ -12,60 +12,41 @@ ion-navbar {
 
 page-help-me-find {
 
-  .scroll-content{
-
-    background: url(../../assets/img/background_image.jpg) no-repeat center center fixed;
+  ion-content {
+    background-image: url(../../assets/img/patrick-tomasso-352182.jpg);
+    background-position-x: 50%;
     background-size: cover;
   }
+  
+  .lynx-card-help-me-find {
+    background-color: transparentize($lynxPink, 0.2);
+    
+    ion-card-header.card-header {
+      padding: size(3) size(6) size(2);
+      
+      img.lynx-logo-md {
+        margin: size(1) auto;
+      }
+    }
+    
+    ion-card-content.card-content {
+      
+      color: $lynxWhite;
+      padding: size(2) size(4) size(1);
+      
+      .lynx-help-me-find-buttons {
+        
+        margin: size(2) 0 size(4);
+        
+        button {
+          margin: size(2) 0;
+        }
+        
+      }
 
-  .right-aligned-column{
-    text-align: right;
-  }
+    }
+    
 
-  .background_div{
-    //background-repeat: no-repeat;
-    //background-position: center center;
-    //background-attachment: fixed;
-    text-align: center;
   }
-
-  .hamburger{
-    color: white;
-  }
-
-  .container, .help_me_find_container{
-    background-color: #B52B83;
-    height: 19em;
-    padding-top: 15em;
-    padding-bottom: 5em;
-    color: #1A1A1A;
-    text-align: center;
-    opacity: .8;
-  }
-
-  .h1, .lynx_pink_header_1{
-    text-align: center;
-    position: relative;
-    top: -9em;
-    color: white;
-  }
-  .h3, .lynx_pink_header_3{
-    text-align: center;
-    position: relative;
-    top: -10.5em;
-    color: white;
-  }
-
-  .btn-default, .btn-help_me_find{
-    position: relative;
-    top: -15em;
-    color: #B52B83;
-    border-color: white;
-    background-color: white;
-    margin-top: 1em;
-    border-radius: 20px;
-    text-align: center;
-  }
-
 
 }
