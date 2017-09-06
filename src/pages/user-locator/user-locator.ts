@@ -6,6 +6,8 @@ import { GeocodeServiceProvider } from '../../providers/google/geocode-service'
 
 import { LocationAutoCompletePage } from '../location-auto-complete/location-auto-complete'
 import { CategoriesFor211Page } from '../211/categories-for211/categories-for211'
+import { OneClickProvider } from '../../providers/one-click/one-click'
+
 
 import { PlaceModel } from "../../models/place";
 import { Session } from '../../models/session';
@@ -31,11 +33,35 @@ export class UserLocatorPage {
   session(): Session {
     return (JSON.parse(localStorage.session || null) as Session);
   }
+  
+  
+  // From autocomplete page
+  autocompleteItems;
+  autocomplete;
+  googleAutoCompleteService = new google.maps.places.AutocompleteService();
+  googleAutocompleteItems;
+  oneClickAutocompleteItems;
 
-  constructor(public navCtrl: NavController, public modalController: ModalController, public platform: Platform, public geolocation: Geolocation, public geoServiceProvider: GeocodeServiceProvider) {
+  constructor(public navCtrl: NavController, 
+              public modalController: ModalController, 
+              public platform: Platform, 
+              public geolocation: Geolocation, 
+              public geoServiceProvider: GeocodeServiceProvider,
+              public oneClickProvider: OneClickProvider //,
+              // public viewCtl: ViewController, 
+              // public navParams: NavParams,
+            ) {
     this.map = null;
     this.fromPlace = null;
     this.fromPlaceAddress = '';
+    
+    // From autocomplete page
+    this.googleAutocompleteItems = [];
+    this.oneClickAutocompleteItems = [];
+    this.autocompleteItems = [];
+    this.autocomplete = {
+      query: ''
+    };
   }
 
   ionViewDidLoad() {
@@ -181,4 +207,47 @@ export class UserLocatorPage {
       this.map.setCenter(latLng);
     });
   }
+  
+  // *****************
+  // AUTOCOMPLETE INFO
+  // *****************
+
+  chooseItem(item: any) {
+    this.fromPlace = item;
+    this.searchForServices();
+  }
+
+  updateSearch() {
+    if (this.autocomplete.query == '') {
+      this.autocompleteItems = [];
+      return;
+    }
+
+    this.autocompleteItems = [];
+
+    this.oneClickProvider.getPlaces(this.autocomplete.query).forEach(places => {
+      for(let place of places){
+        if(this.AlreadyPresentPlace(place) === false)
+        {
+          this.autocompleteItems.push(place);
+        }
+      }
+    });
+
+    this.geoServiceProvider.getGooglePlaces(this.autocomplete.query).forEach(places => {
+      for(let place of places){
+        if(this.AlreadyPresentPlace(place) === false)
+        {
+          this.autocompleteItems.push(place);
+        }
+      }
+    });
+  }
+  
+  AlreadyPresentPlace(place: PlaceModel): boolean
+  {
+    //TODO make this smarter
+    return false;
+  }
+  
 }

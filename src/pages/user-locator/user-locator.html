@@ -16,9 +16,13 @@
   </ion-navbar>
   <ion-toolbar text-center>
     <ion-title>Where are you?</ion-title>
-    <ion-searchbar  [(ngModel)]="fromPlaceAddress"
+    <!-- <ion-searchbar  [(ngModel)]="fromPlaceAddress"
                     (ionInput)="onInput($event)"
                     placeholder="Where are you?">
+    </ion-searchbar> -->
+    <ion-searchbar  [(ngModel)]="autocomplete.query" 
+                    [showCancelButton]="true" 
+                    (ionInput)="updateSearch()">
     </ion-searchbar>
 
   </ion-toolbar>
@@ -27,6 +31,12 @@
 
 
 <ion-content>
+  
+  <ion-list id="autocomplete-results">
+    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
+      {{ item.name }} {{ item.formatted_address }}
+    </ion-item>
+  </ion-list>
 
   <div id="map-canvas"></div>
   
