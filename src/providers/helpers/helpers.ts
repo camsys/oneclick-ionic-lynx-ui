@@ -3,20 +3,14 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /*
-  Generated class for the HelpersProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
+  This Provider is intended as a catch-all for miscellaneous reusable bits of code.
 */
 @Injectable()
 export class HelpersProvider {
-
-  constructor(public http: Http) {
-    console.log('Hello HelpersProvider Provider');
-  }
   
+  // Returns boolean for whether url is present and more than just an empty "http://"
   urlPresent(url: String): Boolean {
-    return !!(url && url.match(/^http:\/\/.+$/));
+    return !!(url && url.match(/^https?:\/\/.+$/));
   }
 
 }
