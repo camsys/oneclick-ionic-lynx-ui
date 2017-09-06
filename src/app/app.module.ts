@@ -42,6 +42,7 @@ import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { AuthProvider } from '../providers/auth/auth';
 import { GeocodeServiceProvider } from '../providers/google/geocode-service'
+import { HelpersProvider } from '../providers/helpers/helpers';
 
 // Models
 import { CategoryFor211Model } from '../models/category-for-211';
@@ -125,6 +126,7 @@ import { LocationModel } from '../models/location';
     OneClickProvider,
     GeocodeServiceProvider,
     AuthProvider,
+    HelpersProvider,
     CategoryFor211Model,
     SubcategoryFor211Model,
     SubSubcategoryFor211Model,

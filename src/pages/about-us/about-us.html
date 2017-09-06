@@ -24,10 +24,10 @@
         <ion-list class="lynx-list">
           <ion-item text-wrap *ngFor="let agency of agencies">
             <h3 class="item-heading">{{agency.name}}</h3>
-            <h4 class="item-subheading">
+            <h4 class="item-subheading" *ngIf="!!(agency.formatted_phone || agency.phone)">
               <a href="tel:{{agency.phone}}">{{agency.formatted_phone || agency.phone}}</a>
             </h4>
-            <p class="item-body">
+            <p class="item-body" *ngIf="helpers.urlPresent(agency.url)">
               <b>website: </b><a href="{{agency.url}}">{{agency.url}}</a>
             </p>
             <p class="item-body">
