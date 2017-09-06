@@ -41,6 +41,11 @@ export class UserLocatorPage {
   ionViewDidLoad() {
     this.platform.ready().then(() => { this.initializeMap();});
   }
+  
+  // Is called whenever user inputs into location search bar
+  onInput(event: any) {
+    console.log("INPUT ENTERED", event);
+  }
 
   initializeMap() {
     let minZoomLevel = 10;
@@ -56,7 +61,7 @@ export class UserLocatorPage {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       };
 
-      this.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+      this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
       this.updatePlaceFromLatLng(latLng.lat(), latLng.lng());
     }, (err) => {
       // let latLng = new google.maps.LatLng(28.538336, -81.379234);
@@ -70,7 +75,7 @@ export class UserLocatorPage {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       };
 
-      this.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+      this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
       this.updatePlaceFromLatLng(latLng.lat(), latLng.lng());
     }).
     then(() => (this.addYourLocationButton()));
