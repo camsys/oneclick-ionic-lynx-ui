@@ -4,12 +4,9 @@
 
   // LIST ITEM
   ion-item.item {
-    
-    &.multi-line {
-      background-color: green;
-    }
 
     background-color: $lynxWhite;
+    color: $lynxBlack;
     padding-left: 0;
 
     // Only show dividers between list items.
@@ -91,5 +88,20 @@
   }
   // list header
   
+  
+  // List in contrasting colors
+  &.lynx-list-contrast {
+    background-color: $lynxBlack;
+    color: $lynxWhite;
+    
+    div,span,button,i {
+      background-color: inherit;
+      color: inherit;
+      
+      &:active {
+        color: $lynxPink;
+      }
+    }
+  }
 
 }

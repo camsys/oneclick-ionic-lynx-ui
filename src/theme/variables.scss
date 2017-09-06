@@ -23,7 +23,7 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
 
-/* COLORS */
+/* GLOBAL COLOR VARIABLES */
 
 $primary:         #488aff;
 $secondary:       #32db64;
@@ -51,9 +51,6 @@ $colors: (
   lynxLtGray:     $lynxLtGray
 );
 
-$background-color: $lynxWhite;
-// Scaling Helper Function
-
 
 /* TYPOGRAPHY */
 $font-family-base: "Avenir", 'avenir next', "Helvetica Neue", "Roboto", sans-serif;
@@ -72,10 +69,16 @@ $font-size-large: $font-size-md;
 $font-size-small: $font-size-xs;
 
 
-/* COMPONENT SIZING */
+/* COMPONENT VARIABLES */
 
+// Background
+$background-color: $lynxWhite;
+
+// Badges
 $badge-border-radius: size(3);
 
+// Navbars/Toolbars
+$toolbar-background: $lynxPink;
 
 
 /* PLATFORM-SPECIFIC VARIABLES */
