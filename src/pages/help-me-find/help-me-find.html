@@ -1,53 +1,50 @@
-<!--<ion-header>-->
-    <!--<button ion-button end menuToggle>-->
-      <!--<ion-icon name="menu"></ion-icon>-->
-    <!--</button>-->
-<!--</ion-header>-->
+<ion-header no-border>
+  <ion-navbar transparent>
+    <button ion-button end menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
 
-<ion-content padding style="">
-  <ion-grid>
-    <ion-row>
-      <ion-col></ion-col>
-      <ion-col class="right-aligned-column">
-        <button ion-button color="light" clear menuToggle >
-          <ion-icon name="menu"></ion-icon>
+<ion-content fullscreen padding>
+  
+
+  <ion-card class="lynx-card-help-me-find">
+    
+    
+    <ion-card-header text-wrap text-center>
+
+      <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png" alt="LYNX logo" />
+      Welcome to Lynx.
+      
+    </ion-card-header>
+
+
+    <ion-card-content text-wrap text-center>
+      
+      How can we help you?
+      
+      <div class="lynx-help-me-find-buttons">
+        
+        <button ion-button
+                large round full
+                class="lynx-button-white"
+                menuClose
+                (click)="openResourcesPage()"> 
+          Helpful Resources 
         </button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <div class="help_me_find_container">
-  </div>
-
-  <div>
-    <h1 class="lynx_pink_header_1"> <img src="../../assets/img/Lynx-logo-white-sm.png" alt="LYNX Icon"> </h1>
-    <h3 class="lynx_pink_header_3">Welcome to Lynx.</h3>
-    <h3 class="lynx_pink_header_3">What can we help you with?</h3>
-
-    <div class="text-center">
-      <div>
-        <button menuClose ion-item class="btn-help_me_find" (click)="openResourcesPage()">
-          Helpful Resources
-        </button>
-      </div>
-
-      <div>
-        <button menuClose ion-item class="btn-help_me_find" (click)="openTransportationPage()">
+        
+        <button ion-button 
+                large round full
+                class="lynx-button-white"
+                menuClose
+                (click)="openTransportationPage()"> 
           Transportation
         </button>
+        
       </div>
-    </div>
-  </div>
+
+    </ion-card-content>
+
+  </ion-card>
 </ion-content>
-
-
-<!--<div>-->
-  <!--TEST-->
-  <!--<div class="row">-->
-    <!--<div class="col-sm-11 hamburger">-->
-    <!--</div>-->
-    <!--<div class="col-sm-1 hamburger">-->
-      <!--<i class="fa fa-bars fa-3x" aria-hidden="true"></i>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->

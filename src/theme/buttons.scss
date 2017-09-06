@@ -38,3 +38,15 @@ button.lynx-button-dark {
     color: $lynxDarkPink;
   }
 }
+
+// Lynx Button White (white, no outline, dark pink on click)
+// EXAMPLE: <button ion-button round class="lynx-button-white"> BUTTON TEXT </button>
+button.lynx-button-white {
+  background-color: $lynxWhite;
+  color: $lynxDarkPink;
+  
+  &:active {
+    background-color: $lynxDarkPink;
+    color: $lynxWhite;
+  }
+}

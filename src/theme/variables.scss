@@ -54,6 +54,7 @@ $colors: (
 
 /* TYPOGRAPHY */
 $font-family-base: "Avenir", 'avenir next', "Helvetica Neue", "Roboto", sans-serif;
+$text-color: $lynxBlack;
 
 @import 'helpers'; // for size() helper function
 
@@ -80,6 +81,23 @@ $badge-border-radius: size(3);
 // Navbars/Toolbars
 $toolbar-background: $lynxPink;
 
+// Cards
+$card-ios-header-color: $lynxWhite;
+$card-ios-text-color: $lynxWhite;
+$card-ios-title-text-color: $lynxWhite;
+$card-md-header-color: $lynxWhite;
+$card-md-text-color: $lynxWhite;
+$card-md-title-text-color: $lynxWhite;
+$card-wp-header-color: $lynxWhite;
+$card-wp-text-color: $lynxWhite;
+$card-wp-title-text-color: $lynxWhite;
+
+$card-ios-header-font-size: size(3);
+$card-md-header-font-size: size(3);
+$card-wp-header-font-size: size(3);
+$card-ios-font-size: size(2);
+$card-md-font-size: size(2);
+$card-wp-font-size: size(2);
 
 /* PLATFORM-SPECIFIC VARIABLES */
 
