@@ -77,7 +77,9 @@ export class UserLocatorPage {
     let minZoomLevel = 10;
 
     this.geolocation.getCurrentPosition().then((position) => {
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      // let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      let latLng = new google.maps.LatLng(28.538336, -81.379234); // Spoof latlng to somewhere in Orlando
+
 
       let mapOptions = {
         center: latLng,
@@ -90,8 +92,8 @@ export class UserLocatorPage {
       this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
       this.updatePlaceFromLatLng(latLng.lat(), latLng.lng());
     }, (err) => {
-      // let latLng = new google.maps.LatLng(28.538336, -81.379234);
-      let latLng = new google.maps.LatLng(42.302198,-71.064377);
+      let latLng = new google.maps.LatLng(28.538336, -81.379234); // Default latlng to somewhere in Orlando
+      // let latLng = new google.maps.LatLng(42.302198,-71.064377);
 
       let mapOptions = {
         center: latLng,
@@ -213,7 +215,8 @@ export class UserLocatorPage {
   // *****************
 
   chooseItem(item: any) {
-    this.fromPlace = item;
+    // this.fromPlace = item;
+    this.updatePlaceFromFormattedAddress(item);
     this.searchForServices();
   }
 

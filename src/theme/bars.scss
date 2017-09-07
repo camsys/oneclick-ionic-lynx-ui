@@ -1,0 +1,15 @@
+ion-navbar.lynx-toolbar,
+ion-toolbar.lynx-toolbar {
+  background-color: $lynxPink; // Default to lynx Pink (also set in variables sheet in case .lynx-toolbar class is missing)
+  
+  &.lynx-toolbar-contrast {
+    background-color: $lynxBlack;
+  }
+  
+  // This line sets the background of the bar based on the assigned background
+  // color of the containing element
+  &> .toolbar-background {
+    background-color: inherit;
+  }
+  
+}

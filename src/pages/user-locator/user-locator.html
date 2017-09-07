@@ -6,9 +6,9 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar class="lynx-toolbar lynx-toolbar-contrast">
     <ion-title text-center>
-      <img class="lynx-logo-sm" src="../../assets/img/Lynx-logo-white-sm.png" alt="LYNX Icon">
+      <img class="lynx-logo-sm" src="../../assets/img/Lynx-logo-pink-xsm.png" alt="LYNX Icon">
     </ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -16,10 +16,6 @@
   </ion-navbar>
   <ion-toolbar text-center>
     <ion-title>Where are you?</ion-title>
-    <!-- <ion-searchbar  [(ngModel)]="fromPlaceAddress"
-                    (ionInput)="onInput($event)"
-                    placeholder="Where are you?">
-    </ion-searchbar> -->
     <ion-searchbar  [(ngModel)]="autocomplete.query" 
                     [showCancelButton]="true" 
                     (ionInput)="updateSearch()">
