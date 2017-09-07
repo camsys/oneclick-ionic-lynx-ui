@@ -52,6 +52,14 @@ import { ServiceModel } from '../models/service';
 import { AgencyModel } from '../models/agency';
 import { AddressComponentModel } from '../models/addressComponent';
 import { LocationModel } from '../models/location';
+import { TripModel } from "../models/trip";
+import { TripRequestModel } from "../models/trip-request";
+import { TripResponseModel } from "../models/trip-response";
+import { ItineraryModel } from "../models/Itinerary";
+import { LegModel } from "../models/leg";
+import { LegGeometryModel } from "../models/leg-geometry";
+import { LegStepModel } from "../models/leg-step";
+
 
 // Pipes
 import { PrettyTimePipe } from '../pipes/pretty-time';
@@ -137,7 +145,14 @@ import { PrettyTimePipe } from '../pipes/pretty-time';
     ServiceModel,
     AgencyModel,
     AddressComponentModel,
-    LocationModel
+    LocationModel,
+    TripModel,
+    TripRequestModel,
+    TripResponseModel,
+    ItineraryModel,
+    LegModel,
+    LegGeometryModel,
+    LegStepModel
   ]
 })
 

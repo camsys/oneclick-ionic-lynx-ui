@@ -8,4 +8,10 @@ export class PlaceModel{
   geometry: LocationModel;
   id: number;
   name: string;
+
+  constructor(){
+    this.address_components = [];
+    this.geometry = new LocationModel;
+  }
+
 }

@@ -13,7 +13,8 @@ import { CategoryFor211Model } from '../../models/category-for-211'
 import { SubcategoryFor211Model } from '../../models/subcategory-for-211'
 import { SubSubcategoryFor211Model } from '../../models/sub-subcategory-for-211'
 import { ServiceModel } from '../../models/service'
-import { TripModel } from '../../models/trip'
+import { TripRequestModel } from '../../models/trip-request';
+import { TripResponseModel } from '../../models/trip-response';
 
 
 import { Global } from '../../app/global';
@@ -174,12 +175,12 @@ export class OneClickProvider {
       .catch(this.handleError);
   }
 
-  getTripPlan(tripRequest: TripModel): Observable<TripModel>
+  getTripPlan(tripRequest: TripRequestModel): Observable<TripResponseModel>
   {
     return this.http
             .post(this.oneClickUrl+'trips/plan', tripRequest)
             . map( response => {
-              return (response.json().data.places as TripModel)
+              return (response.json().data.trip as TripResponseModel)
             })
   }
 
