@@ -5,8 +5,8 @@
 export class ServiceModel {
   agency_name:string;
   site_name:string;
-  lat:string;
-  lng:string;
+  lat:number;
+  lng:number;
   address:string;
   drive_time: number;
   transit_time: number;
