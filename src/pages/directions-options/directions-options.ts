@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { TripResponseModel } from "../../models/trip-response";
+
 /**
  * Generated class for the DirectionsOptionsPage page.
  *
@@ -13,12 +15,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'directions-options.html',
 })
 export class DirectionsOptionsPage {
+  trip:TripResponseModel;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.trip = navParams.data;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DirectionsOptionsPage');
+    console.log(this.trip);
   }
 
 }
