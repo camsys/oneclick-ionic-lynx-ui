@@ -80,11 +80,11 @@ export class ServiceFor211DetailPage {
 
     console.log(tripRequest);
 
-    let result = this.oneClickProvider.getTripPlan(tripRequest).forEach(t => console.log(t));
-
-
-
-    this.navCtrl.push(DirectionsPage);
+    let result = this.oneClickProvider.getTripPlan(tripRequest).
+      forEach(value => this.navCtrl.push(DirectionsPage, {
+        trip_response: value
+        })
+      );
   }
 
   openOtherTransportationOptions(){
