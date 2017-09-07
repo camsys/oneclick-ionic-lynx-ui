@@ -50,3 +50,12 @@ button.lynx-button-white {
     color: $lynxWhite;
   }
 }
+
+// Circular Buttons
+button.lynx-button-circle {
+  border-radius: 50%;
+  font-size: $font-size-md;
+  font-weight: 900;
+  height: size(5);
+  width: size(5);
+}
