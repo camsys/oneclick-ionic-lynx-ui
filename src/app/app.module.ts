@@ -53,6 +53,9 @@ import { AgencyModel } from '../models/agency';
 import { AddressComponentModel } from '../models/addressComponent';
 import { LocationModel } from '../models/location';
 
+// Pipes
+import { PrettyTimePipe } from '../pipes/pretty-time';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -78,7 +81,8 @@ import { LocationModel } from '../models/location';
     TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
-    UserProfilePage
+    UserProfilePage,
+    PrettyTimePipe
   ],
   imports: [
     BrowserModule,

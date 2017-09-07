@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ServiceModel } from '../../../models/service';
 import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
+import { HelpersProvider } from '../../../providers/helpers/helpers';
 
 /**
  * Generated class for the ServicesFromMatchListPage page.
@@ -19,7 +20,9 @@ export class ServicesFromMatchListPage {
   matches: ServiceModel[];
   orderBy: String;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private helpers: HelpersProvider) {
     this.matches = navParams.data;
     this.orderMatchList("drive_time");
   }
@@ -29,7 +32,6 @@ export class ServicesFromMatchListPage {
   
   // Orders the match list based on the passed string
   orderMatchList(orderBy: String) {
-    console.log("ORDERING BY", orderBy);
     if(orderBy == "transit_time") {
       this.orderByTransitTime();
     } else if(orderBy == "drive_time") {
@@ -42,39 +44,19 @@ export class ServicesFromMatchListPage {
 
   orderByTransitTime()
   {
+    let h = this.helpers;
     return this.matches.sort(function (a : ServiceModel, b : ServiceModel) {
       //sorts by shortest transit time
-      if( (a.transit_time == null && b.transit_time != null) ||
-           a.transit_time < b.transit_time)
-      {
-        return -1
-      }
-      else if ((a.transit_time != null && b.transit_time == null) ||
-         b.transit_time < a.transit_time)
-      {
-        return 1;
-      }
-
-      return 0;
+      return h.compareTimes(a.transit_time, b.transit_time);
     })
   }
 
   orderByDriveTime()
   {
+    let h = this.helpers;
     return this.matches.sort(function (a : ServiceModel, b : ServiceModel) {
       //sorts by shortest transit time
-      if( (a.drive_time == null && b.drive_time != null) ||
-        a.drive_time < b.drive_time)
-      {
-        return -1
-      }
-      else if ((a.drive_time != null && b.drive_time == null) ||
-        b.drive_time < a.drive_time)
-      {
-        return 1;
-      }
-
-      return 0;
+      return h.compareTimes(a.drive_time, b.drive_time);
     })
   }
 
