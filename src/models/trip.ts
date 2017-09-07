@@ -10,4 +10,10 @@ export class TripModel {
   arrive_by: boolean;
   trip_time: string; //iso8601 time string
   purpose: string;
+
+  constructor()
+  {
+    this.origin_attributes = new LocationModel;
+    this.destination_attributes = new LocationModel;
+  }
 }
