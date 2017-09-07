@@ -21,3 +21,19 @@ img.lynx-logo-sm {
   padding: 0;
   width: auto;
 }
+
+
+// For sizing icons
+ion-icon {
+  &.icon-sm {
+    font-size: $font-size-md;
+  }
+  
+  &.icon-md {
+    font-size: $font-size-lg;
+  }
+  
+  &.icon-lg {
+    font-size: $font-size-xl;
+  }
+}

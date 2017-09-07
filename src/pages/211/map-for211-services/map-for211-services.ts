@@ -47,8 +47,11 @@ export class MapFor211ServicesPage {
       streetViewControl: false
     };
 
-    this.service_map = new google.maps.Map(document.getElementById('service_map_canvas'), mapOptions);
+    this.service_map = new google.maps.Map(document.getElementById('service-results-map-canvas'), mapOptions);
+    
     let me = this;
+    
+    // Draw service markers, with event handlers that open details window on click
     for (let service of this.matches) {
       if( (typeof service.lat!='undefined' && service.lat) && (typeof service.lng!='undefined' && service.lng) )
       {
@@ -70,6 +73,12 @@ export class MapFor211ServicesPage {
       }
 
     }
+    
+    // Add event handler for clicking OFF a service marker, closing the details window
+    google.maps.event.addListener(this.service_map, "click", function(event) {
+      me.markerSelected = false;
+      me.selectedMatch = null;
+    });
 
   }
 
@@ -78,7 +87,7 @@ export class MapFor211ServicesPage {
     this.selectedMatch = serviceMatch;
   }
 
-  openServicePage(m : ServiceModel){
-    this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage);
+  openServicePage(match: ServiceModel){
+    this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage, {service: match});
   }
 }
