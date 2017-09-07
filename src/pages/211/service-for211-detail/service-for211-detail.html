@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar class="lynx-toolbar">
     <ion-title>{{service.agency_name}}</ion-title>
     {{service.address}}
   </ion-navbar>
@@ -22,7 +22,7 @@
         Bus & Train
       </ion-col>
       <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.transit_time}}</button>
+        <button ion-button (click)="openDirectionsPage()">{{service.transit_time | prettyTime}}</button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -30,7 +30,7 @@
         Drive
       </ion-col>
       <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.drive_time}}</button>
+        <button ion-button (click)="openDirectionsPage()">{{service.drive_time | prettyTime}}</button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -38,7 +38,7 @@
         Taxi
       </ion-col>
       <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.drive_time}}</button>
+        <button ion-button (click)="openDirectionsPage()">{{service.drive_time | prettyTime}}</button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -46,7 +46,7 @@
         Uber
       </ion-col>
       <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.drive_time}}</button>
+        <button ion-button (click)="openDirectionsPage()">{{service.drive_time | prettyTime}}</button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -66,5 +66,3 @@
    <a href="tel:{{service.phone}}">{{service.phone}}</a>
 
 </ion-content>
-
-
