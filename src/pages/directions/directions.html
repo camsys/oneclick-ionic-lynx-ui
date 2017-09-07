@@ -8,18 +8,20 @@
 
   <ion-navbar>
     <ion-title>Directions</ion-title>
+    <button ion-button end menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
   </ion-navbar>
 
 </ion-header>
-
 
 <ion-content padding>
   <ion-content padding>
     <ion-grid>
       <ion-row>
         <ion-tabs tabsPlacement="top">
-          <ion-tab [root]="routeOptions" tabTitle="Route Options"></ion-tab>
-          <ion-tab [root]="mapTab" tabTitle="Map"></ion-tab>
+          <ion-tab [root]="routeOptions" tabTitle="Route Options" [rootParams]="this.trip">></ion-tab>
+          <ion-tab [root]="mapTab" tabTitle="Map" [rootParams]="this.trip">></ion-tab>
         </ion-tabs>
       </ion-row>
     </ion-grid>
