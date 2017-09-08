@@ -86,5 +86,26 @@ export class GoogleMapsHelpersProvider {
     reticleElement.id = 'you_location_img';
     return reticleElement;
   }
+  
+  // Builds a routeline with default formatting, and returns it. Takes an array
+  // of google maps latlngs.
+  drawRouteLine(routePoints: google.maps.LatLng[]) {
+    return new google.maps.Polyline({
+      path: routePoints,
+      strokeColor: '#9A0959', // Lynx Dark Pink
+      strokeOpacity: 0.7,
+      strokeWeight: 6
+    });
+  }
+  
+  // Zooms map view to fit the passed object. Accepts a map and an object to zoom to
+  zoomToObject(map: google.maps.Map, obj: any): void {
+    var bounds = new google.maps.LatLngBounds();
+    var points = obj.getPath().getArray();
+    for (var n = 0; n < points.length ; n++){
+      bounds.extend(points[n]);
+    }
+    map.fitBounds(bounds);
+  }
 
 }
