@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser'
 
+// PAGES
 import { TemporaryLanguageTestingPage } from '../pages/temporary-language-testing/temporary-language-testing';
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
@@ -13,12 +14,16 @@ import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { SignInPage }  from '../pages/sign-in/sign-in';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
-import { AuthProvider } from '../providers/auth/auth'
 
+// MODELS
 import {User} from '../models/user';
 import {Eligibility} from '../models/user';
 import {Accommodation} from '../models/user';
+
+// PROVIDERS
 import { OneClickProvider } from '../providers/one-click/one-click';
+import { AuthProvider } from '../providers/auth/auth';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -68,7 +73,7 @@ export class MyApp {
         { title: 'Contact Us', component: ContactUsPage },
         { title: 'Locator', component: UserLocatorPage},
         { title: 'User Profile', component: UserProfilePage},
-        { title: 'Sign Out', component: "sign_out"},
+        { title: 'Sign Out', component: "sign_out"}
       ];
     }
     // Menu if you are not signed in

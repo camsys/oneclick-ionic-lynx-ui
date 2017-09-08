@@ -1,16 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { environment } from '../../app/environment';
 
 /*
   This Provider contains helper methods for dealing with the google maps API.
 */
 @Injectable()
 export class GoogleMapsHelpersProvider {
-
-  present(): Boolean {
-    return true;
+  
+  // Sets up a map element with default options, and returns it
+  buildGoogleMap(mapDivId: string): google.maps.Map {
+    // Create the Map with default settings
+    let minZoomLevel = 10;
+    let latLng = new google.maps.LatLng(environment.DEFAULT_LOCATION.lat, environment.DEFAULT_LOCATION.lng);
+    let mapOptions = {
+      center: latLng,
+      zoom: minZoomLevel,
+      mapTypeControl: false,
+      streetViewControl: false,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+    };
+    
+    return new google.maps.Map(document.getElementById(mapDivId), mapOptions);
   }
+  
   
   // Adds a your-location button to the map. Takes a map object and a callback
   // function that will accept the latlng of the current position, which is called

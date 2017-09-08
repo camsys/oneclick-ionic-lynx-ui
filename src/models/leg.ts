@@ -15,7 +15,7 @@ export class LegModel {
   interlineWithPreviousLeg:boolean;
   // from:OBJECT
   // to:OBJECT
-  legGeometry:LegStepModel;
+  legGeometry:LegGeometryModel;
   // alerts:OBJECT[]
   rentedBike:boolean;
   transitLeg:boolean;
