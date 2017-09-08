@@ -6,6 +6,12 @@ button.lynx-button-primary {
   background-color: $lynxPink;
   color: $lynxWhite;
   
+  ion-icon.icon.icon-ios,
+  ion-icon.icon.icon-md,
+  ion-icon.icon.icon-wp {
+    color: inherit;
+  }
+  
   &:active {
     background-color: $lynxBlack;
     color: $lynxWhite;
