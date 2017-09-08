@@ -15,15 +15,14 @@
 
 </ion-header>
 
-<ion-content padding>
-  <ion-content padding>
-    <ion-grid>
-      <ion-row>
-        <ion-tabs tabsPlacement="top">
-          <ion-tab [root]="routeOptions" tabTitle="Route Options" [rootParams]="this.trip">></ion-tab>
-          <ion-tab [root]="mapTab" tabTitle="Map" [rootParams]="this.trip">></ion-tab>
-        </ion-tabs>
-      </ion-row>
-    </ion-grid>
-  </ion-content>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-tabs tabsPlacement="top">
+        <ion-tab [root]="routeOptions" tabTitle="Route Options" [rootParams]="this.trip">></ion-tab>
+        <ion-tab [root]="mapTab" tabTitle="Map" [rootParams]="this.trip">></ion-tab>
+      </ion-tabs>
+    </ion-row>
+  </ion-grid>
 </ion-content>

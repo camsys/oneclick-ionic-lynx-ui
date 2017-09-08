@@ -73,23 +73,12 @@ export class UserLocatorPage {
   
   // Is called whenever user inputs into location search bar
   onInput(event: any) {
-    console.log("INPUT ENTERED", event);
   }
 
   // Sets up the google map and geolocation services
   initializeMap() {
-    
-    // Create the Map with default settings
-    let minZoomLevel = 10;
-    let latLng = new google.maps.LatLng(environment.DEFAULT_LOCATION.lat, environment.DEFAULT_LOCATION.lng);
-    let mapOptions = {
-      center: latLng,
-      zoom: minZoomLevel,
-      mapTypeControl: false,
-      streetViewControl: false,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    };
-    this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    this.map = this.googleMapsHelpers.buildGoogleMap('user-locator-map-canvas');
     
     // Add a location geolocator button that centers the map and sets the from place
     this.googleMapsHelpers
@@ -110,24 +99,25 @@ export class UserLocatorPage {
     
   }
 
-  showAddressModal() {
-    let modal = this.modalController.create(LocationAutoCompletePage);
-    modal.onDidDismiss(place => {
-      if(place != null)
-      {
-        //If the place is null we should get an actual place from google.
-        if(place.location == null)
-        {
-          place = this.updatePlaceFromFormattedAddress(place);
-        }else{
-          this.fromPlace = place;
-          this.fromPlaceAddress = this.fromPlace.formatted_address;
-        }
-      }
-
-    });
-    modal.present();
-  }
+  // DEPRECATED
+  // showAddressModal() {
+  //   let modal = this.modalController.create(LocationAutoCompletePage);
+  //   modal.onDidDismiss(place => {
+  //     if(place != null)
+  //     {
+  //       //If the place is null we should get an actual place from google.
+  //       if(place.location == null)
+  //       {
+  //         place = this.updatePlaceFromFormattedAddress(place);
+  //       }else{
+  //         this.fromPlace = place;
+  //         this.fromPlaceAddress = this.fromPlace.formatted_address;
+  //       }
+  //     }
+  // 
+  //   });
+  //   modal.present();
+  // }
 
   searchForServices(){
     let session = this.session() || new Session;
@@ -147,9 +137,7 @@ export class UserLocatorPage {
   }
 
   private updatePlaceFromFormattedAddress(place: PlaceModel) : void{
-    console.log("UPDATING PLACE FORM ADDRESS", place);
     this.geoServiceProvider.getPlaceFromFormattedAddress(place).forEach(places => {
-      console.log("FOR EACH PLACE", places);
       let place = places[0];
       this.fromPlace = place;
       this.fromPlaceAddress = place.formatted_address;
@@ -164,6 +152,7 @@ export class UserLocatorPage {
 
   chooseItem(item: any) {
     this.updatePlaceFromFormattedAddress(item);
+    this.autocomplete.query = item.formatted_address;
     this.autocompleteItems = [];
   }
 
