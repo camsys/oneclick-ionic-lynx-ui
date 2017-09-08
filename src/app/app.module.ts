@@ -41,7 +41,8 @@ import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
 // Providers
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { AuthProvider } from '../providers/auth/auth';
-import { GeocodeServiceProvider } from '../providers/google/geocode-service'
+import { GeocodeServiceProvider } from '../providers/google/geocode-service';
+import { GoogleMapsHelpersProvider } from '../providers/google/google-maps-helpers';
 import { HelpersProvider } from '../providers/helpers/helpers';
 
 // Models
@@ -137,6 +138,7 @@ import { PrettyTimePipe } from '../pipes/pretty-time';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     OneClickProvider,
     GeocodeServiceProvider,
+    GoogleMapsHelpersProvider,
     AuthProvider,
     HelpersProvider,
     CategoryFor211Model,

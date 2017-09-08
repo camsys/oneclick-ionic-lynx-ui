@@ -46,7 +46,6 @@ export class OneClickProvider {
   }
 
   public getPlaces(places_query: String ): Observable<PlaceModel[]> {
-
     return this.http.
       get(this.oneClickUrl + `places?name=%25${places_query}%25`).
       map( response => {
