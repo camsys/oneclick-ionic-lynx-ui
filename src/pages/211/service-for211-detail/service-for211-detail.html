@@ -22,7 +22,7 @@
         Bus & Train
       </ion-col>
       <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.transit_time | prettyTime}}</button>
+        <button ion-button (click)="openDirectionsPage('transit')">{{service.transit_time | prettyTime}}</button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -30,7 +30,7 @@
         Drive
       </ion-col>
       <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.drive_time | prettyTime}}</button>
+        <button ion-button (click)="openDirectionsPage('car')">{{service.drive_time | prettyTime}}</button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -38,7 +38,7 @@
         Taxi
       </ion-col>
       <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.drive_time | prettyTime}}</button>
+        <button ion-button (click)="openDirectionsPage('taxi')">{{service.drive_time | prettyTime}}</button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -46,7 +46,7 @@
         Uber
       </ion-col>
       <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.drive_time | prettyTime}}</button>
+        <button ion-button (click)="openDirectionsPage('uber')">{{service.drive_time | prettyTime}}</button>
       </ion-col>
     </ion-row>
     <ion-row>
