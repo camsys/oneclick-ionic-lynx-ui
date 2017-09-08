@@ -13,6 +13,7 @@ import { Session } from '../../../models/session';
 
 //TODO REMOVE
 import { PlaceModel } from '../../../models/place';
+import { environment } from '../../../app/environment';
 
 
 /**
@@ -50,20 +51,15 @@ export class ServiceFor211DetailPage {
     this.navCtrl.push(ServiceFor211ReviewPage);
   }
 
-  openDirectionsPage(){
+  openDirectionsPage(mode: string){
 
     let startLocation = this.session().user_starting_location;
 
-    console.log('Session VVVVV');
-    console.log(this.session());
-    console.log('startLocation');
-    console.log(startLocation);
-
-    if(startLocation == null)
-    {
+    // Set default location if it's not stored in the session
+    if(startLocation == null) {
       startLocation = new PlaceModel();
-      startLocation.geometry.lat = 28.5383;
-      startLocation.geometry.lng = -81.3792;
+      startLocation.geometry.lat = environment.DEFAULT_LOCATION.lat;
+      startLocation.geometry.lng = environment.DEFAULT_LOCATION.lng;
     }
 
     let tripRequest = new TripRequestModel();
@@ -76,15 +72,17 @@ export class ServiceFor211DetailPage {
     tripRequest.trip.destination_attributes.lat = this.service.lat;
     tripRequest.trip.destination_attributes.lng = this.service.lng;
 
-    tripRequest.trip_types = ['car'];
+    tripRequest.trip_types = [mode];
 
     console.log(tripRequest);
 
     let result = this.oneClickProvider.getTripPlan(tripRequest).
-      forEach(value => this.navCtrl.push(DirectionsPage, {
-        trip_response: value
-        })
-      );
+      forEach(value => { 
+        this.navCtrl.push(DirectionsPage, {
+          trip_response: value,
+          mode: mode
+        });
+      });
   }
 
   openOtherTransportationOptions(){

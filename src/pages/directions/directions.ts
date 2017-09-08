@@ -20,11 +20,13 @@ import { TripResponseModel } from "../../models/trip-response";
 export class DirectionsPage {
 
   trip: TripResponseModel;
+  mode: string;
   routeOptions: any;
   mapTab: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.trip = navParams.data.trip_response;
+    this.mode = navParams.data.mode;
     this.routeOptions = DirectionsOptionsPage;
     this.mapTab = DirectionsRouteDetailPage;
   }
