@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMapsHelpersProvider } from '../../../providers/google/google-maps-helpers';
 import { ServiceModel } from '../../../models/service';
 
 import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
@@ -18,14 +19,18 @@ import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211
 })
 export class MapFor211ServicesPage {
 
-  //This is needed to dunamically change the div containing the marker's information
+  // This is needed to dynamically change the div containing the marker's information
   service_map: google.maps.Map;
   matches: ServiceModel[];
   selectedMatch: ServiceModel;
   markerSelected: boolean;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams, 
+              public platform: Platform, 
+              public geolocation: Geolocation,
+              private googleMapsHelpers: GoogleMapsHelpersProvider) {
     this.service_map = null;
     this.matches = navParams.data;
     this.selectedMatch = null;
@@ -39,22 +44,14 @@ export class MapFor211ServicesPage {
   }
 
   initializeMap(): void {
-    let latLng = new google.maps.LatLng(28.538336, -81.379234);
-    let mapOptions = {
-      center: latLng,
-      zoom: 10,
-      mapTypeControl: false,
-      streetViewControl: false
-    };
+    this.service_map = this.googleMapsHelpers.buildGoogleMap('service-results-map-canvas');
 
-    this.service_map = new google.maps.Map(document.getElementById('service-results-map-canvas'), mapOptions);
-    
     let me = this;
     
     // Draw service markers, with event handlers that open details window on click
     for (let service of this.matches) {
-      if( (typeof service.lat!='undefined' && service.lat) && (typeof service.lng!='undefined' && service.lng) )
-      {
+      if( (typeof service.lat!='undefined' && service.lat) && 
+          (typeof service.lng!='undefined' && service.lng) ) {
         let service_location : google.maps.LatLng = new google.maps.LatLng (Number(service.lat), Number(service.lng));
 
         let marker : google.maps.Marker = new google.maps.Marker;
@@ -67,7 +64,7 @@ export class MapFor211ServicesPage {
         marker.addListener('click', function() {
           me.addServiceInfo(service);
         });
-      }else{
+      } else {
         console.log('There was a service without Lat Long');
         console.log(service);
       }

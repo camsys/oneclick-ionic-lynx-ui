@@ -29,8 +29,6 @@ export class DirectionsRouteDetailPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DirectionsRouteDetailPage');
-    console.log(this.trip);
     this.initializeMap();
   }
   
@@ -39,16 +37,25 @@ export class DirectionsRouteDetailPage {
 
     this.map = this.googleMapsHelpers.buildGoogleMap('directions-route-map-canvas');
     
+    // Create and draw the routeline
     let routePoints = google.maps.geometry.encoding
-                      .decodePath(this.trip.itineraries[0].legs[0].legGeometry.points);
-    let routeLine = new google.maps.Polyline({
-      path: routePoints,
-      strokeColor: '#9A0959',
-      strokeOpacity: 0.7,
-      strokeWeight: 6
+                      .decodePath(this.trip.itineraries[0].legs[0].legGeometry.points); // Convert the trip data into an array of google latlngs
+    let routeLine = this.googleMapsHelpers.drawRouteLine(routePoints); // Build the route line object
+    routeLine.setMap(this.map); // Draw the route line on the map
+    this.googleMapsHelpers.zoomToObject(this.map, routeLine); // Zoom the map extent to the route line
+    
+    // Set the start and end markers
+    let startMarker = new google.maps.Marker({
+      position: routePoints[0],
+      label: 'A',
+      map: this.map
     });
     
-    routeLine.setMap(this.map);
+    let endMarker = new google.maps.Marker({
+      position: routePoints[routePoints.length - 1],
+      label: 'B',
+      map: this.map
+    });
     
   }
 
