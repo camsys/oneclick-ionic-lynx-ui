@@ -1,3 +1,4 @@
+// Give a toolbar or navbar the lynx-toolbar class to apply these styles
 ion-navbar.lynx-toolbar,
 ion-toolbar.lynx-toolbar {
   background-color: $lynxPink; // Default to lynx Pink (also set in variables sheet in case .lynx-toolbar class is missing)
@@ -16,7 +17,7 @@ ion-toolbar.lynx-toolbar {
   }
   
   // High-contrast toolbar with black background, white lettering
-  &.lynx-toolbar-contrast {
+  &.lynx-toolbar-black {
     background-color: $lynxBlack;
     color: $lynxWhite;
   }
@@ -25,6 +26,12 @@ ion-toolbar.lynx-toolbar {
   &.lynx-toolbar-overlay {
     background-color: transparentize($lynxBlack, 0.65);
     color: $lynxWhite;
+  }
+  
+  // White toolbar
+  &.lynx-toolbar-white {
+    background-color: $lynxWhite;
+    color: $lynxDarkPink;
   }
   
   // This line sets the background of the bar based on the assigned background
