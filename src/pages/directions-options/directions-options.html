@@ -5,5 +5,23 @@
   Ionic pages and navigation.
 -->
 <ion-content padding>
+  <ion-grid>
 
+    <ion-row>
+      <ion-col col-md-8 offset-md-2>
+        <ion-list class="lynx-list">
+          <ion-item class="lynx-list-inline-item"
+                    text-wrap
+                    *ngFor="let step of steps">
+            <ion-label>
+
+              <h3 class="item-heading">{{step.streetName}}</h3>
+              {{step.relativeDirection}} for {{step.distance}}
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 </ion-content>
