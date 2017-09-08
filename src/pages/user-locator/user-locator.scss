@@ -9,5 +9,21 @@ page-user-locator {
     position: absolute;
     z-index: 1000;
   }
+  
+  #find-services-button-container {
+    padding: size(2);
+    position: absolute;
+    width: 100%;
+    z-index: 500;
+    
+    #find-services-button {
+      padding-right: size(1);
+      ion-icon {
+        margin-left: size(1);
+      }
+    }
+  }
+  
+
 
 }

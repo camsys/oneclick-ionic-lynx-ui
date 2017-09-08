@@ -33,6 +33,17 @@
       {{ item.name }} {{ item.formatted_address }}
     </ion-item>
   </ion-list>
+  
+  <div text-center id="find-services-button-container">
+    <button ion-button round 
+            class="lynx-button-primary"
+            id="find-services-button"
+            (click)="searchForServices()">
+      Find Services
+      <ion-icon pull-right name="arrow-forward"></ion-icon>
+    </button>
+  </div>
+
 
   <div id="map-canvas"></div>
   
