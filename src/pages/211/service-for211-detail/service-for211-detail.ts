@@ -63,15 +63,20 @@ export class ServiceFor211DetailPage {
     }
 
     let tripRequest = new TripRequestModel();
-    // tripPlan.origin_attributes = new LocationModel;
-    // tripPlan.destination_attributes = new LocationModel;
 
+    // Set origin and destination
     tripRequest.trip.origin_attributes.lat = startLocation.geometry.lat;
     tripRequest.trip.origin_attributes.lng = startLocation.geometry.lng;
-
     tripRequest.trip.destination_attributes.lat = this.service.lat;
     tripRequest.trip.destination_attributes.lng = this.service.lng;
+    
+    // Set trip time to now by default, in ISO 8601 format
+    tripRequest.trip.trip_time = new Date().toISOString();
+    
+    // Set arrive_by to true by default
+    tripRequest.trip.arrive_by = true;
 
+    // Set trip types to the mode passed to this method
     tripRequest.trip_types = [mode];
 
     console.log(tripRequest);

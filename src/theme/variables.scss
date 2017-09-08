@@ -58,13 +58,14 @@ $text-color: $lynxBlack;
 
 @import 'helpers'; // for size() helper function
 
-// Font size variables
+// LYNX Font size variables
 $font-size-xs: size(0); // ~1 rem
 $font-size-sm: size(1); // ~1.3 rem
 $font-size-md: size(2); // ~1.8 rem
 $font-size-lg: size(3); // ~2.4 rem
 $font-size-xl: size(4); // ~3.2 rem
 
+// Ionic font size variables, annoyingly only used for some text
 $font-size-base: $font-size-sm;
 $font-size-large: $font-size-md;
 $font-size-small: $font-size-xs;
@@ -95,17 +96,23 @@ $card-wp-header-color: $lynxWhite;
 $card-wp-text-color: $lynxWhite;
 $card-wp-title-text-color: $lynxWhite;
 
-$card-ios-header-font-size: size(3);
-$card-md-header-font-size: size(3);
-$card-wp-header-font-size: size(3);
-$card-ios-font-size: size(2);
-$card-md-font-size: size(2);
-$card-wp-font-size: size(2);
+$card-ios-header-font-size: $font-size-lg;
+$card-md-header-font-size: $font-size-lg;
+$card-wp-header-font-size: $font-size-lg;
+$card-ios-font-size: $font-size-md;
+$card-md-font-size: $font-size-md;
+$card-wp-font-size: $font-size-md;
 
-
+// Items
+$item-ios-divider-background: $lynxWhite;
+$item-md-divider-background: $lynxWhite;
+$item-wp-divider-background: $lynxWhite;
 
 // Navbars/Toolbars
 $toolbar-background: $lynxPink;
+$toolbar-ios-text-color: $lynxWhite;
+$toolbar-md-text-color: $lynxWhite;
+$toolbar-wp-text-color: $lynxWhite;
 
 
 /* PLATFORM-SPECIFIC VARIABLES */
