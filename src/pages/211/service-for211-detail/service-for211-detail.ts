@@ -67,8 +67,10 @@ export class ServiceFor211DetailPage {
     // Set origin and destination
     tripRequest.trip.origin_attributes.lat = startLocation.geometry.lat;
     tripRequest.trip.origin_attributes.lng = startLocation.geometry.lng;
+    tripRequest.trip.origin_attributes.name = startLocation.formatted_address;
     tripRequest.trip.destination_attributes.lat = this.service.lat;
     tripRequest.trip.destination_attributes.lng = this.service.lng;
+    tripRequest.trip.destination_attributes.name = this.service.site_name;
     
     // Set trip time to now by default, in ISO 8601 format
     tripRequest.trip.trip_time = new Date().toISOString();
