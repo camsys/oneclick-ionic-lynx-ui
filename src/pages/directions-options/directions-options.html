@@ -24,7 +24,7 @@
         <ion-col class="itinerary-col" col-12 col-md-8 offset-md-2 *ngSwitchCase="indexToString(i)">
           
           <!-- Leg Rows -->
-          <ion-row class="leg-row" *ngFor="let leg of itin.legs">
+          <ion-row class="leg-row" *ngFor="let leg of itin.legs; let j = index">
             
             <!-- Leg Time Column -->
             <ion-col no-padding col-2 class="leg-time-col">
@@ -55,7 +55,7 @@
                 <ion-col no-padding col-12>
                   <div class="leg-header-container">
                     <div class="leg-header-content">
-                      <h3>{{ i === 0 ? trip.origin.name : leg.from.name }}</h3> <!-- Display the trip origin if it's the first leg. -->
+                      <h3>{{ j === 0 ? trip.origin.name : leg.from.name }}</h3> <!-- Display the trip origin if it's the first leg. -->
                     </div>
                   </div>
                 </ion-col>
@@ -119,7 +119,7 @@
                 <ion-col no-padding col-12>
                   <div class="leg-header-container">
                     <div class="leg-header-content">
-                      <h3>{{ trip.origin.name }}</h3>
+                      <h3>{{ trip.destination.name }}</h3>
                     </div>
                   </div>
                 </ion-col>
