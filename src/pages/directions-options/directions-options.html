@@ -16,23 +16,127 @@
   
   <!-- TRIP OPTION RESULTS -->
   <ion-grid>
+    
     <div [ngSwitch]="selectedItinerary">
-      <ion-row *ngFor="let itin of itineraries; let i = index">
-        <ion-col col-12 col-md-8 offset-md-2 *ngSwitchCase="indexToString(i)">
-          <ion-item-group class="lynx-list" *ngFor="let leg of itin.legs">
-            <ion-item-divider>{{leg.mode}}</ion-item-divider>
-            <ion-item class="lynx-list-inline-item"
-                      text-wrap
-                      *ngFor="let step of leg.steps">
-              <ion-label>
+      
+      <!-- Itinerary Rows -->
+      <ion-row class="itinerary-row" *ngFor="let itin of itineraries; let i = index">
+        <ion-col class="itinerary-col" col-12 col-md-8 offset-md-2 *ngSwitchCase="indexToString(i)">
+          
+          <!-- Leg Rows -->
+          <ion-row class="leg-row" *ngFor="let leg of itin.legs">
+            
+            <!-- Leg Time Column -->
+            <ion-col no-padding col-2 class="leg-time-col">
+              <div class="leg-header-container">
+                <div class="leg-header-content">
+                  {{leg.startTime | date:'shortTime'}}                  
+                </div>
+              </div>
+            </ion-col>
+            
+            <!-- Leg Icon Column -->
+            <ion-col no-padding col-1 class="leg-icon-col">
+              <div class="leg-header-container">
+                <div class="leg-header-content">
+                  <ion-icon name="{{leg.modeIconName()}}"></ion-icon>
+                </div>
+              </div>
+              
+              <!-- Leg Illustration: dotted or solid vertical line -->
+              <div class="leg-trail-illustration leg-trail-{{leg.modeIconName()}}"></div>
+            </ion-col>
+            
+            <!-- Leg Details Column -->
+            <ion-col no-padding col-9 class="leg-details-col">
+                
+              <!-- Leg Origin -->
+              <ion-row class="leg-header-row">
+                <ion-col no-padding col-12>
+                  <div class="leg-header-container">
+                    <div class="leg-header-content">
+                      <h3>{{ i === 0 ? trip.origin.name : leg.from.name }}</h3> <!-- Display the trip origin if it's the first leg. -->
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+              
+              <!-- Step Rows (Walk, Bike, Drive) -->
+              <ion-row class="step-row" *ngFor="let step of leg.steps">
+                <ion-col no-padding col-12>
+                  <div class="step-details-container">
+                    {{step.relativeDirection}} on {{step.streetName}} for {{step.distance}}
+                  </div>
+                </ion-col>
+              </ion-row>
+              
+              
+              <!-- Step Rows(Transit) -->
+              <ion-row class="step-row transit-instructions-row" *ngIf="leg.isTransit()">
+                <ion-col no-padding col-12>
+                  <div class="step-details-container">
+                    BOARD {{leg.serviceName}} Route {{leg.route}} and ride it {{leg.intermediateStops.length}} stops.
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row class="step-row transit-instructions-row" *ngIf="leg.isTransit()">
+                <ion-col no-padding col-12>
+                  <div class="step-details-container">
+                    GET OFF at stop: {{leg.to.name}}.
+                  </div>
+                </ion-col>
+              </ion-row>
 
-                <h3 class="item-heading">{{step.streetName}}</h3>
-                {{step.relativeDirection}} for {{step.distance}}
-              </ion-label>
-            </ion-item>
-          </ion-item-group>
+              <!-- END step rows -->
+                
+            </ion-col>
+          </ion-row>
+          
+          <!-- Destination Leg Row -->
+          <ion-row class="leg-row">
+            
+            <!-- Leg Time Column -->
+            <ion-col no-padding col-2 class="leg-time-col">
+              <div class="leg-header-container">
+                <div class="leg-header-content">
+                  {{ itin.legs[itin.legs.length - 1].endTime | date:'shortTime' }}                  
+                </div>
+              </div>
+            </ion-col>
+            
+            <!-- Leg Icon Column -->
+            <ion-col no-padding col-1 class="leg-icon-col">
+              <div class="leg-header-container">
+                <div class="leg-header-content">
+                  <ion-icon name="radio-button-on"></ion-icon>
+                </div>
+              </div>
+            </ion-col>
+            
+            <!-- Leg Details Column -->
+            <ion-col no-padding col-9 class="leg-details-col">
+              <ion-row class="leg-header-row">
+                <ion-col no-padding col-12>
+                  <div class="leg-header-container">
+                    <div class="leg-header-content">
+                      <h3>{{ trip.origin.name }}</h3>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            
+          </ion-row>
+          
+
+          
+          <!-- END leg rows -->
+
         </ion-col>
       </ion-row>
+      
+      <!-- END itinerary rows -->
+      
     </div>
 
   </ion-grid>
