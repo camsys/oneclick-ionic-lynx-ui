@@ -20,21 +20,15 @@ import { LegStepModel } from "../../models/leg-step";
 export class DirectionsOptionsPage {
   trip:TripResponseModel;
   itineraries: ItineraryModel[];
-  itinerary: ItineraryModel;
-  steps: LegStepModel[];
-  selectedItinerary: string;
+  selectedItinerary: string; // Index of selected itinerary within the itineraries array
 
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams) {
-    console.log("DATA: ", navParams.data);
-    this.steps = [];
     this.trip = navParams.data;
-    // this.itinerary = this.trip.itineraries[0];
-    this.itineraries = this.trip.itineraries;
     
     // Instantiate actual Leg Model objects for each leg in the itinerary
-    this.itineraries = this.itineraries.map(function(itin) {
+    this.itineraries = this.trip.itineraries.map(function(itin) {
       itin.legs = itin.legs.map(function(legAttrs) {
         return new LegModel().assignAttributes(legAttrs);
       });
@@ -42,25 +36,8 @@ export class DirectionsOptionsPage {
     });
     
     this.selectedItinerary = "0";
-
-    // for (let leg of this.itinerary.legs){
-    //   for(let step of leg.steps){
-    //     this.steps.push(step)
-    //   }
-    // }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DirectionsOptionsPage');
-    console.log(this.trip);
-  }
-  
-  selectRouteOption(i: number) {
-    console.log("SELECTING ROUTE OPTION", i);
-  }
-  
-  indexToString(i: number): string {
-    return i.toString();
-  }
+  ionViewDidLoad() { }
 
 }

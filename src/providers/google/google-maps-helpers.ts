@@ -88,23 +88,57 @@ export class GoogleMapsHelpersProvider {
   }
   
   // Builds a routeline with default formatting, and returns it. Takes an array
-  // of google maps latlngs.
-  drawRouteLine(routePoints: google.maps.LatLng[]) {
-    return new google.maps.Polyline({
-      path: routePoints,
-      strokeColor: '#9A0959', // Lynx Dark Pink
-      strokeOpacity: 0.7,
-      strokeWeight: 6
-    });
+  // of google maps latlngs and a string of the leg's mode
+  drawRouteLine(routePoints: google.maps.LatLng[], mode: string="BUS") {
+    
+    switch(mode) {
+      
+      // Dotted Gray Line
+      case 'WALK':
+        let dotIcon = {
+          path: 'M 0,0 0,0',
+          strokeColor: '#5C5C5C', // Dark Gray
+          strokeOpacity: 1,
+          scale: 7
+        };
+      
+        return new google.maps.Polyline({
+          path: routePoints,
+          strokeOpacity: 0,
+          icons: [{
+            icon: dotIcon,
+            offset: '0',
+            repeat: '12px'
+          }],
+        });
+        
+      // Solid Pink Line
+      case 'CAR':
+      case 'BUS':
+      case 'TRAM':
+      case 'SUBWAY':
+      case 'BICYCLE':
+      default:
+        return new google.maps.Polyline({
+          path: routePoints,
+          strokeColor: '#DB0F7D', // Lynx Dark Pink
+          strokeOpacity: 0.7,
+          strokeWeight: 6
+        });
+    }
+  
   }
   
-  // Zooms map view to fit the passed object. Accepts a map and an object to zoom to
-  zoomToObject(map: google.maps.Map, obj: any): void {
+  // Zooms map view to fit each object in the passed array. 
+  // Accepts a map and an array of objects to zoom to.
+  zoomToObjects(map: google.maps.Map, objs: any[]): void {
     var bounds = new google.maps.LatLngBounds();
-    var points = obj.getPath().getArray();
-    for (var n = 0; n < points.length ; n++){
-      bounds.extend(points[n]);
-    }
+    
+    objs.forEach(function(obj) {
+      var points = obj.getPath().getArray();
+      points.forEach((p) => bounds.extend(p));
+    })
+
     map.fitBounds(bounds);
   }
 

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 /*
- * Transform a number in seconds to a nice, concise time string
+ * Transform a distance in meters into a string of the distance in imperial units (feet or miles)
 */
 @Pipe({name: 'prettyDistance'})
 export class PrettyDistancePipe implements PipeTransform {

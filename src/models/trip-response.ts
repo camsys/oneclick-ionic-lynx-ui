@@ -1,5 +1,6 @@
 import { User } from './user'
 import { ItineraryModel } from "./Itinerary";
+import { LocationModel } from './location';
 
 export class TripResponseModel {
   id: number;
@@ -8,6 +9,8 @@ export class TripResponseModel {
   purposes: string[];
   itineraries: ItineraryModel[];
   user: User;
+  origin: LocationModel;
+  destination: LocationModel;
 
   //TODO Complete accomodations & elegibilities models
   // accomodations: string[];
