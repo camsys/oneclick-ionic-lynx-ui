@@ -1,3 +1,77 @@
 page-directions-options {
+  
+  // LEG STYLING
+  ion-row.leg-row > ion-col {
+
+    .leg-header-container {
+      display: flex;
+      align-items: center;
+      
+      height: size(5);
+      
+      .leg-header-content {
+        
+        h3 {
+          padding: 0;
+          margin: 0;
+        }
+      }
+
+    }
+    
+    &.leg-time-col {
+      font-weight: 600;
+    }
+    
+    &.leg-icon-col {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      
+      .leg-header-container {
+        flex: 0 1 auto;
+        
+        justify-content: center;    
+      }  
+      
+      .leg-trail-illustration {
+        flex: 1 1 auto;
+        width: 0;
+        border-radius: size(-2);
+        border-style: solid;
+        border-width: 0;
+        border-left-width: size(-2);
+        
+        &.leg-trail-walk {
+          border-color: $lynxMdGray;
+          border-radius: 0;
+          border-style: dotted;
+        }
+        
+        &.leg-trail-bus {
+          border-color: $lynxPink;
+        }
+        
+        &.leg-trail-train {
+          border-color: $lynxPink;
+        }
+        
+        &.leg-trail-car {
+          border-color: $lynxDarkPink;
+        }
+        
+      }
+      
+    }
+    
+  }
+  
+  
+  // STEP STYLING
+  ion-row.step-row {
+    margin: size(0) 0;
+  }
+  
+  
 
 }

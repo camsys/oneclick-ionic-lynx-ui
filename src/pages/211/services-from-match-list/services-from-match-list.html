@@ -30,11 +30,11 @@
               </div>
               <ng-template #orderByDriveTime>
                 <ion-icon name="car"></ion-icon>
-                <label>{{match.drive_time}}</label>
+                <label>{{match.drive_time | prettyTime}}</label>
               </ng-template>
               <ng-template #orderByTransitTime  class="icon-wrapper">
                 <ion-icon center name="bus"></ion-icon>
-                <label>{{match.transit_time}}</label>
+                <label>{{match.transit_time | prettyTime}}</label>
               </ng-template>
             </div>
           </ion-item>

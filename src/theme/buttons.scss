@@ -6,6 +6,12 @@ button.lynx-button-primary {
   background-color: $lynxPink;
   color: $lynxWhite;
   
+  ion-icon.icon.icon-ios,
+  ion-icon.icon.icon-md,
+  ion-icon.icon.icon-wp {
+    color: inherit;
+  }
+  
   &:active {
     background-color: $lynxBlack;
     color: $lynxWhite;
@@ -49,4 +55,13 @@ button.lynx-button-white {
     background-color: $lynxDarkPink;
     color: $lynxWhite;
   }
+}
+
+// Circular Buttons
+button.lynx-button-circle {
+  border-radius: 50%;
+  font-size: $font-size-md;
+  font-weight: 900;
+  height: size(5);
+  width: size(5);
 }

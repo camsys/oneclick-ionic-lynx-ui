@@ -1,0 +1,54 @@
+// Give a toolbar or navbar the lynx-toolbar class to apply these styles
+ion-navbar.lynx-toolbar,
+ion-toolbar.lynx-toolbar {
+  background-color: $lynxPink; // Default to lynx Pink (also set in variables sheet in case .lynx-toolbar class is missing)
+  color: $lynxWhite; // Default font color white
+  font-size: $font-size-md;
+  font-weight: 500;
+  
+  ion-title .toolbar-title {
+    padding: 0;
+    font-size: $font-size-lg;
+    white-space: initial;
+  }
+  
+  .lynx-toolbar-body {
+    font-size: $font-size-sm;
+  }
+  
+  // High-contrast toolbar with black background, white lettering
+  &.lynx-toolbar-black {
+    background-color: $lynxBlack;
+    color: $lynxWhite;
+  }
+  
+  // Overlay toolbar with black background, white lettering
+  &.lynx-toolbar-overlay {
+    background-color: transparentize($lynxBlack, 0.65);
+    color: $lynxWhite;
+  }
+  
+  // White toolbar
+  &.lynx-toolbar-white {
+    background-color: $lynxWhite;
+    color: $lynxDarkPink;
+  }
+  
+  // This line sets the background of the bar based on the assigned background
+  // color of the containing element
+  &> .toolbar-background {
+    background-color: inherit;
+    
+    .toolbar-content {
+      color: inherit;
+    }
+  }
+  
+}
+
+
+ion-tabs {
+  ion-tab {
+    
+  }
+}

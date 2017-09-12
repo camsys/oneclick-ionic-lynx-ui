@@ -6,39 +6,45 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title><img src="../../assets/img/Lynx-logo-pink-xsm.png" alt="LYNX Icon"></ion-title>
+  <ion-navbar class="lynx-toolbar lynx-toolbar-black">
+    <ion-title text-center>
+      <img class="lynx-logo-sm" src="../../assets/img/Lynx-logo-pink-xsm.png" alt="LYNX Icon">
+    </ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
   </ion-navbar>
+  <ion-toolbar text-center>
+    <ion-title>Where are you?</ion-title>
+    <ion-searchbar  [(ngModel)]="autocomplete.query" 
+                    [showCancelButton]="true" 
+                    (ionInput)="updateSearch()">
+    </ion-searchbar>
+
+  </ion-toolbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col col-md-7 offset-md-2>
-        <!--<ion-list>-->
-          <!--<ion-item>-->
-            <!--TODO style this correctly-->
-            <ion-input (click)="showAddressModal()" [(ngModel)]="fromPlaceAddress" type="text" placeholder="Where are you?"></ion-input>
-          <!--</ion-item>-->
-        <!--</ion-list>-->
-      </ion-col>
-      <ion-col>
-       <button ion-button (click)="searchForServices()">Search</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-grid class="map_container">
-    <ion-row class="map_container">
-      <ion-col col-lg-2></ion-col>
-      <ion-col col-lg-8>
-        <div id="map_canvas"></div>
-      </ion-col>
-      <ion-col col-lg-2></ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content>
+  
+  <ion-list id="autocomplete-results">
+    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
+      {{ item.name }} {{ item.formatted_address }}
+    </ion-item>
+  </ion-list>
+  
+  <div text-center id="find-services-button-container">
+    <button ion-button round 
+            class="lynx-button-primary"
+            id="find-services-button"
+            (click)="searchForServices()">
+      Find Services
+      <ion-icon pull-right name="arrow-forward"></ion-icon>
+    </button>
+  </div>
+
+
+  <div id="user-locator-map-canvas"></div>
+  
 </ion-content>

@@ -41,7 +41,8 @@ import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
 // Providers
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { AuthProvider } from '../providers/auth/auth';
-import { GeocodeServiceProvider } from '../providers/google/geocode-service'
+import { GeocodeServiceProvider } from '../providers/google/geocode-service';
+import { GoogleMapsHelpersProvider } from '../providers/google/google-maps-helpers';
 import { HelpersProvider } from '../providers/helpers/helpers';
 
 // Models
@@ -52,6 +53,19 @@ import { ServiceModel } from '../models/service';
 import { AgencyModel } from '../models/agency';
 import { AddressComponentModel } from '../models/addressComponent';
 import { LocationModel } from '../models/location';
+import { TripModel } from "../models/trip";
+import { TripRequestModel } from "../models/trip-request";
+import { TripResponseModel } from "../models/trip-response";
+import { ItineraryModel } from "../models/Itinerary";
+import { LegModel } from "../models/leg";
+import { LegGeometryModel } from "../models/leg-geometry";
+import { LegStepModel } from "../models/leg-step";
+
+
+// Pipes
+import { PrettyTimePipe } from '../pipes/pretty-time';
+import { PrettyDistancePipe } from '../pipes/pretty-distance';
+import { ToStringPipe } from '../pipes/to-string';
 
 @NgModule({
   declarations: [
@@ -78,7 +92,10 @@ import { LocationModel } from '../models/location';
     TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
-    UserProfilePage
+    UserProfilePage,
+    PrettyTimePipe,
+    PrettyDistancePipe,
+    ToStringPipe
   ],
   imports: [
     BrowserModule,
@@ -125,6 +142,7 @@ import { LocationModel } from '../models/location';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     OneClickProvider,
     GeocodeServiceProvider,
+    GoogleMapsHelpersProvider,
     AuthProvider,
     HelpersProvider,
     CategoryFor211Model,
@@ -133,7 +151,14 @@ import { LocationModel } from '../models/location';
     ServiceModel,
     AgencyModel,
     AddressComponentModel,
-    LocationModel
+    LocationModel,
+    TripModel,
+    TripRequestModel,
+    TripResponseModel,
+    ItineraryModel,
+    LegModel,
+    LegGeometryModel,
+    LegStepModel
   ]
 })
 

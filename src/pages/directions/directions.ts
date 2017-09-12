@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DirectionsOptionsPage } from '../directions-options/directions-options';
 import { DirectionsRouteDetailPage } from '../directions-route-detail/directions-route-detail';
 
+import { TripResponseModel } from "../../models/trip-response";
+
 /**
  * Generated class for the DirectionsPage page.
  *
@@ -17,10 +19,14 @@ import { DirectionsRouteDetailPage } from '../directions-route-detail/directions
 })
 export class DirectionsPage {
 
+  trip: TripResponseModel;
+  mode: string;
   routeOptions: any;
   mapTab: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.trip = navParams.data.trip_response;
+    this.mode = navParams.data.mode;
     this.routeOptions = DirectionsOptionsPage;
     this.mapTab = DirectionsRouteDetailPage;
   }

@@ -6,65 +6,84 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar class="lynx-toolbar">
     <ion-title>{{service.agency_name}}</ion-title>
-    {{service.address}}
+    <div class="lynx-toolbar-body">{{service.address}}</div>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-grid>
-
-    <ion-row>
-      <ion-col col-md-4 offset-md-2>
-        Bus & Train
-      </ion-col>
-      <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.transit_time}}</button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-md-4 offset-md-2>
-        Drive
-      </ion-col>
-      <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.drive_time}}</button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-md-4 offset-md-2>
-        Taxi
-      </ion-col>
-      <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.drive_time}}</button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-md-4 offset-md-2>
-        Uber
-      </ion-col>
-      <ion-col col-md-4 offset-md-2>
-        <button ion-button (click)="openDirectionsPage()">{{service.drive_time}}</button>
-      </ion-col>
-    </ion-row>
     <ion-row>
       <ion-col col-md-8 offset-md-2>
-        <button ion-button (click)="openOtherTransportationOptions()">To Other Transportations Options</button>
+        <ion-list class="lynx-list">
+          
+          <ion-item>
+            <h3 class="item-heading">Bus & Train</h3>
+            <button ion-button item-end round default
+                    class="lynx-button-primary"
+                    (click)="openDirectionsPage('transit')">{{service.transit_time | prettyTime}}</button>
+          </ion-item>
+          
+          <ion-item>
+            <h3 class="item-heading">Drive</h3>
+            <button ion-button item-end round default
+                    class="lynx-button-primary"
+                    (click)="openDirectionsPage('car')">{{service.drive_time | prettyTime}}</button>
+          </ion-item>
+          
+          <ion-item>
+            <h3 class="item-heading">Taxi</h3>
+            <button ion-button item-end round default
+                    class="lynx-button-primary"
+                    (click)="openDirectionsPage('taxi')">{{service.drive_time | prettyTime}}</button>
+          </ion-item>
+          
+          <ion-item>
+            <h3 class="item-heading">Uber</h3>
+            <button ion-button item-end round default
+                    class="lynx-button-primary"
+                    (click)="openDirectionsPage('uber')">{{service.drive_time | prettyTime}}</button>
+          </ion-item>
+          
+          <ion-item>
+            <h3 class="item-heading">Other Transportation Options</h3>
+            <button ion-button item-end round default
+                    class="lynx-button-primary"
+                    (click)="openOtherTransportationOptions()">
+                    <ion-icon pull-right name="arrow-forward"></ion-icon>
+            </button>
+          </ion-item>
+          
+        </ion-list>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col col-md-8 offset-md-2>
-        <button ion-button (click)="openServiceReviewPage()">To Review page</button>
+        <p id="service-description">
+          {{service.description}}          
+        </p>
+        <a (click)="openServiceReviewPage()">see more</a>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col col-md-8 offset-md-2 text-center>
+        <h3>Have Questions?</h3>
+        <a href="tel:{{service.phone}}">
+          <button ion-button round
+                  class="lynx-button-primary">
+                  {{service.phone}}
+          </button>
+        </a>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  {{service.description}}
-   <a href="tel:{{service.phone}}">{{service.phone}}</a>
+
+
 
 </ion-content>
-
-

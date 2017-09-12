@@ -1,9 +1,39 @@
 
+
+
 // Medium-sized logo for sign in page. Centered, scales up to max size.
+// EXAMPLE:  <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png" alt="LYNX Icon">
 img.lynx-logo-md {
   display: block;
   margin: 0 auto;
   max-height: size(8);
   padding: size(0);
   width: auto;
+}
+
+
+// Small-sized logo for sign in page. Centered, scales up to max size.
+// EXAMPLE:  <img class="lynx-logo-sm" src="../../assets/img/Lynx-logo-white-sm.png" alt="LYNX Icon">
+img.lynx-logo-sm {
+  display: block;
+  margin: 0 auto;
+  max-height: size(4);
+  padding: 0;
+  width: auto;
+}
+
+
+// For sizing icons
+ion-icon {
+  &.icon-sm {
+    font-size: $font-size-md;
+  }
+  
+  &.icon-md {
+    font-size: $font-size-lg;
+  }
+  
+  &.icon-lg {
+    font-size: $font-size-xl;
+  }
 }

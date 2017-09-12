@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Headers } from '@angular/http';
 import { RequestOptions } from '@angular/http';
 
+
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
@@ -12,6 +13,8 @@ import { CategoryFor211Model } from '../../models/category-for-211'
 import { SubcategoryFor211Model } from '../../models/subcategory-for-211'
 import { SubSubcategoryFor211Model } from '../../models/sub-subcategory-for-211'
 import { ServiceModel } from '../../models/service'
+import { TripRequestModel } from '../../models/trip-request';
+import { TripResponseModel } from '../../models/trip-response';
 
 
 import { Global } from '../../app/global';
@@ -43,7 +46,6 @@ export class OneClickProvider {
   }
 
   public getPlaces(places_query: String ): Observable<PlaceModel[]> {
-
     return this.http.
       get(this.oneClickUrl + `places?name=%25${places_query}%25`).
       map( response => {
@@ -170,6 +172,15 @@ export class OneClickProvider {
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as ServiceModel)
       .catch(this.handleError);
+  }
+
+  getTripPlan(tripRequest: TripRequestModel): Observable<TripResponseModel>
+  {
+    return this.http
+            .post(this.oneClickUrl+'trips/plan', tripRequest)
+            . map( response => {
+              return (response.json().data.trip as TripResponseModel)
+            })
   }
 
   private handleError(error: any): Promise<any> {
