@@ -5,7 +5,26 @@
   Ionic pages and navigation.
 -->
 <ion-content>
+  
+  <div id="directions-route-detail-wrapper">
+    
+    <!-- TRIP OPTION SELECTORS -->
+    <div id="directions-route-options-container">
+      <ion-segment [(ngModel)]="selectedItinerary">
+        <ion-segment-button *ngFor="let itin of itineraries; let i = index" 
+                            value="{{ i | toString }}"
+                            (ionSelect)="drawSelectedRoute()">
+          OPTION {{i + 1}}
+        </ion-segment-button>
+      </ion-segment>
+    </div>
 
-  <div id="directions-route-map-canvas"></div>
+    <!-- Map Canvas -->
+    <div id="directions-route-map-canvas">
+    </div>
+    
+  </div>
+  
+
 
 </ion-content>

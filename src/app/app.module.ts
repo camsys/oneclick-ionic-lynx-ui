@@ -65,7 +65,7 @@ import { LegStepModel } from "../models/leg-step";
 // Pipes
 import { PrettyTimePipe } from '../pipes/pretty-time';
 import { PrettyDistancePipe } from '../pipes/pretty-distance';
-
+import { ToStringPipe } from '../pipes/to-string';
 
 @NgModule({
   declarations: [
@@ -94,7 +94,8 @@ import { PrettyDistancePipe } from '../pipes/pretty-distance';
     SignInPage,
     UserProfilePage,
     PrettyTimePipe,
-    PrettyDistancePipe
+    PrettyDistancePipe,
+    ToStringPipe
   ],
   imports: [
     BrowserModule,

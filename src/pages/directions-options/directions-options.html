@@ -9,7 +9,7 @@
   <!-- TRIP OPTION SELECTORS -->
   <ion-segment [(ngModel)]="selectedItinerary">
     <ion-segment-button *ngFor="let itin of itineraries; let i = index" 
-                        value="{{indexToString(i)}}">
+                        value="{{ i | toString }}">
       OPTION {{i + 1}}
     </ion-segment-button>
   </ion-segment>
@@ -21,7 +21,7 @@
       
       <!-- Itinerary Rows -->
       <ion-row class="itinerary-row" *ngFor="let itin of itineraries; let i = index">
-        <ion-col class="itinerary-col" col-12 col-md-8 offset-md-2 *ngSwitchCase="indexToString(i)">
+        <ion-col class="itinerary-col" col-12 col-md-8 offset-md-2 *ngSwitchCase="i.toString()">
           
           <!-- Leg Rows -->
           <ion-row class="leg-row" *ngFor="let leg of itin.legs; let j = index">
