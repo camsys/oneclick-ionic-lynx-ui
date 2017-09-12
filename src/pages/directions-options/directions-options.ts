@@ -25,19 +25,29 @@ export class DirectionsOptionsPage {
   selectedItinerary: string;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams) {
     console.log("DATA: ", navParams.data);
     this.steps = [];
     this.trip = navParams.data;
-    this.itinerary = this.trip.itineraries[0];
+    // this.itinerary = this.trip.itineraries[0];
     this.itineraries = this.trip.itineraries;
+    
+    // Instantiate actual Leg Model objects for each leg in the itinerary
+    this.itineraries = this.itineraries.map(function(itin) {
+      itin.legs = itin.legs.map(function(legAttrs) {
+        return new LegModel().assignAttributes(legAttrs);
+      });
+      return itin;
+    });
+    
     this.selectedItinerary = "0";
 
-    for (let leg of this.itinerary.legs){
-      for(let step of leg.steps){
-        this.steps.push(step)
-      }
-    }
+    // for (let leg of this.itinerary.legs){
+    //   for(let step of leg.steps){
+    //     this.steps.push(step)
+    //   }
+    // }
   }
 
   ionViewDidLoad() {

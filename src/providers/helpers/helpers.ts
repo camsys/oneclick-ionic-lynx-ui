@@ -27,5 +27,5 @@ export class HelpersProvider {
       return Math.sign(a - b); // simple comparison of a and b if both are numbers
     }
   }
-
+  
 }
