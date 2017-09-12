@@ -61,31 +61,43 @@
                 </ion-col>
               </ion-row>
               
+              
               <!-- Step Rows (Walk, Bike, Drive) -->
-              <ion-row class="step-row" *ngFor="let step of leg.steps">
-                <ion-col no-padding col-12>
-                  <div class="step-details-container">
-                    {{step.relativeDirection}} on {{step.streetName}} for {{step.distance}}
-                  </div>
-                </ion-col>
-              </ion-row>
-              
-              
-              <!-- Step Rows(Transit) -->
-              <ion-row class="step-row transit-instructions-row" *ngIf="leg.isTransit()">
-                <ion-col no-padding col-12>
-                  <div class="step-details-container">
-                    BOARD {{leg.serviceName}} Route {{leg.route}} and ride it {{leg.intermediateStops.length}} stops.
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row class="step-row transit-instructions-row" *ngIf="leg.isTransit()">
-                <ion-col no-padding col-12>
-                  <div class="step-details-container">
-                    GET OFF at stop: {{leg.to.name}}.
-                  </div>
-                </ion-col>
-              </ion-row>
+              <div *ngIf="!leg.isTransit()">
+                <ion-row class="step-row" *ngFor="let step of leg.steps; let k = index">
+                  <ion-col no-padding col-12>
+                    
+                    <!-- for first step, give absolute direction -->
+                    <div class="step-details-container" *ngIf="k === 0">
+                      HEAD {{step.absoluteDirection}} on {{step.streetName}} for {{step.distance | prettyDistance }}
+                    </div>
+                    
+                    <!-- for subsequent steps, give relative directions -->
+                    <div class="step-details-container" *ngIf="k > 0">
+                      {{step.relativeDirection}} on {{step.streetName}} for {{step.distance | prettyDistance }}
+                    </div>
+                    
+                  </ion-col>
+                </ion-row>
+              </div>
+
+              <!-- Step Rows (Transit) -->
+              <div *ngIf="leg.isTransit()">
+                <ion-row class="step-row">
+                  <ion-col no-padding col-12>
+                    <div class="step-details-container">
+                      BOARD {{leg.serviceName}} Route {{leg.route}} and ride it {{leg.intermediateStops.length}} stops.
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="step-row">
+                  <ion-col no-padding col-12>
+                    <div class="step-details-container">
+                      GET OFF at stop: {{leg.to.name}}.
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </div>
 
               <!-- END step rows -->
                 
@@ -127,8 +139,6 @@
             </ion-col>
             
           </ion-row>
-          
-
           
           <!-- END leg rows -->
 
