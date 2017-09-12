@@ -34,8 +34,8 @@ export class UserLocatorPage {
   session(): Session {
     return (JSON.parse(localStorage.session || null) as Session);
   }
-  
-  
+
+
   // From autocomplete page
   autocompleteItems;
   autocomplete;
@@ -43,20 +43,20 @@ export class UserLocatorPage {
   googleAutocompleteItems;
   oneClickAutocompleteItems;
 
-  constructor(public navCtrl: NavController, 
-              public modalController: ModalController, 
-              public platform: Platform, 
-              public geolocation: Geolocation, 
+  constructor(public navCtrl: NavController,
+              public modalController: ModalController,
+              public platform: Platform,
+              public geolocation: Geolocation,
               public geoServiceProvider: GeocodeServiceProvider,
               private googleMapsHelpers: GoogleMapsHelpersProvider,
               public oneClickProvider: OneClickProvider //,
-              // public viewCtl: ViewController, 
+              // public viewCtl: ViewController,
               // public navParams: NavParams,
             ) {
     this.map = null;
     this.fromPlace = null;
     this.fromPlaceAddress = '';
-    
+
     // From autocomplete page
     this.googleAutocompleteItems = [];
     this.oneClickAutocompleteItems = [];
@@ -70,7 +70,7 @@ export class UserLocatorPage {
     this.platform.ready()
     .then(() => this.initializeMap());
   }
-  
+
   // Is called whenever user inputs into location search bar
   onInput(event: any) {
   }
@@ -79,7 +79,7 @@ export class UserLocatorPage {
   initializeMap() {
 
     this.map = this.googleMapsHelpers.buildGoogleMap('user-locator-map-canvas');
-    
+
     // Add a location geolocator button that centers the map and sets the from place
     this.googleMapsHelpers
     .addYourLocationButton(this.map, (latLng) => {
@@ -92,36 +92,27 @@ export class UserLocatorPage {
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       this.map.setCenter(latLng);
       this.updatePlaceFromLatLng(latLng.lat(), latLng.lng());
+      this.dropUserLocationPin(latLng);
     })
     .catch((err) => {
       console.error("Could not geolocate device position");
     });
-    
+
   }
 
-  // DEPRECATED
-  // showAddressModal() {
-  //   let modal = this.modalController.create(LocationAutoCompletePage);
-  //   modal.onDidDismiss(place => {
-  //     if(place != null)
-  //     {
-  //       //If the place is null we should get an actual place from google.
-  //       if(place.location == null)
-  //       {
-  //         place = this.updatePlaceFromFormattedAddress(place);
-  //       }else{
-  //         this.fromPlace = place;
-  //         this.fromPlaceAddress = this.fromPlace.formatted_address;
-  //       }
-  //     }
-  // 
-  //   });
-  //   modal.present();
-  // }
+  dropUserLocationPin(position : google.maps.LatLng){
+    let marker : google.maps.Marker = new google.maps.Marker;
+    marker.setPosition(position);
+    marker.setMap(this.map);
+    // marker.setLabel(service.Name_Agency);
+    marker.setValues('Your Location');
+    marker.setTitle('Your Location');
+    marker.setClickable(false);
+  }
 
   searchForServices(){
     let session = this.session() || new Session;
-    
+
     session.user_starting_location = this.fromPlace;
     localStorage.setItem('session', JSON.stringify(session));
     this.navCtrl.push(CategoriesFor211Page);
@@ -145,7 +136,7 @@ export class UserLocatorPage {
       this.map.setCenter(latLng);
     });
   }
-  
+
   // *****************
   // AUTOCOMPLETE INFO
   // *****************
@@ -157,7 +148,7 @@ export class UserLocatorPage {
   }
 
   updateSearch() {
-    
+
     if (this.autocomplete.query == '') {
       this.autocompleteItems = [];
       return;
@@ -187,11 +178,11 @@ export class UserLocatorPage {
       }
     });
   }
-  
+
   AlreadyPresentPlace(place: PlaceModel): boolean
   {
     //TODO make this smarter
     return false;
   }
-  
+
 }
