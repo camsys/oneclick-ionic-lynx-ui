@@ -9,6 +9,8 @@ import { HelpMeFindPage } from '../help-me-find/help-me-find';
 
 // Providers
 import { AuthProvider } from '../../providers/auth/auth';
+import { OneClickProvider } from '../../providers/one-click/one-click';
+
 
 @IonicPage()
 @Component({
@@ -22,6 +24,7 @@ export class SignInPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private authProvider: AuthProvider,
+              private oneClickProvider: OneClickProvider,
               private toastCtrl: ToastController) {
   }
 
@@ -29,7 +32,11 @@ export class SignInPage {
     this.authProvider.signIn(this.user.email, this.user.password)
         .subscribe(
           data => { 
-            // On successful response, redirect the user to find page
+
+            // Get the user's profile data and store it in the session
+            this.oneClickProvider.getProfile();
+            
+            // Redirect the user to the home page
             this.navCtrl.push(HelpMeFindPage);
           },
           error => {

@@ -60,6 +60,7 @@ import { ItineraryModel } from "../models/Itinerary";
 import { LegModel } from "../models/leg";
 import { LegGeometryModel } from "../models/leg-geometry";
 import { LegStepModel } from "../models/leg-step";
+import { PageModel } from "../models/page";
 
 
 // Pipes
@@ -158,7 +159,8 @@ import { ToStringPipe } from '../pipes/to-string';
     ItineraryModel,
     LegModel,
     LegGeometryModel,
-    LegStepModel
+    LegStepModel,
+    PageModel
   ]
 })
 
