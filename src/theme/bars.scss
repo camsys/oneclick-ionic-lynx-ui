@@ -9,7 +9,7 @@ ion-toolbar.lynx-toolbar {
   ion-title .toolbar-title {
     // padding: 0;
     font-size: $font-size-lg;
-    white-space: initial;
+    // white-space: initial; // This makes the title text wrap
   }
   
   .lynx-toolbar-body {

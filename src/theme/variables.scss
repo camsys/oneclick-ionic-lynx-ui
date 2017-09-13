@@ -59,11 +59,11 @@ $text-color: $lynxBlack;
 @import 'helpers'; // for size() helper function
 
 // LYNX Font size variables
-$font-size-xs: size(0); // ~1 rem
-$font-size-sm: size(1); // ~1.3 rem
-$font-size-md: size(2); // ~1.8 rem
-$font-size-lg: size(3); // ~2.4 rem
-$font-size-xl: size(4); // ~3.2 rem
+$font-size-xs: 1rem; //size(0); // ~1 rem
+$font-size-sm: 1.3rem; //size(1); // ~1.3 rem
+$font-size-md: 1.7rem; //size(2); // ~1.8 rem
+$font-size-lg: 2.1rem; //size(3); // ~2.4 rem
+$font-size-xl: 2.6rem; //size(4); // ~3.2 rem
 
 // Ionic font size variables, annoyingly only used for some text
 $font-size-base: $font-size-sm;
