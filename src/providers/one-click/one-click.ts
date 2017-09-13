@@ -28,7 +28,8 @@ export class OneClickProvider {
 
   public oneClickUrl = environment.BASE_ONECLICK_URL;
 
-  constructor(public http: Http) {}
+  constructor(public http: Http,
+              private auth: AuthProvider) {}
 
   // Gets a list of all Transportation Agencies
   getTransportationAgencies(): Promise<AgencyModel[]> {
@@ -66,9 +67,7 @@ export class OneClickProvider {
   // Gets a User from 1-Click
   getProfile(): Promise<User>{
 
-     //Review: Should we be creating a new AuthProvider every time?
-     let auth = new AuthProvider(this.http);
-     let headers = auth.authHeaders();
+     let headers = this.auth.authHeaders();
      let options = new RequestOptions({ headers: headers });
 
      var uri: string = encodeURI(this.oneClickUrl + 'users');
@@ -76,14 +75,20 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(json => JSON.parse(json).data.user as User)
+      .then((user) => {
+        // Store the profile in the session's user attribute
+        let session = this.auth.session();
+        session.user = user;
+        this.auth.setSession(session);
+        return user;
+      })
       .catch(this.handleError);
   }
 
   // Updates a User in 1-Click
   updateProfile(user: User): Promise<User>{
 
-    let auth = new AuthProvider(this.http);
-    let headers = auth.authHeaders();
+    let headers = this.auth.authHeaders();
     let formatted_accs = {};
     let formatted_eligs = {};
 
@@ -184,7 +189,6 @@ export class OneClickProvider {
   }
 
   private handleError(error: any): Promise<any> {
-    console.log(error);
     console.error('An error occurred', error.text()); // for demo purposes only
     return Promise.reject(error.message || error);
   }

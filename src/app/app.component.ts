@@ -19,6 +19,7 @@ import { UserProfilePage } from '../pages/user-profile/user-profile';
 import {User} from '../models/user';
 import {Eligibility} from '../models/user';
 import {Accommodation} from '../models/user';
+import { PageModel } from '../models/page';
 
 // PROVIDERS
 import { OneClickProvider } from '../providers/one-click/one-click';
@@ -33,13 +34,20 @@ export class MyApp {
 
   rootPage: any = HelpMeFindPage;
 
-  pages: Array<{title: string, component: any}>;
-  title: String;
+  signedInPages: PageModel[];
+  signedOutPages: PageModel[];
+  signInPage: PageModel;
+  profilePage: PageModel;
   user: User;
   eligibilities: Eligibility[];
   accommodations: Accommodation[];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private inAppBrowser: InAppBrowser, private auth: AuthProvider, private oneClickProvider: OneClickProvider) {
+  constructor(public platform: Platform, 
+              public statusBar: StatusBar, 
+              public splashScreen: SplashScreen, 
+              private inAppBrowser: InAppBrowser, 
+              private auth: AuthProvider, 
+              private oneClickProvider: OneClickProvider) {
     this.initializeApp();
     this.setMenu();
   }
@@ -55,52 +63,68 @@ export class MyApp {
 
   setMenu(){
 
-    this.title ="Welcome"
-
     // Menu if you are signed in
     if(this.auth.isSignedIn()){
       this.oneClickProvider.getProfile()
-      .then(usr => this.user = usr)
-      .then(usr => this.eligibilities = this.user.eligibilities)
-      .then(usr => this.accommodations = this.user.accommodations)
-      .then(usr => this.title = "Welcome " + this.user.first_name)
-
-      this.pages = [
-        { title: 'Home', component: HelpMeFindPage },
-        { title: 'Categories', component: CategoriesFor211Page},
-        { title: 'Transportation Options', component: TransportationAgenciesPage},
-        { title: 'About Us', component: AboutUsPage },
-        { title: 'Contact Us', component: ContactUsPage },
-        { title: 'Locator', component: UserLocatorPage},
-        { title: 'User Profile', component: UserProfilePage},
-        { title: 'Sign Out', component: "sign_out"}
-      ];
+      .then((usr) => {
+        this.user = usr;
+        this.eligibilities = this.user.eligibilities;
+        this.accommodations = this.user.accommodations;
+      })
+      .catch((error) => {
+        // If the user token is expired, sign the user out automatically
+        if(error.status === 401) {
+          console.error("USER TOKEN EXPIRED", error);
+          this.signOut();
+        } else {
+          console.error(error);
+        }
+      })
     }
-    // Menu if you are not signed in
-    else{
-
-      this.pages = [
-        { title: 'Temporary Language Test', component: TemporaryLanguageTestingPage},
-        { title: 'Home', component: HelpMeFindPage },
-        { title: 'Categories', component: CategoriesFor211Page},
-        { title: 'Transportation Options', component: TransportationAgenciesPage},
-        { title: 'About Us', component: AboutUsPage },
-        { title: 'Contact Us', component: ContactUsPage },
-        { title: 'Locator', component: UserLocatorPage},
-        { title: 'Sign In', component: SignInPage}
-      ];
-    }
+    
+    // Pages to display if user is signed in
+    this.signedInPages = [
+      { title: 'About Us', component: AboutUsPage },
+      { title: 'Contact Us', component: ContactUsPage },
+      { title: 'Transportation Options', component: TransportationAgenciesPage},
+      { title: 'Browse Services by Category', component: CategoriesFor211Page},
+      { title: 'Find Services by Location', component: UserLocatorPage},
+      { title: 'Privacy Policy', component: "privacy_policy"},
+      { title: 'Sign Out', component: "sign_out"}
+    ];
+    
+    // Pages to display if user is signed out
+    this.signedOutPages = [
+      { title: 'Temporary Language Test', component: TemporaryLanguageTestingPage},
+      { title: 'Home', component: HelpMeFindPage },
+      { title: 'About Us', component: AboutUsPage },
+      { title: 'Contact Us', component: ContactUsPage },
+      { title: 'Transportation Options', component: TransportationAgenciesPage},
+      { title: 'Browse Services by Category', component: CategoriesFor211Page},
+      { title: 'Find Services by Location', component: UserLocatorPage},
+      { title: 'Privacy Policy', component: "privacy_policy"}
+    ];
+    
+    this.signInPage = { title: 'Sign In', component: SignInPage};
+    this.profilePage = { title: 'My Profile', component: UserProfilePage};
   }
 
+  // Open the appropriate page, or do something special for certain pages
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    if (page.component == "sign_out"){
-      this.signOut();
+
+    switch(page.component) {
+      case "sign_out":
+        this.signOut();
+        break;
+      case "privacy_policy":
+        this.openUrl('http://www.golynx.com/privacy-policy.stml');
+        break;
+      default:
+        // Reset the content nav to have just this page
+        // we wouldn't want the back button to show in this scenario
+        this.nav.setRoot(page.component);
     }
-    else{
-      this.nav.setRoot(page.component);
-    }
+    
   }
 
   openUrl(url: string) {
@@ -108,6 +132,10 @@ export class MyApp {
       let browser = this.inAppBrowser.create(url);
       browser.show();
     });
+  }
+  
+  goHome() {
+    this.nav.setRoot(HelpMeFindPage);
   }
 
   signOut() {
@@ -117,12 +145,12 @@ export class MyApp {
         // On successful response, redirect the user to find page
         console.log('Signed Out');
         this.setMenu();
-        this.nav.setRoot(HelpMeFindPage);
+        this.goHome();
       },
       error => {
         console.log('Error Signing Out');
         this.setMenu();
-        this.nav.setRoot(HelpMeFindPage);
+        this.goHome();
       }
     );
   }

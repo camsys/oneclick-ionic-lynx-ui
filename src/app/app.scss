@@ -11,3 +11,8 @@
 @import '../theme/badges';    // BADGES
 @import '../theme/logos';     // LOGOS, ICONS, AND OTHER IMAGES
 @import '../theme/alerts';    // TOASTS, POPUPS, MODALS, etc.
+
+// Ionic bugfix so scrollbar isn't always there
+.scroll-content {
+  overflow-y: auto !important;
+}

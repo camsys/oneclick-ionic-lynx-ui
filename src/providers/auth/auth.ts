@@ -25,6 +25,11 @@ export class AuthProvider {
     return (JSON.parse(localStorage.session || null) as Session);
   }
   
+  // Sets the local storage session variable to the passed object
+  setSession(session: any): void {
+    localStorage.setItem('session', JSON.stringify(session));
+  }
+  
   // Returns true/false if a user is signed in
   isSignedIn(): Boolean {
     let session = this.session();
@@ -62,7 +67,7 @@ export class AuthProvider {
           
           // Store session info in local storage to keep user logged in
           if(session.email && session.authentication_token) {
-            localStorage.setItem('session', JSON.stringify(session));
+            this.setSession(session);
           }
           
           return response;

@@ -1,3 +1,22 @@
 ion-menu.lynx-menu ion-content {
   background-color: $lynxBlack;
+  
+  #menu-sign-in-button,#menu-welcome-button {
+    font-size: $font-size-lg;
+    
+    .item-inner {
+      border: none;
+    }
+    
+    ion-label {
+      margin-bottom: 0;
+    }
+  }
+  
+  #menu-sign-up-button,#menu-profile-button {    
+    ion-label {
+      margin-top: 0;
+    }
+  }
+  
 }
