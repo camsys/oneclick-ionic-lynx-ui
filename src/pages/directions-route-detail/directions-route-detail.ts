@@ -97,11 +97,6 @@ export class DirectionsRouteDetailPage {
     
   }
   
-  // Draw the proper route on the map whenever an itinerary tab is selected
-  itinerarySelected() {
-    console.log("ITINERARY SELECTED", this.selectedItinerary);
-  }
-  
   drawSelectedRoute() {
     
     // Remove all routeLines from the map
@@ -113,7 +108,6 @@ export class DirectionsRouteDetailPage {
     
     // Zoom the map extent to the route line
     this.googleMapsHelpers.zoomToObjects(this.map, selectedRouteLines); 
-    
         
   }
   
