@@ -16,9 +16,13 @@
   </ion-navbar>
   <ion-toolbar class="lynx-toolbar" text-center>
     <ion-title>Where are you?</ion-title>
-    <ion-searchbar  [(ngModel)]="autocomplete.query" 
+    <!-- <ion-searchbar  [(ngModel)]="autocomplete.query" 
                     [showCancelButton]="true" 
                     (ionInput)="updateSearch()">
+    </ion-searchbar> -->
+    <ion-searchbar  [(ngModel)]="addressQuery"
+                    [formControl]="searchControl"
+                    [showCancelButton]="true">
     </ion-searchbar>
 
   </ion-toolbar>
@@ -30,7 +34,7 @@
   
   <ion-list id="autocomplete-results">
     <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
-      {{ item.name }} {{ item.formatted_address }}
+      <b>{{ item.name }}</b> {{ item.formatted_address }}
     </ion-item>
   </ion-list>
   

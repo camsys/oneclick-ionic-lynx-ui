@@ -44,7 +44,7 @@ export class GeocodeServiceProvider {
         }
       };
 
-
+      console.log("MAKING GOOGLE PLACE PREDICTION", address_query);
       this.googleAutoCompleteService.getPlacePredictions({ input: address_query, componentRestrictions: {country: 'US'} }, predictionFormatter);
     });
 

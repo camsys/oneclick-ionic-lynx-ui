@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, Platform, NavController, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { FormControl } from '@angular/forms';
 
 import { GeocodeServiceProvider } from '../../providers/google/geocode-service';
 import { GoogleMapsHelpersProvider } from '../../providers/google/google-maps-helpers';
@@ -29,6 +30,9 @@ export class UserLocatorPage {
   map: google.maps.Map;
   fromPlace: PlaceModel;
   fromPlaceAddress: string;
+  searchControl: FormControl;
+  
+  addressQuery: string;
 
   // Pulls the current session from local storage
   session(): Session {
@@ -49,13 +53,17 @@ export class UserLocatorPage {
               public geolocation: Geolocation,
               public geoServiceProvider: GeocodeServiceProvider,
               private googleMapsHelpers: GoogleMapsHelpersProvider,
-              public oneClickProvider: OneClickProvider //,
+              public oneClickProvider: OneClickProvider,
+              private changeDetector: ChangeDetectorRef //,
               // public viewCtl: ViewController,
               // public navParams: NavParams,
             ) {
     this.map = null;
     this.fromPlace = null;
     this.fromPlaceAddress = '';
+    
+    this.searchControl = new FormControl();
+    this.addressQuery = '';
 
     // From autocomplete page
     this.googleAutocompleteItems = [];
@@ -69,6 +77,15 @@ export class UserLocatorPage {
   ionViewDidLoad() {
     this.platform.ready()
     .then(() => this.initializeMap());
+    
+    // Search for items based on user search terms
+    // Use an observable, canceling previous requests unless user pauses for half a second
+    this.searchControl.valueChanges
+                      .debounceTime(500)
+                      .subscribe((query) => {
+      console.log("SEARCH", query);
+      this.updateAddressSearch(query);
+    });
   }
 
   // Is called whenever user inputs into location search bar
@@ -146,43 +163,38 @@ export class UserLocatorPage {
     this.autocomplete.query = item.formatted_address;
     this.autocompleteItems = [];
   }
-
-  updateSearch() {
-
-    if (this.autocomplete.query == '') {
+  
+  updateAddressSearch(query) {
+    if(query === '') {
       this.autocompleteItems = [];
       return;
     }
-
-    this.autocompleteItems = [];
-
+    
     this.oneClickProvider
-    .getPlaces(this.autocomplete.query)
-    .forEach(places => {
-      for(let place of places){
-        if(!this.AlreadyPresentPlace(place))
-        {
-          this.autocompleteItems.push(place);
-        }
-      }
+    .getPlaces(query)
+    .subscribe(places => {
+      // Set oneClickAutocompleteItems to the places call results and refresh the search results
+      this.oneClickAutocompleteItems = places;
+      this.refreshSearchResults();
     });
 
     this.geoServiceProvider
-    .getGooglePlaces(this.autocomplete.query)
-    .forEach(places => {
-      for(let place of places){
-        if(!this.AlreadyPresentPlace(place))
-        {
-          this.autocompleteItems.push(place);
-        }
-      }
+    .getGooglePlaces(query)
+    .subscribe(places => {
+      // Set googleAutocompleteItems to the places call results and refresh the search results
+      this.googleAutocompleteItems = places;
+      this.refreshSearchResults();
     });
+    
   }
-
-  AlreadyPresentPlace(place: PlaceModel): boolean
-  {
-    //TODO make this smarter
-    return false;
+  
+  // Refreshes the search results from the combined Google and OneClick search results,
+  refreshSearchResults() {
+    // Set autocomplete results to the combination of the google and oneclick place searches
+    this.autocompleteItems = this.googleAutocompleteItems.concat(this.oneClickAutocompleteItems);
+    
+    // Manually force component refresh
+    this.changeDetector.detectChanges();
   }
 
 }
