@@ -15,12 +15,20 @@ page-directions-options {
           padding: 0;
           margin: 0;
         }
+        
       }
 
     }
     
     &.leg-time-col {
       font-weight: 600;
+      
+      color: $lynxDkGray;
+      
+      
+      .leg-header-clickable {
+        color: $lynxBlack;
+      }
     }
     
     &.leg-icon-col {
@@ -71,7 +79,5 @@ page-directions-options {
   ion-row.step-row {
     margin: size(0) 0;
   }
-  
-  
 
 }

@@ -5,6 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content>
+
   
   <!-- TRIP OPTION SELECTORS -->
   <ion-segment [(ngModel)]="selectedItinerary">
@@ -28,10 +29,37 @@
             
             <!-- Leg Time Column -->
             <ion-col no-padding col-2 class="leg-time-col">
+
+              <!-- The first leg is clickable to open the depart at datepicker -->
               <div class="leg-header-container">
-                <div class="leg-header-content">
-                  {{leg.startTime | date:'shortTime'}}                  
+                <div  text-center 
+                      class="leg-header-content leg-header-clickable"
+                      (click)="departAtDatepicker.open()"
+                       *ngIf="j === 0; else notFirstLeg">
+                  <div>
+                    depart at
+                  </div>
+                  {{ (leg.startTime) | date:'shortTime'}}
+                  
+                  <!-- Hidden datepicker is opened on containing div click event -->
+                  <ion-item no-lines hidden="true">
+                    <ion-datetime #departAtDatepicker
+                                  displayFormat="MMM DD, YYYY HH:mm" 
+                                  pickerFormat="MMM D H:m"
+                                  [(ngModel)]="tripRequest.trip.trip_time"
+                                  (ngModelChange)="updateDepartAt()">
+                    </ion-datetime>   
+                  </ion-item>
                 </div>
+                
+                <!-- All other legs are static -->
+                <ng-template  #notFirstLeg>
+                  <div class="leg-header-container" text-center>
+                    {{leg.startTime | date:'shortTime'}}
+                  </div>
+                </ng-template>
+
+                
               </div>
             </ion-col>
             
@@ -110,8 +138,21 @@
             <!-- Leg Time Column -->
             <ion-col no-padding col-2 class="leg-time-col">
               <div class="leg-header-container">
-                <div class="leg-header-content">
-                  {{ itin.legs[itin.legs.length - 1].endTime | date:'shortTime' }}                  
+                <div  text-center 
+                      class="leg-header-content leg-header-clickable" 
+                      (click)="arriveByDatepicker.open()">
+                  <div>
+                    arrive by
+                  </div>
+                  {{ itin.legs[itin.legs.length - 1].endTime | date:'shortTime' }}
+                  
+                  <!-- Hidden datepicker is opened on containing div click event -->
+                  <ion-item no-lines hidden="true">
+                    <ion-datetime id="arrive-by-datepicker" #arriveByDatepicker
+                                  displayFormat="MMM DD, YYYY HH:mm" 
+                                  pickerFormat="MMM D H:m"></ion-datetime>   
+                  </ion-item>
+                 
                 </div>
               </div>
             </ion-col>
@@ -150,4 +191,5 @@
     </div>
 
   </ion-grid>
+  
 </ion-content>

@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TripResponseModel } from "../../models/trip-response";
+import { TripRequestModel } from "../../models/trip-request";
+import { TripModel } from "../../models/trip";
 import { ItineraryModel } from "../../models/Itinerary";
 import { LegModel } from "../../models/leg";
 import { LegStepModel } from "../../models/leg-step";
@@ -18,10 +20,11 @@ import { LegStepModel } from "../../models/leg-step";
   templateUrl: 'directions-options.html',
 })
 export class DirectionsOptionsPage {
+  @ViewChild('arriveByDatepicker') arriveByDatepicker: any;
   trip:TripResponseModel;
   itineraries: ItineraryModel[];
   selectedItinerary: string; // Index of selected itinerary within the itineraries array
-
+  tripRequest:TripRequestModel;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams) {
@@ -36,8 +39,16 @@ export class DirectionsOptionsPage {
     });
     
     this.selectedItinerary = "0";
+    this.tripRequest = new TripRequestModel;
+    this.tripRequest.trip = new TripModel;
+    this.tripRequest.trip.trip_time = this.trip.trip_time;
+    this.tripRequest.trip.arrive_by = this.trip.arrive_by;
   }
 
   ionViewDidLoad() { }
+  
+  updateDepartAt() {
+    console.log("DEPART AT UPDATED", this.tripRequest);
+  }
 
 }

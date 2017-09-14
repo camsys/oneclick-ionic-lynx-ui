@@ -11,14 +11,4 @@ export class TripResponseModel {
   user: User;
   origin: LocationModel;
   destination: LocationModel;
-
-  //TODO Complete accomodations & elegibilities models
-  // accomodations: string[];
-  // elegibilities: string[];
-  // origin:
-  // destination:
-
-    constructor(){
-
-  }
 }
