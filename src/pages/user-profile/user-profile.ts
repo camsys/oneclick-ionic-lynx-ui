@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import {User} from '../../models/user';
 import {Eligibility} from '../../models/user';
 import {Accommodation} from '../../models/user';
+import {TripType} from '../../models/user';
 
 // PROVIDERS
 import { OneClickProvider } from '../../providers/one-click/one-click';
@@ -29,6 +30,7 @@ export class UserProfilePage {
   user: User;
   eligibilities: Eligibility[];
   accommodations: Accommodation[];
+  trip_types: TripType[];
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -41,6 +43,7 @@ export class UserProfilePage {
     .then(usr => this.user = usr)
     .then(usr => this.eligibilities = this.user.eligibilities)
     .then(usr => this.accommodations = this.user.accommodations)
+    .then(usr => this.trip_types = this.user.trip_types)
     .catch((error) => this.handleError(error))
   }
 

@@ -85,6 +85,18 @@
 
        </ion-col>
     </ion-row>
+
+    <!-- Preferred Trip Types -->
+    <ion-row>
+      <ion-col>
+          <ion-list>
+            <ion-item *ngFor="let trip_type of trip_types">
+              <ion-label>{{trip_type.name}}</ion-label>
+              <ion-checkbox [(ngModel)]=trip_type.value [ngModelOptions]="{standalone: true}"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+       </ion-col>
+    </ion-row>
       
     <!-- Submit -->
     <ion-row>

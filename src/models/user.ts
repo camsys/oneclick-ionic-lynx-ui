@@ -9,7 +9,7 @@ export class User {
   accommodations: Accommodation[];
   eligibilities: Eligibility[]; 
   preferred_locale: string;
-  preferred_trip_types: string[]; 
+  trip_types: TripType[]; 
   password: string;
 }
 
@@ -20,6 +20,12 @@ export class Eligibility {
 }
 
 export class Accommodation {
+  code: string;
+  name: string;
+  value: boolean;
+}
+
+export class TripType {
   code: string;
   name: string;
   value: boolean;
