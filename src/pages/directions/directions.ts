@@ -23,12 +23,17 @@ export class DirectionsPage {
   mode: string;
   routeOptions: any;
   mapTab: any;
+  directionsParams: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.trip = navParams.data.trip_response;
     this.mode = navParams.data.mode;
     this.routeOptions = DirectionsOptionsPage;
     this.mapTab = DirectionsRouteDetailPage;
+    this.directionsParams = {
+      trip: this.trip,
+      mode: this.mode
+    }
   }
 
   ionViewDidLoad() {

@@ -20,6 +20,7 @@ import { ItineraryModel } from "../../models/Itinerary";
 })
 export class DirectionsRouteDetailPage {
   trip:TripResponseModel;
+  mode:string;
   itineraries: ItineraryModel[];
   selectedItinerary: string;
   map: google.maps.Map;
@@ -31,7 +32,10 @@ export class DirectionsRouteDetailPage {
               public navParams: NavParams, 
               public geoServiceProvider: GeocodeServiceProvider,
               private googleMapsHelpers: GoogleMapsHelpersProvider) {
-    this.trip = navParams.data;
+    this.trip = navParams.data.trip;
+    this.mode = navParams.data.mode;
+    console.log("NAV PARAMS", this.trip, this.mode, navParams.data);
+    
     this.itineraries = this.trip.itineraries;
     this.selectedItinerary = "0";
     this.routeLines = [];
@@ -97,11 +101,6 @@ export class DirectionsRouteDetailPage {
     
   }
   
-  // Draw the proper route on the map whenever an itinerary tab is selected
-  itinerarySelected() {
-    console.log("ITINERARY SELECTED", this.selectedItinerary);
-  }
-  
   drawSelectedRoute() {
     
     // Remove all routeLines from the map
@@ -113,7 +112,6 @@ export class DirectionsRouteDetailPage {
     
     // Zoom the map extent to the route line
     this.googleMapsHelpers.zoomToObjects(this.map, selectedRouteLines); 
-    
         
   }
   
