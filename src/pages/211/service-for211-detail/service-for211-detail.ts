@@ -78,7 +78,7 @@ export class ServiceFor211DetailPage {
     tripRequest.trip.trip_time = new Date().toISOString();
     
     // Set arrive_by to true by default
-    tripRequest.trip.arrive_by = true;
+    tripRequest.trip.arrive_by = false;
 
     // Set trip types to the mode passed to this method
     tripRequest.trip_types = [mode];

@@ -47,7 +47,8 @@
                   <ion-item no-lines hidden="true">
                     <ion-datetime #departAtDatepicker
                                   displayFormat="MMM DD, YYYY HH:mm" 
-                                  pickerFormat="MMM D H:m"
+                                  pickerFormat="MMM D HH:mm"
+                                  minuteValues="0,15,30,45"
                                   [(ngModel)]="tripRequest.trip.trip_time"
                                   (ngModelChange)="updateDepartAt()">
                     </ion-datetime>   
@@ -180,7 +181,7 @@
             <ion-col no-padding col-1 class="leg-icon-col">
               <div class="leg-header-container">
                 <div class="leg-header-content">
-                  <ion-icon name="radio-button-on"></ion-icon>
+                  <ion-icon class="icon-med" name="radio-button-on"></ion-icon>
                 </div>
               </div>
             </ion-col>
