@@ -3,11 +3,12 @@ page-directions-options {
   // LEG STYLING
   ion-row.leg-row > ion-col {
 
+    // GENERAL LEG COLUMN STYLING
     .leg-header-container {
       display: flex;
       align-items: center;
       
-      height: size(5);
+      min-height: size(5);
       
       .leg-header-content {
         
@@ -15,14 +16,28 @@ page-directions-options {
           padding: 0;
           margin: 0;
         }
+        
       }
 
     }
     
+    // LEG TIME COLUMN
     &.leg-time-col {
       font-weight: 600;
+      color: $lynxBlack;
+      
+      .leg-header-container {
+        justify-content: center;
+      }
+      
+      // Special styling for editable depart_at and arrive_by times
+      .leg-header-clickable {
+        color: $lynxDarkPink;        
+      }
+      
     }
     
+    // LEG ICON COLUMN
     &.leg-icon-col {
       display: flex;
       flex-flow: column;
@@ -71,7 +86,5 @@ page-directions-options {
   ion-row.step-row {
     margin: size(0) 0;
   }
-  
-  
 
 }

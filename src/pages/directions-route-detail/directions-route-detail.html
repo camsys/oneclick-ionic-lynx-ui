@@ -10,10 +10,9 @@
     
     <!-- TRIP OPTION SELECTORS -->
     <div id="directions-route-options-container">
-      <ion-segment [(ngModel)]="selectedItinerary">
+      <ion-segment [(ngModel)]="selectedItinerary" (ionChange)="drawSelectedRoute()">
         <ion-segment-button *ngFor="let itin of itineraries; let i = index" 
-                            value="{{ i | toString }}"
-                            (ionSelect)="drawSelectedRoute()">
+                            value="{{ i | toString }}">
           OPTION {{i + 1}}
         </ion-segment-button>
       </ion-segment>

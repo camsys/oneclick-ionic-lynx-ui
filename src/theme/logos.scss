@@ -24,12 +24,14 @@ img.lynx-logo-sm {
 
 
 // For sizing icons
-ion-icon {
+ion-icon.icon-md,
+ion-icon.icon-ios,
+ion-icon.icon-wp {
   &.icon-sm {
     font-size: $font-size-md;
   }
   
-  &.icon-md {
+  &.icon-med {
     font-size: $font-size-lg;
   }
   
