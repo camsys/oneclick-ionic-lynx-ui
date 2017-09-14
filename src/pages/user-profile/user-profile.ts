@@ -50,10 +50,12 @@ export class UserProfilePage {
   updateProfile() {
     this.user.eligibilities = this.eligibilities
     this.user.accommodations = this.accommodations
+    this.user.trip_types = this.trip_types
     this.oneClickProvider.updateProfile(this.user)
     .then(usr => this.user = usr)
     .then(usr => this.eligibilities = this.user.eligibilities)
     .then(usr => this.accommodations = this.user.accommodations)
+    .then(usr => this.trip_types = this.user.trip_types)
     .catch((error) => this.handleError(error))
   }
   
