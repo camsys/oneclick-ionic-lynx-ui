@@ -36,7 +36,9 @@ export class ServiceFor211DetailPage {
     return (JSON.parse(localStorage.session || null) as Session);
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public oneClickProvider: OneClickProvider) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams, 
+              public oneClickProvider: OneClickProvider) {
     this.service = navParams.data.service;
     console.log(navParams.data.service);
 
@@ -80,8 +82,6 @@ export class ServiceFor211DetailPage {
 
     // Set trip types to the mode passed to this method
     tripRequest.trip_types = [mode];
-
-    console.log(tripRequest);
 
     let result = this.oneClickProvider.getTripPlan(tripRequest).
       forEach(value => { 

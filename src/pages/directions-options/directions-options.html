@@ -28,18 +28,20 @@
           <ion-row class="leg-row" *ngFor="let leg of itin.legs; let j = index">
             
             <!-- Leg Time Column -->
-            <ion-col no-padding col-2 class="leg-time-col">
+            <ion-col no-padding col-3 class="leg-time-col">
 
               <!-- The first leg is clickable to open the depart at datepicker -->
-              <div class="leg-header-container">
-                <div  text-center 
-                      class="leg-header-content leg-header-clickable"
-                      (click)="departAtDatepicker.open()"
+              <ion-row class="leg-header-container"
+                       (click)="departAtDatepicker.open()"
                        *ngIf="j === 0; else notFirstLeg">
-                  <div>
+                       
+                <ion-col col-9 no-padding text-center class="leg-header-content">
+                  <div  *ngIf="!trip.arrive_by" class="leg-time-header-content-description">
                     depart at
                   </div>
-                  {{ (leg.startTime) | date:'shortTime'}}
+                  <div class="leg-time-header-content-time">
+                    {{ leg.startTime | date:'shortTime'}}
+                  </div>
                   
                   <!-- Hidden datepicker is opened on containing div click event -->
                   <ion-item no-lines hidden="true">
@@ -50,24 +52,31 @@
                                   (ngModelChange)="updateDepartAt()">
                     </ion-datetime>   
                   </ion-item>
-                </div>
+                </ion-col>
                 
-                <!-- All other legs are static -->
-                <ng-template  #notFirstLeg>
-                  <div class="leg-header-container" text-center>
+                <ion-col col-3 no-padding text-center class="leg-header-content leg-header-clickable">
+                  <ion-icon class="leg-time-header-content-edit-icon icon-sm" name="create"></ion-icon>
+                </ion-col>
+                
+              </ion-row>
+                
+              <!-- All other legs are static -->
+              <ng-template  #notFirstLeg>
+                <ion-row class="leg-header-container">
+                  <ion-col col-12 no-padding text-center class="leg-header-container">
                     {{leg.startTime | date:'shortTime'}}
-                  </div>
-                </ng-template>
+                  </ion-col>
+                </ion-row>
+              </ng-template>
 
                 
-              </div>
             </ion-col>
             
             <!-- Leg Icon Column -->
             <ion-col no-padding col-1 class="leg-icon-col">
               <div class="leg-header-container">
                 <div class="leg-header-content">
-                  <ion-icon name="{{leg.modeIconName()}}"></ion-icon>
+                  <ion-icon class="icon-med" name="{{leg.modeIconName()}}"></ion-icon>
                 </div>
               </div>
               
@@ -76,7 +85,7 @@
             </ion-col>
             
             <!-- Leg Details Column -->
-            <ion-col no-padding col-9 class="leg-details-col">
+            <ion-col no-padding col-8 class="leg-details-col">
                 
               <!-- Leg Origin -->
               <ion-row class="leg-header-row">
@@ -136,25 +145,35 @@
           <ion-row class="leg-row">
             
             <!-- Leg Time Column -->
-            <ion-col no-padding col-2 class="leg-time-col">
-              <div class="leg-header-container">
-                <div  text-center 
-                      class="leg-header-content leg-header-clickable" 
-                      (click)="arriveByDatepicker.open()">
-                  <div>
+            <ion-col no-padding col-3 class="leg-time-col">
+              <ion-row class="leg-header-container" (click)="arriveByDatepicker.open()">
+                
+                <ion-col col-9 no-padding text-center class="leg-header-content">
+                  
+                  <div *ngIf="trip.arrive_by" class="leg-time-header-content-description">
                     arrive by
                   </div>
-                  {{ itin.legs[itin.legs.length - 1].endTime | date:'shortTime' }}
+                  <div class="leg-time-header-content-time">
+                    {{ itin.legs[itin.legs.length - 1].endTime | date:'shortTime' }}
+                  </div>
                   
                   <!-- Hidden datepicker is opened on containing div click event -->
                   <ion-item no-lines hidden="true">
-                    <ion-datetime id="arrive-by-datepicker" #arriveByDatepicker
+                    <ion-datetime #arriveByDatepicker
                                   displayFormat="MMM DD, YYYY HH:mm" 
-                                  pickerFormat="MMM D H:m"></ion-datetime>   
+                                  pickerFormat="MMM D H:m"
+                                  [(ngModel)]="tripRequest.trip.trip_time"
+                                  (ngModelChange)="updateArriveBy()">
+                    </ion-datetime>   
                   </ion-item>
                  
-                </div>
-              </div>
+                </ion-col>
+                
+                <ion-col col-3 no-padding text-center class="leg-header-content leg-header-clickable">
+                  <ion-icon class="leg-time-header-content-edit-icon icon-sm" name="create"></ion-icon>
+                </ion-col>
+                
+              </ion-row>
             </ion-col>
             
             <!-- Leg Icon Column -->
@@ -167,7 +186,7 @@
             </ion-col>
             
             <!-- Leg Details Column -->
-            <ion-col no-padding col-9 class="leg-details-col">
+            <ion-col no-padding col-8 class="leg-details-col">
               <ion-row class="leg-header-row">
                 <ion-col no-padding col-12>
                   <div class="leg-header-container">

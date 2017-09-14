@@ -20,6 +20,7 @@ import { ItineraryModel } from "../../models/Itinerary";
 })
 export class DirectionsRouteDetailPage {
   trip:TripResponseModel;
+  mode:string;
   itineraries: ItineraryModel[];
   selectedItinerary: string;
   map: google.maps.Map;
@@ -31,7 +32,10 @@ export class DirectionsRouteDetailPage {
               public navParams: NavParams, 
               public geoServiceProvider: GeocodeServiceProvider,
               private googleMapsHelpers: GoogleMapsHelpersProvider) {
-    this.trip = navParams.data;
+    this.trip = navParams.data.trip;
+    this.mode = navParams.data.mode;
+    console.log("NAV PARAMS", this.trip, this.mode, navParams.data);
+    
     this.itineraries = this.trip.itineraries;
     this.selectedItinerary = "0";
     this.routeLines = [];
