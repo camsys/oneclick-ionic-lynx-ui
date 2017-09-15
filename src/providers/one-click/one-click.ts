@@ -115,7 +115,7 @@ export class OneClickProvider {
       },
       "accommodations": formatted_accs,
       "eligibilities": formatted_eligs,
-      "preferred_trip_types": formatted_trip_types
+      "trip_types": formatted_trip_types
       };
 
      let options = new RequestOptions({ headers: headers });
