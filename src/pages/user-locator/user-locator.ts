@@ -1,19 +1,19 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, Platform, NavController, ModalController } from 'ionic-angular';
+import { IonicPage, Platform, NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { FormControl } from '@angular/forms';
 
+// PROVIDERS
 import { GeocodeServiceProvider } from '../../providers/google/geocode-service';
 import { GoogleMapsHelpersProvider } from '../../providers/google/google-maps-helpers';
 import { AuthProvider } from '../../providers/auth/auth';
-
-import { LocationAutoCompletePage } from '../location-auto-complete/location-auto-complete';
-import { CategoriesFor211Page } from '../211/categories-for211/categories-for211';
 import { OneClickProvider } from '../../providers/one-click/one-click';
 
-import { environment } from '../../app/environment';
+// PAGES
+import { CategoriesFor211Page } from '../211/categories-for211/categories-for211';
+
+// MODELS
 import { PlaceModel } from "../../models/place";
-import { Session } from '../../models/session';
 
 /**
  * Generated class for the UserLocatorPage page.
@@ -37,15 +37,8 @@ export class UserLocatorPage {
   autocompleteItems: PlaceModel[];
   googleAutocompleteItems: PlaceModel[];
   oneClickAutocompleteItems: PlaceModel[];
-  // 
-  // 
-  // autocompleteItems;
-  // googleAutoCompleteService = new google.maps.places.AutocompleteService();
-  // googleAutocompleteItems;
-  // oneClickAutocompleteItems;
 
   constructor(public navCtrl: NavController,
-              public modalController: ModalController,
               public platform: Platform,
               public geolocation: Geolocation,
               public geoServiceProvider: GeocodeServiceProvider,
@@ -54,6 +47,7 @@ export class UserLocatorPage {
               private changeDetector: ChangeDetectorRef,
               private auth: AuthProvider
             ) {
+              
     this.map = null;
     this.userLocation = null; // The user's device location
     
@@ -88,35 +82,30 @@ export class UserLocatorPage {
     // Add a location geolocator button that centers the map and sets the from place
     this.googleMapsHelpers
     .addYourLocationButton(this.map, (latLng) => {
-      this.updatePlaceFromLatLng(latLng.lat(), latLng.lng());
+      this.zoomToUserLocation(latLng);
     });
 
     // Try to automatically geolocate, centering the map and setting the from place
     this.geolocation.getCurrentPosition()
     .then((position) => {
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      this.map.setCenter(latLng);
-      this.updatePlaceFromLatLng(latLng.lat(), latLng.lng());
-      this.dropUserLocationPin(latLng);
+      this.zoomToUserLocation(latLng);
     })
     .catch((err) => {
       console.error("Could not geolocate device position");
     });
 
   }
-
-  dropUserLocationPin(position : google.maps.LatLng){
-    let marker : google.maps.Marker = new google.maps.Marker;
-    marker.setPosition(position);
-    marker.setMap(this.map);
-    // marker.setLabel(service.Name_Agency);
-    marker.setValues('Your Location');
-    marker.setTitle('Your Location');
-    marker.setClickable(false);
+  
+  // Updates the userLocation, and centers the map at the given latlng
+  zoomToUserLocation(latLng: google.maps.LatLng) {
+    this.updatePlaceFromLatLng(latLng.lat(), latLng.lng());
+    this.map.setCenter(latLng);
+    this.googleMapsHelpers.dropUserLocationPin(this.map, latLng);
   }
 
+  // Goes on to the categories/services page, using the given location as the center point
   searchForServices(place: PlaceModel){
-    console.log("SEARCHING FOR SERVICES", place);
     this.storePlaceInSession(place);
     this.navCtrl.push(CategoriesFor211Page);
   }
@@ -124,18 +113,13 @@ export class UserLocatorPage {
   // After device geolocation, update the userLocation property
   private updatePlaceFromLatLng(lat: number, lng: number) : void{
     this.geoServiceProvider.getPlaceFromLatLng(lat, lng)
-    .subscribe(places => {
-      // Update the place only if it hasn't been set yet.
-      this.userLocation = places[0]
-    });
+    .subscribe( places => this.userLocation = places[0] );
   }
 
   // Select an item from the search results list
   chooseItem(item: any) {
-    this.geoServiceProvider.getPlaceFromFormattedAddress(item.formatted_address)
-    .subscribe(places => {
-      this.searchForServices(places[0]);
-    });
+    this.geoServiceProvider.getPlaceFromFormattedAddress(item)
+    .subscribe( places => this.searchForServices(places[0]) );
   }
   
   // Updates the search items list based on the response from OneClick and Google
@@ -183,6 +167,11 @@ export class UserLocatorPage {
     let session = this.auth.session();
     session.user_starting_location = place;
     this.auth.setSession(session);
+  }
+  
+  // Empties the search results array
+  clearSearchResults() {
+    this.autocompleteItems = [];
   }
 
 }
