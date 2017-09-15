@@ -44,7 +44,6 @@ export class GeocodeServiceProvider {
         }
       };
 
-
       this.googleAutoCompleteService.getPlacePredictions({ input: address_query, componentRestrictions: {country: 'US'} }, predictionFormatter);
     });
 
@@ -59,6 +58,7 @@ export class GeocodeServiceProvider {
   }
   public getPlaceFromFormattedAddress(place: PlaceModel): Observable<PlaceModel[]>{
     let request = {address: place.formatted_address, componentRestrictions: {country: 'US'} };
+    console.log("GETTING PLACE FROM FORMATTED ADDRESS", request)
 
     return this.geocode(request);
   }
