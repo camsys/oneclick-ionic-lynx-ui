@@ -78,8 +78,8 @@
 
           <ion-list>
             <ion-item *ngFor="let eligibility of eligibilities">
-              <ion-label>{{eligibility.note}}</ion-label>
-              <ion-checkbox [(ngModel)]=eligibility.value [ngModelOptions]="{standalone: true}"></ion-checkbox>
+                <ion-label>{{eligibility.note}}</ion-label>
+                <ion-checkbox [(ngModel)]=eligibility.value [ngModelOptions]="{standalone: true}"></ion-checkbox>
             </ion-item>
           </ion-list>
 

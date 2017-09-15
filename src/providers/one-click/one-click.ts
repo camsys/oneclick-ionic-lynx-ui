@@ -91,7 +91,7 @@ export class OneClickProvider {
     let headers = this.auth.authHeaders();
     let formatted_accs = {};
     let formatted_eligs = {};
-    let formatted_trip_types = [];
+    let formatted_trip_types = {};
 
     for (let acc of user.accommodations) {
       formatted_accs[acc.code] = acc.value;
@@ -102,9 +102,7 @@ export class OneClickProvider {
     }
 
     for (let trip_type of user.trip_types){
-      if(trip_type.value == true){
-        formatted_trip_types.push(trip_type.code);
-      }
+      formatted_trip_types[trip_type.code] = trip_type.value;
     }
 
     let body = {
@@ -117,7 +115,7 @@ export class OneClickProvider {
       },
       "accommodations": formatted_accs,
       "eligibilities": formatted_eligs,
-      "trip_types": formatted_trip_types
+      "preferred_trip_types": formatted_trip_types
       };
 
      let options = new RequestOptions({ headers: headers });

@@ -31,6 +31,7 @@ export class UserProfilePage {
   eligibilities: Eligibility[];
   accommodations: Accommodation[];
   trip_types: TripType[];
+  filtered_trip_types: TripType[];
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -44,6 +45,7 @@ export class UserProfilePage {
     .then(usr => this.eligibilities = this.user.eligibilities)
     .then(usr => this.accommodations = this.user.accommodations)
     .then(usr => this.trip_types = this.user.trip_types)
+    .then(usr => this.filterTripTypes())
     .catch((error) => this.handleError(error))
   }
 
@@ -56,7 +58,20 @@ export class UserProfilePage {
     .then(usr => this.eligibilities = this.user.eligibilities)
     .then(usr => this.accommodations = this.user.accommodations)
     .then(usr => this.trip_types = this.user.trip_types)
+    .then(usr => this.filterTripTypes())
     .catch((error) => this.handleError(error))
+  }
+
+  filterTripTypes() {
+    this.filtered_trip_types = [];
+    var allowed = ["transit", "paratransit", "car", "taxi", "uber"];
+    for (var i = 0; i < this.user.trip_types.length; i++) {
+      if(allowed.indexOf(this.user.trip_types[i].code) > -1){
+        this.filtered_trip_types.push(this.user.trip_types[i]);
+      }
+    }
+    this.trip_types = this.filtered_trip_types;
+    this.user.trip_types = this.filtered_trip_types;
   }
   
   handleError(error) {
