@@ -141,5 +141,15 @@ export class GoogleMapsHelpersProvider {
 
     map.fitBounds(bounds);
   }
+  
+  // Drops a pin at the given latLng
+  dropUserLocationPin(map: google.maps.Map, latLng: google.maps.LatLng) {
+    let marker : google.maps.Marker = new google.maps.Marker;
+    marker.setPosition(latLng);
+    marker.setMap(map);
+    marker.setValues('Your Location');
+    marker.setTitle('Your Location');
+    marker.setClickable(false);
+  }
 
 }
