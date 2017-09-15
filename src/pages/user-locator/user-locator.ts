@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 
 import { GeocodeServiceProvider } from '../../providers/google/geocode-service';
 import { GoogleMapsHelpersProvider } from '../../providers/google/google-maps-helpers';
+import { AuthProvider } from '../../providers/auth/auth';
 
 import { LocationAutoCompletePage } from '../location-auto-complete/location-auto-complete';
 import { CategoriesFor211Page } from '../211/categories-for211/categories-for211';
@@ -28,24 +29,20 @@ import { Session } from '../../models/session';
 export class UserLocatorPage {
 
   map: google.maps.Map;
-  fromPlace: PlaceModel;
-  fromPlaceAddress: string;
-  searchControl: FormControl;
+  userLocation: PlaceModel;
   
+  // Places search/autocomplete
+  searchControl: FormControl;  
   addressQuery: string;
-
-  // Pulls the current session from local storage
-  session(): Session {
-    return (JSON.parse(localStorage.session || null) as Session);
-  }
-
-
-  // From autocomplete page
-  autocompleteItems;
-  autocomplete;
-  googleAutoCompleteService = new google.maps.places.AutocompleteService();
-  googleAutocompleteItems;
-  oneClickAutocompleteItems;
+  autocompleteItems: PlaceModel[];
+  googleAutocompleteItems: PlaceModel[];
+  oneClickAutocompleteItems: PlaceModel[];
+  // 
+  // 
+  // autocompleteItems;
+  // googleAutoCompleteService = new google.maps.places.AutocompleteService();
+  // googleAutocompleteItems;
+  // oneClickAutocompleteItems;
 
   constructor(public navCtrl: NavController,
               public modalController: ModalController,
@@ -54,42 +51,33 @@ export class UserLocatorPage {
               public geoServiceProvider: GeocodeServiceProvider,
               private googleMapsHelpers: GoogleMapsHelpersProvider,
               public oneClickProvider: OneClickProvider,
-              private changeDetector: ChangeDetectorRef //,
-              // public viewCtl: ViewController,
-              // public navParams: NavParams,
+              private changeDetector: ChangeDetectorRef,
+              private auth: AuthProvider
             ) {
     this.map = null;
-    this.fromPlace = null;
-    this.fromPlaceAddress = '';
+    this.userLocation = null; // The user's device location
     
+    // For handling search autocomplete
     this.searchControl = new FormControl();
     this.addressQuery = '';
-
-    // From autocomplete page
     this.googleAutocompleteItems = [];
     this.oneClickAutocompleteItems = [];
     this.autocompleteItems = [];
-    this.autocomplete = {
-      query: ''
-    };
   }
 
   ionViewDidLoad() {
+    
+    // Initialize the map once device is ready
     this.platform.ready()
-    .then(() => this.initializeMap());
+    .then(() => this.initializeMap())
     
     // Search for items based on user search terms
     // Use an observable, canceling previous requests unless user pauses for half a second
     this.searchControl.valueChanges
                       .debounceTime(500)
                       .subscribe((query) => {
-      console.log("SEARCH", query);
       this.updateAddressSearch(query);
     });
-  }
-
-  // Is called whenever user inputs into location search bar
-  onInput(event: any) {
   }
 
   // Sets up the google map and geolocation services
@@ -127,43 +115,30 @@ export class UserLocatorPage {
     marker.setClickable(false);
   }
 
-  searchForServices(){
-    let session = this.session() || new Session;
-
-    session.user_starting_location = this.fromPlace;
-    localStorage.setItem('session', JSON.stringify(session));
+  searchForServices(place: PlaceModel){
+    console.log("SEARCHING FOR SERVICES", place);
+    this.storePlaceInSession(place);
     this.navCtrl.push(CategoriesFor211Page);
   }
 
+  // After device geolocation, update the userLocation property
   private updatePlaceFromLatLng(lat: number, lng: number) : void{
-    this.geoServiceProvider.getPlaceFromLatLng(lat, lng).forEach(places => {
-      let place = places[0];
-
-      this.fromPlace = place;
-      this.fromPlaceAddress = this.fromPlace.formatted_address;
+    this.geoServiceProvider.getPlaceFromLatLng(lat, lng)
+    .subscribe(places => {
+      // Update the place only if it hasn't been set yet.
+      this.userLocation = places[0]
     });
   }
 
-  private updatePlaceFromFormattedAddress(place: PlaceModel) : void{
-    this.geoServiceProvider.getPlaceFromFormattedAddress(place).forEach(places => {
-      let place = places[0];
-      this.fromPlace = place;
-      this.fromPlaceAddress = place.formatted_address;
-      let latLng = new google.maps.LatLng(place.geometry.lat, place.geometry.lng);
-      this.map.setCenter(latLng);
-    });
-  }
-
-  // *****************
-  // AUTOCOMPLETE INFO
-  // *****************
-
+  // Select an item from the search results list
   chooseItem(item: any) {
-    this.updatePlaceFromFormattedAddress(item);
-    this.autocomplete.query = item.formatted_address;
-    this.autocompleteItems = [];
+    this.geoServiceProvider.getPlaceFromFormattedAddress(item.formatted_address)
+    .subscribe(places => {
+      this.searchForServices(places[0]);
+    });
   }
   
+  // Updates the search items list based on the response from OneClick and Google
   updateAddressSearch(query) {
     if(query === '') {
       this.autocompleteItems = [];
@@ -189,12 +164,25 @@ export class UserLocatorPage {
   }
   
   // Refreshes the search results from the combined Google and OneClick search results,
-  refreshSearchResults() {
+  private refreshSearchResults() {
     // Set autocomplete results to the combination of the google and oneclick place searches
     this.autocompleteItems = this.googleAutocompleteItems.concat(this.oneClickAutocompleteItems);
     
     // Manually force component refresh
     this.changeDetector.detectChanges();
+  }
+  
+  // Centers map on a place
+  private centerMapOnPlace(place: PlaceModel) {
+    let latLng = new google.maps.LatLng(place.geometry.lat, place.geometry.lng);
+    this.map.setCenter(latLng);
+  }
+
+  // Store place in session hash
+  private storePlaceInSession(place: PlaceModel) {
+    let session = this.auth.session();
+    session.user_starting_location = place;
+    this.auth.setSession(session);
   }
 
 }

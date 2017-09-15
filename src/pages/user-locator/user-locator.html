@@ -20,7 +20,7 @@
                     [showCancelButton]="true" 
                     (ionInput)="updateSearch()">
     </ion-searchbar> -->
-    <ion-searchbar  [(ngModel)]="addressQuery"
+    <ion-searchbar  [ngModel]="addressQuery"
                     [formControl]="searchControl"
                     [showCancelButton]="true">
     </ion-searchbar>
@@ -42,7 +42,8 @@
     <button ion-button round 
             class="lynx-button-primary"
             id="find-services-button"
-            (click)="searchForServices()">
+            (click)="searchForServices(fromPlace)"
+            *ngIf="!!fromPlace">
       Find Services
       <ion-icon pull-right name="arrow-forward"></ion-icon>
     </button>
