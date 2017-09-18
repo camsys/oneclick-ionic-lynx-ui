@@ -22,7 +22,7 @@ export class AuthProvider {
   
   // Pulls the current session from local storage
   session(): Session {
-    return (JSON.parse(localStorage.session || {}) as Session);
+    return (JSON.parse(localStorage.session || "{}") as Session);
   }
   
   // Sets the local storage session variable to the passed object
