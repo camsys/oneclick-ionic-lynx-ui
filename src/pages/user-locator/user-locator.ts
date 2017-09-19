@@ -37,6 +37,7 @@ export class UserLocatorPage {
   autocompleteItems: PlaceModel[];
   googleAutocompleteItems: PlaceModel[];
   oneClickAutocompleteItems: PlaceModel[];
+  searchbarPlaceholder: string;
 
   constructor(public navCtrl: NavController,
               public platform: Platform,
@@ -57,6 +58,7 @@ export class UserLocatorPage {
     this.googleAutocompleteItems = [];
     this.oneClickAutocompleteItems = [];
     this.autocompleteItems = [];
+    this.searchbarPlaceholder = "finding your location...";
   }
 
   ionViewDidLoad() {
@@ -83,6 +85,9 @@ export class UserLocatorPage {
     this.googleMapsHelpers
     .addYourLocationButton(this.map, (latLng) => {
       this.zoomToUserLocation(latLng);
+      
+      // Clear the search bar and search results
+      this.searchControl.reset();
     });
 
     // Try to automatically geolocate, centering the map and setting the from place
@@ -113,7 +118,10 @@ export class UserLocatorPage {
   // After device geolocation, update the userLocation property
   private updatePlaceFromLatLng(lat: number, lng: number) : void{
     this.geoServiceProvider.getPlaceFromLatLng(lat, lng)
-    .subscribe( places => this.userLocation = places[0] );
+    .subscribe( (places) => { 
+      this.userLocation = places[0];
+      this.searchbarPlaceholder = "Your Location: " + this.userLocation.formatted_address;
+    });
   }
 
   // Select an item from the search results list
@@ -124,7 +132,7 @@ export class UserLocatorPage {
   
   // Updates the search items list based on the response from OneClick and Google
   updateAddressSearch(query) {
-    if(query === '') {
+    if(!query || query === '') {
       this.autocompleteItems = [];
       return;
     }

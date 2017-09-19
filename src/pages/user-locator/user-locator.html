@@ -22,7 +22,8 @@
     </ion-searchbar> -->
     <ion-searchbar  [ngModel]="addressQuery"
                     [formControl]="searchControl"
-                    [showCancelButton]="true">
+                    [showCancelButton]="true"
+                    [placeholder]="searchbarPlaceholder">
     </ion-searchbar>
 
   </ion-toolbar>
@@ -43,7 +44,7 @@
             class="lynx-button-primary"
             id="find-services-button"
             (click)="searchForServices(fromPlace)"
-            *ngIf="!!fromPlace">
+            *ngIf="!!userLocation">
       Find Services
       <ion-icon pull-right name="arrow-forward"></ion-icon>
     </button>
