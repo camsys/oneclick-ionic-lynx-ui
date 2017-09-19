@@ -67,6 +67,7 @@ import { PageModel } from "../models/page";
 import { PrettyTimePipe } from '../pipes/pretty-time';
 import { PrettyDistancePipe } from '../pipes/pretty-distance';
 import { ToStringPipe } from '../pipes/to-string';
+import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { ToStringPipe } from '../pipes/to-string';
     UserProfilePage,
     PrettyTimePipe,
     PrettyDistancePipe,
-    ToStringPipe
+    ToStringPipe,
+    FormatPhoneNumberPipe
   ],
   imports: [
     BrowserModule,

@@ -63,6 +63,7 @@
 
     <ion-row>
       <ion-col col-md-8 offset-md-2>
+        <h3>About This Service</h3>
         <p id="service-description">
           {{service.description}}          
         </p>
@@ -70,13 +71,14 @@
       </ion-col>
     </ion-row>
     
-    <ion-row>
+    <!-- show questions? button only if phone # is present -->
+    <ion-row *ngIf="service.phone && service.phone.length > 0">
       <ion-col col-md-8 offset-md-2 text-center>
         <h3>Have Questions?</h3>
         <a href="tel:{{service.phone}}">
           <button ion-button round
                   class="lynx-button-primary">
-                  {{service.phone}}
+                  {{service.phone | formatPhoneNumber }}
           </button>
         </a>
       </ion-col>
