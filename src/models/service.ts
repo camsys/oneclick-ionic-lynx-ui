@@ -12,5 +12,6 @@ export class ServiceModel {
   transit_time: number;
   phone: string;
   url: string;
+  display_url: string; 
   description: string;
 }
