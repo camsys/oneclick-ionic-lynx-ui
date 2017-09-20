@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, Platform, NavController } from 'ionic-angular';
+import { IonicPage, Platform, NavController, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { FormControl } from '@angular/forms';
 
@@ -46,7 +46,8 @@ export class UserLocatorPage {
               private googleMapsHelpers: GoogleMapsHelpersProvider,
               public oneClickProvider: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
-              private auth: AuthProvider
+              private auth: AuthProvider,
+              public events: Events
             ) {
               
     this.map = null;
@@ -126,8 +127,12 @@ export class UserLocatorPage {
 
   // Select an item from the search results list
   chooseItem(item: any) {
+    this.events.publish('spinner:show'); // Show spinner until geocoding call returns
     this.geoServiceProvider.getPlaceFromFormattedAddress(item)
-    .subscribe( places => this.searchForServices(places[0]) );
+    .subscribe((places) => {
+      this.events.publish('spinner:hide'); // Hide spinner once places are returned
+      this.searchForServices(places[0]);
+    });
   }
   
   // Updates the search items list based on the response from OneClick and Google

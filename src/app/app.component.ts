@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser'
@@ -33,6 +33,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HelpMeFindPage;
+  showSpinner: Boolean = false;
 
   signedInPages: PageModel[];
   signedOutPages: PageModel[];
@@ -47,9 +48,11 @@ export class MyApp {
               public splashScreen: SplashScreen, 
               private inAppBrowser: InAppBrowser, 
               private auth: AuthProvider, 
-              private oneClickProvider: OneClickProvider) {
+              private oneClickProvider: OneClickProvider,
+              public events: Events) {
     this.initializeApp();
     this.setMenu();
+    this.setupSpinner();
   }
 
   initializeApp() {
@@ -153,6 +156,16 @@ export class MyApp {
         this.goHome();
       }
     );
+  }
+
+  // Subscribe to spinner:show and spinner:hide events that can be published by child pages  
+  setupSpinner() {
+    this.events.subscribe('spinner:show', () => {
+      this.showSpinner = true;
+    });
+    this.events.subscribe('spinner:hide', () => {
+      this.showSpinner = false;
+    });
   }
 
 }

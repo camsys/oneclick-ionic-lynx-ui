@@ -17,11 +17,11 @@ import { DirectTransporationFinderPage } from '../direct-transporation-finder/di
 })
 export class HelpMeFindPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-
+  ionViewDidLoad() {    
   }
 
   openResourcesPage() {

@@ -16,3 +16,17 @@
 .scroll-content {
   overflow-y: auto !important;
 }
+
+
+#ion-spinner-container {
+  background-color: transparentize($lynxBlack, 0.7);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  padding: 60% 0;
+  
+  ion-spinner {
+    height: size(5);
+    width: size(5);
+  }  
+}

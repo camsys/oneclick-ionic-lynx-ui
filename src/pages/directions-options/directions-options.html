@@ -8,7 +8,7 @@
 
   
   <!-- TRIP OPTION SELECTORS -->
-  <ion-segment [(ngModel)]="selectedItinerary">
+  <ion-segment [(ngModel)]="selectedItinerary" *ngIf="itineraries.length > 1">
     <ion-segment-button *ngFor="let itin of itineraries; let i = index" 
                         value="{{ i | toString }}">
       OPTION {{i + 1}}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { ServicesPage } from '../services/services'
 
@@ -29,7 +29,8 @@ export class SubSubcategoriesFor211Page {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private oneClickServiceProvider: OneClickProvider) {
+              private oneClickServiceProvider: OneClickProvider,
+              public events: Events) {
     this.subcategory = navParams.data.selected_subcategory;
     this.userStartingLocation = this.session().user_starting_location
   }
@@ -58,21 +59,30 @@ export class SubSubcategoriesFor211Page {
   }
 
   openToMatchList(subCategoryLink: SubSubcategoryFor211Model) {
+    this.events.publish('spinner:show'); // Show spinner while results are loading
 
     if(this.userStartingLocation == null)
     {
-      this.oneClickServiceProvider.getServicesFromSubSubcategoryWithoutLatLng(subCategoryLink.name).
-      then(value => this.navCtrl.push(ServicesPage, {
-          selected_subcategory_link: subCategoryLink,
-          matches_result: value
-        })
+      this.oneClickServiceProvider
+      .getServicesFromSubSubcategoryWithoutLatLng(subCategoryLink.name)
+      .then((value) => {
+        this.events.publish('spinner:hide'); // Hide spinner once results come back
+        this.navCtrl.push(ServicesPage, {
+            selected_subcategory_link: subCategoryLink,
+            matches_result: value
+          });
+        }
       );
     }else{
-      this.oneClickServiceProvider.getServicesFromSubSubcategoryAndLatLng(subCategoryLink.name, this.userStartingLocation.geometry.lat, this.userStartingLocation.geometry.lng).
-      then(value => this.navCtrl.push(ServicesPage, {
-          selected_subcategory_link: subCategoryLink,
-          matches_result: value
-        })
+      this.oneClickServiceProvider
+      .getServicesFromSubSubcategoryAndLatLng(subCategoryLink.name, this.userStartingLocation.geometry.lat, this.userStartingLocation.geometry.lng)
+      .then((value) => {
+        this.events.publish('spinner:hide'); // Hide spinner once results come back
+        this.navCtrl.push(ServicesPage, {
+            selected_subcategory_link: subCategoryLink,
+            matches_result: value
+          });
+        }
       );
     }
 
@@ -84,5 +94,3 @@ export class SubSubcategoriesFor211Page {
     return (JSON.parse(localStorage.session || null) as Session);
   }
 }
-
-

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { ServiceFor211ReviewPage } from '../service-for211-review/service-for211-review';
 import { DirectionsPage } from '../../directions/directions';
@@ -38,7 +38,8 @@ export class ServiceFor211DetailPage {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
-              public oneClickProvider: OneClickProvider) {
+              public oneClickProvider: OneClickProvider,
+              public events: Events) {
     this.service = navParams.data.service;
     console.log(navParams.data.service);
 
@@ -54,6 +55,8 @@ export class ServiceFor211DetailPage {
   }
 
   openDirectionsPage(mode: string){
+    
+    this.events.publish('spinner:show');
 
     let startLocation = this.session().user_starting_location;
 
@@ -85,6 +88,7 @@ export class ServiceFor211DetailPage {
 
     let result = this.oneClickProvider.getTripPlan(tripRequest).
       forEach(value => { 
+        this.events.publish('spinner:hide');
         this.navCtrl.push(DirectionsPage, {
           trip_response: value,
           mode: mode

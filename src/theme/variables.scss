@@ -84,6 +84,9 @@ $background-color: $lynxWhite;
 
 // Badges
 $badge-border-radius: size(3);
+$badge-ios-border-radius: $badge-border-radius;
+$badge-md-border-radius: $badge-border-radius;
+$badge-wp-border-radius: $badge-border-radius;
 
 // Cards
 $card-ios-header-color: $lynxWhite;
@@ -114,27 +117,11 @@ $toolbar-ios-text-color: $lynxWhite;
 $toolbar-md-text-color: $lynxWhite;
 $toolbar-wp-text-color: $lynxWhite;
 
-
-/* PLATFORM-SPECIFIC VARIABLES */
-
-// App iOS Variables
-// --------------------------------------------------
-// iOS only Sass variables can go here
-$badge-ios-border-radius: $badge-border-radius;
-
-
-
-// App Material Design Variables
-// --------------------------------------------------
-// Material Design only Sass variables can go here
-$badge-md-border-radius: $badge-border-radius;
-
-
-
-// App Windows Variables
-// --------------------------------------------------
-// Windows only Sass variables can go here
-$badge-wp-border-radius: $badge-border-radius;
+// Spinner
+$spinner-color: $lynxWhite;
+$spinner-ios-crescent-color: $spinner-color;
+$spinner-md-crescent-color: $spinner-color;
+$spinner-wp-crescent-color: $spinner-color;
 
 
 
