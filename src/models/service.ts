@@ -11,5 +11,6 @@ export class ServiceModel {
   drive_time: number;
   transit_time: number;
   phone: string;
+  url: string;
   description: string;
 }
