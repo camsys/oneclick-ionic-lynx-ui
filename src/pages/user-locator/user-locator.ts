@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { IonicPage, Platform, NavController, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { FormControl } from '@angular/forms';
@@ -15,6 +15,9 @@ import { CategoriesFor211Page } from '../211/categories-for211/categories-for211
 // MODELS
 import { PlaceModel } from "../../models/place";
 
+// COMPONENTS
+import { PlaceSearchComponent } from "../../components/place-search/place-search";
+
 /**
  * Generated class for the UserLocatorPage page.
  *
@@ -27,6 +30,8 @@ import { PlaceModel } from "../../models/place";
   templateUrl: 'user-locator.html',
 })
 export class UserLocatorPage {
+  
+  @ViewChild('originSearch') originSearch: PlaceSearchComponent;
 
   map: google.maps.Map;
   userLocation: PlaceModel;
@@ -68,13 +73,13 @@ export class UserLocatorPage {
     this.platform.ready()
     .then(() => this.initializeMap())
     
-    // Search for items based on user search terms
-    // Use an observable, canceling previous requests unless user pauses for half a second
-    this.searchControl.valueChanges
-                      .debounceTime(500)
-                      .subscribe((query) => {
-      this.updateAddressSearch(query);
-    });
+    // // Search for items based on user search terms
+    // // Use an observable, canceling previous requests unless user pauses for half a second
+    // this.searchControl.valueChanges
+    //                   .debounceTime(500)
+    //                   .subscribe((query) => {
+    //   this.updateAddressSearch(query);
+    // });
   }
 
   // Sets up the google map and geolocation services
@@ -121,53 +126,53 @@ export class UserLocatorPage {
     this.geoServiceProvider.getPlaceFromLatLng(lat, lng)
     .subscribe( (places) => { 
       this.userLocation = places[0];
-      this.searchbarPlaceholder = "Your Location: " + this.userLocation.formatted_address;
+      this.originSearch.placeholder = "Your Location: " + this.userLocation.formatted_address;
     });
   }
 
-  // Select an item from the search results list
-  chooseItem(item: any) {
-    this.events.publish('spinner:show'); // Show spinner until geocoding call returns
-    this.geoServiceProvider.getPlaceFromFormattedAddress(item)
-    .subscribe((places) => {
-      this.events.publish('spinner:hide'); // Hide spinner once places are returned
-      this.searchForServices(places[0]);
-    });
-  }
+  // // Select an item from the search results list
+  // chooseItem(item: any) {
+  //   this.events.publish('spinner:show'); // Show spinner until geocoding call returns
+  //   this.geoServiceProvider.getPlaceFromFormattedAddress(item)
+  //   .subscribe((places) => {
+  //     this.events.publish('spinner:hide'); // Hide spinner once places are returned
+  //     this.searchForServices(places[0]);
+  //   });
+  // }
   
-  // Updates the search items list based on the response from OneClick and Google
-  updateAddressSearch(query) {
-    if(!query || query === '') {
-      this.autocompleteItems = [];
-      return;
-    }
-    
-    this.oneClickProvider
-    .getPlaces(query)
-    .subscribe(places => {
-      // Set oneClickAutocompleteItems to the places call results and refresh the search results
-      this.oneClickAutocompleteItems = places;
-      this.refreshSearchResults();
-    });
-
-    this.geoServiceProvider
-    .getGooglePlaces(query)
-    .subscribe(places => {
-      // Set googleAutocompleteItems to the places call results and refresh the search results
-      this.googleAutocompleteItems = places;
-      this.refreshSearchResults();
-    });
-    
-  }
+  // // Updates the search items list based on the response from OneClick and Google
+  // updateAddressSearch(query) {
+  //   if(!query || query === '') {
+  //     this.autocompleteItems = [];
+  //     return;
+  //   }
+  //   
+  //   this.oneClickProvider
+  //   .getPlaces(query)
+  //   .subscribe(places => {
+  //     // Set oneClickAutocompleteItems to the places call results and refresh the search results
+  //     this.oneClickAutocompleteItems = places;
+  //     this.refreshSearchResults();
+  //   });
+  // 
+  //   this.geoServiceProvider
+  //   .getGooglePlaces(query)
+  //   .subscribe(places => {
+  //     // Set googleAutocompleteItems to the places call results and refresh the search results
+  //     this.googleAutocompleteItems = places;
+  //     this.refreshSearchResults();
+  //   });
+  //   
+  // }
   
-  // Refreshes the search results from the combined Google and OneClick search results,
-  private refreshSearchResults() {
-    // Set autocomplete results to the combination of the google and oneclick place searches
-    this.autocompleteItems = this.googleAutocompleteItems.concat(this.oneClickAutocompleteItems);
-    
-    // Manually force component refresh
-    this.changeDetector.detectChanges();
-  }
+  // // Refreshes the search results from the combined Google and OneClick search results,
+  // private refreshSearchResults() {
+  //   // Set autocomplete results to the combination of the google and oneclick place searches
+  //   this.autocompleteItems = this.googleAutocompleteItems.concat(this.oneClickAutocompleteItems);
+  //   
+  //   // Manually force component refresh
+  //   this.changeDetector.detectChanges();
+  // }
   
   // Centers map on a place
   private centerMapOnPlace(place: PlaceModel) {
@@ -182,9 +187,9 @@ export class UserLocatorPage {
     this.auth.setSession(session);
   }
   
-  // Empties the search results array
-  clearSearchResults() {
-    this.autocompleteItems = [];
-  }
+  // // Empties the search results array
+  // clearSearchResults() {
+  //   this.autocompleteItems = [];
+  // }
 
 }

@@ -62,12 +62,14 @@ import { LegGeometryModel } from "../models/leg-geometry";
 import { LegStepModel } from "../models/leg-step";
 import { PageModel } from "../models/page";
 
-
 // Pipes
 import { PrettyTimePipe } from '../pipes/pretty-time';
 import { PrettyDistancePipe } from '../pipes/pretty-distance';
 import { ToStringPipe } from '../pipes/to-string';
 import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
+
+// Components
+import { PlaceSearchComponent } from '../components/place-search/place-search';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,8 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
     PrettyTimePipe,
     PrettyDistancePipe,
     ToStringPipe,
-    FormatPhoneNumberPipe
+    FormatPhoneNumberPipe,
+    PlaceSearchComponent
   ],
   imports: [
     BrowserModule,

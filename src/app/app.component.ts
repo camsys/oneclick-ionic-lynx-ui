@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -49,6 +49,7 @@ export class MyApp {
               private inAppBrowser: InAppBrowser, 
               private auth: AuthProvider, 
               private oneClickProvider: OneClickProvider,
+              private changeDetector: ChangeDetectorRef,
               public events: Events) {
     this.initializeApp();
     this.setMenu();
@@ -161,10 +162,14 @@ export class MyApp {
   // Subscribe to spinner:show and spinner:hide events that can be published by child pages  
   setupSpinner() {
     this.events.subscribe('spinner:show', () => {
+      console.log("SHOWING SPINNER");
       this.showSpinner = true;
+      this.changeDetector.detectChanges(); // Makes sure spinner doesn't lag
     });
     this.events.subscribe('spinner:hide', () => {
+      console.log("HIDING SPINNER");
       this.showSpinner = false;
+      this.changeDetector.detectChanges(); // Makes sure spinner doesn't lag
     });
   }
 

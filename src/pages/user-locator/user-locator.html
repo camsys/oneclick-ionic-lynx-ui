@@ -20,11 +20,14 @@
                     [showCancelButton]="true" 
                     (ionInput)="updateSearch()">
     </ion-searchbar> -->
-    <ion-searchbar  [ngModel]="addressQuery"
+    <place-search #originSearch 
+                  placeholder="finding your location...">
+    </place-search>
+    <!-- <ion-searchbar  [ngModel]="addressQuery"
                     [formControl]="searchControl"
                     [showCancelButton]="true"
                     [placeholder]="searchbarPlaceholder">
-    </ion-searchbar>
+    </ion-searchbar> -->
 
   </ion-toolbar>
 
@@ -32,12 +35,20 @@
 
 
 <ion-content>
-  
+
   <ion-list id="autocomplete-results">
-    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
+    <ion-item *ngFor="let item of originSearch.autocompleteItems" 
+              tappable
+              (click)="originSearch.chooseItem(item)">
       <b>{{ item.name }}</b> {{ item.formatted_address }}
     </ion-item>
   </ion-list>
+  
+  <!-- <ion-list id="autocomplete-results">
+    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
+      <b>{{ item.name }}</b> {{ item.formatted_address }}
+    </ion-item>
+  </ion-list> -->
   
   <div text-center id="find-services-button-container">
     <button ion-button round 
@@ -51,6 +62,6 @@
   </div>
 
 
-  <div id="user-locator-map-canvas" (click)="clearSearchResults()"></div>
+  <div id="user-locator-map-canvas" (click)="originSearch.clear()"></div>
   
 </ion-content>
