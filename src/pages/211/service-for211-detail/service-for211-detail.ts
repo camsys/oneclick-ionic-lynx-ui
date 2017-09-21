@@ -12,7 +12,8 @@ import { TripRequestModel } from "../../../models/trip-request";
 import { Session } from '../../../models/session';
 
 //TODO REMOVE
-import { PlaceModel } from '../../../models/place';
+import { OneClickPlaceModel } from "../../../models/one-click-place";
+import { GooglePlaceModel } from "../../../models/google-place";
 import { environment } from '../../../app/environment';
 
 
@@ -30,8 +31,8 @@ import { environment } from '../../../app/environment';
 export class ServiceFor211DetailPage {
 
   service: ServiceModel;
-  origin: PlaceModel;
-  destination: PlaceModel;
+  origin: GooglePlaceModel;
+  destination: GooglePlaceModel;
 
   // Pulls the current session from local storage
   session(): Session {
@@ -45,20 +46,19 @@ export class ServiceFor211DetailPage {
                 
     this.service = navParams.data.service;
     
-    // Origin defaults to user location if not passed in NavParams.
-    // Or, if neither set, builds a default location
+    // // Origin defaults to user location if not passed in NavParams.
+    // // Or, if neither set, builds a default location
     this.origin = navParams.data.origin || 
-                  this.session().user_starting_location ||
-                  new PlaceModel(environment.DEFAULT_LOCATION);
-                  
-    // If service is passed, set destination to service location.
-    // otherwise, set to navParams or build a default location
-    if(this.service && this.service.lat && this.service.lng) {
-      this.destination = new PlaceModel({lat: this.service.lat, lng: this.service.lng});
-    } else {
-      this.destination = navParams.data.destination ||
-                         new PlaceModel(environment.DEFAULT_LOCATION);
-    }
+                  this.session().user_starting_location;
+    //               
+    // // If service is passed, set destination to service location.
+    // // otherwise, set to navParams or build a default location
+    // if(this.service && this.service.lat && this.service.lng) {
+    //   this.destination = new GooglePlaceModel({lat: this.service.lat, lng: this.service.lng});
+    // } else {
+    //   this.destination = navParams.data.destination ||
+    //                      new GooglePlaceModel(environment.DEFAULT_LOCATION);
+    // }
     
     console.log("NAVPARAMS", navParams.data, this.service, this.origin, this.destination);
 
@@ -78,12 +78,12 @@ export class ServiceFor211DetailPage {
 
     let startLocation = this.origin;
 
-    // // Set default location if it's not stored in the session
-    // if(startLocation == null) {
-    //   startLocation = new PlaceModel();
-    //   startLocation.geometry.lat = environment.DEFAULT_LOCATION.lat;
-    //   startLocation.geometry.lng = environment.DEFAULT_LOCATION.lng;
-    // }
+    // Set default location if it's not stored in the session
+    if(startLocation == null) {
+      startLocation = new GooglePlaceModel();
+      startLocation.geometry.lat = environment.DEFAULT_LOCATION.lat;
+      startLocation.geometry.lng = environment.DEFAULT_LOCATION.lng;
+    }
 
     let tripRequest = new TripRequestModel();
 

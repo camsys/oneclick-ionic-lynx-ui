@@ -13,7 +13,9 @@ import { OneClickProvider } from '../../providers/one-click/one-click';
 import { CategoriesFor211Page } from '../211/categories-for211/categories-for211';
 
 // MODELS
-import { PlaceModel } from "../../models/place";
+import { OneClickPlaceModel } from "../../models/one-click-place";
+import { GooglePlaceModel } from "../../models/google-place";
+
 
 // COMPONENTS
 import { PlaceSearchComponent } from "../../components/place-search/place-search";
@@ -30,7 +32,7 @@ export class UserLocatorPage {
   @ViewChild('destinationSearch') destinationSearch: PlaceSearchComponent;
 
   map: google.maps.Map;
-  userLocation: PlaceModel;
+  userLocation: GooglePlaceModel;
   findServicesView: Boolean; // Flag for showing the find svcs view vs. the direct transportation finder view
 
   constructor(public navCtrl: NavController,
@@ -97,7 +99,7 @@ export class UserLocatorPage {
   }
 
   // Goes on to the categories/services page, using the given location as the center point
-  searchForServices(place: PlaceModel){
+  searchForServices(place: GooglePlaceModel){
     console.log("SEARCHING FOR SERVICES", place);
     this.storePlaceInSession(place);
     this.navCtrl.push(CategoriesFor211Page);
@@ -116,13 +118,13 @@ export class UserLocatorPage {
   }
   
   // Centers map on a place
-  private centerMapOnPlace(place: PlaceModel) {
+  private centerMapOnPlace(place: GooglePlaceModel) {
     let latLng = new google.maps.LatLng(place.geometry.lat, place.geometry.lng);
     this.map.setCenter(latLng);
   }
 
   // Store place in session hash
-  private storePlaceInSession(place: PlaceModel) {
+  private storePlaceInSession(place: GooglePlaceModel) {
     let session = this.auth.session();
     session.user_starting_location = place;
     this.auth.setSession(session);

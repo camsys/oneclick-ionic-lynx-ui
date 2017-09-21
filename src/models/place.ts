@@ -1,4 +1,4 @@
-import { AddressComponentModel } from './addressComponent';
+import { AddressComponentModel } from './address-component';
 import { LocationModel } from './location';
 
 

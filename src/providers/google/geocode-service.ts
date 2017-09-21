@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
-import { PlaceModel } from '../../models/place'
-import { AddressComponentModel } from '../../models/addressComponent';
+import { GooglePlaceModel } from "../../models/google-place";
+import { AddressComponentModel } from '../../models/address-component';
 import { LocationModel } from '../../models/location';
 
 @Injectable()
@@ -18,9 +18,9 @@ export class GeocodeServiceProvider {
   constructor(public http: Http) {
   }
 
-  public getGooglePlaces(address_query: string): Observable<PlaceModel[]>{
+  public getGooglePlaces(address_query: string): Observable<GooglePlaceModel[]>{
 
-    let placesObservable: Observable<PlaceModel[]> = Observable.create(obs => {
+    let placesObservable: Observable<GooglePlaceModel[]> = Observable.create(obs => {
       let predictionFormatter = function (predictions, status) {
         if (status != google.maps.places.PlacesServiceStatus.OK) {
           // obs.error(status);
@@ -32,7 +32,7 @@ export class GeocodeServiceProvider {
           let mockedPlaces = [];
 
           predictions.forEach(function (prediction) {
-            let place: PlaceModel = {
+            let place: GooglePlaceModel = {
               address_components: null,
               geometry: null,
               formatted_address: prediction.description,
@@ -53,23 +53,23 @@ export class GeocodeServiceProvider {
     return placesObservable;
   }
 
-  public getPlaceFromLatLng(lat: number, lng: number): Observable<PlaceModel[]>{
+  public getPlaceFromLatLng(lat: number, lng: number): Observable<GooglePlaceModel[]>{
 
     let request = {location:  { lat: lat, lng: lng }};
 
     return this.geocode(request)
   }
-  public getPlaceFromFormattedAddress(place: PlaceModel): Observable<PlaceModel[]>{
+  public getPlaceFromFormattedAddress(place: GooglePlaceModel): Observable<GooglePlaceModel[]>{
     let request = {address: place.formatted_address, componentRestrictions: {country: 'US'} };
     console.log("GETTING PLACE FROM FORMATTED ADDRESS", request)
 
     return this.geocode(request);
   }
 
-  private geocode(request): Observable<PlaceModel[]>{
+  private geocode(request): Observable<GooglePlaceModel[]>{
     let scope = this;
 
-    let placesObservable: Observable<PlaceModel[]> = Observable.create(obs => {
+    let placesObservable: Observable<GooglePlaceModel[]> = Observable.create(obs => {
       let placeFormatter = function (locationResult, status) {
         if (status != google.maps.places.PlacesServiceStatus.OK) {
           obs.error(status);
@@ -91,11 +91,11 @@ export class GeocodeServiceProvider {
     return placesObservable;
   }
 
-  private buildPlaceModelFromGeoCoderResult(result: google.maps.GeocoderResult): PlaceModel
+  private buildPlaceModelFromGeoCoderResult(result: google.maps.GeocoderResult): GooglePlaceModel
   {
     let resultLocation: LocationModel = {lat: result.geometry.location.lat(), lng: result.geometry.location.lng()};
 
-    let place: PlaceModel = {
+    let place: GooglePlaceModel = {
       address_components: result.address_components as AddressComponentModel[],
       geometry: resultLocation,
       formatted_address: result.formatted_address,

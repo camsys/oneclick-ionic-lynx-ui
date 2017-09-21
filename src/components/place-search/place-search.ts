@@ -3,7 +3,8 @@ import { FormControl } from '@angular/forms';
 import { Events } from 'ionic-angular';
 
 // MODELS
-import { PlaceModel } from "../../models/place";
+import { OneClickPlaceModel } from "../../models/one-click-place";
+import { GooglePlaceModel } from "../../models/google-place";
 
 // PROVIDERS
 import { GeocodeServiceProvider } from '../../providers/google/geocode-service';
@@ -24,10 +25,10 @@ export class PlaceSearchComponent {
   query: string;
   searchControl: FormControl; 
   @Input() placeholder: string;
-  autocompleteItems: PlaceModel[];
-  googleAutocompleteItems: PlaceModel[];
-  oneClickAutocompleteItems: PlaceModel[];
-  place: PlaceModel;
+  autocompleteItems: GooglePlaceModel[];
+  googleAutocompleteItems: GooglePlaceModel[];
+  oneClickAutocompleteItems: GooglePlaceModel[];
+  place: GooglePlaceModel;
 
   constructor(public geoServiceProvider: GeocodeServiceProvider,
               public oneClickProvider: OneClickProvider,
@@ -88,7 +89,7 @@ export class PlaceSearchComponent {
   }
   
   // Sets the place value and fills in the search bar, but doesn't run it as a query
-  setPlace(place: PlaceModel) {
+  setPlace(place: GooglePlaceModel) {
     this.place = place;
     this.searchControl.setValue(this.place.formatted_address, {emitEvent: false});
   }

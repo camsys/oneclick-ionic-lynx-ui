@@ -51,7 +51,7 @@ import { SubcategoryFor211Model } from '../models/subcategory-for-211';
 import { SubSubcategoryFor211Model } from '../models/sub-subcategory-for-211';
 import { ServiceModel } from '../models/service';
 import { AgencyModel } from '../models/agency';
-import { AddressComponentModel } from '../models/addressComponent';
+import { AddressComponentModel } from '../models/address-component';
 import { LocationModel } from '../models/location';
 import { TripModel } from "../models/trip";
 import { TripRequestModel } from "../models/trip-request";
