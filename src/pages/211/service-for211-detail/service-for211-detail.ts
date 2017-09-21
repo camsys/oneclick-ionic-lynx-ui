@@ -30,6 +30,8 @@ import { environment } from '../../../app/environment';
 export class ServiceFor211DetailPage {
 
   service: ServiceModel;
+  origin: PlaceModel;
+  destination: PlaceModel;
 
   // Pulls the current session from local storage
   session(): Session {
@@ -40,10 +42,26 @@ export class ServiceFor211DetailPage {
               public navParams: NavParams, 
               public oneClickProvider: OneClickProvider,
               public events: Events) {
+                
     this.service = navParams.data.service;
-    console.log(navParams.data.service);
+    
+    // Origin defaults to user location if not passed in NavParams.
+    // Or, if neither set, builds a default location
+    this.origin = navParams.data.origin || 
+                  this.session().user_starting_location ||
+                  new PlaceModel(environment.DEFAULT_LOCATION);
+                  
+    // If service is passed, set destination to service location.
+    // otherwise, set to navParams or build a default location
+    if(this.service && this.service.lat && this.service.lng) {
+      this.destination = new PlaceModel({lat: this.service.lat, lng: this.service.lng});
+    } else {
+      this.destination = navParams.data.destination ||
+                         new PlaceModel(environment.DEFAULT_LOCATION);
+    }
+    
+    console.log("NAVPARAMS", navParams.data, this.service, this.origin, this.destination);
 
-    console.log(navParams);
   }
 
   ionViewDidLoad() {
@@ -58,14 +76,14 @@ export class ServiceFor211DetailPage {
     
     this.events.publish('spinner:show');
 
-    let startLocation = this.session().user_starting_location;
+    let startLocation = this.origin;
 
-    // Set default location if it's not stored in the session
-    if(startLocation == null) {
-      startLocation = new PlaceModel();
-      startLocation.geometry.lat = environment.DEFAULT_LOCATION.lat;
-      startLocation.geometry.lng = environment.DEFAULT_LOCATION.lng;
-    }
+    // // Set default location if it's not stored in the session
+    // if(startLocation == null) {
+    //   startLocation = new PlaceModel();
+    //   startLocation.geometry.lat = environment.DEFAULT_LOCATION.lat;
+    //   startLocation.geometry.lng = environment.DEFAULT_LOCATION.lng;
+    // }
 
     let tripRequest = new TripRequestModel();
 
