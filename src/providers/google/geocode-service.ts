@@ -23,7 +23,10 @@ export class GeocodeServiceProvider {
     let placesObservable: Observable<PlaceModel[]> = Observable.create(obs => {
       let predictionFormatter = function (predictions, status) {
         if (status != google.maps.places.PlacesServiceStatus.OK) {
-          obs.error(status);
+          // obs.error(status);
+          console.error(status);
+          obs.next([]);
+          obs.complete();
         }
         else {
           let mockedPlaces = [];

@@ -87,6 +87,12 @@ export class PlaceSearchComponent {
     this.autocompleteItems = [];
   }
   
+  // Sets the place value and fills in the search bar, but doesn't run it as a query
+  setPlace(place: PlaceModel) {
+    this.place = place;
+    this.searchControl.setValue(this.place.formatted_address, {emitEvent: false});
+  }
+  
   // Select an item from the search results list
   chooseItem(item: any) {
     console.log("ITEM CHOSEN!", item);
@@ -94,7 +100,8 @@ export class PlaceSearchComponent {
     this.geoServiceProvider.getPlaceFromFormattedAddress(item)
     .subscribe((places) => {
       console.log("PLACES RETURNED", places);
-      this.place = places[0];
+      this.setPlace(places[0]);
+      this.clear();
       this.events.publish('spinner:hide'); // Hide spinner once places are returned
     });
   }

@@ -15,19 +15,20 @@
     </button>
   </ion-navbar>
   <ion-toolbar class="lynx-toolbar" text-center>
-    <ion-title>Where are you?</ion-title>
-    <!-- <ion-searchbar  [(ngModel)]="autocomplete.query" 
-                    [showCancelButton]="true" 
-                    (ionInput)="updateSearch()">
-    </ion-searchbar> -->
-    <place-search #originSearch 
-                  placeholder="finding your location...">
-    </place-search>
-    <!-- <ion-searchbar  [ngModel]="addressQuery"
-                    [formControl]="searchControl"
-                    [showCancelButton]="true"
-                    [placeholder]="searchbarPlaceholder">
-    </ion-searchbar> -->
+    
+    <div id="origin-search-container">
+      <ion-title>Where are you?</ion-title>
+      <place-search #originSearch 
+                    placeholder="finding your location...">
+      </place-search>
+    </div>
+
+    <div id="destination-search-container" [hidden]="findServicesView">
+      <ion-title>Where are you going?</ion-title>
+      <place-search #destinationSearch
+                    placeholder="Your Destination">
+      </place-search>  
+    </div>
 
   </ion-toolbar>
 
@@ -36,7 +37,7 @@
 
 <ion-content>
 
-  <ion-list id="autocomplete-results">
+  <ion-list id="origin-autocomplete-results">
     <ion-item *ngFor="let item of originSearch.autocompleteItems" 
               tappable
               (click)="originSearch.chooseItem(item)">
@@ -44,22 +45,34 @@
     </ion-item>
   </ion-list>
   
-  <!-- <ion-list id="autocomplete-results">
-    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
+  <ion-list id="destination-autocomplete-results" [hidden]="findServicesView">
+    <ion-item *ngFor="let item of destinationSearch.autocompleteItems" 
+              tappable
+              (click)="destinationSearch.chooseItem(item)">
       <b>{{ item.name }}</b> {{ item.formatted_address }}
     </ion-item>
-  </ion-list> -->
+  </ion-list>
   
-  <div text-center id="find-services-button-container">
+  <div text-center id="find-services-button-container" *ngIf="findServicesView">
     <button ion-button round 
             class="lynx-button-primary"
             id="find-services-button"
-            (click)="searchForServices(fromPlace)"
+            (click)="searchForServices(originSearch.place)"
             *ngIf="!!userLocation">
       Find Services
       <ion-icon pull-right name="arrow-forward"></ion-icon>
     </button>
   </div>
+  
+  <!-- <div text-center id="find-transportation-button-container" *ngIf="!findServicesView">
+    <button ion-button round 
+            class="lynx-button-primary"
+            id="find-transportation-button"
+            (click)="findTransportation(fromPlace)">
+      Find Transportation
+      <ion-icon pull-right name="arrow-forward"></ion-icon>
+    </button>
+  </div> -->
 
 
   <div id="user-locator-map-canvas" (click)="originSearch.clear()"></div>
