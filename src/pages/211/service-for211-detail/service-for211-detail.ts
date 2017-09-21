@@ -46,19 +46,9 @@ export class ServiceFor211DetailPage {
                 
     this.service = navParams.data.service;
     
-    // // Origin defaults to user location if not passed in NavParams.
-    // // Or, if neither set, builds a default location
-    this.origin = navParams.data.origin || 
-                  this.session().user_starting_location;
-    //               
-    // // If service is passed, set destination to service location.
-    // // otherwise, set to navParams or build a default location
-    // if(this.service && this.service.lat && this.service.lng) {
-    //   this.destination = new GooglePlaceModel({lat: this.service.lat, lng: this.service.lng});
-    // } else {
-    //   this.destination = navParams.data.destination ||
-    //                      new GooglePlaceModel(environment.DEFAULT_LOCATION);
-    // }
+    // Set origin and destination places
+    this.setOrigin();
+    this.setDestination();
     
     console.log("NAVPARAMS", navParams.data, this.service, this.origin, this.destination);
 
@@ -78,22 +68,11 @@ export class ServiceFor211DetailPage {
 
     let startLocation = this.origin;
 
-    // Set default location if it's not stored in the session
-    if(startLocation == null) {
-      startLocation = new GooglePlaceModel();
-      startLocation.geometry.lat = environment.DEFAULT_LOCATION.lat;
-      startLocation.geometry.lng = environment.DEFAULT_LOCATION.lng;
-    }
-
     let tripRequest = new TripRequestModel();
 
     // Set origin and destination
-    tripRequest.trip.origin_attributes.lat = startLocation.geometry.lat;
-    tripRequest.trip.origin_attributes.lng = startLocation.geometry.lng;
-    tripRequest.trip.origin_attributes.name = startLocation.formatted_address;
-    tripRequest.trip.destination_attributes.lat = this.service.lat;
-    tripRequest.trip.destination_attributes.lng = this.service.lng;
-    tripRequest.trip.destination_attributes.name = this.service.site_name;
+    tripRequest.trip.origin_attributes = this.origin.toOneClickPlace();
+    tripRequest.trip.destination_attributes = this.destination.toOneClickPlace();
     
     // Set trip time to now by default, in ISO 8601 format
     tripRequest.trip.trip_time = new Date().toISOString();
@@ -116,6 +95,31 @@ export class ServiceFor211DetailPage {
 
   openOtherTransportationOptions(){
     this.navCtrl.push(TransportationEligibilityPage)
+  }
+  
+  // Origin defaults to user location if not passed in NavParams.
+  // Or, if neither set, builds a default location
+  setOrigin() {
+    this.origin = new GooglePlaceModel(
+      this.navParams.data.origin || 
+      this.session().user_starting_location
+    );
+  }
+
+  // If service is passed, set destination to service location.
+  // otherwise, set to navParams or build a default location
+  setDestination() {
+    if(this.service && this.service.lat && this.service.lng) {
+      this.destination = new GooglePlaceModel({
+        name: this.service.site_name,
+        geometry: {lat: this.service.lat, lng: this.service.lng}
+      });
+    } else {
+      this.destination = new GooglePlaceModel(
+        this.navParams.data.destination ||
+        { geometry: environment.DEFAULT_LOCATION }
+      );
+    }
   }
 
 }

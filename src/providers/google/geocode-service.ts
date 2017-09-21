@@ -32,13 +32,13 @@ export class GeocodeServiceProvider {
           let mockedPlaces = [];
 
           predictions.forEach(function (prediction) {
-            let place: GooglePlaceModel = {
+            let place = new GooglePlaceModel({
               address_components: null,
               geometry: null,
               formatted_address: prediction.description,
               id: null,
               name: null
-            };
+            });
             mockedPlaces.push(place);
           });
 
@@ -95,13 +95,13 @@ export class GeocodeServiceProvider {
   {
     let resultLocation: LocationModel = {lat: result.geometry.location.lat(), lng: result.geometry.location.lng()};
 
-    let place: GooglePlaceModel = {
+    let place = new GooglePlaceModel({
       address_components: result.address_components as AddressComponentModel[],
       geometry: resultLocation,
       formatted_address: result.formatted_address,
       id: null,
       name: null
-    };
+    });
     return place;
   }
 }

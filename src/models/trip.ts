@@ -1,19 +1,21 @@
-import { LocationModel } from './location';
+// import { LocationModel } from './location';
+import { OneClickPlaceModel } from "./one-click-place";
+
 
 /**
  * Created by mmaranda on 6/21/17.
  */
 
 export class TripModel {
-  origin_attributes: LocationModel;
-  destination_attributes: LocationModel;
+  origin_attributes: OneClickPlaceModel;
+  destination_attributes: OneClickPlaceModel;
   arrive_by: boolean;
   trip_time: string; //iso8601 time string
   purpose: string;
 
-  constructor()
-  {
-    this.origin_attributes = new LocationModel;
-    this.destination_attributes = new LocationModel;
-  }
+  // constructor()
+  // {
+  //   this.origin_attributes = new LocationModel;
+  //   this.destination_attributes = new LocationModel;
+  // }
 }
