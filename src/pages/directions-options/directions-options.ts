@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { TripResponseModel } from "../../models/trip-response";
 import { TripRequestModel } from "../../models/trip-request";
@@ -33,10 +33,10 @@ export class DirectionsOptionsPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public oneClickProvider: OneClickProvider,
-              private _app: App) {
+              private _app: App,
+              public events: Events) {
     this.trip = navParams.data.trip;
     this.mode = navParams.data.mode;
-    console.log("NAV PARAMS", this.trip, this.mode, navParams.data);
     
     // Instantiate actual Leg Model objects for each leg in the itinerary
     this.itineraries = this.trip.itineraries.map(function(itin) {
@@ -70,8 +70,11 @@ export class DirectionsOptionsPage {
   
   // Makes a new trip request and reloads the Directions page.
   replanTrip() {
+    this.events.publish('spinner:show');
+    
     let result = this.oneClickProvider.getTripPlan(this.tripRequest).
       forEach(value => {
+        this.events.publish('spinner:hide');
         this._app.getRootNav()      // Load the new directions page on top of the parent page, not within the tab
         .push(DirectionsPage, {
           trip_response: value,
