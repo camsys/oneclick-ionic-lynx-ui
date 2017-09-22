@@ -8,6 +8,7 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
 import { AgencyModel } from '../../models/agency';
+import { Alert } from '../../models/alert';
 import { PlaceModel } from '../../models/place';
 import { CategoryFor211Model } from '../../models/category-for-211'
 import { SubcategoryFor211Model } from '../../models/subcategory-for-211'
@@ -191,6 +192,14 @@ export class OneClickProvider {
             .post(this.oneClickUrl+'trips/plan', tripRequest)
             . map( response => {
               return (response.json().data.trip as TripResponseModel)
+            })
+  }
+
+  getAlerts(): Observable<Alert[]>{
+    return this.http
+            .get(this.oneClickUrl+'alerts')
+            . map( response => {
+              return (response.json().data.user_alerts as Alert[])
             })
   }
 
