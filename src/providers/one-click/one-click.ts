@@ -196,11 +196,35 @@ export class OneClickProvider {
   }
 
   getAlerts(): Promise<Alert[]>{
+    let headers = this.auth.authHeaders();
+    let options = new RequestOptions({ headers: headers });
+
     return this.http
-            .get(this.oneClickUrl+'alerts')
+            .get(this.oneClickUrl+'alerts', options)
             .toPromise()
             .then(response => response.text())
             .then(json => JSON.parse(json).data.user_alerts as Alert[])
+            .catch(this.handleError);
+  }
+
+  ackAlert(alert: Alert){
+
+    if(alert.id == null){
+      return
+    }
+
+    let headers = this.auth.authHeaders();
+    let options = new RequestOptions({ headers: headers });
+
+    let body = {
+      "user_alert": {
+        "acknowledged": true
+      }
+    };
+
+    return this.http
+            .put(this.oneClickUrl+'alerts/'+alert.id, body, options)
+            .toPromise()
             .catch(this.handleError);
   }
 

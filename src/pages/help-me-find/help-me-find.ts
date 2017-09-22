@@ -52,10 +52,19 @@ export class HelpMeFindPage {
       let alert = this.alertCtrl.create({
         title: entry.subject,
         subTitle: entry.message,
-        buttons: ['OK']
+        buttons: [{
+          text: 'OK',
+          handler: () => {
+            this.ackAlert(entry);
+          }
+        }]
       });
       alert.present();
     }
+  }
+
+  ackAlert(alert: Alert){
+    this.oneClickProvider.ackAlert(alert);
   }
 
 }
