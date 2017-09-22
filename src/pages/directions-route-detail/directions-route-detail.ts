@@ -5,7 +5,7 @@ import { GeocodeServiceProvider } from '../../providers/google/geocode-service';
 import { GoogleMapsHelpersProvider } from '../../providers/google/google-maps-helpers';
 
 import { TripResponseModel } from "../../models/trip-response";
-import { ItineraryModel } from "../../models/Itinerary";
+import { ItineraryModel } from "../../models/itinerary";
 
 /**
  * Generated class for the DirectionsRouteDetailPage page.
@@ -34,7 +34,6 @@ export class DirectionsRouteDetailPage {
               private googleMapsHelpers: GoogleMapsHelpersProvider) {
     this.trip = navParams.data.trip;
     this.mode = navParams.data.mode;
-    console.log("NAV PARAMS", this.trip, this.mode, navParams.data);
     
     this.itineraries = this.trip.itineraries;
     this.selectedItinerary = "0";

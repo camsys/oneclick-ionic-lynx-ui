@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, Output } from '@angular/core';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { ServiceModel } from '../../../models/service';
 import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 import { HelpersProvider } from '../../../providers/helpers/helpers';
@@ -18,11 +18,12 @@ import { HelpersProvider } from '../../../providers/helpers/helpers';
 export class ServicesFromMatchListPage {
 
   matches: ServiceModel[];
-  orderBy: String;
+  orderBy: String;  
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              private helpers: HelpersProvider) {
+              private helpers: HelpersProvider,
+              public events: Events) {
     this.matches = navParams.data;
     this.orderMatchList("drive_time");
   }
@@ -60,8 +61,7 @@ export class ServicesFromMatchListPage {
     })
   }
 
-  openServicePage(match : ServiceModel){
-    console.log(match);
-    this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage, {service: match});
+  selectService(match : ServiceModel){
+    this.events.publish('service:selected', match);
   }
 }

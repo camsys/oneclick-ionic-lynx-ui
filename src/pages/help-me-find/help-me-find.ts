@@ -25,11 +25,11 @@ export class HelpMeFindPage {
   }
 
   openResourcesPage() {
-    this.navCtrl.push(UserLocatorPage);
+    this.navCtrl.push(UserLocatorPage, { findServicesView: true});
   }
 
   openTransportationPage() {
-    this.navCtrl.push(DirectTransporationFinderPage);
+    this.navCtrl.push(UserLocatorPage, { findServicesView: false});
   }
 
 }

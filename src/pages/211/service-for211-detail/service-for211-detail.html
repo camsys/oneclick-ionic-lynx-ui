@@ -1,18 +1,24 @@
-<!--
-  Generated template for the ServiceFor211DetailPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
+<!--ServiceFor211DetailPage-->
 <ion-header>
 
-  <ion-navbar class="lynx-toolbar">
+  <!-- If there's a service present, put its name and address in the header -->
+  <ion-navbar class="lynx-toolbar" *ngIf="service; else noServiceHeader">
     <ion-title>{{service.agency_name}}</ion-title>
     <div class="lynx-toolbar-body">{{service.address}}</div>
     <div *ngIf=service.url class="lynx-toolbar-body">
       <a href="{{service.url}}" target="_blank">{{service.display_url}}</a>
     </div>
   </ion-navbar>
+  
+  <!-- If no service is present, put the origin and destination in the header -->
+  <ng-template #noServiceHeader>
+    <ion-navbar class="lynx-toolbar">
+      <ion-title>
+        <div>{{ origin.formatted_address}}</div>
+        <div>to {{destination.formatted_address}}</div>
+      </ion-title>
+    </ion-navbar>
+  </ng-template>
 
 </ion-header>
 
@@ -23,34 +29,18 @@
       <ion-col col-md-8 offset-md-2>
         <ion-list class="lynx-list">
           
-          <ion-item>
-            <h3 class="item-heading">Bus & Train</h3>
+          <!-- For each mode other than paratransit, build a button -->
+          <ion-item *ngFor="let mode of basicModes">
+            <h3 class="item-heading">{{ labelFor(mode) }}</h3>
             <button ion-button item-end round default
                     class="lynx-button-primary"
-                    (click)="openDirectionsPage('transit')">{{service.transit_time | prettyTime}}</button>
+                    (click)="openDirectionsPage(mode)"
+                    *ngIf="tripResponse; else calculatingDuration">
+              {{ durationFor(mode) | prettyTime }}
+            </button>
           </ion-item>
           
-          <ion-item>
-            <h3 class="item-heading">Drive</h3>
-            <button ion-button item-end round default
-                    class="lynx-button-primary"
-                    (click)="openDirectionsPage('car')">{{service.drive_time | prettyTime}}</button>
-          </ion-item>
-          
-          <ion-item>
-            <h3 class="item-heading">Taxi</h3>
-            <button ion-button item-end round default
-                    class="lynx-button-primary"
-                    (click)="openDirectionsPage('taxi')">{{service.drive_time | prettyTime}}</button>
-          </ion-item>
-          
-          <ion-item>
-            <h3 class="item-heading">Uber</h3>
-            <button ion-button item-end round default
-                    class="lynx-button-primary"
-                    (click)="openDirectionsPage('uber')">{{service.drive_time | prettyTime}}</button>
-          </ion-item>
-          
+          <!-- For paratransit, build a special button -->
           <ion-item>
             <h3 class="item-heading">Other Transportation Options</h3>
             <button ion-button item-end round default
@@ -60,11 +50,21 @@
             </button>
           </ion-item>
           
+          <!-- Until the trip response data comes back, display this disabled button for each mode -->
+          <ng-template #calculatingDuration> 
+            <button ion-button item-end round default
+                    class="lynx-button-primary"
+                    disabled>
+              <ion-spinner name="dots"></ion-spinner>
+            </button>           
+          </ng-template>
+          
         </ion-list>
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <!-- Show service details only if service is present -->
+    <ion-row *ngIf="service">
       <ion-col col-md-8 offset-md-2>
         <h3>About This Service</h3>
         <p id="service-description">
@@ -74,8 +74,8 @@
       </ion-col>
     </ion-row>
     
-    <!-- show questions? button only if phone # is present -->
-    <ion-row *ngIf="service.phone && service.phone.length > 0">
+    <!-- Show questions? button only if servive & phone # is present -->
+    <ion-row *ngIf="service && service.phone && service.phone.length > 0">
       <ion-col col-md-8 offset-md-2 text-center>
         <h3>Have Questions?</h3>
         <a href="tel:{{service.phone}}">
@@ -87,8 +87,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
-
 
 </ion-content>

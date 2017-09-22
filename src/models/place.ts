@@ -1,4 +1,4 @@
-import { AddressComponentModel } from './addressComponent';
+import { AddressComponentModel } from './address-component';
 import { LocationModel } from './location';
 
 
@@ -9,9 +9,13 @@ export class PlaceModel{
   id: number;
   name: string;
 
-  constructor(){
+  constructor(latlng?: any){
     this.address_components = [];
     this.geometry = new LocationModel;
+    if(latlng) {
+      this.geometry.lat = latlng.lat;
+      this.geometry.lng = latlng.lng;
+    }
   }
-
+  
 }

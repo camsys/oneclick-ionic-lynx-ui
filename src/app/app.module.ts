@@ -51,23 +51,25 @@ import { SubcategoryFor211Model } from '../models/subcategory-for-211';
 import { SubSubcategoryFor211Model } from '../models/sub-subcategory-for-211';
 import { ServiceModel } from '../models/service';
 import { AgencyModel } from '../models/agency';
-import { AddressComponentModel } from '../models/addressComponent';
+import { AddressComponentModel } from '../models/address-component';
 import { LocationModel } from '../models/location';
 import { TripModel } from "../models/trip";
 import { TripRequestModel } from "../models/trip-request";
-import { TripResponseModel } from "../models/trip-response";
-import { ItineraryModel } from "../models/Itinerary";
+// import { TripResponseModel } from "../models/trip-response";
+import { ItineraryModel } from "../models/itinerary";
 import { LegModel } from "../models/leg";
 import { LegGeometryModel } from "../models/leg-geometry";
 import { LegStepModel } from "../models/leg-step";
 import { PageModel } from "../models/page";
-
 
 // Pipes
 import { PrettyTimePipe } from '../pipes/pretty-time';
 import { PrettyDistancePipe } from '../pipes/pretty-distance';
 import { ToStringPipe } from '../pipes/to-string';
 import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
+
+// Components
+import { PlaceSearchComponent } from '../components/place-search/place-search';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,8 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
     PrettyTimePipe,
     PrettyDistancePipe,
     ToStringPipe,
-    FormatPhoneNumberPipe
+    FormatPhoneNumberPipe,
+    PlaceSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -157,7 +160,7 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
     LocationModel,
     TripModel,
     TripRequestModel,
-    TripResponseModel,
+    // TripResponseModel,
     ItineraryModel,
     LegModel,
     LegGeometryModel,

@@ -8,7 +8,7 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
 import { AgencyModel } from '../../models/agency';
-import { PlaceModel } from '../../models/place';
+import { GooglePlaceModel } from '../../models/google-place';
 import { CategoryFor211Model } from '../../models/category-for-211'
 import { SubcategoryFor211Model } from '../../models/subcategory-for-211'
 import { SubSubcategoryFor211Model } from '../../models/sub-subcategory-for-211'
@@ -46,11 +46,11 @@ export class OneClickProvider {
     return this.getAgencies("");
   }
 
-  public getPlaces(places_query: String ): Observable<PlaceModel[]> {
+  public getPlaces(places_query: String ): Observable<GooglePlaceModel[]> {
     return this.http.
       get(this.oneClickUrl + `places?name=%25${places_query}%25`).
       map( response => {
-        return (response.json().data.places as PlaceModel[])
+        return (response.json().data.places as GooglePlaceModel[])
       })
   }
 
@@ -161,8 +161,8 @@ export class OneClickProvider {
       .catch(this.handleError);
   }
 
-  getServicesFromSubSubcategoryWithoutLatLng(subcategroyLinkName: string): Promise<ServiceModel[]>{
-    return this.getServicesFromSubSubcategoryAndLatLng(subcategroyLinkName, null, null)
+  getServicesFromSubSubcategoryWithoutLatLng(subcategoryLinkName: string): Promise<ServiceModel[]>{
+    return this.getServicesFromSubSubcategoryAndLatLng(subcategoryLinkName, null, null)
   }
 
   getServicesFromSubSubcategoryAndLatLng(subcategroyLinkName: string, lat: number, lng: number): Promise<ServiceModel[]>{

@@ -1,5 +1,5 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, Platform, NavController, Events } from 'ionic-angular';
+import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { IonicPage, Platform, NavController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { FormControl } from '@angular/forms';
 
@@ -11,35 +11,33 @@ import { OneClickProvider } from '../../providers/one-click/one-click';
 
 // PAGES
 import { CategoriesFor211Page } from '../211/categories-for211/categories-for211';
+import { ServiceFor211DetailPage } from '../211/service-for211-detail/service-for211-detail';
 
 // MODELS
-import { PlaceModel } from "../../models/place";
+import { OneClickPlaceModel } from "../../models/one-click-place";
+import { GooglePlaceModel } from "../../models/google-place";
 
-/**
- * Generated class for the UserLocatorPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
+// COMPONENTS
+import { PlaceSearchComponent } from "../../components/place-search/place-search";
+
+
 @IonicPage()
 @Component({
   selector: 'page-user-locator',
   templateUrl: 'user-locator.html',
 })
 export class UserLocatorPage {
+  
+  @ViewChild('originSearch') originSearch: PlaceSearchComponent;
+  @ViewChild('destinationSearch') destinationSearch: PlaceSearchComponent;
 
   map: google.maps.Map;
-  userLocation: PlaceModel;
-  
-  // Places search/autocomplete
-  searchControl: FormControl;  
-  addressQuery: string;
-  autocompleteItems: PlaceModel[];
-  googleAutocompleteItems: PlaceModel[];
-  oneClickAutocompleteItems: PlaceModel[];
-  searchbarPlaceholder: string;
+  userLocation: GooglePlaceModel;
+  findServicesView: Boolean; // Flag for showing the find svcs view vs. the direct transportation finder view
 
   constructor(public navCtrl: NavController,
+              public navParams: NavParams,
               public platform: Platform,
               public geolocation: Geolocation,
               public geoServiceProvider: GeocodeServiceProvider,
@@ -52,29 +50,16 @@ export class UserLocatorPage {
               
     this.map = null;
     this.userLocation = null; // The user's device location
-    
-    // For handling search autocomplete
-    this.searchControl = new FormControl();
-    this.addressQuery = '';
-    this.googleAutocompleteItems = [];
-    this.oneClickAutocompleteItems = [];
-    this.autocompleteItems = [];
-    this.searchbarPlaceholder = "finding your location...";
+    this.findServicesView = this.navParams.data.findServicesView;
+    console.log("FIND SVCS VIEW", this.findServicesView);
   }
 
   ionViewDidLoad() {
-    
+        
     // Initialize the map once device is ready
     this.platform.ready()
     .then(() => this.initializeMap())
-    
-    // Search for items based on user search terms
-    // Use an observable, canceling previous requests unless user pauses for half a second
-    this.searchControl.valueChanges
-                      .debounceTime(500)
-                      .subscribe((query) => {
-      this.updateAddressSearch(query);
-    });
+
   }
 
   // Sets up the google map and geolocation services
@@ -88,7 +73,11 @@ export class UserLocatorPage {
       this.zoomToUserLocation(latLng);
       
       // Clear the search bar and search results
-      this.searchControl.reset();
+      this.originSearch.searchControl.setValue("", {emitEvent: false});
+      
+      // Clear the origin search location so it can be replaced by the user location
+      this.originSearch.place = null;
+
     });
 
     // Try to automatically geolocate, centering the map and setting the from place
@@ -105,86 +94,53 @@ export class UserLocatorPage {
   
   // Updates the userLocation, and centers the map at the given latlng
   zoomToUserLocation(latLng: google.maps.LatLng) {
-    this.updatePlaceFromLatLng(latLng.lat(), latLng.lng());
+    this.setUserPlaceFromLatLng(latLng.lat(), latLng.lng());
     this.map.setCenter(latLng);
     this.googleMapsHelpers.dropUserLocationPin(this.map, latLng);
   }
 
   // Goes on to the categories/services page, using the given location as the center point
-  searchForServices(place: PlaceModel){
+  searchForServices(place: GooglePlaceModel){
+    console.log("SEARCHING FOR SERVICES", place);
     this.storePlaceInSession(place);
     this.navCtrl.push(CategoriesFor211Page);
   }
+  
+  // Plans a trip based on origin and destination
+  findTransportation(origin: GooglePlaceModel, 
+                     destination: GooglePlaceModel) {
+    console.log("FINDING TRANSPORTATION", origin, destination);
+    this.navCtrl.push(ServiceFor211DetailPage, {
+      service: null,
+      origin: origin,
+      destination: destination
+    });
+
+  }
 
   // After device geolocation, update the userLocation property
-  private updatePlaceFromLatLng(lat: number, lng: number) : void{
+  private setUserPlaceFromLatLng(lat: number, lng: number) : void{
     this.geoServiceProvider.getPlaceFromLatLng(lat, lng)
     .subscribe( (places) => { 
       this.userLocation = places[0];
-      this.searchbarPlaceholder = "Your Location: " + this.userLocation.formatted_address;
+      this.originSearch.placeholder = "Your Location: " + this.userLocation.formatted_address;
+      
+      // Set the origin to the user location if it isn't already set
+      this.originSearch.place = this.originSearch.place || this.userLocation; 
     });
-  }
-
-  // Select an item from the search results list
-  chooseItem(item: any) {
-    this.events.publish('spinner:show'); // Show spinner until geocoding call returns
-    this.geoServiceProvider.getPlaceFromFormattedAddress(item)
-    .subscribe((places) => {
-      this.events.publish('spinner:hide'); // Hide spinner once places are returned
-      this.searchForServices(places[0]);
-    });
-  }
-  
-  // Updates the search items list based on the response from OneClick and Google
-  updateAddressSearch(query) {
-    if(!query || query === '') {
-      this.autocompleteItems = [];
-      return;
-    }
-    
-    this.oneClickProvider
-    .getPlaces(query)
-    .subscribe(places => {
-      // Set oneClickAutocompleteItems to the places call results and refresh the search results
-      this.oneClickAutocompleteItems = places;
-      this.refreshSearchResults();
-    });
-
-    this.geoServiceProvider
-    .getGooglePlaces(query)
-    .subscribe(places => {
-      // Set googleAutocompleteItems to the places call results and refresh the search results
-      this.googleAutocompleteItems = places;
-      this.refreshSearchResults();
-    });
-    
-  }
-  
-  // Refreshes the search results from the combined Google and OneClick search results,
-  private refreshSearchResults() {
-    // Set autocomplete results to the combination of the google and oneclick place searches
-    this.autocompleteItems = this.googleAutocompleteItems.concat(this.oneClickAutocompleteItems);
-    
-    // Manually force component refresh
-    this.changeDetector.detectChanges();
   }
   
   // Centers map on a place
-  private centerMapOnPlace(place: PlaceModel) {
+  private centerMapOnPlace(place: GooglePlaceModel) {
     let latLng = new google.maps.LatLng(place.geometry.lat, place.geometry.lng);
     this.map.setCenter(latLng);
   }
 
   // Store place in session hash
-  private storePlaceInSession(place: PlaceModel) {
+  private storePlaceInSession(place: GooglePlaceModel) {
     let session = this.auth.session();
     session.user_starting_location = place;
     this.auth.setSession(session);
   }
   
-  // Empties the search results array
-  clearSearchResults() {
-    this.autocompleteItems = [];
-  }
-
 }

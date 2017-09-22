@@ -9,7 +9,8 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar class="lynx-toolbar lynx-toolbar-overlay" text-center *ngIf="selectedMatch != null">
+  <ion-toolbar class="lynx-toolbar lynx-toolbar-overlay" text-center 
+               *ngIf="selectedMatch != null">
     <ion-title>{{selectedMatch.agency_name}}</ion-title>
     
     <span class="travel-time-container">
@@ -24,7 +25,7 @@
     <ion-buttons end>
       <button ion-button 
               class="lynx-button-white lynx-button-circle"
-              (click)="openServicePage(selectedMatch)">GO</button>
+              (click)="selectService(selectedMatch)">GO</button>
     </ion-buttons>
     
   </ion-toolbar>

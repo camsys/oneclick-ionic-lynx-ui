@@ -8,4 +8,5 @@ export class ItineraryModel {
   walk_distance:number;
   legs:LegModel[];
   service:string;
+  duration:number;
 }

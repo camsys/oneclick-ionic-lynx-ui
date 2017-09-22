@@ -8,7 +8,8 @@ import { SubcategoryFor211Model } from '../../../models/subcategory-for-211'
 import { SubSubcategoryFor211Model } from '../../../models/sub-subcategory-for-211'
 import { ServiceModel } from '../../../models/service'
 import { Session } from '../../../models/session'
-import { PlaceModel } from "../../../models/place";
+import { GooglePlaceModel } from "../../../models/google-place";
+
 
 /**
  * Generated class for the SubSubCategoriesFor211Page page.
@@ -25,7 +26,7 @@ export class SubSubcategoriesFor211Page {
 
   subcategory: SubcategoryFor211Model;
   subcategoryLinks: SubSubcategoryFor211Model[];
-  userStartingLocation: PlaceModel;
+  userStartingLocation: GooglePlaceModel;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
