@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { IonicPage, Platform, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, Platform, NavController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMapsHelpersProvider } from '../../../providers/google/google-maps-helpers';
 import { ServiceModel } from '../../../models/service';
@@ -30,7 +30,8 @@ export class MapFor211ServicesPage {
               public navParams: NavParams, 
               public platform: Platform, 
               public geolocation: Geolocation,
-              private googleMapsHelpers: GoogleMapsHelpersProvider) {
+              private googleMapsHelpers: GoogleMapsHelpersProvider,
+              public events: Events) {
     this.service_map = null;
     this.matches = navParams.data;
     this.selectedMatch = null;
@@ -84,7 +85,7 @@ export class MapFor211ServicesPage {
     this.selectedMatch = serviceMatch;
   }
 
-  openServicePage(match: ServiceModel){
-    this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage, {service: match});
+  selectService(match : ServiceModel){
+    this.events.publish('service:selected', match);
   }
 }

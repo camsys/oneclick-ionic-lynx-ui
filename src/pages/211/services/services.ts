@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { MapFor211ServicesPage } from '../map-for211-services/map-for211-services';
 import { ServicesFromMatchListPage } from '../services-from-match-list/services-from-match-list';
+import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 
 // import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
 import { SubSubcategoryFor211Model } from '../../../models/sub-subcategory-for-211';
 import { ServiceModel } from '../../../models/service';
+
+import { AuthProvider } from '../../../providers/auth/auth';
 
 
 /**
@@ -27,14 +30,34 @@ export class ServicesPage {
   servicesFromMatchListTab: any;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              public events: Events,
+              private auth: AuthProvider) {
     this.subcategoryLink = navParams.data.selected_subcategory_link;
     this.matches_result = navParams.data.matches_result;
     this.mapTab = MapFor211ServicesPage;
     this.servicesFromMatchListTab = ServicesFromMatchListPage;
+    
+    // Watch for service:selected events from child tabs
+    this.events.subscribe('service:selected', (service) => {
+      this.onServiceSelected(service);
+    })
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ServicesPage');
+  }
+  
+  // When a service selected event is fired in one of the child tabs,
+  // open the transportation options page, passing along the service, an origin, and a destination
+  onServiceSelected(service: ServiceModel) {
+    this.navCtrl.push(ServiceFor211DetailPage, {
+      service: service,
+      origin: this.auth.session().user_starting_location,
+      destination: {
+        name: service.site_name,
+        geometry: {lat: service.lat, lng: service.lng}
+      }
+    })
   }
 }

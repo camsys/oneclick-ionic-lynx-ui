@@ -4,7 +4,7 @@ import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TripResponseModel } from "../../models/trip-response";
 import { TripRequestModel } from "../../models/trip-request";
 import { TripModel } from "../../models/trip";
-import { ItineraryModel } from "../../models/Itinerary";
+import { ItineraryModel } from "../../models/itinerary";
 import { LegModel } from "../../models/leg";
 import { LegStepModel } from "../../models/leg-step";
 import { OneClickProvider } from '../../providers/one-click/one-click';

@@ -5,7 +5,7 @@ import { GeocodeServiceProvider } from '../../providers/google/geocode-service';
 import { GoogleMapsHelpersProvider } from '../../providers/google/google-maps-helpers';
 
 import { TripResponseModel } from "../../models/trip-response";
-import { ItineraryModel } from "../../models/Itinerary";
+import { ItineraryModel } from "../../models/itinerary";
 
 /**
  * Generated class for the DirectionsRouteDetailPage page.

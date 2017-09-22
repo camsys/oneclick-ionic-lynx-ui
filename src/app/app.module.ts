@@ -55,8 +55,8 @@ import { AddressComponentModel } from '../models/address-component';
 import { LocationModel } from '../models/location';
 import { TripModel } from "../models/trip";
 import { TripRequestModel } from "../models/trip-request";
-import { TripResponseModel } from "../models/trip-response";
-import { ItineraryModel } from "../models/Itinerary";
+// import { TripResponseModel } from "../models/trip-response";
+import { ItineraryModel } from "../models/itinerary";
 import { LegModel } from "../models/leg";
 import { LegGeometryModel } from "../models/leg-geometry";
 import { LegStepModel } from "../models/leg-step";
@@ -160,7 +160,7 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     LocationModel,
     TripModel,
     TripRequestModel,
-    TripResponseModel,
+    // TripResponseModel,
     ItineraryModel,
     LegModel,
     LegGeometryModel,

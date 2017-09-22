@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({name: 'prettyTime'})
 export class PrettyTimePipe implements PipeTransform {
   transform(seconds: number | null | undefined): string {
-    if(!seconds) { return "n/a"; } // Return string "unknown" if value is null
+    if(!seconds) { return "unknown"; } // Return string "unknown" if value is null
     let timeString = "";
     
     // populate hours

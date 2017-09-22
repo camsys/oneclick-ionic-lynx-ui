@@ -11,6 +11,7 @@ import { OneClickProvider } from '../../providers/one-click/one-click';
 
 // PAGES
 import { CategoriesFor211Page } from '../211/categories-for211/categories-for211';
+import { ServiceFor211DetailPage } from '../211/service-for211-detail/service-for211-detail';
 
 // MODELS
 import { OneClickPlaceModel } from "../../models/one-click-place";
@@ -103,6 +104,18 @@ export class UserLocatorPage {
     console.log("SEARCHING FOR SERVICES", place);
     this.storePlaceInSession(place);
     this.navCtrl.push(CategoriesFor211Page);
+  }
+  
+  // Plans a trip based on origin and destination
+  findTransportation(origin: GooglePlaceModel, 
+                     destination: GooglePlaceModel) {
+    console.log("FINDING TRANSPORTATION", origin, destination);
+    this.navCtrl.push(ServiceFor211DetailPage, {
+      service: null,
+      origin: origin,
+      destination: destination
+    });
+
   }
 
   // After device geolocation, update the userLocation property

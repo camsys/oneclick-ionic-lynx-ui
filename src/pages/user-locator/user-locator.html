@@ -64,15 +64,16 @@
     </button>
   </div>
   
-  <!-- <div text-center id="find-transportation-button-container" *ngIf="!findServicesView">
+  <div text-center id="find-transportation-button-container" *ngIf="!findServicesView">
     <button ion-button round 
             class="lynx-button-primary"
             id="find-transportation-button"
-            (click)="findTransportation(fromPlace)">
+            *ngIf="originSearch.place && destinationSearch.place"
+            (click)="findTransportation(originSearch.place, destinationSearch.place)">
       Find Transportation
       <ion-icon pull-right name="arrow-forward"></ion-icon>
     </button>
-  </div> -->
+  </div>
 
 
   <div id="user-locator-map-canvas" (click)="originSearch.clear()"></div>
