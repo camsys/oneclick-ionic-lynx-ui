@@ -9,6 +9,9 @@
   <ion-navbar class="lynx-toolbar">
     <ion-title>{{service.agency_name}}</ion-title>
     <div class="lynx-toolbar-body">{{service.address}}</div>
+    <div *ngIf=service.url class="lynx-toolbar-body">
+      <a href="{{service.url}}" target="_blank">{{service.display_url}}</a>
+    </div>
   </ion-navbar>
 
 </ion-header>
