@@ -46,6 +46,9 @@ export class HelpMeFindPage {
   }
 
   presentAlerts() {
+
+    document.getElementById('messages-button').style.display = "none";
+
     for(let entry of this.alerts) {
       console.log(entry);
       let alert = this.alertCtrl.create({

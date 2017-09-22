@@ -1,13 +1,15 @@
 <ion-header no-border>
   <ion-navbar transparent>
     
-    <button ion-button
+    <div *ngIf="alerts" id="messages-button">
+    <button *ngIf="alerts.length > 0" ion-button
             round
             class="lynx-button-pink"
             (click)="presentAlerts()"> 
       <ion-icon class="padded" name="mail"></ion-icon>
       <ion-label>View Messages</ion-label>
     </button>
+    </div>
     
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
