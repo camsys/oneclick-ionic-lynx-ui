@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 
 import { AgencyModel } from '../../models/agency';
 import { GooglePlaceModel } from '../../models/google-place';
+import { Alert } from '../../models/alert';
 import { CategoryFor211Model } from '../../models/category-for-211'
 import { SubcategoryFor211Model } from '../../models/subcategory-for-211'
 import { SubSubcategoryFor211Model } from '../../models/sub-subcategory-for-211'
@@ -192,6 +193,39 @@ export class OneClickProvider {
             . map( response => {
               return (response.json().data.trip as TripResponseModel)
             })
+  }
+
+  getAlerts(): Promise<Alert[]>{
+    let headers = this.auth.authHeaders();
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http
+            .get(this.oneClickUrl+'alerts', options)
+            .toPromise()
+            .then(response => response.text())
+            .then(json => JSON.parse(json).data.user_alerts as Alert[])
+            .catch(this.handleError);
+  }
+
+  ackAlert(alert: Alert){
+
+    if(alert.id == null){
+      return
+    }
+
+    let headers = this.auth.authHeaders();
+    let options = new RequestOptions({ headers: headers });
+
+    let body = {
+      "user_alert": {
+        "acknowledged": true
+      }
+    };
+
+    return this.http
+            .put(this.oneClickUrl+'alerts/'+alert.id, body, options)
+            .toPromise()
+            .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
