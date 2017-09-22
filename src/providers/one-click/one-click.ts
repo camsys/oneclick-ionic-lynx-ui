@@ -195,12 +195,13 @@ export class OneClickProvider {
             })
   }
 
-  getAlerts(): Observable<Alert[]>{
+  getAlerts(): Promise<Alert[]>{
     return this.http
             .get(this.oneClickUrl+'alerts')
-            . map( response => {
-              return (response.json().data.user_alerts as Alert[])
-            })
+            .toPromise()
+            .then(response => response.text())
+            .then(json => JSON.parse(json).data.user_alerts as Alert[])
+            .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
