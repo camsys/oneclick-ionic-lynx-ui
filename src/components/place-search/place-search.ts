@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Events } from 'ionic-angular';
 
@@ -32,7 +32,8 @@ export class PlaceSearchComponent {
 
   constructor(public geoServiceProvider: GeocodeServiceProvider,
               public oneClickProvider: OneClickProvider,
-              public events: Events) {
+              public events: Events,
+              public changeDetector: ChangeDetectorRef) {
     this.query = '';
     this.searchControl = new FormControl;
     this.placeholder = this.placeholder || "Search";
@@ -80,6 +81,7 @@ export class PlaceSearchComponent {
   private refresh() {
     // Set autocomplete results to the combination of the google and oneclick place searches
     this.autocompleteItems = this.googleAutocompleteItems.concat(this.oneClickAutocompleteItems);
+    this.changeDetector.detectChanges();
     console.log("SEARCH RESULTS REFRESHED", this.autocompleteItems);
   }
   
