@@ -1,16 +1,5 @@
 <ion-header no-border>
   <ion-navbar transparent>
-    
-    <div *ngIf="alerts" id="messages-button">
-    <button *ngIf="alerts.length > 0" ion-button
-            round
-            class="lynx-button-pink"
-            (click)="presentAlerts()"> 
-      <ion-icon class="padded" name="mail"></ion-icon>
-      <ion-label>View Messages</ion-label>
-    </button>
-    </div>
-    
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -28,7 +17,7 @@
           <ion-card-header text-wrap text-center>
 
             <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png" alt="LYNX logo" />
-            Welcome to LYNX.
+            Welcome to Lynx.
             
           </ion-card-header>
 
@@ -54,7 +43,6 @@
                       (click)="openTransportationPage()"> 
                 Transportation
               </button>
-
               
             </div>
 
