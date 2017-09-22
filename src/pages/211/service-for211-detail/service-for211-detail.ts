@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { ServiceFor211ReviewPage } from '../service-for211-review/service-for211-review';
@@ -49,7 +49,8 @@ export class ServiceFor211DetailPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public oneClickProvider: OneClickProvider,
-              public events: Events) {
+              public events: Events,
+              public changeDetector: ChangeDetectorRef) {
   
     console.log("NAV PARAMS", navParams.data);
   
@@ -76,6 +77,7 @@ export class ServiceFor211DetailPage {
     .forEach((resp) => {
       this.tripResponse = new TripResponseModel(resp);
       this.updateTravelTimesFromTripResponse(this.tripResponse);
+      this.changeDetector.detectChanges();
       console.log("TRIP RESPONSE RETURNED!", this.tripResponse);
     });
     
