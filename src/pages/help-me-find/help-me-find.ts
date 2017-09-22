@@ -35,7 +35,6 @@ export class HelpMeFindPage {
   ionViewDidLoad() {  
     this.oneClickProvider.getAlerts()
       .then(alerts => this.alerts = alerts)
-      .then(not_used => this.presentAlerts())
   }
 
   openResourcesPage() {
