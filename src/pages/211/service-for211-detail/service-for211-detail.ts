@@ -20,9 +20,6 @@ import { environment } from '../../../app/environment';
 
 /**
  * Generated class for the ServiceFor211DetailPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
@@ -51,9 +48,7 @@ export class ServiceFor211DetailPage {
               public oneClickProvider: OneClickProvider,
               public events: Events,
               public changeDetector: ChangeDetectorRef) {
-  
-    console.log("NAV PARAMS", navParams.data);
-  
+    
     // Set the service (if present)
     this.service = navParams.data.service;
 
@@ -61,28 +56,17 @@ export class ServiceFor211DetailPage {
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
     
-    // // Set origin and destination places
-    // this.setOrigin();
-    // this.setDestination();
-    
-    // Set transit and drive time
-    if(this.service) {
-      this.transitTime = this.service.transit_time;
-      this.driveTime = this.service.drive_time;
-    }
-    
-    // Plan a default trip and store the result
+    // Plan a trip and store the result.
+    // Once response comes in, update the UI with travel times and allow
+    // user to select a mode to view directions.
     this.oneClickProvider
     .getTripPlan(this.buildTripRequest(this.basicModes))
     .forEach((resp) => {
       this.tripResponse = new TripResponseModel(resp);
       this.updateTravelTimesFromTripResponse(this.tripResponse);
       this.changeDetector.detectChanges();
-      console.log("TRIP RESPONSE RETURNED!", this.tripResponse);
     });
     
-    console.log("NAVPARAMS", navParams.data, this.service, this.origin, this.destination);
-
   }
 
   ionViewDidLoad() {
@@ -93,58 +77,21 @@ export class ServiceFor211DetailPage {
     this.navCtrl.push(ServiceFor211ReviewPage);
   }
 
+  // Opens the directions page for the desired mode, passing a clone of the 
+  // trip response with all the irrelevant itineraries filtered out.
   openDirectionsPage(mode: string){
-    console.log("OPENING DIRECTIONS PAGE", this.tripResponse);
-    let modalTripResponse = this.tripResponseWithFilteredItineraries(this.tripResponse, mode);
+    let tripResponse = this.tripResponseWithFilteredItineraries(this.tripResponse, mode);
     
     this.navCtrl.push(DirectionsPage, {
-      trip_response: modalTripResponse,
+      trip_response: tripResponse,
       mode: mode
     });
-    
-    // this.events.publish('spinner:show');
-    // 
-    // this.buildTripRequest([mode]);
-    // 
-    // let result = this.oneClickProvider.getTripPlan(this.tripRequest).
-    //   forEach(value => { 
-    //     this.events.publish('spinner:hide');
-    //     this.navCtrl.push(DirectionsPage, {
-    //       trip_response: value,
-    //       mode: mode
-    //     });
-    //   });
   }
 
   openOtherTransportationOptions(){
     this.navCtrl.push(TransportationEligibilityPage)
   }
-  
-  // Origin defaults to user location if not passed in NavParams.
-  // Or, if neither set, builds a default location
-  setOrigin() {
-    this.origin = new GooglePlaceModel(
-      this.navParams.data.origin || 
-      this.session().user_starting_location
-    );
-  }
 
-  // If service is passed, set destination to service location.
-  // otherwise, set to navParams or build a default location
-  setDestination() {
-    if(this.service && this.service.lat && this.service.lng) {
-      this.destination = new GooglePlaceModel({
-        name: this.service.site_name,
-        geometry: {lat: this.service.lat, lng: this.service.lng}
-      });
-    } else {
-      this.destination = new GooglePlaceModel(
-        this.navParams.data.destination ||
-        { geometry: environment.DEFAULT_LOCATION }
-      );
-    }
-  }
-  
   // Builds a trip request based on the passed mode, stored origin/destination,
   // and current time
   buildTripRequest(modes: string[]) {
@@ -184,7 +131,6 @@ export class ServiceFor211DetailPage {
                                       mode: string) {
     let newTripResponse = new TripResponseModel(tripResponse);
     newTripResponse.itineraries = newTripResponse.itinerariesByTripType(mode);
-    console.log("NEW TRIP RESPONSE", newTripResponse);
     return newTripResponse;
   }
   
