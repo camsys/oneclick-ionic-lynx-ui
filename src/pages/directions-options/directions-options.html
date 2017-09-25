@@ -8,7 +8,9 @@
 
   
   <!-- TRIP OPTION SELECTORS -->
-  <ion-segment [(ngModel)]="selectedItinerary" *ngIf="itineraries.length > 1">
+  <ion-segment [(ngModel)]="selectedItinerary" 
+               *ngIf="itineraries.length > 1"
+               (ngModelChange)="selectItinerary($event)">
     <ion-segment-button *ngFor="let itin of itineraries; let i = index" 
                         value="{{ i | toString }}">
       OPTION {{i + 1}}
@@ -49,7 +51,7 @@
                                   displayFormat="MMM DD, YYYY HH:mm" 
                                   pickerFormat="MMM D HH:mm"
                                   minuteValues="0,15,30,45"
-                                  [(ngModel)]="tripRequest.trip.trip_time"
+                                  [(ngModel)]="departAtTime"
                                   (ngModelChange)="updateDepartAt()">
                     </ion-datetime>   
                   </ion-item>
@@ -162,8 +164,9 @@
                   <ion-item no-lines hidden="true">
                     <ion-datetime #arriveByDatepicker
                                   displayFormat="MMM DD, YYYY HH:mm" 
-                                  pickerFormat="MMM D H:m"
-                                  [(ngModel)]="tripRequest.trip.trip_time"
+                                  pickerFormat="MMM D HH:mm"
+                                  minuteValues="0,15,30,45"
+                                  [(ngModel)]="arriveByTime"
                                   (ngModelChange)="updateArriveBy()">
                     </ion-datetime>   
                   </ion-item>

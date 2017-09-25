@@ -9,7 +9,7 @@ import { LegModel } from "../../models/leg";
 import { LegStepModel } from "../../models/leg-step";
 import { OneClickProvider } from '../../providers/one-click/one-click';
 import { DirectionsPage } from '../directions/directions';
-
+import { HelpersProvider } from '../../providers/helpers/helpers';
 
 /**
  * Generated class for the DirectionsOptionsPage page.
@@ -29,12 +29,15 @@ export class DirectionsOptionsPage {
   itineraries: ItineraryModel[];
   selectedItinerary: string; // Index of selected itinerary within the itineraries array
   tripRequest:TripRequestModel;
+  departAtTime: string; // For storing user-defined depart at datetime
+  arriveByTime: string; // For storing user-defined arrive by datetime
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public oneClickProvider: OneClickProvider,
               private _app: App,
-              public events: Events) {
+              public events: Events,
+              public helpers: HelpersProvider) {
     this.trip = navParams.data.trip;
     this.mode = navParams.data.mode;
     
@@ -52,6 +55,9 @@ export class DirectionsOptionsPage {
     this.tripRequest.trip = JSON.parse(JSON.stringify(this.trip)); // Copy the trip into the tripRequest
     this.tripRequest.trip.origin_attributes = { lat: this.trip.origin.lat, lng: this.trip.origin.lng, name: this.trip.origin.name }
     this.tripRequest.trip.destination_attributes = { lat: this.trip.destination.lat, lng: this.trip.destination.lng, name: this.trip.destination.name }
+    
+    // Sets arrive_by and depart_at time
+    this.updateArriveByAndDepartAtTimes();
   }
 
   ionViewDidLoad() { }
@@ -59,12 +65,14 @@ export class DirectionsOptionsPage {
   // When depart at time is updated, submit new trip plan request with arrive_by = false
   updateDepartAt() {
     this.tripRequest.trip.arrive_by = false;
+    this.tripRequest.trip.trip_time = this.departAtTime;
     this.replanTrip();
   }
   
   // When depart at time is updated, submit new trip plan request with arrive_by = true
   updateArriveBy() {
     this.tripRequest.trip.arrive_by = true;
+    this.tripRequest.trip.trip_time = this.arriveByTime;
     this.replanTrip();
   }
   
@@ -81,6 +89,43 @@ export class DirectionsOptionsPage {
           mode: this.mode
         });
       });
+  }
+  
+  // Fires every time a new itinerary is selected
+  selectItinerary(evt) {
+    this.updateArriveByAndDepartAtTimes(); // Update datepicker times based on newly selected itinerary
+  }
+  
+  // Updates the arrive by and depart at times in the time pickers based on trip and selected itinerary
+  updateArriveByAndDepartAtTimes() {
+    let h = this.helpers; // for date manipulation methods
+    
+    // ITINERARY TIMES
+    let itin = this.itineraries[parseInt(this.selectedItinerary)];
+    
+    // Have to do some funky math to get these to show up in the proper time zone... 
+    let itinStartTime:any = new Date(itin.legs[0].startTime).valueOf(); // Convert itinerary start time to milliseconds since epoch
+    itinStartTime = h.roundDownToNearest(itinStartTime, 60000 * 15); // Round down to nearest 15 min.
+    itinStartTime = h.dateISOStringWithTimeZoneOffset(new Date(itinStartTime)); // Format as ISO String with TZ offset
+
+    let itinEndTime:any = new Date(itin.legs[itin.legs.length - 1].endTime).valueOf(); // Convert itinerary end time to milliseconds since epoch
+    itinEndTime = h.roundUpToNearest(itinEndTime, 15 * 60000);  // Round up to nearest 15 min.
+    itinEndTime = h.dateISOStringWithTimeZoneOffset(new Date(itinEndTime)); // Format as ISO String with TZ offset
+    
+    // TRIP TIMES
+    // Trip's trip_time in milliseconds since epoch
+    let tripTimeInMS:any = Date.parse(this.trip.trip_time);
+
+    // Round to nearest 15 min (up and down) and format as ISO string with TZ offset
+    let tripArriveByTime:any = h.roundUpToNearest(tripTimeInMS, 15 * 60000);
+    tripArriveByTime = h.dateISOStringWithTimeZoneOffset(new Date(tripArriveByTime));
+    let tripDepartAtTime:any = h.roundDownToNearest(tripTimeInMS, 15 * 60000);
+    tripDepartAtTime = h.dateISOStringWithTimeZoneOffset(new Date(tripDepartAtTime));
+      
+    // Set arrive by and depart at time to the trip time or the itinerary start/end time,
+    // depending on the trip's arrive_by boolean.
+    this.arriveByTime = this.trip.arrive_by ? tripArriveByTime : itinEndTime;
+    this.departAtTime = this.trip.arrive_by ? itinStartTime : tripDepartAtTime;
   }
 
 }
