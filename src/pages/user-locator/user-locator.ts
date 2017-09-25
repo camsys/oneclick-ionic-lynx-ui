@@ -51,7 +51,10 @@ export class UserLocatorPage {
     this.map = null;
     this.userLocation = null; // The user's device location
     this.findServicesView = this.navParams.data.findServicesView;
-    console.log("FIND SVCS VIEW", this.findServicesView);
+    
+    this.events.subscribe('place-search:change', () => {
+      this.changeDetector.detectChanges();
+    });
   }
 
   ionViewDidLoad() {
@@ -109,7 +112,6 @@ export class UserLocatorPage {
   // Plans a trip based on origin and destination
   findTransportation(origin: GooglePlaceModel, 
                      destination: GooglePlaceModel) {
-    console.log("FINDING TRANSPORTATION", origin, destination);
     this.navCtrl.push(ServiceFor211DetailPage, {
       service: null,
       origin: origin,
