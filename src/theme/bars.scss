@@ -14,6 +14,10 @@ ion-toolbar.lynx-toolbar {
   
   .lynx-toolbar-body {
     font-size: $font-size-sm;
+    
+    a { 
+      color: $lynxWhite;
+    }
   }
   
   // High-contrast toolbar with black background, white lettering
