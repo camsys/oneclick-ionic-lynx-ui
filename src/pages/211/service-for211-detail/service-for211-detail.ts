@@ -12,10 +12,11 @@ import { TripRequestModel } from "../../../models/trip-request";
 import { TripResponseModel } from "../../../models/trip-response";
 import { Session } from '../../../models/session';
 
+import { environment } from '../../../app/environment';
+
 //TODO REMOVE
 import { OneClickPlaceModel } from "../../../models/one-click-place";
 import { GooglePlaceModel } from "../../../models/google-place";
-import { environment } from '../../../app/environment';
 
 
 /**
@@ -32,8 +33,9 @@ export class ServiceFor211DetailPage {
   origin: GooglePlaceModel;
   destination: GooglePlaceModel;
   basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
+  allModes:string[] = ['transit', 'car', 'taxi', 'uber', 'paratransit'] // All modes
   tripRequest: TripRequestModel;
-  tripResponse: TripResponseModel;
+  tripResponse: TripResponseModel = new TripResponseModel({});
   
   transitTime: number = 0;
   driveTime: number = 0;
@@ -60,7 +62,7 @@ export class ServiceFor211DetailPage {
     // Once response comes in, update the UI with travel times and allow
     // user to select a mode to view directions.
     this.oneClickProvider
-    .getTripPlan(this.buildTripRequest(this.basicModes))
+    .getTripPlan(this.buildTripRequest(this.allModes))
     .forEach((resp) => {
       this.tripResponse = new TripResponseModel(resp);
       this.updateTravelTimesFromTripResponse(this.tripResponse);
@@ -89,7 +91,10 @@ export class ServiceFor211DetailPage {
   }
 
   openOtherTransportationOptions(){
-    this.navCtrl.push(TransportationEligibilityPage)
+    this.navCtrl.push(TransportationEligibilityPage, {
+      trip_response: this.tripResponseWithFilteredItineraries(this.tripResponse, 'paratransit'),
+      trip_request: this.tripRequest
+    })
   }
 
   // Builds a trip request based on the passed mode, stored origin/destination,

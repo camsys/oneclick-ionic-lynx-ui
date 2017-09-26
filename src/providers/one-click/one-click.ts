@@ -188,9 +188,12 @@ export class OneClickProvider {
 
   getTripPlan(tripRequest: TripRequestModel): Observable<TripResponseModel>
   {
+    let headers = this.auth.authHeaders();
+    let options = new RequestOptions({ headers: headers });
+    
     return this.http
-            .post(this.oneClickUrl+'trips/plan', tripRequest)
-            . map( response => {
+            .post(this.oneClickUrl+'trips/plan', tripRequest, options)
+            .map( response => {
               return (response.json().data.trip as TripResponseModel)
             })
   }

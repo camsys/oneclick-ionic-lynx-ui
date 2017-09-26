@@ -1,3 +1,6 @@
+
+// DEPRECATED //
+
 import { AddressComponentModel } from './address-component';
 import { LocationModel } from './location';
 
