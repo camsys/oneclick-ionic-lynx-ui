@@ -58,7 +58,7 @@
             class="lynx-button-primary"
             id="find-services-button"
             (click)="searchForServices(originSearch.place)"
-            *ngIf="!!userLocation">
+            *ngIf="!!userLocation || originSearch.place">
       Find Services
       <ion-icon pull-right name="arrow-forward"></ion-icon>
     </button>
