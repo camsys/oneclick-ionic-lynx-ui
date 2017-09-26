@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { ServiceFor211ReviewPage } from '../service-for211-review/service-for211-review';
 import { DirectionsPage } from '../../directions/directions';
 import { TransportationEligibilityPage } from '../../transportation-eligibility/transportation-eligibility';
+import { TaxiTransportationPage } from '../../taxi-transportation/taxi-transportation';
+
 import { OneClickProvider } from '../../../providers/one-click/one-click';
 
 import { ServiceModel } from '../../../models/service';
@@ -34,7 +36,7 @@ export class ServiceFor211DetailPage {
   basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
   tripRequest: TripRequestModel;
   tripResponse: TripResponseModel;
-  
+
   transitTime: number = 0;
   driveTime: number = 0;
 
@@ -43,19 +45,19 @@ export class ServiceFor211DetailPage {
     return (JSON.parse(localStorage.session || null) as Session);
   }
 
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams, 
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
               public oneClickProvider: OneClickProvider,
               public events: Events,
               public changeDetector: ChangeDetectorRef) {
-    
+
     // Set the service (if present)
     this.service = navParams.data.service;
 
     // Set origin and destination places
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
-    
+
     // Plan a trip and store the result.
     // Once response comes in, update the UI with travel times and allow
     // user to select a mode to view directions.
@@ -66,7 +68,7 @@ export class ServiceFor211DetailPage {
       this.updateTravelTimesFromTripResponse(this.tripResponse);
       this.changeDetector.detectChanges();
     });
-    
+
   }
 
   ionViewDidLoad() {
@@ -77,15 +79,23 @@ export class ServiceFor211DetailPage {
     this.navCtrl.push(ServiceFor211ReviewPage);
   }
 
-  // Opens the directions page for the desired mode, passing a clone of the 
+  // Opens the directions page for the desired mode, passing a clone of the
   // trip response with all the irrelevant itineraries filtered out.
-  openDirectionsPage(mode: string){
+  openDirectionsPage(mode: string) {
     let tripResponse = this.tripResponseWithFilteredItineraries(this.tripResponse, mode);
-    
-    this.navCtrl.push(DirectionsPage, {
-      trip_response: tripResponse,
-      mode: mode
-    });
+
+    if (mode === 'car' || mode === 'transit'){
+      this.navCtrl.push(DirectionsPage, {
+        trip_response: tripResponse,
+        mode: mode
+      });
+    } else if (mode === 'taxi') {
+      this.navCtrl.push(TaxiTransportationPage, {
+        trip_response: tripResponse,
+        mode: mode
+      });
+    }
+
   }
 
   openOtherTransportationOptions(){
@@ -100,40 +110,40 @@ export class ServiceFor211DetailPage {
     // Set origin and destination
     tripRequest.trip.origin_attributes = this.origin.toOneClickPlace();
     tripRequest.trip.destination_attributes = this.destination.toOneClickPlace();
-    
+
     // Set trip time to now by default, in ISO 8601 format
     tripRequest.trip.trip_time = new Date().toISOString();
-    
+
     // Set arrive_by to true by default
     tripRequest.trip.arrive_by = false;
 
     // Set trip types to the mode passed to this method
     tripRequest.trip_types = modes;
-    
+
     return tripRequest;
   }
-  
+
   // Updates transit and drive time based on a trip response
   updateTravelTimesFromTripResponse(tripResponse: TripResponseModel) {
     let transitItin = tripResponse.itinerariesByTripType('transit')[0];
     if(transitItin && transitItin.duration) {
-      this.transitTime = transitItin.duration;      
+      this.transitTime = transitItin.duration;
     }
-    
+
     let driveItin = tripResponse.itinerariesByTripType('car')[0];
     if(driveItin && driveItin.duration) {
       this.driveTime = driveItin.duration;
     }
   }
-  
+
   // Returns a trip response object but with only the itineraries of the passed mode
-  tripResponseWithFilteredItineraries(tripResponse: TripResponseModel, 
+  tripResponseWithFilteredItineraries(tripResponse: TripResponseModel,
                                       mode: string) {
     let newTripResponse = new TripResponseModel(tripResponse);
     newTripResponse.itineraries = newTripResponse.itinerariesByTripType(mode);
     return newTripResponse;
   }
-  
+
   // Returns duration in seconds for the given mode
   durationFor(mode:string): number {
     switch(mode) {
@@ -148,7 +158,7 @@ export class ServiceFor211DetailPage {
         return this.driveTime;
     }
   }
-  
+
   // Returns a label for the passed mode
   labelFor(mode:string): string {
     switch(mode) {
@@ -159,9 +169,9 @@ export class ServiceFor211DetailPage {
       case 'taxi':
         return "Taxi";
       case 'uber':
-        return "Uber"
+        return "Uber";
       case 'paratransit':
-        return "Other Transportation Options"
+        return "Other Transportation Options";
       default:
         return "";
     }
