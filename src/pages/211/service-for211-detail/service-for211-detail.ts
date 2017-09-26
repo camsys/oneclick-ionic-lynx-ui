@@ -35,7 +35,7 @@ export class ServiceFor211DetailPage {
   basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
   allModes:string[] = ['transit', 'car', 'taxi', 'uber', 'paratransit'] // All modes
   tripRequest: TripRequestModel;
-  tripResponse: TripResponseModel = new TripResponseModel({});
+  tripResponse: TripResponseModel;
   
   transitTime: number = 0;
   driveTime: number = 0;
@@ -132,7 +132,7 @@ export class ServiceFor211DetailPage {
   }
   
   // Returns a trip response object but with only the itineraries of the passed mode
-  tripResponseWithFilteredItineraries(tripResponse: TripResponseModel, 
+  tripResponseWithFilteredItineraries(tripResponse: TripResponseModel=new TripResponseModel({}), 
                                       mode: string) {
     let newTripResponse = new TripResponseModel(tripResponse);
     newTripResponse.itineraries = newTripResponse.itinerariesByTripType(mode);

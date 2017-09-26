@@ -75,6 +75,9 @@ export class TransportationEligibilityPage {
     if(this.dirty) {
       console.log("USER IS DIRTY", this.accommodations, this.eligibilities, this.tripRequest);
       this.buildUserProfileParams();
+      // MAKE A TRIP PLAN CALL BEFORE GOING TO NEXT PAGE
+    } else {
+      // GO DIRECTLY TO NEXT PAGE
     }
     console.log("VIEWING PARATRANSIT OPTIONS...");
   }
