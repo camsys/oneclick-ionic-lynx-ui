@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { OneClickProvider } from '../../providers/one-click/one-click';
 import { User, Accommodation, Eligibility } from '../../models/user';
+import { TransportationAgenciesPage } from '../transportation-agencies/transportation-agencies';
 
 import { TripRequestModel } from "../../models/trip-request";
 import { TripResponseModel } from "../../models/trip-response";
@@ -31,7 +32,9 @@ export class TransportationEligibilityPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private auth: AuthProvider,
-              public oneClickProvider: OneClickProvider) {
+              public oneClickProvider: OneClickProvider,
+              private changeDetector: ChangeDetectorRef,
+              public events: Events) {
     this.user = auth.session().user;
     this.accommodations = this.user.accommodations;
     this.eligibilities = this.user.eligibilities;
@@ -49,6 +52,7 @@ export class TransportationEligibilityPage {
   updateCharacteristic() {
     this.dirty = true; // Flip the dirty boolean to signal that a change has been made
     console.log("CHARACTERISTIC UPDATED", this.user, this.dirty);
+    this.changeDetector.detectChanges();
   }
   
   // Builds a user_profile update hash based on the accommodations and eligiblities hashes
@@ -71,11 +75,20 @@ export class TransportationEligibilityPage {
   
   // Shows all available paratransit options based on selected accommodations and eligibilities
   viewParatransitOptions() {
+    
+    
     // If a change has been made, re-send the plan call.
     if(this.dirty) {
+      this.events.publish('spinner:show');
       console.log("USER IS DIRTY", this.accommodations, this.eligibilities, this.tripRequest);
       this.buildUserProfileParams();
-      // MAKE A TRIP PLAN CALL BEFORE GOING TO NEXT PAGE
+      this.oneClickProvider
+      .getTripPlan(this.tripRequest)
+      .forEach((resp) => {
+        console.log("TRIP RESPONSE RETURNED!", resp);
+        this.events.publish('spinner:hide');
+        this.navCtrl.push(TransportationAgenciesPage, {});
+      });
     } else {
       // GO DIRECTLY TO NEXT PAGE
     }
