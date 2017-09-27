@@ -48,6 +48,12 @@ export class ServicesPage {
     console.log('ionViewDidLoad ServicesPage');
   }
   
+  ionViewWillLeave() {
+    // on leaving the page, unsubscribe from the service:selected event to avoid
+    // destroyed view errors
+    this.events.unsubscribe('service:selected');
+  }
+  
   // When a service selected event is fired in one of the child tabs,
   // open the transportation options page, passing along the service, an origin, and a destination
   onServiceSelected(service: ServiceModel) {

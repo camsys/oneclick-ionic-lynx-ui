@@ -38,6 +38,7 @@ export class ServiceFor211DetailPage {
   allModes:string[] = ['transit', 'car', 'taxi', 'uber', 'paratransit'] // All modes
   tripRequest: TripRequestModel;
   tripResponse: TripResponseModel;
+  tripPlanSubscription: any;
 
   transitTime: number = 0;
   driveTime: number = 0;
@@ -63,9 +64,9 @@ export class ServiceFor211DetailPage {
     // Plan a trip and store the result.
     // Once response comes in, update the UI with travel times and allow
     // user to select a mode to view directions.
-    this.oneClickProvider
+    this.tripPlanSubscription = this.oneClickProvider // Store the subscription in a property so it can be unsubscribed from if necessary
     .getTripPlan(this.buildTripRequest(this.allModes))
-    .forEach((resp) => {
+    .subscribe((resp) => {
       this.tripResponse = new TripResponseModel(resp);
       this.updateTravelTimesFromTripResponse(this.tripResponse);
       this.changeDetector.detectChanges();
@@ -79,6 +80,13 @@ export class ServiceFor211DetailPage {
 
   openServiceReviewPage(){
     this.navCtrl.push(ServiceFor211ReviewPage);
+  }
+  
+  // On page leave, unsubscribe from the trip plan call so it doesn't trigger errors when it resolves
+  ionViewWillLeave() {
+    if(this.tripPlanSubscription) {
+      this.tripPlanSubscription.unsubscribe();
+    }
   }
 
   // Opens the directions page for the desired mode, passing a clone of the

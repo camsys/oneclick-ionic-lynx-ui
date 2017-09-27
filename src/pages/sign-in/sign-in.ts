@@ -20,6 +20,7 @@ import { OneClickProvider } from '../../providers/one-click/one-click';
 export class SignInPage {
 
   user = { email: null, password: null };
+  signInSubscription: any;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -29,17 +30,17 @@ export class SignInPage {
   }
 
   signIn() {
-    this.authProvider.signIn(this.user.email, this.user.password)
+    this.authProvider
+        .signIn(this.user.email, this.user.password)
         .subscribe(
           data => { 
-
             // Get the user's profile data and store it in the session
             this.oneClickProvider.getProfile();
             
             // Redirect the user to the home page
             this.navCtrl.push(HelpMeFindPage);
           },
-          error => {
+          error => {            
             // On failed response, display a pop-up error message and remain on page.
             console.error(error.json().data.errors);
             let errorToast = this.toastCtrl.create({
@@ -50,6 +51,11 @@ export class SignInPage {
             errorToast.present();
           }
         );
+        
+    // Redirect the user to the home page
+    this.navCtrl.push(HelpMeFindPage);
   }
+  
+  
 
 }

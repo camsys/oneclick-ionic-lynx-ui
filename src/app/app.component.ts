@@ -162,12 +162,10 @@ export class MyApp {
   // Subscribe to spinner:show and spinner:hide events that can be published by child pages  
   setupSpinner() {
     this.events.subscribe('spinner:show', () => {
-      console.log("SHOWING SPINNER");
       this.showSpinner = true;
       this.changeDetector.detectChanges(); // Makes sure spinner doesn't lag
     });
     this.events.subscribe('spinner:hide', () => {
-      console.log("HIDING SPINNER");
       this.showSpinner = false;
       this.changeDetector.detectChanges(); // Makes sure spinner doesn't lag
     });

@@ -62,6 +62,12 @@ export class UserLocatorPage {
     .then(() => this.initializeMap())
 
   }
+  
+  ionViewWillLeave() {
+    // on leaving the page, unsubscribe from the place-search:change event to avoid
+    // detecting changes on destroyed views
+    this.events.unsubscribe('place-search:change');
+  }
 
   // Sets up the google map and geolocation services
   initializeMap() {
