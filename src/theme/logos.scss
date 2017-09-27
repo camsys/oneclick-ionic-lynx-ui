@@ -49,7 +49,11 @@ rating.lynx-rating {
     li {
       font-size: $font-size-lg;
       margin: 0;
-      padding: 0 !important; // Need to use !important to get padding to override
+      padding: 0 !important;
+      
+      ion-icon.icon {
+        width: initial !important;
+      }
     }
   }
 }

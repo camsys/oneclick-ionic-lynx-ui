@@ -41,5 +41,9 @@ export class TransportationAgenciesPage {
       .then(tps => this.transportationServices = tps);
     }
   }
+  
+  rateService() {
+    console.log("RATING SERVICE...");
+  }
 
 }
