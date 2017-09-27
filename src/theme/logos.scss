@@ -1,6 +1,4 @@
 
-
-
 // Medium-sized logo for sign in page. Centered, scales up to max size.
 // EXAMPLE:  <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png" alt="LYNX Icon">
 img.lynx-logo-md {
@@ -37,5 +35,21 @@ ion-icon.icon-wp {
   
   &.icon-lg {
     font-size: $font-size-xl;
+  }
+}
+
+
+// Give rating component the "lynx-rating" class to make it display properly
+rating.lynx-rating {
+  ul.rating {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    
+    li {
+      font-size: $font-size-lg;
+      margin: 0;
+      padding: 0 !important; // Need to use !important to get padding to override
+    }
   }
 }

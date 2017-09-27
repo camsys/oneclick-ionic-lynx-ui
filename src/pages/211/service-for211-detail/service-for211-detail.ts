@@ -190,5 +190,10 @@ export class ServiceFor211DetailPage {
         return "";
     }
   }
+  
+  // Open up rate a service modal
+  rateService() {
+    console.log("RATING THE SERVICE...");
+  }
 
 }
