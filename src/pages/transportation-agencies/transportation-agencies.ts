@@ -7,6 +7,9 @@ import { HelpersProvider } from '../../providers/helpers/helpers';
 
 // Models
 import { AgencyModel } from '../../models/agency';
+import { TripResponseModel } from "../../models/trip-response";
+import { OneClickServiceModel } from "../../models/one-click-service";
+
 
 @IonicPage()
 @Component({
@@ -20,11 +23,23 @@ export class TransportationAgenciesPage {
               private oneClickProvider: OneClickProvider,
               private helpers: HelpersProvider) {}
               
-  transportationAgencies: AgencyModel[];
+  // transportationAgencies: AgencyModel[];
+  tripResponse: TripResponseModel;
+  transportationServices: OneClickServiceModel[];
 
-  ionViewDidLoad() {    
-    this.oneClickProvider.getTransportationAgencies()
-    .then(tps => this.transportationAgencies = tps);
+  ionViewDidLoad() {
+    this.tripResponse = this.navParams.data.trip_response;
+    
+    if(this.tripResponse) { 
+      // If a trip response was sent via NavParams, pull the services out of it
+      this.transportationServices = this.tripResponse.itineraries.map((itin) => {
+        return new OneClickServiceModel(itin.service);
+      })
+    } else {
+      // Otherwise, make a call to OneClick for an index of all services
+      this.oneClickProvider.getParatransitServices()
+      .then(tps => this.transportationServices = tps);
+    }
   }
 
 }

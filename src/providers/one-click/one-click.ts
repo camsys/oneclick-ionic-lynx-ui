@@ -10,10 +10,11 @@ import 'rxjs/add/operator/map';
 import { AgencyModel } from '../../models/agency';
 import { GooglePlaceModel } from '../../models/google-place';
 import { Alert } from '../../models/alert';
-import { CategoryFor211Model } from '../../models/category-for-211'
-import { SubcategoryFor211Model } from '../../models/subcategory-for-211'
-import { SubSubcategoryFor211Model } from '../../models/sub-subcategory-for-211'
-import { ServiceModel } from '../../models/service'
+import { CategoryFor211Model } from '../../models/category-for-211';
+import { SubcategoryFor211Model } from '../../models/subcategory-for-211';
+import { SubSubcategoryFor211Model } from '../../models/sub-subcategory-for-211';
+import { ServiceModel } from '../../models/service';
+import { OneClickServiceModel } from '../../models/one-click-service';
 import { TripRequestModel } from '../../models/trip-request';
 import { TripResponseModel } from '../../models/trip-response';
 
@@ -55,13 +56,24 @@ export class OneClickProvider {
       })
   }
 
-  private getAgencies(type: String): Promise<AgencyModel[]> {
+  public getAgencies(type: String): Promise<AgencyModel[]> {
     let uri: string = encodeURI(this.oneClickUrl + 'agencies?type=' + type);
 
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
       .then(json => JSON.parse(json).data.agencies as AgencyModel[])
+      .catch(this.handleError);
+  }
+  
+  // Gets all paratransit services from OneClick
+  public getParatransitServices(): Promise<OneClickServiceModel[]> {
+    let uri: string = encodeURI(this.oneClickUrl + 'services?type=paratransit');
+
+    return this.http.get(uri)
+      .toPromise()
+      .then(response => response.text())
+      .then(json => JSON.parse(json).data.services as OneClickServiceModel[])
       .catch(this.handleError);
   }
 
@@ -188,9 +200,12 @@ export class OneClickProvider {
 
   getTripPlan(tripRequest: TripRequestModel): Observable<TripResponseModel>
   {
+    let headers = this.auth.authHeaders();
+    let options = new RequestOptions({ headers: headers });
+    
     return this.http
-            .post(this.oneClickUrl+'trips/plan', tripRequest)
-            . map( response => {
+            .post(this.oneClickUrl+'trips/plan', tripRequest, options)
+            .map( response => {
               return (response.json().data.trip as TripResponseModel)
             })
   }
