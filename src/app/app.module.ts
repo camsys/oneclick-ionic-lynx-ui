@@ -27,6 +27,7 @@ import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { TemporaryLanguageTestingPage } from '../pages/temporary-language-testing/temporary-language-testing';
 import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for211/sub-subcategories-for211'
 import { ServicesPage } from '../pages/211/services/services'
+import { TaxiTransportationPage } from '../pages/taxi-transportation/taxi-transportation';
 
 // Ionic Imports
 import { StatusBar } from '@ionic-native/status-bar';
@@ -83,6 +84,7 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     SubcategoriesFor211Page,
     SubSubcategoriesFor211Page,
     ServicesPage,
+    TaxiTransportationPage,
     MapFor211ServicesPage,
     ServicesFromMatchListPage,
     ServiceFor211DetailPage,
@@ -125,6 +127,7 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     SubcategoriesFor211Page,
     SubSubcategoriesFor211Page,
     ServicesPage,
+    TaxiTransportationPage,
     MapFor211ServicesPage,
     ServicesFromMatchListPage,
     TransportationAgenciesPage,
