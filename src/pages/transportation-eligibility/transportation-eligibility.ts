@@ -32,16 +32,19 @@ export class TransportationEligibilityPage {
               public oneClickProvider: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
               public events: Events) {
-                
+    
+    // Pull the trip response out of nav params and pull out the relevant accommodations and eligibilities
+    this.tripResponse = new TripResponseModel(navParams.data.trip_response);
+    this.accommodations = this.tripResponse.accommodations;
+    this.eligibilities = this.tripResponse.eligibilities;
+    
+    // If user is logged in, set the values for the eligibilities and accommodations based on their saved info
     if(auth.session().user) {
       this.user = auth.session().user;
-      this.accommodations = this.user.accommodations;
-      this.eligibilities = this.user.eligibilities;
+      this.setAccomAndEligValues();
     }
-    
-    if(navParams.data.trip_response) {
-      this.tripResponse = new TripResponseModel(navParams.data.trip_response);
-    }
+
+    // Set up a tripRequest to make if any of the accommodation or eligibility values are changed
     this.tripRequest = navParams.data.trip_request;
     this.tripRequest.trip_types = ["paratransit"]; // Update trip request to only request paratransit
   }
@@ -88,6 +91,17 @@ export class TransportationEligibilityPage {
       // GO DIRECTLY TO NEXT PAGE
       this.navCtrl.push(TransportationAgenciesPage, { trip_response: this.tripResponse });
     }
+  }
+  
+  setAccomAndEligValues() {
+    this.accommodations.map((acc) => {
+      let userAcc = this.user.accommodations.find((usrAccom) => usrAccom.code === acc.code);
+      acc.value = userAcc.value;
+    });
+    this.eligibilities.map((elig) => {
+      let userElig = this.user.eligibilities.find((usrElig) => usrElig.code === elig.code);
+      elig.value = userElig.value;
+    });
   }
 
 }

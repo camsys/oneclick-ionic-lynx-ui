@@ -45,7 +45,8 @@
             <h3 class="item-heading">Other Transportation Options</h3>
             <button ion-button item-end round default
                     class="lynx-button-primary"
-                    (click)="openOtherTransportationOptions()">
+                    (click)="openOtherTransportationOptions()"
+                    *ngIf="tripResponse; else calculatingDuration">
                     <ion-icon pull-right name="arrow-forward"></ion-icon>
             </button>
           </ion-item>

@@ -15,7 +15,7 @@
 <ion-content>
   
   <!-- ACCOMMODATIONS -->
-  <ion-list class="lynx-list">
+  <ion-list class="lynx-list" [hidden]="accommodations.length === 0">
     <ion-list-header>Accommodations</ion-list-header>
 
     <ion-item *ngFor="let acc of accommodations">
@@ -27,7 +27,7 @@
   </ion-list>
   
   <!-- ELIGIBILITIES -->
-  <ion-list class="lynx-list">
+  <ion-list class="lynx-list" [hidden]="eligibilities.length === 0">
     <ion-list-header>Eligibilities</ion-list-header>
 
     <ion-item *ngFor="let elig of eligibilities">
