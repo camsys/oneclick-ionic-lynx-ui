@@ -11,9 +11,6 @@ import { TripResponseModel } from "../../models/trip-response";
 
 /**
  * Generated class for the TransportationEligibilityPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
@@ -23,10 +20,10 @@ import { TripResponseModel } from "../../models/trip-response";
 export class TransportationEligibilityPage {
   
   user: User;
-  accommodations: Accommodation[];
-  eligibilities: Eligibility[];
+  accommodations: Accommodation[] = [];
+  eligibilities: Eligibility[] = [];
   dirty: Boolean=false; // Have any changes been made to the accommodations or eligibilities?
-  tripResponse: TripResponseModel;
+  tripResponse: TripResponseModel=null;
   tripRequest: TripRequestModel;
 
   constructor(public navCtrl: NavController,
@@ -35,13 +32,18 @@ export class TransportationEligibilityPage {
               public oneClickProvider: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
               public events: Events) {
-    this.user = auth.session().user;
-    this.accommodations = this.user.accommodations;
-    this.eligibilities = this.user.eligibilities;
-    this.tripResponse = new TripResponseModel(navParams.data.trip_response);
+                
+    if(auth.session().user) {
+      this.user = auth.session().user;
+      this.accommodations = this.user.accommodations;
+      this.eligibilities = this.user.eligibilities;
+    }
+    
+    if(navParams.data.trip_response) {
+      this.tripResponse = new TripResponseModel(navParams.data.trip_response);
+    }
     this.tripRequest = navParams.data.trip_request;
     this.tripRequest.trip_types = ["paratransit"]; // Update trip request to only request paratransit
-    console.log("TRIP RESPONSE AND REQUEST", this.tripResponse, this.tripRequest);
   }
 
   ionViewDidLoad() {
@@ -51,13 +53,11 @@ export class TransportationEligibilityPage {
   // Method fires every time an accommodation or eligibility is selected or unselected
   updateCharacteristic() {
     this.dirty = true; // Flip the dirty boolean to signal that a change has been made
-    console.log("CHARACTERISTIC UPDATED", this.user, this.dirty);
     this.changeDetector.detectChanges();
   }
   
   // Builds a user_profile update hash based on the accommodations and eligiblities hashes
   buildUserProfileParams() {
-    console.log("BUILDING USER PROFILE PARAMS...");
     let accs = this.accommodations.reduce((accHash, acc) => {
       accHash[acc.code] = acc.value;
       return accHash;
@@ -70,29 +70,24 @@ export class TransportationEligibilityPage {
       accommodations: accs,
       eligibilities: eligs
     };
-    console.log("BUILD USER PROFILE", this.tripRequest);
   }
   
   // Shows all available paratransit options based on selected accommodations and eligibilities
   viewParatransitOptions() {
-    
-    
-    // If a change has been made, re-send the plan call.
-    if(this.dirty) {
+    // If a change has been made, or no trip response is present, re-send the plan call.
+    if(this.dirty || !this.tripResponse) {
       this.events.publish('spinner:show');
-      console.log("USER IS DIRTY", this.accommodations, this.eligibilities, this.tripRequest);
       this.buildUserProfileParams();
       this.oneClickProvider
       .getTripPlan(this.tripRequest)
       .forEach((resp) => {
-        console.log("TRIP RESPONSE RETURNED!", resp);
         this.events.publish('spinner:hide');
-        this.navCtrl.push(TransportationAgenciesPage, {});
+        this.navCtrl.push(TransportationAgenciesPage, { trip_response: resp });
       });
     } else {
       // GO DIRECTLY TO NEXT PAGE
+      this.navCtrl.push(TransportationAgenciesPage, { trip_response: this.tripResponse });
     }
-    console.log("VIEWING PARATRANSIT OPTIONS...");
   }
 
 }

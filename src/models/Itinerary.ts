@@ -1,4 +1,5 @@
 import { LegModel } from './leg';
+import { OneClickServiceModel } from './one-click-service';
 
 export class ItineraryModel {
   trip_type:string;
@@ -7,6 +8,6 @@ export class ItineraryModel {
   transit_time:number;
   walk_distance:number;
   legs:LegModel[];
-  service:string;
+  service:OneClickServiceModel;
   duration:number;
 }

@@ -132,8 +132,9 @@ export class ServiceFor211DetailPage {
   }
   
   // Returns a trip response object but with only the itineraries of the passed mode
-  tripResponseWithFilteredItineraries(tripResponse: TripResponseModel=new TripResponseModel({}), 
+  tripResponseWithFilteredItineraries(tripResponse: TripResponseModel, 
                                       mode: string) {
+    if(!tripResponse) { return null; } // Return null if no tripResponse is present
     let newTripResponse = new TripResponseModel(tripResponse);
     newTripResponse.itineraries = newTripResponse.itinerariesByTripType(mode);
     return newTripResponse;
