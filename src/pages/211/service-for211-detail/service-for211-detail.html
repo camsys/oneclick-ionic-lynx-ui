@@ -7,10 +7,10 @@
     <div class="lynx-toolbar-body">{{service.address}}</div>
     <div *ngIf="service" class="lynx-toolbar-body">
       <a *ngIf="service.url" href="{{service.url}}" target="_blank">{{service.display_url}}</a>
-      <div (click)="rateService()">
+      <!-- <div (click)="rateService()">
         <rating class="lynx-rating" [(ngModel)]="service.rating" readOnly="true"></rating>
         <span>{{service.ratings_count}} reviews</span>
-      </div>
+      </div> -->
     </div>
   </ion-navbar>
   
