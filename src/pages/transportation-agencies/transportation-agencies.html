@@ -37,6 +37,11 @@
             <p class="item-body">
               <b>description: </b>{{svc.comments && svc.comments.en}}
             </p>
+            <button ion-button round 
+                    class="lynx-button-dark"
+                    (click)="rateService(svc)">
+              Rate this Service
+            </button>
           </ion-item>
         </ion-list>
         

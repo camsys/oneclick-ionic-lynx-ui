@@ -17,7 +17,7 @@ import { ServiceModel } from '../../models/service';
 import { OneClickServiceModel } from '../../models/one-click-service';
 import { TripRequestModel } from '../../models/trip-request';
 import { TripResponseModel } from '../../models/trip-response';
-
+import { FeedbackModel } from '../../models/feedback';
 
 import { Global } from '../../app/global';
 import { environment } from '../../app/environment'
@@ -147,7 +147,7 @@ export class OneClickProvider {
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
-      .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model)
+      .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model[])
       .catch(this.handleError);
   }
 
@@ -157,7 +157,7 @@ export class OneClickProvider {
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
-      .then(jsonable => JSON.parse(jsonable) as SubcategoryFor211Model)
+      .then(jsonable => JSON.parse(jsonable) as SubcategoryFor211Model[])
       .catch(this.handleError);
   }
 
@@ -170,7 +170,7 @@ export class OneClickProvider {
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
-      .then(jsonable => JSON.parse(jsonable) as SubSubcategoryFor211Model)
+      .then(jsonable => JSON.parse(jsonable) as SubSubcategoryFor211Model[])
       .catch(this.handleError);
   }
 
@@ -190,11 +190,10 @@ export class OneClickProvider {
 
     console.log(uri);
 
-
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
-      .then(jsonable => JSON.parse(jsonable) as ServiceModel)
+      .then(jsonable => JSON.parse(jsonable) as ServiceModel[])
       .catch(this.handleError);
   }
 
@@ -242,10 +241,23 @@ export class OneClickProvider {
             .toPromise()
             .catch(this.handleError);
   }
+  
+  // Creates a feedback, including rating and review, for a service
+  createFeedback(feedback: FeedbackModel): Promise<any> {
+    let headers = this.auth.authHeaders();
+    let options = new RequestOptions({ headers: headers });
 
-  private handleError(error: any): Promise<any> {
+    return this.http
+            .post(this.oneClickUrl + 'feedbacks', { feedback: feedback}, options)
+            .toPromise()
+            .catch(this.handleError);
+  }
+
+  // Console log the error and pass along a rejected promise... if uncaught
+  // by the calling component, will still raise an error.
+  private handleError(error: any): any {
     console.error('An error occurred', error.text()); // for demo purposes only
-    return Promise.reject(error.message || error);
+    return Promise.reject(error);
   }
 
 }
