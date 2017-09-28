@@ -1,4 +1,11 @@
-.toast-container > .toast-message {
-  background-color: $lynxBlack;
-  color: $lynxPink;
+
+ion-toast > .toast-wrapper > .toast-container {
+
+  
+  &> .toast-message {
+    color: $lynxPink;
+    font-weight: 500;
+    font-size: $font-size-md;
+  }
+  
 }

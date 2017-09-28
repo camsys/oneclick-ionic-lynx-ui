@@ -1,0 +1,33 @@
+page-feedback-modal {
+  
+  #feedback-modal-title {
+    margin-top: size(4);
+  }
+  
+  #feedback-modal-rating {
+    li {
+      font-size: $font-size-xl;
+      
+      ion-icon {
+      }
+    }
+  }
+  
+  #feedback-modal-review {
+  
+    ion-textarea {
+      
+      margin-top: size(2);
+        
+      textarea {
+        border-color: $lynxPink;
+        height: size(8);
+      }
+    }
+    
+  }
+  
+  #feedback-modal-buttons {
+    margin-top: size(2);
+  }
+}

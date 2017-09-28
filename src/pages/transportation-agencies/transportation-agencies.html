@@ -27,12 +27,21 @@
             <h4 class="item-subheading" *ngIf="!!(svc.phone)">
               <a href="tel:{{svc.phone}}">{{svc.phone}}</a>
             </h4>
+            <!-- <div class="item-body" (click)="rateService()">
+              <rating class="lynx-rating" [(ngModel)]="svc.rating" readOnly="true"></rating>
+              <span>{{svc.ratings_count}} reviews</span>
+            </div> -->
             <p class="item-body" *ngIf="helpers.urlPresent(svc.url)">
               <b>website: </b><a href="{{svc.url}}">{{svc.url}}</a>
             </p>
             <p class="item-body">
               <b>description: </b>{{svc.comments && svc.comments.en}}
             </p>
+            <button ion-button round 
+                    class="lynx-button-dark"
+                    (click)="rateService(svc)">
+              Rate this Service
+            </button>
           </ion-item>
         </ion-list>
         

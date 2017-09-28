@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, 
+         Events, ModalController, ToastController } from 'ionic-angular';
 
 import { ServiceFor211ReviewPage } from '../service-for211-review/service-for211-review';
 import { DirectionsPage } from '../../directions/directions';
@@ -20,6 +21,8 @@ import { environment } from '../../../app/environment';
 import { OneClickPlaceModel } from "../../../models/one-click-place";
 import { GooglePlaceModel } from "../../../models/google-place";
 
+// Pages
+import { FeedbackModalPage } from "../../feedback-modal/feedback-modal";
 
 /**
  * Generated class for the ServiceFor211DetailPage page.
@@ -52,7 +55,9 @@ export class ServiceFor211DetailPage {
               public navParams: NavParams,
               public oneClickProvider: OneClickProvider,
               public events: Events,
-              public changeDetector: ChangeDetectorRef) {
+              public changeDetector: ChangeDetectorRef,
+              public toastCtrl: ToastController,
+              public modalCtrl: ModalController) {
 
     // Set the service (if present)
     this.service = navParams.data.service;
@@ -189,6 +194,21 @@ export class ServiceFor211DetailPage {
       default:
         return "";
     }
+  }
+  
+  rateService(service: ServiceModel) {
+    let feedbackModal = this.modalCtrl.create(FeedbackModalPage, { refernet_service: service });
+    feedbackModal.onDidDismiss(data => {
+      if(data) {
+        let toast = this.toastCtrl.create({
+          message: (data.status === 200 ? 'Feedback created successfully' : 'Error creating feedback'),
+          position: 'bottom',
+          duration: 3000
+        });
+        toast.present();
+      }
+    })
+    feedbackModal.present();
   }
 
 }
