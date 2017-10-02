@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { InAppBrowser } from "@ionic-native/in-app-browser";
 
 import { ServiceFor211ReviewPage } from '../service-for211-review/service-for211-review';
 import { DirectionsPage } from '../../directions/directions';
@@ -9,15 +10,15 @@ import { TaxiTransportationPage } from '../../taxi-transportation/taxi-transport
 import { OneClickProvider } from '../../../providers/one-click/one-click';
 
 import { ServiceModel } from '../../../models/service';
-import { TripModel } from "../../../models/trip";
 import { TripRequestModel } from "../../../models/trip-request";
 import { TripResponseModel } from "../../../models/trip-response";
 import { Session } from '../../../models/session';
 
 //TODO REMOVE
-import { OneClickPlaceModel } from "../../../models/one-click-place";
+
 import { GooglePlaceModel } from "../../../models/google-place";
-import { environment } from '../../../app/environment';
+
+
 
 
 /**
@@ -49,7 +50,8 @@ export class ServiceFor211DetailPage {
               public navParams: NavParams,
               public oneClickProvider: OneClickProvider,
               public events: Events,
-              public changeDetector: ChangeDetectorRef) {
+              public changeDetector: ChangeDetectorRef,
+              private inAppBrowser: InAppBrowser, ) {
 
     // Set the service (if present)
     this.service = navParams.data.service;
@@ -94,6 +96,10 @@ export class ServiceFor211DetailPage {
         trip_response: tripResponse,
         mode: mode
       });
+    } else if (mode === 'uber') {
+      this.openUrl('https://m.uber.com/ul?&amp;client_id=Qu7RDPXW65A6G-JqqIgnbsfYglolUTIm&amp;action=setPickup&amp;pickup[latitude]='+tripResponse.origin.lat+
+        '&amp;pickup[longitude]='+tripResponse.origin.lng+'&amp;pickup[formatted_address]='+tripResponse.origin.name+
+        '&amp;dropoff[latitude]='+tripResponse.destination.lat+'&amp;dropoff[longitude]='+tripResponse.destination.lng+'&amp;dropoff[formatted_address]='+tripResponse.destination.name);
     }
 
   }
@@ -151,7 +157,9 @@ export class ServiceFor211DetailPage {
         return this.transitTime;
       case 'car':
       case 'taxi':
+        return this.driveTime;
       case 'uber':
+        return this.driveTime;
       case 'paratransit':
         return this.driveTime;
       default:
@@ -175,6 +183,11 @@ export class ServiceFor211DetailPage {
       default:
         return "";
     }
+  }
+
+  openUrl(url: string) {
+    let browser = this.inAppBrowser.create(url);
+    browser.show();
   }
 
 }
