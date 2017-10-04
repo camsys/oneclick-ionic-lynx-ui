@@ -10,13 +10,14 @@ import 'rxjs/add/operator/map';
 import { AgencyModel } from '../../models/agency';
 import { GooglePlaceModel } from '../../models/google-place';
 import { Alert } from '../../models/alert';
-import { CategoryFor211Model } from '../../models/category-for-211'
-import { SubcategoryFor211Model } from '../../models/subcategory-for-211'
-import { SubSubcategoryFor211Model } from '../../models/sub-subcategory-for-211'
-import { ServiceModel } from '../../models/service'
+import { CategoryFor211Model } from '../../models/category-for-211';
+import { SubcategoryFor211Model } from '../../models/subcategory-for-211';
+import { SubSubcategoryFor211Model } from '../../models/sub-subcategory-for-211';
+import { ServiceModel } from '../../models/service';
+import { OneClickServiceModel } from '../../models/one-click-service';
 import { TripRequestModel } from '../../models/trip-request';
 import { TripResponseModel } from '../../models/trip-response';
-
+import { FeedbackModel } from '../../models/feedback';
 
 import { Global } from '../../app/global';
 import { environment } from '../../app/environment'
@@ -55,13 +56,24 @@ export class OneClickProvider {
       })
   }
 
-  private getAgencies(type: String): Promise<AgencyModel[]> {
+  public getAgencies(type: String): Promise<AgencyModel[]> {
     let uri: string = encodeURI(this.oneClickUrl + 'agencies?type=' + type);
 
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
       .then(json => JSON.parse(json).data.agencies as AgencyModel[])
+      .catch(this.handleError);
+  }
+  
+  // Gets all paratransit services from OneClick
+  public getParatransitServices(): Promise<OneClickServiceModel[]> {
+    let uri: string = encodeURI(this.oneClickUrl + 'services?type=paratransit');
+
+    return this.http.get(uri)
+      .toPromise()
+      .then(response => response.text())
+      .then(json => JSON.parse(json).data.services as OneClickServiceModel[])
       .catch(this.handleError);
   }
 
@@ -135,7 +147,7 @@ export class OneClickProvider {
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
-      .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model)
+      .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model[])
       .catch(this.handleError);
   }
 
@@ -145,7 +157,7 @@ export class OneClickProvider {
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
-      .then(jsonable => JSON.parse(jsonable) as SubcategoryFor211Model)
+      .then(jsonable => JSON.parse(jsonable) as SubcategoryFor211Model[])
       .catch(this.handleError);
   }
 
@@ -158,7 +170,7 @@ export class OneClickProvider {
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
-      .then(jsonable => JSON.parse(jsonable) as SubSubcategoryFor211Model)
+      .then(jsonable => JSON.parse(jsonable) as SubSubcategoryFor211Model[])
       .catch(this.handleError);
   }
 
@@ -178,19 +190,21 @@ export class OneClickProvider {
 
     console.log(uri);
 
-
     return this.http.get(uri)
       .toPromise()
       .then(response => response.text())
-      .then(jsonable => JSON.parse(jsonable) as ServiceModel)
+      .then(jsonable => JSON.parse(jsonable) as ServiceModel[])
       .catch(this.handleError);
   }
 
   getTripPlan(tripRequest: TripRequestModel): Observable<TripResponseModel>
   {
+    let headers = this.auth.authHeaders();
+    let options = new RequestOptions({ headers: headers });
+    
     return this.http
-            .post(this.oneClickUrl+'trips/plan', tripRequest)
-            . map( response => {
+            .post(this.oneClickUrl+'trips/plan', tripRequest, options)
+            .map( response => {
               return (response.json().data.trip as TripResponseModel)
             })
   }
@@ -227,10 +241,23 @@ export class OneClickProvider {
             .toPromise()
             .catch(this.handleError);
   }
+  
+  // Creates a feedback, including rating and review, for a service
+  createFeedback(feedback: FeedbackModel): Promise<any> {
+    let headers = this.auth.authHeaders();
+    let options = new RequestOptions({ headers: headers });
 
-  private handleError(error: any): Promise<any> {
+    return this.http
+            .post(this.oneClickUrl + 'feedbacks', { feedback: feedback}, options)
+            .toPromise()
+            .catch(this.handleError);
+  }
+
+  // Console log the error and pass along a rejected promise... if uncaught
+  // by the calling component, will still raise an error.
+  private handleError(error: any): any {
     console.error('An error occurred', error.text()); // for demo purposes only
-    return Promise.reject(error.message || error);
+    return Promise.reject(error);
   }
 
 }

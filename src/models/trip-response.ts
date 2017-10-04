@@ -1,4 +1,4 @@
-import { User } from './user'
+import { User, Accommodation, Eligibility } from './user'
 import { ItineraryModel } from "./itinerary";
 import { OneClickPlaceModel } from './one-click-place';
 
@@ -11,6 +11,8 @@ export class TripResponseModel {
   user: User;
   origin: OneClickPlaceModel;
   destination: OneClickPlaceModel;
+  accommodations: Accommodation[];
+  eligibilities: Eligibility[]; 
   
   constructor(attrs: any) {
     this.id = attrs.id;
@@ -21,6 +23,8 @@ export class TripResponseModel {
     this.user = attrs.user;
     this.origin = attrs.origin;
     this.destination = attrs.destination;
+    this.accommodations = attrs.accommodations || [];
+    this.eligibilities = attrs.eligibilities || [];
   }
   
   // Returns the subset of itineraries that match the passed trip type string

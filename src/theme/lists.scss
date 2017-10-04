@@ -7,7 +7,7 @@
 
     background-color: $lynxWhite;
     color: $lynxBlack;
-    padding-left: 0;
+    // padding-left: 0;
 
     // Only show dividers between list items.
     &:last-child  { border-bottom:  none; }
@@ -83,12 +83,18 @@
   // LIST HEADER
   ion-list-header.item.list-header {
     background-color: $lynxLtGray;
-    color: $lynxDkGray;
-    font-size: $font-size-sm;
+    // color: $lynxDkGray;
+    // font-size: $font-size-sm;
     font-weight: 500;
     margin-bottom: 0;
     padding-left: 0;
     text-align: center;
+    
+    // h2 {
+      color: $lynxPink;
+      font-size: $font-size-md;
+      // font-weight: 500;
+    // }
   }
   // list header
   

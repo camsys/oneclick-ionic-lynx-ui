@@ -1,25 +1,24 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, ModalController, ToastController } from 'ionic-angular';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
+import { environment } from '../../../app/environment';
 
+// Pages
+import { FeedbackModalPage } from "../../feedback-modal/feedback-modal";
 import { ServiceFor211ReviewPage } from '../service-for211-review/service-for211-review';
 import { DirectionsPage } from '../../directions/directions';
 import { TransportationEligibilityPage } from '../../transportation-eligibility/transportation-eligibility';
 import { TaxiTransportationPage } from '../../taxi-transportation/taxi-transportation';
 
-import { OneClickProvider } from '../../../providers/one-click/one-click';
-
+// Models
 import { ServiceModel } from '../../../models/service';
 import { TripRequestModel } from "../../../models/trip-request";
 import { TripResponseModel } from "../../../models/trip-response";
 import { Session } from '../../../models/session';
-
-//TODO REMOVE
-
 import { GooglePlaceModel } from "../../../models/google-place";
 
-
-
+//Providers
+import { OneClickProvider } from '../../../providers/one-click/one-click';
 
 /**
  * Generated class for the ServiceFor211DetailPage page.
@@ -35,8 +34,10 @@ export class ServiceFor211DetailPage {
   origin: GooglePlaceModel;
   destination: GooglePlaceModel;
   basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
+  allModes:string[] = ['transit', 'car', 'taxi', 'uber', 'paratransit'] // All modes
   tripRequest: TripRequestModel;
   tripResponse: TripResponseModel;
+  tripPlanSubscription: any;
 
   transitTime: number = 0;
   driveTime: number = 0;
@@ -50,8 +51,10 @@ export class ServiceFor211DetailPage {
               public navParams: NavParams,
               public oneClickProvider: OneClickProvider,
               public events: Events,
+              private inAppBrowser: InAppBrowser,
               public changeDetector: ChangeDetectorRef,
-              private inAppBrowser: InAppBrowser, ) {
+              public toastCtrl: ToastController,
+              public modalCtrl: ModalController) {
 
     // Set the service (if present)
     this.service = navParams.data.service;
@@ -63,9 +66,9 @@ export class ServiceFor211DetailPage {
     // Plan a trip and store the result.
     // Once response comes in, update the UI with travel times and allow
     // user to select a mode to view directions.
-    this.oneClickProvider
-    .getTripPlan(this.buildTripRequest(this.basicModes))
-    .forEach((resp) => {
+    this.tripPlanSubscription = this.oneClickProvider // Store the subscription in a property so it can be unsubscribed from if necessary
+    .getTripPlan(this.buildTripRequest(this.allModes))
+    .subscribe((resp) => {
       this.tripResponse = new TripResponseModel(resp);
       this.updateTravelTimesFromTripResponse(this.tripResponse);
       this.changeDetector.detectChanges();
@@ -79,6 +82,13 @@ export class ServiceFor211DetailPage {
 
   openServiceReviewPage(){
     this.navCtrl.push(ServiceFor211ReviewPage);
+  }
+
+  // On page leave, unsubscribe from the trip plan call so it doesn't trigger errors when it resolves
+  ionViewWillLeave() {
+    if(this.tripPlanSubscription) {
+      this.tripPlanSubscription.unsubscribe();
+    }
   }
 
   // Opens the directions page for the desired mode, passing a clone of the
@@ -105,7 +115,10 @@ export class ServiceFor211DetailPage {
   }
 
   openOtherTransportationOptions(){
-    this.navCtrl.push(TransportationEligibilityPage)
+    this.navCtrl.push(TransportationEligibilityPage, {
+      trip_response: this.tripResponseWithFilteredItineraries(this.tripResponse, 'paratransit'),
+      trip_request: this.tripRequest
+    })
   }
 
   // Builds a trip request based on the passed mode, stored origin/destination,
@@ -145,6 +158,7 @@ export class ServiceFor211DetailPage {
   // Returns a trip response object but with only the itineraries of the passed mode
   tripResponseWithFilteredItineraries(tripResponse: TripResponseModel,
                                       mode: string) {
+    if(!tripResponse) { return null; } // Return null if no tripResponse is present
     let newTripResponse = new TripResponseModel(tripResponse);
     newTripResponse.itineraries = newTripResponse.itinerariesByTripType(mode);
     return newTripResponse;
@@ -183,6 +197,21 @@ export class ServiceFor211DetailPage {
       default:
         return "";
     }
+  }
+
+  rateService(service: ServiceModel) {
+    let feedbackModal = this.modalCtrl.create(FeedbackModalPage, { refernet_service: service });
+    feedbackModal.onDidDismiss(data => {
+      if(data) {
+        let toast = this.toastCtrl.create({
+          message: (data.status === 200 ? 'Feedback created successfully' : 'Error creating feedback'),
+          position: 'bottom',
+          duration: 3000
+        });
+        toast.present();
+      }
+    })
+    feedbackModal.present();
   }
 
   openUrl(url: string) {

@@ -6,6 +6,10 @@ ion-navbar {
     letter-spacing: 0.14em;
     background: blue;
   }
+  
+  button.lynx-button-primary {
+    background-color: transparentize($lynxPink, 0.2);
+  }
 
 }
 

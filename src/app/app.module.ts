@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Http, HttpModule } from '@angular/http';
+import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
 
 // Pages
 import { MyApp } from './app.component';
@@ -28,6 +29,7 @@ import { TemporaryLanguageTestingPage } from '../pages/temporary-language-testin
 import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for211/sub-subcategories-for211'
 import { ServicesPage } from '../pages/211/services/services'
 import { TaxiTransportationPage } from '../pages/taxi-transportation/taxi-transportation';
+import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
 
 // Ionic Imports
 import { StatusBar } from '@ionic-native/status-bar';
@@ -62,6 +64,7 @@ import { LegModel } from "../models/leg";
 import { LegGeometryModel } from "../models/leg-geometry";
 import { LegStepModel } from "../models/leg-step";
 import { PageModel } from "../models/page";
+
 
 // Pipes
 import { PrettyTimePipe } from '../pipes/pretty-time';
@@ -99,6 +102,7 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     ContactUsPage,
     SignInPage,
     UserProfilePage,
+    FeedbackModalPage,
     PrettyTimePipe,
     PrettyDistancePipe,
     ToStringPipe,
@@ -108,6 +112,7 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    Ionic2RatingModule,
     HttpModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
@@ -141,7 +146,8 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
-    UserProfilePage
+    UserProfilePage,
+    FeedbackModalPage
   ],
   providers: [
     StatusBar,

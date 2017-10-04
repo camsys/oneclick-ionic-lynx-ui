@@ -7,7 +7,6 @@ import { FormControl } from '@angular/forms';
 import { GeocodeServiceProvider } from '../../providers/google/geocode-service';
 import { GoogleMapsHelpersProvider } from '../../providers/google/google-maps-helpers';
 import { AuthProvider } from '../../providers/auth/auth';
-import { OneClickProvider } from '../../providers/one-click/one-click';
 
 // PAGES
 import { CategoriesFor211Page } from '../211/categories-for211/categories-for211';
@@ -42,7 +41,6 @@ export class UserLocatorPage {
               public geolocation: Geolocation,
               public geoServiceProvider: GeocodeServiceProvider,
               private googleMapsHelpers: GoogleMapsHelpersProvider,
-              public oneClickProvider: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
               private auth: AuthProvider,
               public events: Events
@@ -63,6 +61,12 @@ export class UserLocatorPage {
     this.platform.ready()
     .then(() => this.initializeMap())
 
+  }
+  
+  ionViewWillLeave() {
+    // on leaving the page, unsubscribe from the place-search:change event to avoid
+    // detecting changes on destroyed views
+    this.events.unsubscribe('place-search:change');
   }
 
   // Sets up the google map and geolocation services

@@ -5,8 +5,12 @@
   <ion-navbar class="lynx-toolbar" *ngIf="service; else noServiceHeader">
     <ion-title>{{service.agency_name}}</ion-title>
     <div class="lynx-toolbar-body">{{service.address}}</div>
-    <div *ngIf=service.url class="lynx-toolbar-body">
-      <a href="{{service.url}}" target="_blank">{{service.display_url}}</a>
+    <div *ngIf="service" class="lynx-toolbar-body">
+      <a *ngIf="service.url" href="{{service.url}}" target="_blank">{{service.display_url}}</a>
+      <!-- <div (click)="rateService()">
+        <rating class="lynx-rating" [(ngModel)]="service.rating" readOnly="true"></rating>
+        <span>{{service.ratings_count}} reviews</span>
+      </div> -->
     </div>
   </ion-navbar>
   
@@ -45,7 +49,8 @@
             <h3 class="item-heading">Other Transportation Options</h3>
             <button ion-button item-end round default
                     class="lynx-button-primary"
-                    (click)="openOtherTransportationOptions()">
+                    (click)="openOtherTransportationOptions()"
+                    *ngIf="tripResponse; else calculatingDuration">
                     <ion-icon pull-right name="arrow-forward"></ion-icon>
             </button>
           </ion-item>
@@ -73,9 +78,12 @@
       </ion-col>
     </ion-row>
     
-    <!-- Show questions? button only if servive & phone # is present -->
-    <ion-row *ngIf="service && service.phone && service.phone.length > 0">
-      <ion-col col-md-8 offset-md-2 text-center>
+    <!-- Show feedback and questions buttons only if service is present -->
+    <ion-row *ngIf="service">
+      
+      <!-- Questions? button -->
+      <!-- Show questions? button only if service phone # is present -->
+      <ion-col col-md-6 text-center *ngIf="service.phone">
         <h3>Have Questions?</h3>
         <a href="tel:{{service.phone}}">
           <button ion-button round
@@ -84,6 +92,17 @@
           </button>
         </a>
       </ion-col>
+      
+      <!-- Feedback? button -->
+      <ion-col col-md-6 text-center>
+        <h3>Have Feedback?</h3>
+        <button ion-button round 
+                class="lynx-button-primary"
+                (click)="rateService(service)">
+          Rate this Service
+        </button>
+      </ion-col>
+      
     </ion-row>
   </ion-grid>
 
