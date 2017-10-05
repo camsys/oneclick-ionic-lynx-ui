@@ -27,13 +27,16 @@ import { PlaceSearchComponent } from "../../components/place-search/place-search
   templateUrl: 'user-locator.html',
 })
 export class UserLocatorPage {
-  
+
   @ViewChild('originSearch') originSearch: PlaceSearchComponent;
   @ViewChild('destinationSearch') destinationSearch: PlaceSearchComponent;
 
   map: google.maps.Map;
   userLocation: GooglePlaceModel;
   findServicesView: Boolean; // Flag for showing the find svcs view vs. the direct transportation finder view
+  originMarker : google.maps.Marker;
+  destinationMarker : google.maps.Marker;
+  imageForDestinationMarker : string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -45,24 +48,25 @@ export class UserLocatorPage {
               private auth: AuthProvider,
               public events: Events
             ) {
-              
+
     this.map = null;
     this.userLocation = null; // The user's device location
     this.findServicesView = this.navParams.data.findServicesView;
-    
+    this.imageForDestinationMarker = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+
     this.events.subscribe('place-search:change', () => {
       this.changeDetector.detectChanges();
     });
   }
 
   ionViewDidLoad() {
-        
+
     // Initialize the map once device is ready
     this.platform.ready()
     .then(() => this.initializeMap())
 
   }
-  
+
   ionViewWillLeave() {
     // on leaving the page, unsubscribe from the place-search:change event to avoid
     // detecting changes on destroyed views
@@ -77,11 +81,11 @@ export class UserLocatorPage {
     // Add a location geolocator button that centers the map and sets the from place
     this.googleMapsHelpers
     .addYourLocationButton(this.map, (latLng) => {
-      this.zoomToUserLocation(latLng);
-      
+      this.zoomToOriginLocation(latLng);
+
       // Clear the search bar and search results
       this.originSearch.searchControl.setValue("", {emitEvent: false});
-      
+
       // Clear the origin search location so it can be replaced by the user location
       this.originSearch.place = null;
 
@@ -91,19 +95,35 @@ export class UserLocatorPage {
     this.geolocation.getCurrentPosition()
     .then((position) => {
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      this.zoomToUserLocation(latLng);
+      this.zoomToOriginLocation(latLng);
     })
     .catch((err) => {
       console.error("Could not geolocate device position");
     });
 
   }
-  
+
   // Updates the userLocation, and centers the map at the given latlng
-  zoomToUserLocation(latLng: google.maps.LatLng) {
+  zoomToOriginLocation(latLng: google.maps.LatLng) {
+    if (this.originMarker != undefined && this.originMarker.getMap() != null)
+    {
+      this.originMarker.setMap(null);
+    }
+
+
     this.setUserPlaceFromLatLng(latLng.lat(), latLng.lng());
     this.map.setCenter(latLng);
-    this.googleMapsHelpers.dropUserLocationPin(this.map, latLng);
+    this.originMarker = this.googleMapsHelpers.dropUserLocationPin(this.map, latLng);
+  }
+
+  zoomToDestinationLocation(latLng: google.maps.LatLng) {
+    if (this.destinationMarker != undefined && this.destinationMarker.getMap() != null) {
+      this.destinationMarker.setMap(null);
+    }
+
+    this.map.setCenter(latLng);
+    this.destinationMarker = this.googleMapsHelpers.dropUserLocationPin(this.map, latLng);
+    this.destinationMarker.setIcon(this.imageForDestinationMarker);
   }
 
   // Goes on to the categories/services page, using the given location as the center point
@@ -112,9 +132,9 @@ export class UserLocatorPage {
     this.storePlaceInSession(place);
     this.navCtrl.push(CategoriesFor211Page);
   }
-  
+
   // Plans a trip based on origin and destination
-  findTransportation(origin: GooglePlaceModel, 
+  findTransportation(origin: GooglePlaceModel,
                      destination: GooglePlaceModel) {
     this.navCtrl.push(ServiceFor211DetailPage, {
       service: null,
@@ -127,19 +147,41 @@ export class UserLocatorPage {
   // After device geolocation, update the userLocation property
   private setUserPlaceFromLatLng(lat: number, lng: number) : void{
     this.geoServiceProvider.getPlaceFromLatLng(lat, lng)
-    .subscribe( (places) => { 
+    .subscribe( (places) => {
       this.userLocation = places[0];
       this.originSearch.placeholder = "Your Location: " + this.userLocation.formatted_address;
-      
+
       // Set the origin to the user location if it isn't already set
-      this.originSearch.place = this.originSearch.place || this.userLocation; 
+      this.originSearch.place = this.originSearch.place || this.userLocation;
     });
   }
-  
+
   // Centers map on a place
-  private centerMapOnPlace(place: GooglePlaceModel) {
-    let latLng = new google.maps.LatLng(place.geometry.lat, place.geometry.lng);
-    this.map.setCenter(latLng);
+  private centerMapOnPlace(item: GooglePlaceModel, originOrDestination: string) {
+    console.log('in centerMapOnPlace');
+    console.log(item);
+
+    if(originOrDestination == 'origin')
+    {
+      this.geoServiceProvider.getPlaceFromFormattedAddress(item)
+        .subscribe((places) => {
+          let place = places[0];
+          if(place != null)
+          {
+            this.zoomToOriginLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
+          }
+      });
+    }else if(originOrDestination == 'destination')
+    {
+      this.geoServiceProvider.getPlaceFromFormattedAddress(item)
+        .subscribe((places) => {
+          let place = places[0];
+          if(place != null)
+          {
+            this.zoomToDestinationLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
+          }
+        });
+    }
   }
 
   // Store place in session hash
@@ -148,5 +190,5 @@ export class UserLocatorPage {
     session.user_starting_location = place;
     this.auth.setSession(session);
   }
-  
+
 }

@@ -8,7 +8,7 @@ import { environment } from '../../app/environment';
 */
 @Injectable()
 export class GoogleMapsHelpersProvider {
-  
+
   // Sets up a map element with default options, and returns it
   buildGoogleMap(mapDivId: string): google.maps.Map {
     // Create the Map with default settings
@@ -21,11 +21,11 @@ export class GoogleMapsHelpersProvider {
       streetViewControl: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
-    
+
     return new google.maps.Map(document.getElementById(mapDivId), mapOptions);
   }
-  
-  
+
+
   // Adds a your-location button to the map. Takes a map object and a callback
   // function that will accept the latlng of the current position, which is called
   // when that position is found by the geolocator.
@@ -36,10 +36,10 @@ export class GoogleMapsHelpersProvider {
 
     controlDiv.appendChild(locationBoxElement);
     locationBoxElement.appendChild(reticleElement);
-  
+
     if (map != null) {
       locationBoxElement.addEventListener('click', function() {
-  
+
         if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -48,14 +48,14 @@ export class GoogleMapsHelpersProvider {
           });
         }
       });
-  
+
       map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(locationBoxElement);
     }
-    
+
     return locationBoxElement; // Return the location button so that event handlers can be added to it
   }
 
-  // Creates a box for holding the location reticle  
+  // Creates a box for holding the location reticle
   locationBox() {
     var boxElement = document.createElement('locationButton');
     boxElement.style.backgroundColor = '#fff';
@@ -71,7 +71,7 @@ export class GoogleMapsHelpersProvider {
     boxElement.title = 'Your Location';
     return boxElement;
   }
-  
+
   // Creates a location reticle icon
   locationReticle() {
     // Location reticle
@@ -86,13 +86,13 @@ export class GoogleMapsHelpersProvider {
     reticleElement.id = 'you_location_img';
     return reticleElement;
   }
-  
+
   // Builds a routeline with default formatting, and returns it. Takes an array
   // of google maps latlngs and a string of the leg's mode
   drawRouteLine(routePoints: google.maps.LatLng[], mode: string="BUS") {
-    
+
     switch(mode) {
-      
+
       // Dotted Gray Line
       case 'WALK':
         let dotIcon = {
@@ -101,7 +101,7 @@ export class GoogleMapsHelpersProvider {
           strokeOpacity: 1,
           scale: 7
         };
-      
+
         return new google.maps.Polyline({
           path: routePoints,
           strokeOpacity: 0,
@@ -111,7 +111,7 @@ export class GoogleMapsHelpersProvider {
             repeat: '12px'
           }],
         });
-        
+
       // Solid Pink Line
       case 'CAR':
       case 'BUS':
@@ -126,14 +126,14 @@ export class GoogleMapsHelpersProvider {
           strokeWeight: 6
         });
     }
-  
+
   }
-  
-  // Zooms map view to fit each object in the passed array. 
+
+  // Zooms map view to fit each object in the passed array.
   // Accepts a map and an array of objects to zoom to.
   zoomToObjects(map: google.maps.Map, objs: any[]): void {
     var bounds = new google.maps.LatLngBounds();
-    
+
     objs.forEach(function(obj) {
       var points = obj.getPath().getArray();
       points.forEach((p) => bounds.extend(p));
@@ -141,7 +141,7 @@ export class GoogleMapsHelpersProvider {
 
     map.fitBounds(bounds);
   }
-  
+
   // Drops a pin at the given latLng
   dropUserLocationPin(map: google.maps.Map, latLng: google.maps.LatLng) {
     let marker : google.maps.Marker = new google.maps.Marker;
@@ -150,6 +150,8 @@ export class GoogleMapsHelpersProvider {
     marker.setValues('Your Location');
     marker.setTitle('Your Location');
     marker.setClickable(false);
+
+    return marker;
   }
 
 }
