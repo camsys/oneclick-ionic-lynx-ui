@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Http, HttpModule } from '@angular/http';
 import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
+import { DatePicker } from '@ionic-native/date-picker';
 
 // Pages
 import { MyApp } from './app.component';
@@ -174,7 +175,8 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     LegModel,
     LegGeometryModel,
     LegStepModel,
-    PageModel
+    PageModel,
+    DatePicker
   ]
 })
 

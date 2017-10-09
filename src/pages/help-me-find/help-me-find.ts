@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, Platform, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { DatePicker } from '@ionic-native/date-picker';
+
 import { UserLocatorPage }    from '../user-locator/user-locator';
 // import { TransportationAgenciesPage } from '../transportation-agencies/transportation-agencies';
 import { DirectTransporationFinderPage } from '../direct-transporation-finder/direct-transporation-finder';
@@ -29,12 +31,30 @@ export class HelpMeFindPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private alertCtrl: AlertController,
-              public oneClickProvider: OneClickProvider) {
+              public oneClickProvider: OneClickProvider,
+              private datePicker: DatePicker,
+              public platform: Platform) {
+                
+
   }
 
   ionViewDidLoad() {  
     this.oneClickProvider.getAlerts()
       .then(alerts => this.alerts = alerts)
+      
+    this.platform.ready()
+    .then(() => {
+      this.datePicker.show({
+        date: new Date(),
+        mode: 'datetime',
+        androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
+      }).then(
+        date => console.log('Got date: ', date),
+        err => console.log('Error occurred while getting date: ', err)
+      );
+    })
+      
+
   }
 
   openResourcesPage() {
