@@ -3,7 +3,7 @@
     <name>Lynx</name>
     <description>STUFF WE DO.</description>
     <author email="mmaranda@camsys.com" href="http://ionicframework.com/">Cambridge Systematics</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://10.0.0.62:8101" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-navigation href="http://192.168.207.75:8100" />
@@ -78,6 +78,12 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
+    <allow-navigation href="http://10.0.0.62:8100" />
+    <allow-navigation href="http://10.0.0.62:8101" />
+    <engine name="android" spec="^6.2.3" />
+    <engine name="browser" spec="^4.1.0" />
+    <engine name="ios" spec="^4.5.0" />
+    <plugin name="cordova-plugin-console" spec="^1.1.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value=" " />

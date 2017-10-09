@@ -33,6 +33,7 @@
         "cordova-ios": "^4.5.0",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-datepicker": "^0.9.3",
+        "cordova-plugin-console": "^1.1.0",
         "cordova-plugin-device": "^1.1.6",
         "cordova-plugin-geolocation": "^2.4.3",
         "cordova-plugin-globalization": "^1.0.7",
