@@ -3,7 +3,7 @@
     <name>Lynx</name>
     <description>STUFF WE DO.</description>
     <author email="mmaranda@camsys.com" href="http://ionicframework.com/">Cambridge Systematics</author>
-    <content original-src="index.html" src="http://10.0.0.62:8101" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-navigation href="http://192.168.207.75:8100" />
