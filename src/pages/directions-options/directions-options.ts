@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { App, IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { TripResponseModel } from "../../models/trip-response";
@@ -23,7 +23,6 @@ import { HelpersProvider } from '../../providers/helpers/helpers';
   templateUrl: 'directions-options.html',
 })
 export class DirectionsOptionsPage {
-  @ViewChild('arriveByDatepicker') arriveByDatepicker: any;
   trip:TripResponseModel;
   mode:string;
   itineraries: ItineraryModel[];
@@ -57,20 +56,22 @@ export class DirectionsOptionsPage {
     this.tripRequest.trip.destination_attributes = { lat: this.trip.destination.lat, lng: this.trip.destination.lng, name: this.trip.destination.name }
     
     // Sets arrive_by and depart_at time
-    this.updateArriveByAndDepartAtTimes();
+    this.setArriveByAndDepartAtTimes();
   }
 
   ionViewDidLoad() { }
   
   // When depart at time is updated, submit new trip plan request with arrive_by = false
-  updateDepartAt() {
+  updateDepartAt(t: string) {
+    this.departAtTime = t;    
     this.tripRequest.trip.arrive_by = false;
     this.tripRequest.trip.trip_time = this.departAtTime;
     this.replanTrip();
   }
   
-  // When depart at time is updated, submit new trip plan request with arrive_by = true
-  updateArriveBy() {
+  // When arrive by time is updated, submit new trip plan request with arrive_by = true
+  updateArriveBy(t: string) {
+    this.arriveByTime = t;    
     this.tripRequest.trip.arrive_by = true;
     this.tripRequest.trip.trip_time = this.arriveByTime;
     this.replanTrip();
@@ -93,11 +94,11 @@ export class DirectionsOptionsPage {
   
   // Fires every time a new itinerary is selected
   selectItinerary(evt) {
-    this.updateArriveByAndDepartAtTimes(); // Update datepicker times based on newly selected itinerary
+    this.setArriveByAndDepartAtTimes(); // Update datepicker times based on newly selected itinerary
   }
   
-  // Updates the arrive by and depart at times in the time pickers based on trip and selected itinerary
-  updateArriveByAndDepartAtTimes() {
+  // Sets the arrive by and depart at times in the time pickers based on trip and selected itinerary
+  setArriveByAndDepartAtTimes() {
     let h = this.helpers; // for date manipulation methods
     
     // ITINERARY TIMES

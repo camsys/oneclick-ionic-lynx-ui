@@ -1,0 +1,14 @@
+<!-- ionic datepicker for browsers (i.e. if native datepicker not available) -->
+<!-- <ion-datetime #ionicDatepicker
+              displayFormat="MMM DD, YYYY HH:mm" 
+              pickerFormat="MMM D HH:mm"
+              minuteValues="0,15,30,45"              
+              [(ngModel)]="date"
+              (ngModelChange)="dateChange()">
+</ion-datetime> -->
+
+
+<owl-date-time #ionicDatepicker
+               [(ngModel)]="date"
+               (ngModelChange)="dateChange()">
+</owl-date-time>

@@ -44,16 +44,16 @@
                   <div class="leg-time-header-content-time">
                     {{ leg.startTime | date:'shortTime'}}
                   </div>
+                  <div *ngIf="!trip.arrive_by" class="leg-time-header-content-date">
+                    {{ leg.startTime | date:'MMM d'}}
+                  </div>
                   
                   <!-- Hidden datepicker is opened on containing div click event -->
-                  <ion-item no-lines hidden="true">
-                    <ion-datetime #departAtDatepicker
-                                  displayFormat="MMM DD, YYYY HH:mm" 
-                                  pickerFormat="MMM D HH:mm"
-                                  minuteValues="0,15,30,45"
-                                  [(ngModel)]="departAtTime"
-                                  (ngModelChange)="updateDepartAt()">
-                    </ion-datetime>   
+                  <ion-item no-lines hidden="false">
+                    <responsive-datepicker #departAtDatepicker                          
+                                           [date]="departAtTime"
+                                           (change)="updateDepartAt($event)">
+                    </responsive-datepicker>
                   </ion-item>
                 </ion-col>
                 
@@ -159,16 +159,16 @@
                   <div class="leg-time-header-content-time">
                     {{ itin.legs[itin.legs.length - 1].endTime | date:'shortTime' }}
                   </div>
+                  <div *ngIf="trip.arrive_by" class="leg-time-header-content-date">
+                    {{ itin.legs[itin.legs.length - 1].endTime | date:'MMM d'}}
+                  </div>
                   
                   <!-- Hidden datepicker is opened on containing div click event -->
                   <ion-item no-lines hidden="true">
-                    <ion-datetime #arriveByDatepicker
-                                  displayFormat="MMM DD, YYYY HH:mm" 
-                                  pickerFormat="MMM D HH:mm"
-                                  minuteValues="0,15,30,45"
-                                  [(ngModel)]="arriveByTime"
-                                  (ngModelChange)="updateArriveBy()">
-                    </ion-datetime>   
+                    <responsive-datepicker #arriveByDatepicker                          
+                                           [date]="departAtTime"
+                                           (change)="updateArriveBy($event)">
+                    </responsive-datepicker>
                   </ion-item>
                  
                 </ion-col>
