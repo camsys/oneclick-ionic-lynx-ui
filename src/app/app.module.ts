@@ -4,6 +4,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Http, HttpModule } from '@angular/http';
 import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
+import { TextMaskModule } from 'angular2-text-mask';
+import { ElasticModule } from 'angular2-elastic';
 import { DatePicker } from '@ionic-native/date-picker';
 
 // Pages
@@ -126,6 +128,8 @@ import { ResponsiveDatepickerComponent } from '../components/responsive-datepick
       useFactor: (createTranslateLoader),
       deps: [Http]
     }),
+    TextMaskModule,
+    ElasticModule,
     DateTimePickerModule,
     MultiPickerModule //Import MultiPickerModule
   ],
