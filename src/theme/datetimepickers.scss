@@ -1,12 +1,18 @@
 
 // Style overwrites for the ng-pick-datetime widget
 .owl-dateTime {
-  border: 2px solid red;
 }
 .owl-dateTime-input {
-  // display: none;
+  display: none;
 }
 .owl-dateTime-dialog {
-  background-color: yellow;
-  color: purple;
+  
+  border: 1px solid $lynxDarkPink;
+  background-color: $lynxWhite;
+  // color: purple;
+  z-index: 100;
+  
+  td {
+    padding: size(-1);
+  }
 }

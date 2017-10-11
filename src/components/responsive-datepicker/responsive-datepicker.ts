@@ -17,7 +17,7 @@ import { HelpersProvider } from '../../providers/helpers/helpers';
 export class ResponsiveDatepickerComponent {
   
   // Reference the the ionic datepicker element (only used in browsers)
-  @ViewChild('ionicDatepicker') ionicDatepicker: any;
+  @ViewChild('browserDatepicker') browserDatepicker: any;
   
   // Component accepts a date input to initialize it. Defaults to the current date and time.
   @Input() date: string = this.helpers.dateISOStringWithTimeZoneOffset(new Date());
@@ -25,14 +25,14 @@ export class ResponsiveDatepickerComponent {
   // Emits output events whenever the date changes.
   @Output() change = new EventEmitter<string>();
 
-  constructor(private datePicker: DatePicker,
+  constructor(private nativeDatePicker: DatePicker,
               public platform: Platform,
               public helpers: HelpersProvider) {
   }
   
   // Shows the datepicker.
-  open() {
-    console.log("DATEPICKER", this.ionicDatepicker);
+  open(evt) {
+    console.log("OPENING DATEPICKER", this.browserDatepicker);
     
     // Wait for platform to be ready...
     this.platform.ready()
@@ -40,18 +40,18 @@ export class ResponsiveDatepickerComponent {
       // ...then check if we're actually on a mobile device (as opposed to browser)
       // to determine which datepicker to open.
       if(this.platform.is('cordova')) {
-        this.openNativeDatepicker();
+        this.openNativeDatepicker(evt);
       } else {
-        this.openIonicDatepicker();
+        this.openBrowserDatepicker(evt);
       }
     
     })
   }
   
   // Opens the native datepicker in ios or android, or defaults to the ionic datepicker in windows.
-  openNativeDatepicker() {
+  openNativeDatepicker(evt) {
     if(this.platform.is('android') || this.platform.is('ios')) {
-      this.datePicker.show({
+      this.nativeDatePicker.show({
         date: new Date(this.date),
         mode: 'datetime'
       }).then(
@@ -64,20 +64,30 @@ export class ResponsiveDatepickerComponent {
         }
       );
     } else { // if not ios or android, open ionic datepicker
-      this.openIonicDatepicker();
+      this.openBrowserDatepicker(evt);
     }
   }
   
   // Opens the ionic datepicker.
-  openIonicDatepicker() {
-    console.log("OPENING DATEPICKER", this.ionicDatepicker);
-    // this.ionicDatepicker.containerElm.nativeElement.click();
-    // this.ionicDatepicker.open();
+  openBrowserDatepicker(evt) {
+    console.log("OPENING BROWSER DATEPICKER", this.browserDatepicker, evt);
+    this.browserDatepicker.onInputClick(evt);
+    // this.browserDatepicker.containerElm.nativeElement.click();
+    // this.browserDatepicker.open();
   }
   
   // Whenever the date is changed, emit a change event with the new value.
   dateChange() {
-    this.change.emit(this.date);
+    console.log("DATE CHANGED", this.date);
+    // this.change.emit(this.date);
+  }
+  
+  onInputFocus(evt) {
+    console.log("INPUT FOCUS", evt);
+  }
+  
+  onInputBlur(evt) {
+    console.log("INPUT BLUR", evt);
   }
 
 }

@@ -43,6 +43,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { TranslateModule } from "ng2-translate";
 import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
 import { DateTimePickerModule } from 'ng-pick-datetime';
+import { MultiPickerModule } from 'ion-multi-picker';
 
 // Providers
 import { OneClickProvider } from '../providers/one-click/one-click';
@@ -125,7 +126,8 @@ import { ResponsiveDatepickerComponent } from '../components/responsive-datepick
       useFactor: (createTranslateLoader),
       deps: [Http]
     }),
-    DateTimePickerModule
+    DateTimePickerModule,
+    MultiPickerModule //Import MultiPickerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

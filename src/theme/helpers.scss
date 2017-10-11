@@ -39,3 +39,8 @@ $scale-increment: 1.333;
 .padded {
   padding: 5px;
 }
+
+// Styles text to look clickable
+.clickable {
+  color: $lynxDarkPink;
+}

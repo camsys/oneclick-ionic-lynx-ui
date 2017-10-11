@@ -13,9 +13,4 @@
 @import '../theme/alerts';    // TOASTS, POPUPS, MODALS, etc.
 @import '../theme/spinner';   // SPINNERS
 @import '../theme/datetimepickers';   // DATETIME PICKERS
-
-
-// Ionic bugfix so scrollbar isn't always there
-.scroll-content {
-  overflow-y: auto !important;
-}
+@import '../theme/misc';      // MISCELLANEOUS STYLES AND PATCHES

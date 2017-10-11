@@ -58,5 +58,14 @@ export class HelpersProvider {
           ':' + pad(tzo % 60);
     }
 
+  // Get an array of the next n years, including the current year
+  getYearsArray(n: number) {
+    let currentYear = (new Date()).getFullYear();
+    let years = [];
+    for(let i=0; i < n; i++) {
+      years.push(currentYear + i);
+    }
+    return years;
+  }
   
 }

@@ -30,6 +30,7 @@ export class DirectionsOptionsPage {
   tripRequest:TripRequestModel;
   departAtTime: string; // For storing user-defined depart at datetime
   arriveByTime: string; // For storing user-defined arrive by datetime
+  tripDate: string;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -56,6 +57,8 @@ export class DirectionsOptionsPage {
     this.tripRequest.trip.destination_attributes = { lat: this.trip.destination.lat, lng: this.trip.destination.lng, name: this.trip.destination.name }
     
     // Sets arrive_by and depart_at time
+    this.tripDate = this.trip.trip_time;
+    // this.tripDate = this.helpers.dateISOStringWithTimeZoneOffset(new Date(Date.parse(this.trip.trip_time)));
     this.setArriveByAndDepartAtTimes();
   }
 
@@ -74,6 +77,12 @@ export class DirectionsOptionsPage {
     this.arriveByTime = t;    
     this.tripRequest.trip.arrive_by = true;
     this.tripRequest.trip.trip_time = this.arriveByTime;
+    this.replanTrip();
+  }
+  
+  // When the trip date is changed, submit a new trip plan request with the new date and same time
+  updateTripDate() {
+    this.tripRequest.trip.trip_time = this.tripDate;
     this.replanTrip();
   }
   
@@ -128,5 +137,11 @@ export class DirectionsOptionsPage {
     this.arriveByTime = this.trip.arrive_by ? tripArriveByTime : itinEndTime;
     this.departAtTime = this.trip.arrive_by ? itinStartTime : tripDepartAtTime;
   }
+  
+  // Gets a list of the next few years for populating the datepicker
+  yearValues() {
+    return this.helpers.getYearsArray(5).join(",");
+  }
+
 
 }
