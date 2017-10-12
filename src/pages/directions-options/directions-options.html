@@ -20,6 +20,26 @@
   <!-- TRIP OPTION RESULTS -->
   <ion-grid>
     
+    <!-- Header row with editable trip date -->
+    <ion-row class="trip-date-row">
+      <ion-col class="trip-date-col" 
+               col-12 col-md-8 offset-md-2 text-center 
+               (click)="tripTimeDatepicker.open()">
+        <h3>
+          Your trip on {{tripDate | date: 'mediumDate'}}
+          <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="calendar"></ion-icon>
+        </h3>
+        
+      </ion-col>
+      
+      <!-- opens native datepicker on mobile, or ionic datepicker in browser -->
+      <responsive-datepicker #tripTimeDatepicker                          
+                             [date]="tripDate"
+                             (change)="updateTripDate($event)">
+      </responsive-datepicker>
+
+    </ion-row>
+    
     <div [ngSwitch]="selectedItinerary">
       
       <!-- Itinerary Rows -->
@@ -34,7 +54,7 @@
 
               <!-- The first leg is clickable to open the depart at datepicker -->
               <ion-row class="leg-header-container"
-                       (click)="departAtDatepicker.open()"
+                       (click)="departAtTimepicker.open()"
                        *ngIf="j === 0; else notFirstLeg">
                        
                 <ion-col col-9 no-padding text-center class="leg-header-content">
@@ -44,30 +64,32 @@
                   <div class="leg-time-header-content-time">
                     {{ leg.startTime | date:'shortTime'}}
                   </div>
+                  <!-- <div *ngIf="!trip.arrive_by" class="leg-time-header-content-date">
+                    {{ leg.startTime | date:'MMM d'}}
+                  </div> -->
                   
-                  <!-- Hidden datepicker is opened on containing div click event -->
-                  <ion-item no-lines hidden="true">
-                    <ion-datetime #departAtDatepicker
-                                  displayFormat="MMM DD, YYYY HH:mm" 
-                                  pickerFormat="MMM D HH:mm"
-                                  minuteValues="0,15,30,45"
-                                  [(ngModel)]="departAtTime"
-                                  (ngModelChange)="updateDepartAt()">
-                    </ion-datetime>   
-                  </ion-item>
                 </ion-col>
                 
                 <ion-col col-3 no-padding text-center class="leg-header-content leg-header-clickable">
-                  <ion-icon class="leg-time-header-content-edit-icon icon-sm" name="create"></ion-icon>
+                  <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="clock"></ion-icon>
                 </ion-col>
                 
+                <!-- opens native timepicker on mobile, select menu on browser -->
+                <responsive-timepicker #departAtTimepicker
+                                       [time]="departAtTime"
+                                       (change)="updateDepartAt($event)">
+                </responsive-timepicker>
+                
               </ion-row>
+
                 
               <!-- All other legs are static -->
               <ng-template  #notFirstLeg>
                 <ion-row class="leg-header-container">
-                  <ion-col col-12 no-padding text-center class="leg-header-container">
+                  <ion-col col-9 no-padding text-center class="leg-header-container">
                     {{leg.startTime | date:'shortTime'}}
+                  </ion-col>
+                  <ion-col col-3 no-padding>
                   </ion-col>
                 </ion-row>
               </ng-template>
@@ -149,7 +171,7 @@
             
             <!-- Leg Time Column -->
             <ion-col no-padding col-3 class="leg-time-col">
-              <ion-row class="leg-header-container" (click)="arriveByDatepicker.open()">
+              <ion-row class="leg-header-container" (click)="arriveByTimepicker.open($event)">
                 
                 <ion-col col-9 no-padding text-center class="leg-header-content">
                   
@@ -159,23 +181,21 @@
                   <div class="leg-time-header-content-time">
                     {{ itin.legs[itin.legs.length - 1].endTime | date:'shortTime' }}
                   </div>
+                  <!-- <div *ngIf="trip.arrive_by" class="leg-time-header-content-date">
+                    {{ itin.legs[itin.legs.length - 1].endTime | date:'MMM d'}}
+                  </div> -->
                   
-                  <!-- Hidden datepicker is opened on containing div click event -->
-                  <ion-item no-lines hidden="true">
-                    <ion-datetime #arriveByDatepicker
-                                  displayFormat="MMM DD, YYYY HH:mm" 
-                                  pickerFormat="MMM D HH:mm"
-                                  minuteValues="0,15,30,45"
-                                  [(ngModel)]="arriveByTime"
-                                  (ngModelChange)="updateArriveBy()">
-                    </ion-datetime>   
-                  </ion-item>
-                 
                 </ion-col>
                 
                 <ion-col col-3 no-padding text-center class="leg-header-content leg-header-clickable">
-                  <ion-icon class="leg-time-header-content-edit-icon icon-sm" name="create"></ion-icon>
+                  <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="clock"></ion-icon>
                 </ion-col>
+                
+                <!-- opens native timepicker on mobile, select menu on browser -->
+                <responsive-timepicker #arriveByTimepicker
+                                       [time]="arriveByTime"
+                                       (change)="updateArriveBy($event)">
+                </responsive-timepicker>
                 
               </ion-row>
             </ion-col>

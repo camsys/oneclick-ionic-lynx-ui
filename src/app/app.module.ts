@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Http, HttpModule } from '@angular/http';
 import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
 import { TextMaskModule } from 'angular2-text-mask';
 import { ElasticModule } from 'angular2-elastic';
+import { DatePicker } from '@ionic-native/date-picker';
 
 // Pages
 import { MyApp } from './app.component';
@@ -41,7 +43,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 // Other Imports
 import { TranslateModule } from "ng2-translate";
-import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
+import { TranslateLoader, TranslateStaticLoader } from "ng2-translate";
 
 // Providers
 import { OneClickProvider } from '../providers/one-click/one-click';
@@ -76,6 +78,8 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
 
 // Components
 import { PlaceSearchComponent } from '../components/place-search/place-search';
+import { ResponsiveDatepickerComponent } from '../components/responsive-datepicker/responsive-datepicker';
+import { ResponsiveTimepickerComponent } from '../components/responsive-timepicker/responsive-timepicker';
 
 @NgModule({
   declarations: [
@@ -109,10 +113,13 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     PrettyDistancePipe,
     ToStringPipe,
     FormatPhoneNumberPipe,
-    PlaceSearchComponent
+    PlaceSearchComponent,
+    ResponsiveDatepickerComponent,
+    ResponsiveTimepickerComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
     Ionic2RatingModule,
     HttpModule,
@@ -178,7 +185,8 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     LegModel,
     LegGeometryModel,
     LegStepModel,
-    PageModel
+    PageModel,
+    DatePicker
   ]
 })
 

@@ -1,0 +1,5 @@
+
+// Ionic bugfix so scrollbar isn't always there
+.scroll-content {
+  overflow-y: auto !important;
+}

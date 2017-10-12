@@ -1,0 +1,13 @@
+
+<!-- Hidden select menu of times, for browsers -->
+<ion-item [hidden]="true" id="browserTimepickerContainer">
+  <ion-select #browserTimepicker 
+              [(ngModel)]="time" 
+              (ngModelChange)="timeChange()"
+              [compareWith]="compareTimes">
+    <ion-option *ngFor="let t of times; let i = index"
+                [value]="t">
+      {{t | date:'h:mm a'}}
+    </ion-option>
+  </ion-select>
+</ion-item>

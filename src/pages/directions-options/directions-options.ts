@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { App, IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { TripResponseModel } from "../../models/trip-response";
@@ -23,14 +23,14 @@ import { HelpersProvider } from '../../providers/helpers/helpers';
   templateUrl: 'directions-options.html',
 })
 export class DirectionsOptionsPage {
-  @ViewChild('arriveByDatepicker') arriveByDatepicker: any;
   trip:TripResponseModel;
   mode:string;
   itineraries: ItineraryModel[];
   selectedItinerary: string; // Index of selected itinerary within the itineraries array
   tripRequest:TripRequestModel;
-  departAtTime: string; // For storing user-defined depart at datetime
-  arriveByTime: string; // For storing user-defined arrive by datetime
+  departAtTime: string; // For storing user-defined depart at time (including date)
+  arriveByTime: string; // For storing user-defined arrive by time (including date)
+  tripDate: string; // For storing the user-defined trip date (including time)
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -56,29 +56,40 @@ export class DirectionsOptionsPage {
     this.tripRequest.trip.origin_attributes = { lat: this.trip.origin.lat, lng: this.trip.origin.lng, name: this.trip.origin.name }
     this.tripRequest.trip.destination_attributes = { lat: this.trip.destination.lat, lng: this.trip.destination.lng, name: this.trip.destination.name }
     
-    // Sets arrive_by and depart_at time
-    this.updateArriveByAndDepartAtTimes();
+    // Sets trip date, arrive_by and depart_at time
+    this.tripDate = this.trip.trip_time;
+    this.setArriveByAndDepartAtTimes();
   }
 
   ionViewDidLoad() { }
   
   // When depart at time is updated, submit new trip plan request with arrive_by = false
-  updateDepartAt() {
+  updateDepartAt(t: string) {
+    this.departAtTime = t;    
     this.tripRequest.trip.arrive_by = false;
     this.tripRequest.trip.trip_time = this.departAtTime;
     this.replanTrip();
   }
   
-  // When depart at time is updated, submit new trip plan request with arrive_by = true
-  updateArriveBy() {
+  // When arrive by time is updated, submit new trip plan request with arrive_by = true
+  updateArriveBy(t: string) {
+    this.arriveByTime = t;    
     this.tripRequest.trip.arrive_by = true;
     this.tripRequest.trip.trip_time = this.arriveByTime;
+    this.replanTrip();
+  }
+  
+  // When the trip date is changed, submit a new trip plan request with the new date and same time
+  updateTripDate(t: string) {
+    this.tripDate = t;
+    this.tripRequest.trip.trip_time = this.tripDate;
     this.replanTrip();
   }
   
   // Makes a new trip request and reloads the Directions page.
   replanTrip() {
     this.events.publish('spinner:show');
+    console.log("REPLANNING TRIP", this.tripRequest);
     
     let result = this.oneClickProvider.getTripPlan(this.tripRequest).
       forEach(value => {
@@ -93,11 +104,11 @@ export class DirectionsOptionsPage {
   
   // Fires every time a new itinerary is selected
   selectItinerary(evt) {
-    this.updateArriveByAndDepartAtTimes(); // Update datepicker times based on newly selected itinerary
+    this.setArriveByAndDepartAtTimes(); // Update datepicker times based on newly selected itinerary
   }
   
-  // Updates the arrive by and depart at times in the time pickers based on trip and selected itinerary
-  updateArriveByAndDepartAtTimes() {
+  // Sets the arrive by and depart at times in the time pickers based on trip and selected itinerary
+  setArriveByAndDepartAtTimes() {
     let h = this.helpers; // for date manipulation methods
     
     // ITINERARY TIMES
@@ -127,5 +138,6 @@ export class DirectionsOptionsPage {
     this.arriveByTime = this.trip.arrive_by ? tripArriveByTime : itinEndTime;
     this.departAtTime = this.trip.arrive_by ? itinStartTime : tripDepartAtTime;
   }
+
 
 }
