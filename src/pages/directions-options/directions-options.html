@@ -22,7 +22,9 @@
     
     <!-- Header row with editable trip date -->
     <ion-row class="trip-date-row">
-      <ion-col class="trip-date-col" col-12 col-md-8 offset-md-2 text-center (click)="tripTimeDatepicker.open($event)">
+      <ion-col class="trip-date-col" 
+               col-12 col-md-8 offset-md-2 text-center 
+               (click)="tripTimeDatepicker.open()">
         <h3>
           Your trip on {{tripDate | date: 'mediumDate'}}
           <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="calendar"></ion-icon>
@@ -30,14 +32,11 @@
         
       </ion-col>
       
-      <ion-datetime #tripTimeDatepicker
-                    displayFormat="MMM DD, YYYY" 
-                    pickerFormat="MMM DD, YYYY" 
-                    yearValues="{{yearValues()}}"            
-                    [(ngModel)]="tripDate"
-                    (ngModelChange)="updateTripDate()"
-                    hidden="true">
-      </ion-datetime>
+      <!-- opens native datepicker on mobile, or ionic datepicker in browser -->
+      <responsive-datepicker #tripTimeDatepicker                          
+                             [date]="tripDate"
+                             (change)="updateTripDate($event)">
+      </responsive-datepicker>
 
     </ion-row>
     
@@ -55,7 +54,7 @@
 
               <!-- The first leg is clickable to open the depart at datepicker -->
               <ion-row class="leg-header-container"
-                       (click)="departAtDatepicker.open($event)"
+                       (click)="departAtTimepicker.open()"
                        *ngIf="j === 0; else notFirstLeg">
                        
                 <ion-col col-9 no-padding text-center class="leg-header-content">
@@ -75,13 +74,14 @@
                   <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="clock"></ion-icon>
                 </ion-col>
                 
+                <!-- opens native timepicker on mobile, select menu on browser -->
+                <responsive-timepicker #departAtTimepicker
+                                       [time]="departAtTime"
+                                       (change)="updateDepartAt($event)">
+                </responsive-timepicker>
+                
               </ion-row>
-              
-              <!-- Hidden datepicker is opened on containing div click event -->
-              <responsive-datepicker #departAtDatepicker                          
-                                     [date]="departAtTime"
-                                     (change)="updateDepartAt($event)">
-              </responsive-datepicker>
+
                 
               <!-- All other legs are static -->
               <ng-template  #notFirstLeg>
@@ -171,7 +171,7 @@
             
             <!-- Leg Time Column -->
             <ion-col no-padding col-3 class="leg-time-col">
-              <ion-row class="leg-header-container" (click)="arriveByDatepicker.open($event)">
+              <ion-row class="leg-header-container" (click)="arriveByTimepicker.open($event)">
                 
                 <ion-col col-9 no-padding text-center class="leg-header-content">
                   
@@ -185,19 +185,17 @@
                     {{ itin.legs[itin.legs.length - 1].endTime | date:'MMM d'}}
                   </div> -->
                   
-                  <!-- Hidden datepicker is opened on containing div click event -->
-                  <ion-item no-lines hidden="true">
-                    <responsive-datepicker #arriveByDatepicker                          
-                                           [date]="departAtTime"
-                                           (change)="updateArriveBy($event)">
-                    </responsive-datepicker>
-                  </ion-item>
-                 
                 </ion-col>
                 
                 <ion-col col-3 no-padding text-center class="leg-header-content leg-header-clickable">
                   <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="clock"></ion-icon>
                 </ion-col>
+                
+                <!-- opens native timepicker on mobile, select menu on browser -->
+                <responsive-timepicker #arriveByTimepicker
+                                       [time]="arriveByTime"
+                                       (change)="updateArriveBy($event)">
+                </responsive-timepicker>
                 
               </ion-row>
             </ion-col>

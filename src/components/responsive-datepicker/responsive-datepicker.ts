@@ -31,32 +31,35 @@ export class ResponsiveDatepickerComponent {
   }
   
   // Shows the datepicker.
-  open(evt) {
-    console.log("OPENING DATEPICKER", this.browserDatepicker);
-    
+  open() {
     // Wait for platform to be ready...
     this.platform.ready()
     .then(() => {
       // ...then check if we're actually on a mobile device (as opposed to browser)
       // to determine which datepicker to open.
       if(this.platform.is('cordova')) {
-        this.openNativeDatepicker(evt);
+        this.openNativeDatepicker();
       } else {
-        this.openBrowserDatepicker(evt);
+        this.openBrowserDatepicker();
       }
     
     })
   }
   
   // Opens the native datepicker in ios or android, or defaults to the ionic datepicker in windows.
-  openNativeDatepicker(evt) {
+  openNativeDatepicker() {
+    let oldDate = new Date(this.date);
+    
     if(this.platform.is('android') || this.platform.is('ios')) {
       this.nativeDatePicker.show({
-        date: new Date(this.date),
-        mode: 'datetime'
+        date: oldDate,
+        mode: 'date'
       }).then(
-        (date) => { 
-          this.date = this.helpers.dateISOStringWithTimeZoneOffset(date);
+        (date) => {
+          let newDate = date;
+          newDate.setHours(oldDate.getHours());
+          newDate.setMinutes(oldDate.getMinutes());
+          this.date = this.helpers.dateISOStringWithTimeZoneOffset(newDate);
           this.dateChange();
         },
         (err) => {
@@ -64,30 +67,23 @@ export class ResponsiveDatepickerComponent {
         }
       );
     } else { // if not ios or android, open ionic datepicker
-      this.openBrowserDatepicker(evt);
+      this.openBrowserDatepicker();
     }
   }
   
   // Opens the ionic datepicker.
-  openBrowserDatepicker(evt) {
-    console.log("OPENING BROWSER DATEPICKER", this.browserDatepicker, evt);
-    this.browserDatepicker.onInputClick(evt);
-    // this.browserDatepicker.containerElm.nativeElement.click();
-    // this.browserDatepicker.open();
+  openBrowserDatepicker() {
+    this.browserDatepicker.open();
   }
   
   // Whenever the date is changed, emit a change event with the new value.
   dateChange() {
-    console.log("DATE CHANGED", this.date);
-    // this.change.emit(this.date);
+    this.change.emit(this.date);
   }
   
-  onInputFocus(evt) {
-    console.log("INPUT FOCUS", evt);
-  }
-  
-  onInputBlur(evt) {
-    console.log("INPUT BLUR", evt);
+  // Gets a list of the next few years for populating the datepicker
+  yearValues() {
+    return this.helpers.getYearsArray(5).join(",");
   }
 
 }

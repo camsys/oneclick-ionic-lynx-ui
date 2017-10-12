@@ -48,15 +48,15 @@ export class HelpersProvider {
             var norm = Math.floor(Math.abs(num));
             return (norm < 10 ? '0' : '') + norm;
         };
-      return d.getFullYear() +
-          '-' + pad(d.getMonth() + 1) +
-          '-' + pad(d.getDate()) +
-          'T' + pad(d.getHours()) +
-          ':' + pad(d.getMinutes()) +
-          ':' + pad(d.getSeconds()) +
-          dif + pad(tzo / 60) +
-          ':' + pad(tzo % 60);
-    }
+    return d.getFullYear() +
+        '-' + pad(d.getMonth() + 1) +
+        '-' + pad(d.getDate()) +
+        'T' + pad(d.getHours()) +
+        ':' + pad(d.getMinutes()) +
+        ':' + pad(d.getSeconds()) +
+        dif + pad(tzo / 60) +
+        ':' + pad(tzo % 60);
+  }
 
   // Get an array of the next n years, including the current year
   getYearsArray(n: number) {
@@ -66,6 +66,22 @@ export class HelpersProvider {
       years.push(currentYear + i);
     }
     return years;
+  }
+  
+  // Gets an array of times through a 24-hour period
+  // All times will be returned as Date objects with the same date as the passed base param
+  // Times will be counted up in minutes based on the passed interval param
+  getTimesArray(base: Date=new Date(), interval: number=60): Date[] {
+    let time = new Date(base);
+    time.setHours(0,0,0,0);
+    let date = time.getDate();
+    let times = [time];
+    while(date === time.getDate()) {
+      time = new Date(time);
+      time.setMinutes(time.getMinutes() + interval);     
+      times.push(time);
+    }
+    return times;
   }
   
 }

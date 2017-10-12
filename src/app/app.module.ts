@@ -43,9 +43,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 // Other Imports
 import { TranslateModule } from "ng2-translate";
-import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
-import { DateTimePickerModule } from 'ng-pick-datetime';
-import { MultiPickerModule } from 'ion-multi-picker';
+import { TranslateLoader, TranslateStaticLoader } from "ng2-translate";
 
 // Providers
 import { OneClickProvider } from '../providers/one-click/one-click';
@@ -81,6 +79,7 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
 // Components
 import { PlaceSearchComponent } from '../components/place-search/place-search';
 import { ResponsiveDatepickerComponent } from '../components/responsive-datepicker/responsive-datepicker';
+import { ResponsiveTimepickerComponent } from '../components/responsive-timepicker/responsive-timepicker';
 
 @NgModule({
   declarations: [
@@ -115,7 +114,8 @@ import { ResponsiveDatepickerComponent } from '../components/responsive-datepick
     ToStringPipe,
     FormatPhoneNumberPipe,
     PlaceSearchComponent,
-    ResponsiveDatepickerComponent
+    ResponsiveDatepickerComponent,
+    ResponsiveTimepickerComponent
   ],
   imports: [
     BrowserModule,
@@ -129,9 +129,7 @@ import { ResponsiveDatepickerComponent } from '../components/responsive-datepick
       deps: [Http]
     }),
     TextMaskModule,
-    ElasticModule,
-    DateTimePickerModule,
-    MultiPickerModule //Import MultiPickerModule
+    ElasticModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

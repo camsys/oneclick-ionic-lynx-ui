@@ -28,9 +28,9 @@ export class DirectionsOptionsPage {
   itineraries: ItineraryModel[];
   selectedItinerary: string; // Index of selected itinerary within the itineraries array
   tripRequest:TripRequestModel;
-  departAtTime: string; // For storing user-defined depart at datetime
-  arriveByTime: string; // For storing user-defined arrive by datetime
-  tripDate: string;
+  departAtTime: string; // For storing user-defined depart at time (including date)
+  arriveByTime: string; // For storing user-defined arrive by time (including date)
+  tripDate: string; // For storing the user-defined trip date (including time)
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -56,9 +56,8 @@ export class DirectionsOptionsPage {
     this.tripRequest.trip.origin_attributes = { lat: this.trip.origin.lat, lng: this.trip.origin.lng, name: this.trip.origin.name }
     this.tripRequest.trip.destination_attributes = { lat: this.trip.destination.lat, lng: this.trip.destination.lng, name: this.trip.destination.name }
     
-    // Sets arrive_by and depart_at time
+    // Sets trip date, arrive_by and depart_at time
     this.tripDate = this.trip.trip_time;
-    // this.tripDate = this.helpers.dateISOStringWithTimeZoneOffset(new Date(Date.parse(this.trip.trip_time)));
     this.setArriveByAndDepartAtTimes();
   }
 
@@ -81,7 +80,8 @@ export class DirectionsOptionsPage {
   }
   
   // When the trip date is changed, submit a new trip plan request with the new date and same time
-  updateTripDate() {
+  updateTripDate(t: string) {
+    this.tripDate = t;
     this.tripRequest.trip.trip_time = this.tripDate;
     this.replanTrip();
   }
@@ -89,6 +89,7 @@ export class DirectionsOptionsPage {
   // Makes a new trip request and reloads the Directions page.
   replanTrip() {
     this.events.publish('spinner:show');
+    console.log("REPLANNING TRIP", this.tripRequest);
     
     let result = this.oneClickProvider.getTripPlan(this.tripRequest).
       forEach(value => {
@@ -136,11 +137,6 @@ export class DirectionsOptionsPage {
     // depending on the trip's arrive_by boolean.
     this.arriveByTime = this.trip.arrive_by ? tripArriveByTime : itinEndTime;
     this.departAtTime = this.trip.arrive_by ? itinStartTime : tripDepartAtTime;
-  }
-  
-  // Gets a list of the next few years for populating the datepicker
-  yearValues() {
-    return this.helpers.getYearsArray(5).join(",");
   }
 
 
