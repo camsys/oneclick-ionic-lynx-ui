@@ -66,6 +66,8 @@ export class ServiceFor211DetailPage {
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
 
+    console.log("ORIGIN", this.origin);
+
     // Plan a trip and store the result.
     // Once response comes in, update the UI with travel times and allow
     // user to select a mode to view directions.
