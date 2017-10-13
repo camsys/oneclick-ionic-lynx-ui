@@ -1,10 +1,22 @@
+// Angular Imports
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Http, HttpModule } from '@angular/http';
-import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
+import { CurrencyPipe } from '@angular/common';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ElasticModule } from 'angular2-elastic';
+
+// Ionic Imports
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Geolocation } from '@ionic-native/geolocation';
+
+// Other 3rd-Party Imports
+import { TranslateModule } from "ng2-translate";
+import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
+import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
 
 // Pages
 import { MyApp } from './app.component';
@@ -33,16 +45,6 @@ import { ServicesPage } from '../pages/211/services/services'
 import { TaxiTransportationPage } from '../pages/taxi-transportation/taxi-transportation';
 import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
 
-// Ionic Imports
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { Geolocation } from '@ionic-native/geolocation';
-
-// Other Imports
-import { TranslateModule } from "ng2-translate";
-import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
-
 // Providers
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { AuthProvider } from '../providers/auth/auth';
@@ -67,12 +69,12 @@ import { LegGeometryModel } from "../models/leg-geometry";
 import { LegStepModel } from "../models/leg-step";
 import { PageModel } from "../models/page";
 
-
 // Pipes
 import { PrettyTimePipe } from '../pipes/pretty-time';
 import { PrettyDistancePipe } from '../pipes/pretty-distance';
 import { ToStringPipe } from '../pipes/to-string';
 import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
+import { PrettyFarePipe } from '../pipes/pretty-fare';
 
 // Components
 import { PlaceSearchComponent } from '../components/place-search/place-search';
@@ -109,7 +111,8 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     PrettyDistancePipe,
     ToStringPipe,
     FormatPhoneNumberPipe,
-    PlaceSearchComponent
+    PlaceSearchComponent,
+    PrettyFarePipe
   ],
   imports: [
     BrowserModule,

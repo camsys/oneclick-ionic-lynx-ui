@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { GeocodeServiceProvider } from '../../providers/google/geocode-service';
@@ -31,7 +31,8 @@ export class DirectionsRouteDetailPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public geoServiceProvider: GeocodeServiceProvider,
-              private googleMapsHelpers: GoogleMapsHelpersProvider) {
+              private googleMapsHelpers: GoogleMapsHelpersProvider,
+              public changeDetector: ChangeDetectorRef) {
     this.trip = navParams.data.trip;
     this.mode = navParams.data.mode;
     
