@@ -22,7 +22,7 @@
       <ion-col col-md-8 offset-md-2>
         
         <ion-list class="lynx-list">
-          <ion-item text-wrap *ngFor="let svc of transportationServices">
+          <ion-item class="service-details" text-wrap *ngFor="let svc of transportationServices">
             <h3 class="item-heading">{{svc.name}}</h3>
             <h4 class="item-subheading" *ngIf="!!(svc.phone)">
               <a href="tel:{{svc.phone}}">{{svc.phone}}</a>
@@ -31,12 +31,25 @@
               <rating class="lynx-rating" [(ngModel)]="svc.rating" readOnly="true"></rating>
               <span>{{svc.ratings_count}} reviews</span>
             </div> -->
-            <p class="item-body" *ngIf="helpers.urlPresent(svc.url)">
+            <p class="item-body service-details-section" *ngIf="helpers.urlPresent(svc.url)">
               <b>website: </b><a href="{{svc.url}}">{{svc.url}}</a>
             </p>
-            <p class="item-body">
+            <!-- NOTE: Should be refactored to pull appropriate comment by user locale -->
+            <p class="item-body service-details-section" *ngIf="svc.comments && svc.comments.en">
               <b>description: </b>{{svc.comments && svc.comments.en}}
             </p>
+            <div class="service-details-section">
+              <p class="item-body" *ngIf="svc.schedules.length > 0">
+                <b>schedule:</b>              
+              </p>
+              <ul class="service-schedule" *ngIf="svc.schedules.length > 0">
+                <li *ngFor="let schedule of svc.schedules">
+                  <b>{{ schedule.day | scheduleDay }}:</b>
+                  {{ schedule.start_time | scheduleTime }} to 
+                  {{ schedule.end_time | scheduleTime }}
+                </li>
+              </ul>              
+            </div>
             <button ion-button round 
                     class="lynx-button-dark"
                     (click)="rateService(svc)">

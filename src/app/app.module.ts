@@ -75,6 +75,8 @@ import { PrettyDistancePipe } from '../pipes/pretty-distance';
 import { ToStringPipe } from '../pipes/to-string';
 import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
 import { PrettyFarePipe } from '../pipes/pretty-fare';
+import { ScheduleTimePipe } from '../pipes/schedule-time';
+import { ScheduleDayPipe } from '../pipes/schedule-day';
 
 // Components
 import { PlaceSearchComponent } from '../components/place-search/place-search';
@@ -112,7 +114,9 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     ToStringPipe,
     FormatPhoneNumberPipe,
     PlaceSearchComponent,
-    PrettyFarePipe
+    PrettyFarePipe,
+    ScheduleTimePipe,
+    ScheduleDayPipe
   ],
   imports: [
     BrowserModule,

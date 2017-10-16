@@ -47,6 +47,7 @@ export class TransportationEligibilityPage {
     // Set up a tripRequest to make if any of the accommodation or eligibility values are changed
     this.tripRequest = navParams.data.trip_request;
     this.tripRequest.trip_types = ["paratransit"]; // Update trip request to only request paratransit
+    this.tripRequest.except_filters = ["schedule"]; // Don't filter by schedule, because we aren't letting the user pick a time
   }
 
   ionViewDidLoad() {
@@ -77,20 +78,14 @@ export class TransportationEligibilityPage {
   
   // Shows all available paratransit options based on selected accommodations and eligibilities
   viewParatransitOptions() {
-    // If a change has been made, or no trip response is present, re-send the plan call.
-    if(this.dirty || !this.tripResponse) {
-      this.events.publish('spinner:show');
-      this.buildUserProfileParams();
-      this.oneClickProvider
-      .getTripPlan(this.tripRequest)
-      .forEach((resp) => {
-        this.events.publish('spinner:hide');
-        this.navCtrl.push(TransportationAgenciesPage, { trip_response: resp });
-      });
-    } else {
-      // GO DIRECTLY TO NEXT PAGE
-      this.navCtrl.push(TransportationAgenciesPage, { trip_response: this.tripResponse });
-    }
+    this.events.publish('spinner:show');
+    this.buildUserProfileParams();
+    this.oneClickProvider
+    .getTripPlan(this.tripRequest)
+    .forEach((resp) => {
+      this.events.publish('spinner:hide');
+      this.navCtrl.push(TransportationAgenciesPage, { trip_response: resp });
+    });
   }
   
   setAccomAndEligValues() {
