@@ -24,25 +24,34 @@
         <ion-list class="lynx-list">
           <ion-item class="service-details" text-wrap *ngFor="let svc of transportationServices">
             <h3 class="item-heading">{{svc.name}}</h3>
-            <h4 class="item-subheading" *ngIf="!!(svc.phone)">
-              <a href="tel:{{svc.phone}}">{{svc.phone}}</a>
-            </h4>
-            <!-- <div class="item-body" (click)="rateService()">
-              <rating class="lynx-rating" [(ngModel)]="svc.rating" readOnly="true"></rating>
-              <span>{{svc.ratings_count}} reviews</span>
-            </div> -->
+            
+            <!-- FARE -->
+            <p class="item-body service-details-section" *ngIf="svc.fare">
+              <b>fare: </b>{{ svc.fare | currency:'USD':true:'1.2-2' }}
+            </p>
+            
+            <!-- PHONE -->
+            <p class="item-body service-details-section" *ngIf="!!(svc.formatted_phone || svc.phone)">
+              <b>phone: </b><a href="tel:{{svc.phone}}">{{svc.formatted_phone || svc.phone}}</a>
+            </p>
+            
+            <!-- WEBSITE -->
             <p class="item-body service-details-section" *ngIf="helpers.urlPresent(svc.url)">
               <b>website: </b><a href="{{svc.url}}">{{svc.url}}</a>
             </p>
+            
+            <!-- DESCRIPTION -->
             <!-- NOTE: Should be refactored to pull appropriate comment by user locale -->
             <p class="item-body service-details-section" *ngIf="svc.comments && svc.comments.en">
               <b>description: </b>{{svc.comments && svc.comments.en}}
             </p>
-            <div class="service-details-section">
-              <p class="item-body" *ngIf="svc.schedules.length > 0">
+            
+            <!-- SCHEDULE -->
+            <div class="service-details-section" *ngIf="svc.schedules && svc.schedules.length > 0">
+              <p class="item-body">
                 <b>schedule:</b>              
               </p>
-              <ul class="service-schedule" *ngIf="svc.schedules.length > 0">
+              <ul class="service-schedule">
                 <li *ngFor="let schedule of svc.schedules">
                   <b>{{ schedule.day | scheduleDay }}:</b>
                   {{ schedule.start_time | scheduleTime }} to 
