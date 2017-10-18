@@ -5,16 +5,27 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar class="lynx-toolbar">
-    <ion-title>Categories</ion-title>
+  <ion-navbar class="lynx-toolbar" text-center>
+    <ion-title>Resources in Your Area</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
   </ion-navbar>
+  <ion-toolbar class="lynx-toolbar" text-center>
+    <ion-searchbar placeholder="Search" [formControl]="searchControl">
+    </ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
+  
+  <ion-list id="search-autocomplete-results">
+    <ion-item *ngFor="let result of searchResults" 
+              tappable>
+      <b>{{ result.type | prettyTableName }}: </b>{{result.label}}
+    </ion-item>
+  </ion-list>
 
   <ion-grid>
     <ion-row>

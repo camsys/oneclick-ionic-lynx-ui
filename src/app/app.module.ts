@@ -70,6 +70,7 @@ import { LegModel } from "../models/leg";
 import { LegGeometryModel } from "../models/leg-geometry";
 import { LegStepModel } from "../models/leg-step";
 import { PageModel } from "../models/page";
+import { SearchResultModel } from "../models/search-result";
 
 // Pipes
 import { PrettyTimePipe } from '../pipes/pretty-time';
@@ -84,6 +85,7 @@ import { ScheduleDayPipe } from '../pipes/schedule-day';
 import { PlaceSearchComponent } from '../components/place-search/place-search';
 import { ResponsiveDatepickerComponent } from '../components/responsive-datepicker/responsive-datepicker';
 import { ResponsiveTimepickerComponent } from '../components/responsive-timepicker/responsive-timepicker';
+import { PrettyTableNamePipe } from '../pipes/pretty-table-name';
 
 @NgModule({
   declarations: [
@@ -122,7 +124,8 @@ import { ResponsiveTimepickerComponent } from '../components/responsive-timepick
     ScheduleTimePipe,
     ScheduleDayPipe,
     ResponsiveDatepickerComponent,
-    ResponsiveTimepickerComponent
+    ResponsiveTimepickerComponent,
+    PrettyTableNamePipe
   ],
   imports: [
     BrowserModule,
@@ -193,6 +196,7 @@ import { ResponsiveTimepickerComponent } from '../components/responsive-timepick
     LegGeometryModel,
     LegStepModel,
     PageModel,
+    SearchResultModel,
     DatePicker
   ]
 })

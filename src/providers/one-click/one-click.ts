@@ -18,6 +18,7 @@ import { OneClickServiceModel } from '../../models/one-click-service';
 import { TripRequestModel } from '../../models/trip-request';
 import { TripResponseModel } from '../../models/trip-response';
 import { FeedbackModel } from '../../models/feedback';
+import { SearchResultModel } from '../../models/search-result';
 
 import { Global } from '../../app/global';
 import { environment } from '../../app/environment'
@@ -251,6 +252,16 @@ export class OneClickProvider {
             .post(this.oneClickUrl + 'feedbacks', { feedback: feedback}, options)
             .toPromise()
             .catch(this.handleError);
+  }
+  
+  // Makes a refernet keyword search call, returning the results array
+  refernetKeywordSearch(term: string): Observable<SearchResultModel[]> {
+    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/search?term=' + term);
+
+    return this.http.get(uri)
+      .map( (response) => {
+        return response.json().results as SearchResultModel[];
+      });
   }
 
   // Console log the error and pass along a rejected promise... if uncaught
