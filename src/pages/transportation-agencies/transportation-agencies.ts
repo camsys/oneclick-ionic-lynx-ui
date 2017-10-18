@@ -36,7 +36,9 @@ export class TransportationAgenciesPage {
     if(this.tripResponse) { 
       // If a trip response was sent via NavParams, pull the services out of it
       this.transportationServices = this.tripResponse.itineraries.map((itin) => {
-        return new OneClickServiceModel(itin.service);
+        let svc = new OneClickServiceModel(itin.service);
+        svc.fare = itin.cost;
+        return svc;
       })
     } else {
       // Otherwise, make a call to OneClick for an index of all services

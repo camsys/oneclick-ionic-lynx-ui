@@ -37,15 +37,17 @@ export class ServicesPage {
     this.matches_result = navParams.data.matches_result;
     this.mapTab = MapFor211ServicesPage;
     this.servicesFromMatchListTab = ServicesFromMatchListPage;
-    
-    // Watch for service:selected events from child tabs
-    this.events.subscribe('service:selected', (service) => {
-      this.onServiceSelected(service);
-    })
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ServicesPage');
+  }
+  
+  ionViewWillEnter() {
+    // Watch for service:selected events from child tabs
+    this.events.subscribe('service:selected', (service) => {
+      this.onServiceSelected(service);
+    })
   }
   
   ionViewWillLeave() {

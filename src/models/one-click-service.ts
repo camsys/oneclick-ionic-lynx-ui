@@ -9,6 +9,8 @@ export class OneClickServiceModel {
   phone?: string;
   formatted_phone?: string;
   comments?: any;
+  schedules?: any[];
+  fare?: number; // Not on OneClick service model, but helps for storing associated itinerary info on the service
   
   constructor(attrs: any) {
     this.id = attrs.id;
@@ -19,5 +21,6 @@ export class OneClickServiceModel {
     this.phone = attrs.phone;
     this.formatted_phone = attrs.formatted_phone;
     this.comments = attrs.comments;
+    this.schedules = attrs.schedules;
   }
 }
