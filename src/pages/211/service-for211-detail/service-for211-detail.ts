@@ -144,7 +144,8 @@ export class ServiceFor211DetailPage {
     tripRequest.trip_types = modes;
     
     // Don't filter by schedule, because we aren't letting the user pick a time for paratransit or taxi
-    this.tripRequest.except_filters = ["schedule"]; 
+    // Also don't filter by eligibility, as doing so may exclude relevant results from the fare preview
+    this.tripRequest.except_filters = ["schedule", "eligibility"];
 
     return tripRequest;
   }
