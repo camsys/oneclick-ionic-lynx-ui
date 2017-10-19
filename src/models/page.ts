@@ -1,4 +1,5 @@
 export class PageModel {
-  title: string;
-  component: any;
+  title?: string = "";
+  component?: any;
+  params?: any = {};
 }
