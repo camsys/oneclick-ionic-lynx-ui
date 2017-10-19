@@ -62,3 +62,12 @@ ion-tabs {
     
   }
 }
+
+
+// Fixes for weird iOS searchbar styling
+.lynx-toolbar.toolbar .searchbar-ios .searchbar-input {
+  background-color: $lynxWhite;
+}
+.searchbar-ios-cancel {
+  color: $lynxBlack;
+}
