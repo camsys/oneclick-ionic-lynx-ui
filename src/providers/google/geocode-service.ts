@@ -61,7 +61,6 @@ export class GeocodeServiceProvider {
   }
   public getPlaceFromFormattedAddress(place: GooglePlaceModel): Observable<GooglePlaceModel[]>{
     let request = {address: place.formatted_address, componentRestrictions: {country: 'US'} };
-    console.log("GETTING PLACE FROM FORMATTED ADDRESS", request)
 
     return this.geocode(request);
   }
@@ -94,14 +93,15 @@ export class GeocodeServiceProvider {
   private buildPlaceModelFromGeoCoderResult(result: google.maps.GeocoderResult): GooglePlaceModel
   {
     let resultLocation: LocationModel = {lat: result.geometry.location.lat(), lng: result.geometry.location.lng()};
-
+    
     let place = new GooglePlaceModel({
       address_components: result.address_components as AddressComponentModel[],
       geometry: resultLocation,
       formatted_address: result.formatted_address,
-      id: null,
-      name: null
+      place_id: result.place_id,
+      types: result.types
     });
+    
     return place;
   }
 }

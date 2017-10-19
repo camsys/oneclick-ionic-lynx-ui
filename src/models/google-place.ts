@@ -8,20 +8,19 @@ export class GooglePlaceModel {
     lat: number,
     lng: number
   };
-  id: number;
-  name: string;
+  place_id: string;
+  types: string[];
   
   constructor(attrs: any) {    
     this.address_components = attrs.address_components || [];
     this.formatted_address = attrs.formatted_address || "";
     this.geometry = attrs.geometry || {};
-    this.id = attrs.id || null;
-    this.name = attrs.name || null;
+    this.place_id = attrs.place_id || null;
+    this.types = attrs.types || [];
   }
   
   toOneClickPlace(): OneClickPlaceModel {
     return new OneClickPlaceModel({
-      name: this.name,
       lat: this.geometry.lat,
       lng: this.geometry.lng,
       street_number: this.addressComponent("street_number").long_name,

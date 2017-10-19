@@ -65,6 +65,9 @@ export class ServiceFor211DetailPage {
     // Set origin and destination places
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
+    
+    console.log("ORIGIN: ", this.origin);
+    console.log("DESTINATION: ", this.destination);
 
     // Plan a trip and store the result.
     // Once response comes in, update the UI with travel times and allow

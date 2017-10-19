@@ -30,7 +30,7 @@ import { ServicesFromMatchListPage } from '../pages/211/services-from-match-list
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { ServiceFor211DetailPage } from '../pages/211/service-for211-detail/service-for211-detail'
 import { ServiceFor211ReviewPage } from '../pages/211/service-for211-review/service-for211-review'
-import { LocationAutoCompletePage }  from '../pages/location-auto-complete/location-auto-complete';
+// import { LocationAutoCompletePage }  from '../pages/location-auto-complete/location-auto-complete'; // DEPRECATED
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
@@ -93,7 +93,7 @@ import { PrettyTableNamePipe } from '../pipes/pretty-table-name';
     TemporaryLanguageTestingPage,
     HelpMeFindPage,
     UserLocatorPage,
-    LocationAutoCompletePage,
+    // LocationAutoCompletePage, // DEPRECATED
     CategoriesFor211Page,
     SubcategoriesFor211Page,
     SubSubcategoriesFor211Page,
@@ -147,7 +147,7 @@ import { PrettyTableNamePipe } from '../pipes/pretty-table-name';
     TemporaryLanguageTestingPage,
     HelpMeFindPage,
     UserLocatorPage,
-    LocationAutoCompletePage,
+    // LocationAutoCompletePage, // DEPRECATED
     CategoriesFor211Page,
     SubcategoriesFor211Page,
     SubSubcategoriesFor211Page,
