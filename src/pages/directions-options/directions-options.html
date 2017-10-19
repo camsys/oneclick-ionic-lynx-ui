@@ -117,7 +117,10 @@
                 <ion-col no-padding col-12>
                   <div class="leg-header-container">
                     <div class="leg-header-content">
-                      <h3>{{ j === 0 ? trip.origin.name : leg.from.name }}</h3> <!-- Display the trip origin if it's the first leg. -->
+                      <!-- Display the trip origin if it's the first leg. -->
+                      <h3>
+                        {{ j === 0 ? (trip.origin.name || trip.origin.formatted_address)  : leg.from.name }}
+                      </h3>
                     </div>
                   </div>
                 </ion-col>
@@ -215,7 +218,9 @@
                 <ion-col no-padding col-12>
                   <div class="leg-header-container">
                     <div class="leg-header-content">
-                      <h3>{{ trip.destination.name }}</h3>
+                      <h3>
+                        {{ trip.destination.name || trip.destination.formatted_address }}
+                      </h3>
                     </div>
                   </div>
                 </ion-col>

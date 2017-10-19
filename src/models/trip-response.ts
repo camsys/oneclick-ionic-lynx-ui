@@ -32,4 +32,13 @@ export class TripResponseModel {
   itinerariesByTripType(tripType: string) {
     return this.itineraries.slice(0).filter((itin) => itin.trip_type === tripType);
   }
+  
+  // Returns an array of costs by trip type, ignoring non-numeric values
+  costsByTripType(tripType: string) {
+    let costs = this.itinerariesByTripType(tripType)
+                    .map((itin) => itin.cost)
+                    .filter((cost) => typeof(cost) === "number");
+    return costs;
+  }
+
 }

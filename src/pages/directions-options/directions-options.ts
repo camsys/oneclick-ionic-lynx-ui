@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { App, IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { TripResponseModel } from "../../models/trip-response";
@@ -37,7 +37,8 @@ export class DirectionsOptionsPage {
               public oneClickProvider: OneClickProvider,
               private _app: App,
               public events: Events,
-              public helpers: HelpersProvider) {
+              public helpers: HelpersProvider,
+              public changeDetector: ChangeDetectorRef) {
     this.trip = navParams.data.trip;
     this.mode = navParams.data.mode;
     
@@ -105,6 +106,7 @@ export class DirectionsOptionsPage {
   // Fires every time a new itinerary is selected
   selectItinerary(evt) {
     this.setArriveByAndDepartAtTimes(); // Update datepicker times based on newly selected itinerary
+    this.changeDetector.detectChanges();
   }
   
   // Sets the arrive by and depart at times in the time pickers based on trip and selected itinerary

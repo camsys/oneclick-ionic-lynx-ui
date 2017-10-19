@@ -6,7 +6,11 @@ page-service-for211-detail {
     ion-item.item {
       .item-heading {
         color: $lynxBlack;
-      }    
+      }
+      
+      button {
+        width: size(8);
+      }
     }    
   }
   

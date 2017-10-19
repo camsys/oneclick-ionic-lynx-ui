@@ -40,7 +40,7 @@ export class ServiceFor211DetailPage {
   basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
   allModes:string[] = ['transit', 'car', 'taxi', 'uber', 'paratransit'] // All modes
   tripRequest: TripRequestModel;
-  tripResponse: TripResponseModel;
+  tripResponse: TripResponseModel = new TripResponseModel({});
   tripPlanSubscription: any;
 
   transitTime: number = 0;
@@ -93,6 +93,11 @@ export class ServiceFor211DetailPage {
       this.tripPlanSubscription.unsubscribe();
     }
   }
+  
+  // Returns true/false based on whether or not the tripResponse has returned yet
+  ready(): boolean {
+    return !!this.tripResponse && !!this.tripResponse.id;
+  }
 
   // Opens the directions page for the desired mode, passing a clone of the
   // trip response with all the irrelevant itineraries filtered out.
@@ -137,6 +142,9 @@ export class ServiceFor211DetailPage {
 
     // Set trip types to the mode passed to this method
     tripRequest.trip_types = modes;
+    
+    // Don't filter by schedule, because we aren't letting the user pick a time for paratransit or taxi
+    this.tripRequest.except_filters = ["schedule"]; 
 
     return tripRequest;
   }

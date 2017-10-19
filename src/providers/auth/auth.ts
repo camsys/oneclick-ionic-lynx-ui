@@ -96,5 +96,10 @@ export class AuthProvider {
       return Observable.of();
     }
   }
+  
+  // Pulls the user location out of the session if available
+  userLocation(): any {
+    return this.session().user_starting_location || {};
+  }
 
 }
