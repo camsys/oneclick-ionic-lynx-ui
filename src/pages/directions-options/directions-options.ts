@@ -7,6 +7,7 @@ import { TripModel } from "../../models/trip";
 import { ItineraryModel } from "../../models/itinerary";
 import { LegModel } from "../../models/leg";
 import { LegStepModel } from "../../models/leg-step";
+import { OneClickPlaceModel } from "../../models/one-click-place";
 import { OneClickProvider } from '../../providers/one-click/one-click';
 import { DirectionsPage } from '../directions/directions';
 import { HelpersProvider } from '../../providers/helpers/helpers';
@@ -54,8 +55,8 @@ export class DirectionsOptionsPage {
     this.tripRequest = new TripRequestModel;
     this.tripRequest.trip_types = [this.mode]
     this.tripRequest.trip = JSON.parse(JSON.stringify(this.trip)); // Copy the trip into the tripRequest
-    this.tripRequest.trip.origin_attributes = { lat: this.trip.origin.lat, lng: this.trip.origin.lng, name: this.trip.origin.name }
-    this.tripRequest.trip.destination_attributes = { lat: this.trip.destination.lat, lng: this.trip.destination.lng, name: this.trip.destination.name }
+    this.tripRequest.trip.origin_attributes = new OneClickPlaceModel(this.trip.origin);
+    this.tripRequest.trip.destination_attributes = new OneClickPlaceModel(this.trip.destination);
     
     // Sets trip date, arrive_by and depart_at time
     this.tripDate = this.trip.trip_time;
