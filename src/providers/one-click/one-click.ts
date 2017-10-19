@@ -175,18 +175,14 @@ export class OneClickProvider {
       .catch(this.handleError);
   }
 
-  getServicesFromSubSubcategoryWithoutLatLng(subcategoryLinkName: string): Promise<ServiceModel[]>{
-    return this.getServicesFromSubSubcategoryAndLatLng(subcategoryLinkName, null, null)
-  }
-
-  getServicesFromSubSubcategoryAndLatLng(subcategroyLinkName: string, lat: number, lng: number): Promise<ServiceModel[]>{
+  // Gets refernet services based on subsubcategory name, and optional lat/lng
+  getServicesFromSubSubCategoryName(subSubCategoryName: string, lat: number, lng: number): Promise<ServiceModel[]>{
     let uri: string = this.oneClickUrl;
 
-    if(lat != null && lng != null)
-    {
-      uri = encodeURI(uri+'oneclick_refernet/services?sub_sub_category='+subcategroyLinkName+'&lat='+lat+'&lng='+lng);
-    }else {
-      uri = encodeURI(uri+'oneclick_refernet/services?sub_sub_category='+subcategroyLinkName);
+    if(lat && lng) {
+      uri = encodeURI(uri+'oneclick_refernet/services?sub_sub_category='+subSubCategoryName+'&lat='+lat+'&lng='+lng);
+    } else {
+      uri = encodeURI(uri+'oneclick_refernet/services?sub_sub_category='+subSubCategoryName);
     }
 
     console.log(uri);

@@ -10,6 +10,8 @@ import { ServiceModel } from '../../../models/service'
 import { Session } from '../../../models/session'
 import { GooglePlaceModel } from "../../../models/google-place";
 
+import { AuthProvider } from '../../../providers/auth/auth';
+
 
 /**
  * Generated class for the SubSubCategoriesFor211Page page.
@@ -25,73 +27,43 @@ import { GooglePlaceModel } from "../../../models/google-place";
 export class SubSubcategoriesFor211Page {
 
   subcategory: SubcategoryFor211Model;
-  subcategoryLinks: SubSubcategoryFor211Model[];
-  userStartingLocation: GooglePlaceModel;
-
+  subSubCategories: SubSubcategoryFor211Model[];
+  // userStartingLocation: GooglePlaceModel;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private oneClickServiceProvider: OneClickProvider,
-              public events: Events) {
+              public events: Events,
+              private auth: AuthProvider ) {
     this.subcategory = navParams.data.selected_subcategory;
-    this.userStartingLocation = this.session().user_starting_location
+    // this.userStartingLocation = this.auth.session().user_starting_location;
   }
 
-  getSubcategoryServices(): void {
-    this.oneClickServiceProvider.getSubSubcategoryForSubcategoryName(this.subcategory.name).then(slinks => this.subcategoryLinks = slinks);
-  }
-
-  getMatchLists(subCategoryLinkName: string): ServiceModel[] {
-    let matches: ServiceModel[] = [];
-
-    if(this.userStartingLocation == null)
-    {
-      this.oneClickServiceProvider.getServicesFromSubSubcategoryWithoutLatLng(subCategoryLinkName).
-      then(value => matches = value);
-    }else{
-      this.oneClickServiceProvider.getServicesFromSubSubcategoryAndLatLng(subCategoryLinkName, this.userStartingLocation.geometry.lat, this.userStartingLocation.geometry.lng).
-      then(value => matches = value);
-    }
-
-    return matches;
+  getSubSubCategories(): void {
+    this.oneClickServiceProvider
+        .getSubSubcategoryForSubcategoryName(this.subcategory.name)
+        .then(sscs => this.subSubCategories = sscs);
   }
 
   ionViewDidLoad() {
-    this.getSubcategoryServices();
+    this.getSubSubCategories();
   }
 
-  openToMatchList(subCategoryLink: SubSubcategoryFor211Model) {
+  openToMatchList(subSubCategory: SubSubcategoryFor211Model) {
     this.events.publish('spinner:show'); // Show spinner while results are loading
+    let userLocation = this.auth.userLocation();
+    let latlng = userLocation.geometry || {};
 
-    if(this.userStartingLocation == null)
-    {
-      this.oneClickServiceProvider
-      .getServicesFromSubSubcategoryWithoutLatLng(subCategoryLink.name)
-      .then((value) => {
-        this.events.publish('spinner:hide'); // Hide spinner once results come back
-        this.navCtrl.push(ServicesPage, {
-            selected_subcategory_link: subCategoryLink,
-            matches_result: value
-          });
-        }
-      );
-    }else{
-      this.oneClickServiceProvider
-      .getServicesFromSubSubcategoryAndLatLng(subCategoryLink.name, this.userStartingLocation.geometry.lat, this.userStartingLocation.geometry.lng)
-      .then((value) => {
-        this.events.publish('spinner:hide'); // Hide spinner once results come back
-        this.navCtrl.push(ServicesPage, {
-            selected_subcategory_link: subCategoryLink,
-            matches_result: value
-          });
-        }
-      );
-    }
-
+    this.oneClickServiceProvider
+    .getServicesFromSubSubCategoryName(subSubCategory.name, latlng['lat'], latlng['lng'])
+    .then((value) => {
+      this.events.publish('spinner:hide'); // Hide spinner once results come back
+      this.navCtrl.push(ServicesPage, {
+          selected_sub_subcategory: subSubCategory,
+          matches_result: value
+        });
+      }
+    );
 
   }
 
-  // Pulls the current session from local storage
-  session(): Session {
-    return (JSON.parse(localStorage.session || null) as Session);
-  }
 }

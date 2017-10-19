@@ -4,4 +4,5 @@ export class SearchResultModel {
   type: string;
   label: string;
   score: number;
+  result: any;
 }

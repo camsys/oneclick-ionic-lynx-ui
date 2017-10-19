@@ -23,7 +23,7 @@ import { AuthProvider } from '../../../providers/auth/auth';
   templateUrl: 'services.html',
 })
 export class ServicesPage {
-  subcategoryLink: SubSubcategoryFor211Model;
+  subSubCategory: SubSubcategoryFor211Model;
   matches_result: ServiceModel[];
 
   mapTab: any;
@@ -33,7 +33,7 @@ export class ServicesPage {
               public navParams: NavParams,
               public events: Events,
               private auth: AuthProvider) {
-    this.subcategoryLink = navParams.data.selected_subcategory_link;
+    this.subSubCategory = navParams.data.selected_sub_subcategory;
     this.matches_result = navParams.data.matches_result;
     this.mapTab = MapFor211ServicesPage;
     this.servicesFromMatchListTab = ServicesFromMatchListPage;

@@ -22,7 +22,8 @@
   
   <ion-list id="search-autocomplete-results">
     <ion-item *ngFor="let result of searchResults" 
-              tappable>
+              tappable
+              (click)="goToSearchResult(result)">
       <b>{{ result.type | prettyTableName }}: </b>{{result.label}}
     </ion-item>
   </ion-list>
