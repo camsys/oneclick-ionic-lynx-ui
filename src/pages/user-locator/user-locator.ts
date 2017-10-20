@@ -52,7 +52,6 @@ export class UserLocatorPage {
     this.map = null;
     this.userLocation = null; // The user's device location
     this.findServicesView = this.navParams.data.findServicesView;
-    this.imageForDestinationMarker = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
 
     this.events.subscribe('place-search:change', () => {
       this.changeDetector.detectChanges();
@@ -111,6 +110,7 @@ export class UserLocatorPage {
     this.setUserPlaceFromLatLng(latLng.lat(), latLng.lng());
     this.map.setCenter(latLng);
     this.originMarker = this.googleMapsHelpers.dropUserLocationPin(this.map, latLng);
+    this.originMarker.setLabel('A');
   }
 
   zoomToDestinationLocation(latLng: google.maps.LatLng) {
@@ -121,6 +121,7 @@ export class UserLocatorPage {
     this.map.setCenter(latLng);
     this.destinationMarker = this.googleMapsHelpers.dropUserLocationPin(this.map, latLng);
     this.destinationMarker.setIcon(this.imageForDestinationMarker);
+    this.destinationMarker.setLabel('B');
   }
 
   // Goes on to the categories/services page, using the given location as the center point
