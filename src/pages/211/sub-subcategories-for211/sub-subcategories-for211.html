@@ -1,5 +1,5 @@
 <!--
-  Generated template for the SubcategoryLinksFor211Page page.
+  Generated template for the SubSubCategoriesFor211Page page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -24,12 +24,12 @@
         <ion-list class="lynx-list">
           <ion-item class="lynx-list-inline-item lynx-list-category-item" 
                     text-wrap 
-                    *ngFor="let subcategoryLink of subcategoryLinks"
-                    (click)="openToMatchList(subcategoryLink)">
+                    *ngFor="let subSubCategory of subSubCategories"
+                    (click)="openToMatchList(subSubCategory)">
             <ion-label>
-              <h3 class="item-heading">{{subcategoryLink.name}}</h3>
+              <h3 class="item-heading">{{subSubCategory.name}}</h3>
             </ion-label>
-            <ion-badge item-end>{{subcategoryLink.service_count}}</ion-badge>
+            <ion-badge item-end>{{subSubCategory.service_count}}</ion-badge>
           </ion-item>
         </ion-list>
       </ion-col>

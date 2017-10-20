@@ -14,22 +14,45 @@
 
 <ion-content padding text-center>
   
-  <h2 id="feedback-modal-title">{{service().name || service().agency_name}}</h2>
-  <rating id="feedback-modal-rating" class="lynx-rating" [(ngModel)]="feedback.rating"></rating>
-  <ion-list id="feedback-modal-review">
-    <ion-item>
-      <ion-textarea placeholder="Review {{service().name || service().agency_name}}"
-                    [(ngModel)]="feedback.review"></ion-textarea>
+  <!-- Feedback form group -->
+  <form [formGroup]="feedbackForm" (ngSubmit)="submit()">
+    <h2 id="feedback-modal-title">{{service().name || service().agency_name}}</h2>
+    
+    <!-- Rating stars -->
+    <ion-item text-center>
+      <rating id="feedback-modal-rating" class="lynx-rating" formControlName="rating"></rating>
     </ion-item>
-  </ion-list>
 
-  <div id="feedback-modal-buttons">
-    <button ion-button round 
-            class="lynx-button-white"
-            (click)="cancel()">Cancel</button>
-    <button ion-button round 
-            class="lynx-button-dark"
-            (click)="submit()">Submit</button>
-  </div>
+    <!-- Review textarea is elastic, i.e. it expands as user types new lines -->
+    <ion-item id="feedback-modal-review">
+      <ion-textarea fz-elastic 
+                    placeholder="Write a Review" 
+                    formControlName="review">
+      </ion-textarea>
+    </ion-item>
+    
+    <!-- Email input just a standard text input -->
+    <ion-item>
+      <ion-label>Your Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    
+    <!-- Phone input uses a text mask to format the input value as a phone number -->
+    <ion-item>
+      <ion-label>Your Phone</ion-label>
+      <ion-input type="tel" formControlName="phone" [textMask]="{mask: phoneMask}"></ion-input>
+    </ion-item>
+    
+    <!-- Submit button creates a feedback, cancel discards data without leaving feedback-->
+    <div id="feedback-modal-buttons">
+      <button ion-button round
+              type="submit"
+              class="lynx-button-dark">Submit</button>
+      <button ion-button round 
+              class="lynx-button-white"
+              type="button"
+              (click)="cancel()">Cancel</button>
+    </div>
+  </form>
   
 </ion-content>

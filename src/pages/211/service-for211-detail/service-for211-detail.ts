@@ -36,7 +36,7 @@ export class ServiceFor211DetailPage {
   basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
   allModes:string[] = ['transit', 'car', 'taxi', 'uber', 'paratransit'] // All modes
   tripRequest: TripRequestModel;
-  tripResponse: TripResponseModel;
+  tripResponse: TripResponseModel = new TripResponseModel({});
   tripPlanSubscription: any;
 
   transitTime: number = 0;
@@ -62,7 +62,7 @@ export class ServiceFor211DetailPage {
     // Set origin and destination places
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
-
+    
     // Plan a trip and store the result.
     // Once response comes in, update the UI with travel times and allow
     // user to select a mode to view directions.
@@ -89,6 +89,11 @@ export class ServiceFor211DetailPage {
     if(this.tripPlanSubscription) {
       this.tripPlanSubscription.unsubscribe();
     }
+  }
+  
+  // Returns true/false based on whether or not the tripResponse has returned yet
+  ready(): boolean {
+    return !!this.tripResponse && !!this.tripResponse.id;
   }
 
   // Opens the directions page for the desired mode, passing a clone of the
@@ -138,6 +143,10 @@ export class ServiceFor211DetailPage {
 
     // Set trip types to the mode passed to this method
     tripRequest.trip_types = modes;
+    
+    // Don't filter by schedule, because we aren't letting the user pick a time for paratransit or taxi
+    // Also don't filter by eligibility, as doing so may exclude relevant results from the fare preview
+    this.tripRequest.except_filters = ["schedule", "eligibility"];
 
     return tripRequest;
   }

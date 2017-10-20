@@ -88,6 +88,7 @@ export class PlaceSearchComponent {
   
   // Sets the place value and fills in the search bar, but doesn't run it as a query
   setPlace(place: GooglePlaceModel) {
+    console.log("SETTING PLACE", place);
     this.place = place;
     this.searchControl.setValue(this.place.formatted_address, {emitEvent: false});
   }

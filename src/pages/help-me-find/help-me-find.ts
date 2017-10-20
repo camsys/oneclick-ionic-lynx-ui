@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+
 import { UserLocatorPage }    from '../user-locator/user-locator';
 // import { TransportationAgenciesPage } from '../transportation-agencies/transportation-agencies';
 import { DirectTransporationFinderPage } from '../direct-transporation-finder/direct-transporation-finder';
@@ -35,6 +36,7 @@ export class HelpMeFindPage {
   ionViewDidLoad() {  
     this.oneClickProvider.getAlerts()
       .then(alerts => this.alerts = alerts)
+
   }
 
   openResourcesPage() {

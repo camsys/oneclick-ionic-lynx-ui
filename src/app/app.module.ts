@@ -1,7 +1,23 @@
+// Angular Imports
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Http, HttpModule } from '@angular/http';
+import { CurrencyPipe } from '@angular/common';
+import { TextMaskModule } from 'angular2-text-mask';
+import { ElasticModule } from 'angular2-elastic';
+import { DatePicker } from '@ionic-native/date-picker';
+
+// Ionic Imports
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Geolocation } from '@ionic-native/geolocation';
+
+// Other 3rd-Party Imports
+import { TranslateModule } from "ng2-translate";
+import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
 import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
 
 // Pages
@@ -14,7 +30,6 @@ import { ServicesFromMatchListPage } from '../pages/211/services-from-match-list
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { ServiceFor211DetailPage } from '../pages/211/service-for211-detail/service-for211-detail'
 import { ServiceFor211ReviewPage } from '../pages/211/service-for211-review/service-for211-review'
-import { LocationAutoCompletePage }  from '../pages/location-auto-complete/location-auto-complete';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
@@ -30,16 +45,6 @@ import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for21
 import { ServicesPage } from '../pages/211/services/services'
 import { TaxiTransportationPage } from '../pages/taxi-transportation/taxi-transportation';
 import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
-
-// Ionic Imports
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { Geolocation } from '@ionic-native/geolocation';
-
-// Other Imports
-import { TranslateModule } from "ng2-translate";
-import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
 
 // Providers
 import { OneClickProvider } from '../providers/one-click/one-click';
@@ -64,16 +69,22 @@ import { LegModel } from "../models/leg";
 import { LegGeometryModel } from "../models/leg-geometry";
 import { LegStepModel } from "../models/leg-step";
 import { PageModel } from "../models/page";
-
+import { SearchResultModel } from "../models/search-result";
 
 // Pipes
 import { PrettyTimePipe } from '../pipes/pretty-time';
 import { PrettyDistancePipe } from '../pipes/pretty-distance';
 import { ToStringPipe } from '../pipes/to-string';
 import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
+import { PrettyFarePipe } from '../pipes/pretty-fare';
+import { ScheduleTimePipe } from '../pipes/schedule-time';
+import { ScheduleDayPipe } from '../pipes/schedule-day';
 
 // Components
 import { PlaceSearchComponent } from '../components/place-search/place-search';
+import { ResponsiveDatepickerComponent } from '../components/responsive-datepicker/responsive-datepicker';
+import { ResponsiveTimepickerComponent } from '../components/responsive-timepicker/responsive-timepicker';
+import { PrettyTableNamePipe } from '../pipes/pretty-table-name';
 
 @NgModule({
   declarations: [
@@ -81,7 +92,6 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     TemporaryLanguageTestingPage,
     HelpMeFindPage,
     UserLocatorPage,
-    LocationAutoCompletePage,
     CategoriesFor211Page,
     SubcategoriesFor211Page,
     SubSubcategoriesFor211Page,
@@ -107,10 +117,17 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     PrettyDistancePipe,
     ToStringPipe,
     FormatPhoneNumberPipe,
-    PlaceSearchComponent
+    PlaceSearchComponent,
+    PrettyFarePipe,
+    ScheduleTimePipe,
+    ScheduleDayPipe,
+    ResponsiveDatepickerComponent,
+    ResponsiveTimepickerComponent,
+    PrettyTableNamePipe
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
     Ionic2RatingModule,
     HttpModule,
@@ -119,6 +136,8 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
       useFactor: (createTranslateLoader),
       deps: [Http]
     }),
+    TextMaskModule,
+    ElasticModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -126,7 +145,6 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     TemporaryLanguageTestingPage,
     HelpMeFindPage,
     UserLocatorPage,
-    LocationAutoCompletePage,
     CategoriesFor211Page,
     SubcategoriesFor211Page,
     SubSubcategoriesFor211Page,
@@ -174,7 +192,9 @@ import { PlaceSearchComponent } from '../components/place-search/place-search';
     LegModel,
     LegGeometryModel,
     LegStepModel,
-    PageModel
+    PageModel,
+    SearchResultModel,
+    DatePicker
   ]
 })
 

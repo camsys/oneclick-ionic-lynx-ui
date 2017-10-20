@@ -9,7 +9,13 @@ ion-toolbar.lynx-toolbar {
   ion-title .toolbar-title {
     padding: 0;
     font-size: $font-size-lg;
-    // white-space: initial; // This makes the title text wrap
+    // white-space: initial; // This makes the title text wrap    
+  }
+
+  // Fix iOS formatting weirdness
+  ion-title.title-ios {
+    padding: 0;
+    position: inherit !important;
   }
   
   .lynx-toolbar-body {
@@ -54,5 +60,38 @@ ion-toolbar.lynx-toolbar {
 ion-tabs {
   ion-tab {
     
+  }
+}
+
+
+// Fixes for weird iOS searchbar styling
+.lynx-toolbar.toolbar .searchbar-ios .searchbar-input {
+  background-color: $lynxWhite;
+}
+.searchbar-ios-cancel {
+  color: $lynxBlack;
+}
+
+
+// This class uses media queries to scale the size of the toolbar font based
+// on the width of the screen.
+.dynamic-toolbar-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  @media (min-width: 0em) {
+    font-size: $font-size-sm;
+    margin: size(-1) 0;
+  }
+  
+  @media (min-width: 25em) {
+    font-size: $font-size-md;
+    margin: size(-2) 0;
+  }
+  
+  @media (min-width: 40em) {
+    font-size: $font-size-lg;
+    margin: size(-4) 0;
   }
 }

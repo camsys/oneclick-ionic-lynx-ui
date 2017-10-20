@@ -59,12 +59,10 @@ export class UserLocatorPage {
     });
   }
 
-  ionViewDidLoad() {
-
+  ionViewDidEnter() {
     // Initialize the map once device is ready
     this.platform.ready()
-    .then(() => this.initializeMap())
-
+    .then(() => this.initializeMap());
   }
 
   ionViewWillLeave() {
@@ -75,7 +73,6 @@ export class UserLocatorPage {
 
   // Sets up the google map and geolocation services
   initializeMap() {
-
     this.map = this.googleMapsHelpers.buildGoogleMap('user-locator-map-canvas');
 
     // Add a location geolocator button that centers the map and sets the from place
@@ -128,7 +125,6 @@ export class UserLocatorPage {
 
   // Goes on to the categories/services page, using the given location as the center point
   searchForServices(place: GooglePlaceModel){
-    console.log("SEARCHING FOR SERVICES", place);
     this.storePlaceInSession(place);
     this.navCtrl.push(CategoriesFor211Page);
   }

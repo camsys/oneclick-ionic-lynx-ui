@@ -92,7 +92,7 @@ export class MyApp {
       { title: 'Contact Us', component: ContactUsPage },
       { title: 'Transportation Options', component: TransportationAgenciesPage},
       { title: 'Browse Services by Category', component: CategoriesFor211Page},
-      { title: 'Find Services by Location', component: UserLocatorPage},
+      { title: 'Find Services by Location', component: UserLocatorPage, params: { findServicesView: true} },
       { title: 'Privacy Policy', component: "privacy_policy"},
       { title: 'Sign Out', component: "sign_out"}
     ];
@@ -105,7 +105,7 @@ export class MyApp {
       { title: 'Contact Us', component: ContactUsPage },
       { title: 'Transportation Options', component: TransportationAgenciesPage},
       { title: 'Browse Services by Category', component: CategoriesFor211Page},
-      { title: 'Find Services by Location', component: UserLocatorPage},
+      { title: 'Find Services by Location', component: UserLocatorPage, params: { findServicesView: true}},
       { title: 'Privacy Policy', component: "privacy_policy"}
     ];
     
@@ -126,7 +126,7 @@ export class MyApp {
       default:
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
-        this.nav.setRoot(page.component);
+        this.nav.setRoot(page.component, page.params);
     }
     
   }
