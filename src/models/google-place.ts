@@ -41,4 +41,9 @@ export class GooglePlaceModel {
     return addrComp || new AddressComponentModel();
   }
   
+  // Returns a label for the place, either from the address components or using the formatted address
+  label() {
+    return this.addressComponent(this.types[0])["long_name"] || this.formatted_address;
+  }
+  
 }

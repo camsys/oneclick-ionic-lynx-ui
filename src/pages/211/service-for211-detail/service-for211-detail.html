@@ -13,8 +13,8 @@
   <!-- If no service is present, put the origin and destination in the header -->
   <ng-template #noServiceHeader>
     <ion-navbar class="lynx-toolbar">
-      <div class="lynx-toolbar-body">{{ origin.formatted_address}}</div>
-      <div class="lynx-toolbar-body">to {{destination.formatted_address}}</div>
+      <div class="dynamic-toolbar-title"><b>{{ origin.label() }}</b></div>
+      <div class="dynamic-toolbar-title">to <b>{{destination.label() }}</b></div>
     </ion-navbar>
   </ng-template>
 
