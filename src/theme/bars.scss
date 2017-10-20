@@ -17,6 +17,12 @@ ion-toolbar.lynx-toolbar {
     padding: 0;
     position: inherit !important;
   }
+
+  // Fix iOS formatting weirdness
+  ion-title.title-ios {
+    padding: 0;
+    position: inherit !important;
+  }
   
   .lynx-toolbar-body {
     font-size: $font-size-sm;

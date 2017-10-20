@@ -20,6 +20,18 @@ import { TranslateModule } from "ng2-translate";
 import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
 import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
 
+// Ionic Imports
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Geolocation } from '@ionic-native/geolocation';
+
+// Other 3rd-Party Imports
+import { TranslateModule } from "ng2-translate";
+import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
+import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
+
 // Pages
 import { MyApp } from './app.component';
 import { HelpMeFindPage }          from '../pages/help-me-find/help-me-find';
