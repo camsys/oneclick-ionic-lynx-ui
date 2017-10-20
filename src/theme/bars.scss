@@ -76,6 +76,9 @@ ion-tabs {
 // This class uses media queries to scale the size of the toolbar font based
 // on the width of the screen.
 .dynamic-toolbar-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   
   @media (min-width: 0em) {
     font-size: $font-size-sm;
