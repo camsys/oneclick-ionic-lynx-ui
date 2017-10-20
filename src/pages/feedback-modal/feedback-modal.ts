@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { OneClickServiceModel } from "../../models/one-click-service";
 import { ServiceModel } from "../../models/service";
+import { FeedbackModel } from "../../models/feedback";
 
 import { OneClickProvider } from '../../providers/one-click/one-click';
 
@@ -63,8 +64,10 @@ export class FeedbackModalPage {
   }
   
   submit() {
+    let feedback = this.feedbackForm.value as FeedbackModel;
+    this.unmaskData(feedback);
     this.events.publish("spinner:show");
-    this.oneClick.createFeedback(this.feedbackForm.value)
+    this.oneClick.createFeedback(feedback)
     .then((resp) => {
       this.events.publish("spinner:hide");
       this.viewCtrl.dismiss(resp);
@@ -73,6 +76,11 @@ export class FeedbackModalPage {
       this.events.publish("spinner:hide");
       this.viewCtrl.dismiss(err);
     });
+  }
+  
+  // Unmasks phone number data
+  unmaskData(feedback: FeedbackModel) {
+    feedback.phone = feedback.phone.replace(/\D+/g, '');
   }
 
 }
