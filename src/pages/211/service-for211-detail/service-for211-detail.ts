@@ -1,28 +1,24 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, 
-         Events, ModalController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, ModalController, ToastController } from 'ionic-angular';
+import { InAppBrowser } from "@ionic-native/in-app-browser";
+import { environment } from '../../../app/environment';
 
+// Pages
+import { FeedbackModalPage } from "../../feedback-modal/feedback-modal";
 import { ServiceFor211ReviewPage } from '../service-for211-review/service-for211-review';
 import { DirectionsPage } from '../../directions/directions';
 import { TransportationEligibilityPage } from '../../transportation-eligibility/transportation-eligibility';
 import { TaxiTransportationPage } from '../../taxi-transportation/taxi-transportation';
 
-import { OneClickProvider } from '../../../providers/one-click/one-click';
-
+// Models
 import { ServiceModel } from '../../../models/service';
-import { TripModel } from "../../../models/trip";
 import { TripRequestModel } from "../../../models/trip-request";
 import { TripResponseModel } from "../../../models/trip-response";
 import { Session } from '../../../models/session';
-
-import { environment } from '../../../app/environment';
-
-//TODO REMOVE
-import { OneClickPlaceModel } from "../../../models/one-click-place";
 import { GooglePlaceModel } from "../../../models/google-place";
 
-// Pages
-import { FeedbackModalPage } from "../../feedback-modal/feedback-modal";
+//Providers
+import { OneClickProvider } from '../../../providers/one-click/one-click';
 
 /**
  * Generated class for the ServiceFor211DetailPage page.
@@ -55,6 +51,7 @@ export class ServiceFor211DetailPage {
               public navParams: NavParams,
               public oneClickProvider: OneClickProvider,
               public events: Events,
+              private inAppBrowser: InAppBrowser,
               public changeDetector: ChangeDetectorRef,
               public toastCtrl: ToastController,
               public modalCtrl: ModalController) {
@@ -86,7 +83,7 @@ export class ServiceFor211DetailPage {
   openServiceReviewPage(){
     this.navCtrl.push(ServiceFor211ReviewPage);
   }
-  
+
   // On page leave, unsubscribe from the trip plan call so it doesn't trigger errors when it resolves
   ionViewWillLeave() {
     if(this.tripPlanSubscription) {
@@ -114,6 +111,10 @@ export class ServiceFor211DetailPage {
         trip_response: tripResponse,
         mode: mode
       });
+    } else if (mode === 'uber') {
+      this.openUrl('https://m.uber.com/ul?&amp;client_id=Qu7RDPXW65A6G-JqqIgnbsfYglolUTIm&amp;action=setPickup&amp;pickup[latitude]='+tripResponse.origin.lat+
+        '&amp;pickup[longitude]='+tripResponse.origin.lng+'&amp;pickup[formatted_address]='+tripResponse.origin.name+
+        '&amp;dropoff[latitude]='+tripResponse.destination.lat+'&amp;dropoff[longitude]='+tripResponse.destination.lng+'&amp;dropoff[formatted_address]='+tripResponse.destination.name);
     }
 
   }
@@ -179,7 +180,9 @@ export class ServiceFor211DetailPage {
         return this.transitTime;
       case 'car':
       case 'taxi':
+        return this.driveTime;
       case 'uber':
+        return this.driveTime;
       case 'paratransit':
         return this.driveTime;
       default:
@@ -204,7 +207,7 @@ export class ServiceFor211DetailPage {
         return "";
     }
   }
-  
+
   rateService(service: ServiceModel) {
     let feedbackModal = this.modalCtrl.create(FeedbackModalPage, { refernet_service: service });
     feedbackModal.onDidDismiss(data => {
@@ -218,6 +221,11 @@ export class ServiceFor211DetailPage {
       }
     })
     feedbackModal.present();
+  }
+
+  openUrl(url: string) {
+    let browser = this.inAppBrowser.create(url);
+    browser.show();
   }
 
 }
