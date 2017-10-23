@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, ModalController, ToastController }
 
 // Providers
 import { OneClickProvider } from '../../providers/one-click/one-click';
-import { HelpersProvider } from '../../providers/helpers/helpers';
 
 // Models
 import { TripResponseModel } from "../../models/trip-response";
@@ -23,7 +22,6 @@ export class TransportationAgenciesPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private oneClickProvider: OneClickProvider,
-              private helpers: HelpersProvider,
               public modalCtrl: ModalController,
               public toastCtrl: ToastController) {}
               

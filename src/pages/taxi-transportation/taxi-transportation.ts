@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TripResponseModel } from '../../models/trip-response';
 import { ItineraryModel } from '../../models/itinerary';
 
+
 /**
  * Generated class for the TaxiTransportationPage page.
  *
@@ -20,12 +21,11 @@ export class TaxiTransportationPage {
   itineraries: ItineraryModel[];
   mode: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams) {
     this.trip = navParams.data.trip_response;
     this.mode = navParams.data.mode;
-    this.itineraries = this.trip.itineraries
-    console.log(this.trip);
-    console.log(this.itineraries);
+    this.itineraries = this.trip.itineraries;
   }
 
   ionViewDidLoad() {

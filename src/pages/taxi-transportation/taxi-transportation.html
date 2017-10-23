@@ -20,23 +20,11 @@
         <ion-list class="lynx-list">
 
           <!-- For each available taxi service, display contact info -->
-          <ion-item *ngFor="let itin of itineraries">
-            <h3 class="item-heading">{{ itin.service.name }}</h3>
-              <div>
-                <b>Estimated Cost: </b>${{ itin.cost }}
-              </div>
-              <div>
-                <b>Estimated Duration: </b>{{ itin.duration | prettyTime }}
-              </div>
-              <div *ngIf="itin.service && itin.service.email">
-                <b>Email: </b><a href="mailto:{{itin.service.email}}">{{itin.service.email}}</a>                
-              </div>
-              <div *ngIf="itin.service && itin.service.phone">
-                <b>Phone: </b><a href="tel:{{itin.service.phone}}">{{itin.service.formatted_phone || itin.service.phone}}</a>                
-              </div>
-              <div *ngIf="itin.service && itin.service.url">
-                <b>Website: </b><a href="{{itin.service.url}}">{{itin.service.url}}</a>                
-              </div>
+          <ion-item class="service-details" *ngFor="let itin of itineraries">
+            
+            <!-- Service name, url, phone, etc. found in ServiceDetailsComponent -->
+            <service-details [service]="itin.service"></service-details>
+
           </ion-item>
         </ion-list>
       </ion-col>
