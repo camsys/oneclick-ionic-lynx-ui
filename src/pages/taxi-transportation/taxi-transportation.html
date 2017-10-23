@@ -22,34 +22,8 @@
           <!-- For each available taxi service, display contact info -->
           <ion-item class="service-details" *ngFor="let itin of itineraries">
             
-            <!-- NAME -->
-            <h3 class="item-heading">{{itin.service.name}}</h3>
-            
-            <!-- FARE -->
-            <p class="item-body service-details-section" *ngIf="itin.service.fare">
-              <b>fare: </b>{{ itin.service.fare | currency:'USD':true:'1.2-2' }}
-            </p>
-            
-            <!-- PHONE -->
-            <p class="item-body service-details-section" *ngIf="!!(itin.service.formatted_phone || itin.service.phone)">
-              <b>phone: </b><a href="tel:{{itin.service.phone}}">{{itin.service.formatted_phone || itin.service.phone}}</a>
-            </p>
-            
-            <!-- EMAIL -->
-            <p class="item-body service-details-section" *ngIf="itin.service.email">
-              <b>phone: </b><a href="mailto:{{itin.service.email}}">{{itin.service.email}}</a>
-            </p>
-            
-            <!-- WEBSITE -->
-            <p class="item-body service-details-section" *ngIf="helpers.urlPresent(itin.service.url)">
-              <b>website: </b><a href="{{itin.service.url}}">{{itin.service.url}}</a>
-            </p>
-            
-            <!-- DESCRIPTION -->
-            <!-- NOTE: Should be refactored to pull appropriate comment by user locale -->
-            <p class="item-body service-details-section" *ngIf="itin.service.comments && itin.service.comments.en">
-              <b>description: </b>{{itin.service.comments && itin.service.comments.en}}
-            </p>
+            <!-- Service name, url, phone, etc. found in ServiceDetailsComponent -->
+            <service-details [service]="itin.service"></service-details>
 
           </ion-item>
         </ion-list>

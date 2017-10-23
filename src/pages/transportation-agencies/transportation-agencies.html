@@ -26,48 +26,8 @@
           <!-- SERVICE DETAILS -->
           <ion-item class="service-details" text-wrap *ngFor="let svc of transportationServices">
             
-            <!-- NAME -->
-            <h3 class="item-heading">{{svc.name}}</h3>
-            
-            <!-- FARE -->
-            <p class="item-body service-details-section" *ngIf="svc.fare">
-              <b>fare: </b>{{ svc.fare | currency:'USD':true:'1.2-2' }}
-            </p>
-            
-            <!-- PHONE -->
-            <p class="item-body service-details-section" *ngIf="!!(svc.formatted_phone || svc.phone)">
-              <b>phone: </b><a href="tel:{{svc.phone}}">{{svc.formatted_phone || svc.phone}}</a>
-            </p>
-            
-            <!-- EMAIL -->
-            <p class="item-body service-details-section" *ngIf="svc.email">
-              <b>phone: </b><a href="mailto:{{svc.email}}">{{svc.email}}</a>
-            </p>
-            
-            <!-- WEBSITE -->
-            <p class="item-body service-details-section" *ngIf="helpers.urlPresent(svc.url)">
-              <b>website: </b><a href="{{svc.url}}">{{svc.url}}</a>
-            </p>
-            
-            <!-- DESCRIPTION -->
-            <!-- NOTE: Should be refactored to pull appropriate comment by user locale -->
-            <p class="item-body service-details-section" *ngIf="svc.comments && svc.comments.en">
-              <b>description: </b>{{svc.comments && svc.comments.en}}
-            </p>
-            
-            <!-- SCHEDULE -->
-            <div class="service-details-section" *ngIf="svc.schedules && svc.schedules.length > 0">
-              <p class="item-body">
-                <b>schedule:</b>              
-              </p>
-              <ul class="service-schedule">
-                <li *ngFor="let schedule of svc.schedules">
-                  <b>{{ schedule.day | scheduleDay }}:</b>
-                  {{ schedule.start_time | scheduleTime }} to 
-                  {{ schedule.end_time | scheduleTime }}
-                </li>
-              </ul>              
-            </div>
+            <!-- Service name, url, schedules, etc. found in ServiceDetailsComponent -->
+            <service-details [service]="svc"></service-details>
             
             <!-- FEEDBACK -->
             <button ion-button round 
