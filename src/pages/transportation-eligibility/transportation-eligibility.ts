@@ -3,7 +3,10 @@ import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { OneClickProvider } from '../../providers/one-click/one-click';
-import { User, Accommodation, Eligibility } from '../../models/user';
+import { User } from '../../models/user';
+import { Eligibility } from '../../models/eligibility';
+import { Accommodation } from '../../models/accommodation';
+import { Purpose } from '../../models/purpose';
 import { TransportationAgenciesPage } from '../transportation-agencies/transportation-agencies';
 
 import { TripRequestModel } from "../../models/trip-request";
@@ -22,9 +25,10 @@ export class TransportationEligibilityPage {
   user: User;
   accommodations: Accommodation[] = [];
   eligibilities: Eligibility[] = [];
-  dirty: Boolean=false; // Have any changes been made to the accommodations or eligibilities?
+  purposes: Purpose[] = [];
   tripResponse: TripResponseModel=null;
   tripRequest: TripRequestModel;
+  tripPurpose: Purpose=null;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -37,6 +41,7 @@ export class TransportationEligibilityPage {
     this.tripResponse = new TripResponseModel(navParams.data.trip_response);
     this.accommodations = this.tripResponse.accommodations;
     this.eligibilities = this.tripResponse.eligibilities;
+    this.purposes = this.tripResponse.purposes;
     
     // If user is logged in, set the values for the eligibilities and accommodations based on their saved info
     if(auth.session().user) {
@@ -54,10 +59,16 @@ export class TransportationEligibilityPage {
     console.log('ionViewDidLoad TransportationEligibilityPage');
   }
   
-  // Method fires every time an accommodation or eligibility is selected or unselected
+  // Method fires every time an accommodation, eligibility, or purpose is selected or unselected
   updateCharacteristic() {
-    this.dirty = true; // Flip the dirty boolean to signal that a change has been made
     this.changeDetector.detectChanges();
+  }
+  
+  // Updates the trip request with the selected trip purpose
+  updateTripPurpose() {
+    if(this.tripPurpose) {
+      this.tripRequest.trip.purpose = this.tripPurpose.code;
+    }
   }
   
   // Builds a user_profile update hash based on the accommodations and eligiblities hashes
@@ -80,6 +91,7 @@ export class TransportationEligibilityPage {
   viewParatransitOptions() {
     this.events.publish('spinner:show');
     this.buildUserProfileParams();
+    this.updateTripPurpose();
     this.oneClickProvider
     .getTripPlan(this.tripRequest)
     .forEach((resp) => {

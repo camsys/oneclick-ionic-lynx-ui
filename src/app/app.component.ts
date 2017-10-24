@@ -17,8 +17,8 @@ import { UserProfilePage } from '../pages/user-profile/user-profile';
 
 // MODELS
 import {User} from '../models/user';
-import {Eligibility} from '../models/user';
-import {Accommodation} from '../models/user';
+import {Eligibility} from '../models/eligibility';
+import {Accommodation} from '../models/accommodation';
 import { PageModel } from '../models/page';
 
 // PROVIDERS
