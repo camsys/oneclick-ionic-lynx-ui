@@ -8,6 +8,7 @@ import { environment } from '../../app/environment'
 
 // Models
 import { Session } from '../../models/session';
+import { User } from '../../models/user';
 
 @Injectable()
 export class AuthProvider {
@@ -23,7 +24,17 @@ export class AuthProvider {
   session(): Session {
     return (JSON.parse(localStorage.session || "{}") as Session);
   }
-
+  
+  // Pulls the user object out of the session
+  user(): User {
+    return this.session().user;
+  }
+  
+  // Gets the user's preferred locale
+  preferredLocale(): string {
+    return (this.user() || {})["preferred_locale"]
+  }
+  
   // Sets the local storage session variable to the passed object
   setSession(session: Session): void {
     localStorage.setItem('session', JSON.stringify(session));

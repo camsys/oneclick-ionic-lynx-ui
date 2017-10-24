@@ -28,14 +28,14 @@
           <ion-card-header text-wrap text-center>
 
             <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png" alt="LYNX logo" />
-            Welcome to LYNX.
+            {{ "PAGES.HOME.WELCOME_MESSAGE_1" | translate }}
             
           </ion-card-header>
-
+          
 
           <ion-card-content text-wrap text-center>
             
-            How can we help you?
+            {{ "PAGES.HOME.WELCOME_MESSAGE_2" | translate }}
             
             <div class="lynx-help-me-find-buttons">
               
@@ -44,7 +44,7 @@
                       class="lynx-button-white"
                       menuClose
                       (click)="openResourcesPage()"> 
-                Helpful Resources 
+                {{ "PAGES.HOME.RESOURCES_BUTTON" | translate }}
               </button>
               
               <button ion-button 
@@ -52,9 +52,8 @@
                       class="lynx-button-white"
                       menuClose
                       (click)="openTransportationPage()"> 
-                Transportation
+                {{ "PAGES.HOME.TRANSPORTATION_BUTTON" | translate }}
               </button>
-
               
             </div>
 

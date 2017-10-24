@@ -1,0 +1,22 @@
+{
+  "HELLO": "hi",
+  "PAGES": {
+    
+    "HOME": {
+      "WELCOME_MESSAGE_1": "Welcome to LYNX",
+      "WELCOME_MESSAGE_2": "How can we help you?",
+      "RESOURCES_BUTTON": "Helpful Resources",
+      "TRANSPORTATION_BUTTON": "Transportation"
+    },
+    
+    "MENU": {
+      "WELCOME_USER": "Welcome {{user}}!"
+    },
+    
+    "USER_PROFILE": {
+      "EN": "English",
+      "ES": "Spanish"
+    }
+    
+  }
+}

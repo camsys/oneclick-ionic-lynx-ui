@@ -2,7 +2,8 @@ import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { InAppBrowser } from '@ionic-native/in-app-browser'
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 // PAGES
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
@@ -41,6 +42,7 @@ export class MyApp {
   user: User;
   eligibilities: Eligibility[];
   accommodations: Accommodation[];
+  locale: string;
 
   constructor(public platform: Platform,
               public statusBar: StatusBar,
@@ -49,13 +51,18 @@ export class MyApp {
               private auth: AuthProvider,
               private oneClickProvider: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
+              private translate: TranslateService,
               public events: Events) {
     this.initializeApp();
+    this.getUserInfo();
+    this.setLang();
     this.setMenu();
     this.setupSpinner();
   }
 
-  initializeApp() {
+  initializeApp() {    
+    this.translate.setDefaultLang('en'); // Set the default language to English
+    
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -63,9 +70,17 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
-
-  setMenu(){
-
+  
+  // Retrieve the user's locale and set translation service to use it.
+  setLang() {    
+    if(this.auth.isSignedIn() && this.auth.preferredLocale()) {
+      this.translate.use(this.auth.preferredLocale());
+    }
+  }
+  
+  // Make a call to OneClick to get the user's details
+  getUserInfo() {
+    
     // Menu if you are signed in
     if(this.auth.isSignedIn()){
       this.oneClickProvider.getProfile()
@@ -84,6 +99,11 @@ export class MyApp {
         }
       })
     }
+    
+  }
+
+  // Set up the menu with pages for signed in and signed out scenarios
+  setMenu(){
 
     // Pages to display if user is signed in
     this.signedInPages = [
@@ -93,7 +113,8 @@ export class MyApp {
       { title: 'Browse Services by Category', component: CategoriesFor211Page},
       { title: 'Find Services by Location', component: UserLocatorPage, params: { findServicesView: true} },
       { title: 'Privacy Policy', component: "privacy_policy"},
-      { title: 'Sign Out', component: "sign_out"}
+      { title: 'Sign Out', component: "sign_out"},
+      { title: 'Temporary Language Test', component: TemporaryLanguageTestingPage}
     ];
 
     // Pages to display if user is signed out

@@ -1,0 +1,27 @@
+{
+
+  "GLOBAL": {
+    "HELLO": "hola",
+    
+    "EN": "Inglés",
+    "ES": "Español"
+  },
+  
+  "PAGES": {
+    
+    "HOME": {
+      "WELCOME_MESSAGE_1": "Bienvenido a LYNX",
+      "WELCOME_MESSAGE_2": "Como podemos ayudarte?",
+      "RESOURCES_BUTTON": "Recursos Útiles",
+      "TRANSPORTATION_BUTTON": "Transporte"
+    },
+    
+    "MENU": {
+      "WELCOME_USER": "Bienvenido {{user}}!"
+    },
+    
+    "USER_PROFILE": {
+    }
+    
+  }
+}

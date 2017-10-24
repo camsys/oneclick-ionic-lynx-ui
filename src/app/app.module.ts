@@ -15,8 +15,19 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Geolocation } from '@ionic-native/geolocation';
 
 // Other 3rd-Party Imports
-import { TranslateModule } from "ng2-translate";
-import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
+
+// Translations
+// import { TranslateModule } from "ng2-translate";
+// import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+
+export function createTranslateLoader(http: Http){
+  // return new TranslateStaticLoader(http, 'assets/i18n', '.json');
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
+
+// Ratings
 import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
 
 // Pages
@@ -130,9 +141,11 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     Ionic2RatingModule,
     HttpModule,
     TranslateModule.forRoot({
-      provide: TranslateLoader,
-      useFactor: (createTranslateLoader),
-      deps: [Http]
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [Http]
+      }
     }),
     TextMaskModule,
     ElasticModule
@@ -225,7 +238,3 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
 })
 
 export class AppModule {}
-
-export function createTranslateLoader(http: Http){
-  return new TranslateStaticLoader(http, 'assets/i18n', '.json');
-}

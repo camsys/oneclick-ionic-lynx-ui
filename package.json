@@ -8,6 +8,7 @@
         "clean": "ionic-app-scripts clean",
         "build": "ionic-app-scripts build",
         "lint": "ionic-app-scripts lint",
+        "prebuild": "node src/scripts/test-script.js",
         "ionic:build": "ionic-app-scripts build",
         "ionic:serve": "ionic-app-scripts serve"
     },
@@ -28,6 +29,8 @@
         "@ionic-native/splash-screen": "3.12.1",
         "@ionic-native/status-bar": "3.12.1",
         "@ionic/storage": "2.0.1",
+        "@ngx-translate/core": "^8.0.0",
+        "@ngx-translate/http-loader": "^0.1.0",
         "android": "0.0.8",
         "angular2-elastic": "^0.13.0",
         "angular2-text-mask": "8.0.2",
