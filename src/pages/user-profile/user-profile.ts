@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 
 // MODELS
 import {User} from '../../models/user';
-import {Eligibility} from '../../models/user';
-import {Accommodation} from '../../models/user';
+import {Eligibility} from '../../models/eligibility';
+import {Accommodation} from '../../models/accommodation';
 import {TripType} from '../../models/user';
 
 // PROVIDERS

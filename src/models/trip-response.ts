@@ -1,4 +1,7 @@
-import { User, Accommodation, Eligibility } from './user'
+import { User } from './user';
+import { Eligibility } from './eligibility';
+import { Accommodation } from './accommodation';
+import { Purpose } from './purpose';
 import { ItineraryModel } from "./itinerary";
 import { OneClickPlaceModel } from './one-click-place';
 
@@ -6,13 +9,13 @@ export class TripResponseModel {
   id: number;
   arrive_by: boolean;
   trip_time: string; //iso8601 time string
-  purposes: string[];
   itineraries: ItineraryModel[];
   user: User;
   origin: OneClickPlaceModel;
   destination: OneClickPlaceModel;
   accommodations: Accommodation[];
   eligibilities: Eligibility[]; 
+  purposes: Purpose[];
   
   constructor(attrs: any) {
     this.id = attrs.id;
