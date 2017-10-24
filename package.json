@@ -61,7 +61,7 @@
         "@ionic/cli-plugin-ionic-angular": "1.4.1",
         "@types/google-maps": "3.2.0",
         "@types/moment": "^2.13.0",
-        "ionic": "3.13.2",
+        "ionic": "3.14.0",
         "typescript": "2.3.4"
     },
     "description": "An Ionic project",
