@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TripResponseModel } from '../../models/trip-response';
 import { ItineraryModel } from '../../models/itinerary';
+import { OneClickServiceModel } from '../../models/one-click-service';
 
 
 /**
@@ -18,14 +19,19 @@ import { ItineraryModel } from '../../models/itinerary';
 })
 export class TaxiTransportationPage {
   trip: TripResponseModel;
-  itineraries: ItineraryModel[];
+  taxiServices: OneClickServiceModel[];
   mode: string;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams) {
     this.trip = navParams.data.trip_response;
     this.mode = navParams.data.mode;
-    this.itineraries = this.trip.itineraries;
+    this.taxiServices = this.trip.itineraries.map((itin) => {
+      let svc = new OneClickServiceModel(itin.service);
+      svc.fare = itin.cost;
+      return svc;
+    })
+    
   }
 
   ionViewDidLoad() {

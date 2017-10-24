@@ -20,10 +20,10 @@
         <ion-list class="lynx-list">
 
           <!-- For each available taxi service, display contact info -->
-          <ion-item class="service-details" *ngFor="let itin of itineraries">
+          <ion-item class="service-details" *ngFor="let taxiService of taxiServices">
             
             <!-- Service name, url, phone, etc. found in ServiceDetailsComponent -->
-            <service-details [service]="itin.service"></service-details>
+            <service-details [service]="taxiService"></service-details>
 
           </ion-item>
         </ion-list>
