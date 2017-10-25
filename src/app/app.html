@@ -29,7 +29,7 @@
                 class="item-heading" 
                 *ngFor="let p of signedInPages" 
                 (click)="openPage(p)">
-          {{ "pages.menu." + p.title }}
+          {{ "pages.menu." + p.title | translate }}
         </button>
         
       </ion-list>
@@ -59,7 +59,7 @@
                 class="item-heading" 
                 *ngFor="let p of signedOutPages" 
                 (click)="openPage(p)">
-          {{ "pages.menu." + p.title }}
+          {{ "pages.menu." + p.title | translate }}
         </button>
         
       </ion-list>

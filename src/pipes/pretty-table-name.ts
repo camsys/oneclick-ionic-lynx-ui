@@ -1,7 +1,9 @@
+// DEPRECATED
+
 import { Pipe, PipeTransform } from '@angular/core';
 
 /**
- * Takes a OneClick model class name and converts to a friendly string.
+ * Takes a OneClick model class name and converts to the appropriate translation key
  */
 @Pipe({
   name: 'prettyTableName',
@@ -15,9 +17,9 @@ export class PrettyTableNamePipe implements PipeTransform {
   }
   
   tableNameDictionary: any = {
-    "OneclickRefernet::Category": "Category",
-    "OneclickRefernet::SubCategory": "Category",
-    "OneclickRefernet::SubSubCategory": "Category",
-    "OneclickRefernet::Service": "Service"
+    "OneclickRefernet::Category": "category",
+    "OneclickRefernet::SubCategory": "sub_category",
+    "OneclickRefernet::SubSubCategory": "sub_sub_category",
+    "OneclickRefernet::Service": "service"
   };
 }
