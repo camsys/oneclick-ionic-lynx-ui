@@ -4,7 +4,6 @@ import { InAppBrowser } from "@ionic-native/in-app-browser";
 
 // Pages
 import { FeedbackModalPage } from "../../feedback-modal/feedback-modal";
-import { ServiceFor211ReviewPage } from '../service-for211-review/service-for211-review';
 import { DirectionsPage } from '../../directions/directions';
 import { TransportationEligibilityPage } from '../../transportation-eligibility/transportation-eligibility';
 import { TaxiTransportationPage } from '../../taxi-transportation/taxi-transportation';
@@ -77,10 +76,6 @@ export class ServiceFor211DetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ServiceFor211DetailPage');
-  }
-
-  openServiceReviewPage(){
-    this.navCtrl.push(ServiceFor211ReviewPage);
   }
 
   // On page leave, unsubscribe from the trip plan call so it doesn't trigger errors when it resolves

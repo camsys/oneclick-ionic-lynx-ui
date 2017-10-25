@@ -40,7 +40,6 @@ import { ServicesMapPage } from '../pages/211/services-map/services-map';
 import { ServicesListPage } from '../pages/211/services-list/services-list';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { ServiceFor211DetailPage } from '../pages/211/service-for211-detail/service-for211-detail'
-import { ServiceFor211ReviewPage } from '../pages/211/service-for211-review/service-for211-review'
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
@@ -109,7 +108,6 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     ServicesMapPage,
     ServicesListPage,
     ServiceFor211DetailPage,
-    ServiceFor211ReviewPage,
     TransportationAgenciesPage,
     AboutUsPage,
     ContactUsPage,
@@ -166,7 +164,6 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     TransportationAgenciesPage,
     AboutUsPage,
     ServiceFor211DetailPage,
-    ServiceFor211ReviewPage,
     ContactUsPage,
     DirectTransporationFinderPage,
     DirectionsPage,
