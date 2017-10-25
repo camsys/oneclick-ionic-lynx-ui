@@ -36,8 +36,8 @@ import { MyApp } from './app.component';
 import { HelpMeFindPage }          from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
 import { SubcategoriesFor211Page } from '../pages/211/subcategories-for211/subcategories-for211';
-import { MapFor211ServicesPage } from '../pages/211/map-for211-services/map-for211-services';
-import { ServicesFromMatchListPage } from '../pages/211/services-from-match-list/services-from-match-list';
+import { ServicesMapPage } from '../pages/211/services-map/services-map';
+import { ServicesListPage } from '../pages/211/services-list/services-list';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { ServiceFor211DetailPage } from '../pages/211/service-for211-detail/service-for211-detail'
 import { ServiceFor211ReviewPage } from '../pages/211/service-for211-review/service-for211-review'
@@ -106,8 +106,8 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     SubSubcategoriesFor211Page,
     ServicesPage,
     TaxiTransportationPage,
-    MapFor211ServicesPage,
-    ServicesFromMatchListPage,
+    ServicesMapPage,
+    ServicesListPage,
     ServiceFor211DetailPage,
     ServiceFor211ReviewPage,
     TransportationAgenciesPage,
@@ -161,8 +161,8 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     SubSubcategoriesFor211Page,
     ServicesPage,
     TaxiTransportationPage,
-    MapFor211ServicesPage,
-    ServicesFromMatchListPage,
+    ServicesMapPage,
+    ServicesListPage,
     TransportationAgenciesPage,
     AboutUsPage,
     ServiceFor211DetailPage,

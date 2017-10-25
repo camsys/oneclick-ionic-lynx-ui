@@ -4,17 +4,17 @@ import { ServiceModel } from '../../../models/service';
 import { HelpersProvider } from '../../../providers/helpers/helpers';
 
 /**
- * Generated class for the ServicesFromMatchListPage page.
+ * Generated class for the ServicesListPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-services-from-match-list',
-  templateUrl: 'services-from-match-list.html',
+  selector: 'page-services-list',
+  templateUrl: 'services-list.html',
 })
-export class ServicesFromMatchListPage {
+export class ServicesListPage {
 
   matches: ServiceModel[];
   orderBy: String;

@@ -1,5 +1,5 @@
 <!--
-  Generated template for the MapFor211ServicesPage page.
+  Generated template for the ServicesMap page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -25,7 +25,9 @@
     <ion-buttons end>
       <button ion-button 
               class="lynx-button-white lynx-button-circle"
-              (click)="selectService(selectedMatch)">GO</button>
+              (click)="selectService(selectedMatch)">
+        {{ "pages.services.map_tab.go_button" | translate }}
+      </button>
     </ion-buttons>
     
   </ion-toolbar>
