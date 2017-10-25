@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Leave Feedback</ion-title>
+    <ion-title>{{ "pages.feedback.header" | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -26,20 +26,20 @@
     <!-- Review textarea is elastic, i.e. it expands as user types new lines -->
     <ion-item id="feedback-modal-review">
       <ion-textarea fz-elastic 
-                    placeholder="Write a Review" 
+                    placeholder="{{ 'pages.feedback.review_placeholder' | translate }}" 
                     formControlName="review">
       </ion-textarea>
     </ion-item>
     
     <!-- Email input just a standard text input -->
     <ion-item>
-      <ion-label>Your Email</ion-label>
+      <ion-label>{{ "pages.feedback.email" | translate }}</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
     
     <!-- Phone input uses a text mask to format the input value as a phone number -->
     <ion-item>
-      <ion-label>Your Phone</ion-label>
+      <ion-label>{{ "pages.feedback.phone" | translate }}</ion-label>
       <ion-input type="tel" formControlName="phone" [textMask]="{mask: phoneMask}"></ion-input>
     </ion-item>
     
@@ -47,11 +47,11 @@
     <div id="feedback-modal-buttons">
       <button ion-button round
               type="submit"
-              class="lynx-button-dark">Submit</button>
+              class="lynx-button-dark">{{ "pages.feedback.submit" | translate }}</button>
       <button ion-button round 
               class="lynx-button-white"
               type="button"
-              (click)="cancel()">Cancel</button>
+              (click)="cancel()">{{ "pages.feedback.cancel" | translate }}</button>
     </div>
   </form>
   
