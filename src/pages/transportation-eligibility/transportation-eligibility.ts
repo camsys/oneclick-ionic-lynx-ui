@@ -6,7 +6,8 @@ import { OneClickProvider } from '../../providers/one-click/one-click';
 import { User } from '../../models/user';
 import { Eligibility } from '../../models/eligibility';
 import { Accommodation } from '../../models/accommodation';
-import { TransportationAgenciesPage } from '../transportation-agencies/transportation-agencies';
+import { Purpose } from '../../models/purpose';
+import { ParatransitServicesPage } from '../paratransit-services/paratransit-services';
 
 import { TripRequestModel } from "../../models/trip-request";
 import { TripResponseModel } from "../../models/trip-response";
@@ -84,7 +85,7 @@ export class TransportationEligibilityPage {
     .getTripPlan(this.tripRequest)
     .forEach((resp) => {
       this.events.publish('spinner:hide');
-      this.navCtrl.push(TransportationAgenciesPage, { trip_response: resp });
+      this.navCtrl.push(ParatransitServicesPage, { trip_response: resp });
     });
   }
   

@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 // PAGES
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
-import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
+import { ParatransitServicesPage } from '../pages/paratransit-services/paratransit-services';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
@@ -116,7 +116,7 @@ export class MyApp {
     this.universalPages = [
       { title: 'about_us', component: AboutUsPage },
       { title: 'contact_us', component: ContactUsPage },
-      { title: 'transportation', component: TransportationAgenciesPage},
+      { title: 'transportation', component: ParatransitServicesPage},
       { title: 'categories', component: CategoriesFor211Page},
       { title: 'resources', component: UserLocatorPage, params: { findServicesView: true}},
       { title: 'privacy_policy', component: "privacy_policy"}

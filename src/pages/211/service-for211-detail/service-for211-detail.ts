@@ -6,7 +6,7 @@ import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { FeedbackModalPage } from "../../feedback-modal/feedback-modal";
 import { DirectionsPage } from '../../directions/directions';
 import { TransportationEligibilityPage } from '../../transportation-eligibility/transportation-eligibility';
-import { TaxiTransportationPage } from '../../taxi-transportation/taxi-transportation';
+import { TaxiServicesPage } from '../../taxi-services/taxi-services';
 
 // Models
 import { ServiceModel } from '../../../models/service';
@@ -101,7 +101,7 @@ export class ServiceFor211DetailPage {
         mode: mode
       });
     } else if (mode === 'taxi') {
-      this.navCtrl.push(TaxiTransportationPage, {
+      this.navCtrl.push(TaxiServicesPage, {
         trip_response: tripResponse,
         mode: mode
       });

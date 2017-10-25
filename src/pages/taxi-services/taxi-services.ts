@@ -6,17 +6,17 @@ import { OneClickServiceModel } from '../../models/one-click-service';
 
 
 /**
- * Generated class for the TaxiTransportationPage page.
+ * Generated class for the TaxiServicesPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-taxi-transportation',
-  templateUrl: 'taxi-transportation.html',
+  selector: 'page-taxi-services',
+  templateUrl: 'taxi-services.html',
 })
-export class TaxiTransportationPage {
+export class TaxiServicesPage {
   trip: TripResponseModel;
   taxiServices: OneClickServiceModel[];
   mode: string;
@@ -34,7 +34,7 @@ export class TaxiTransportationPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TaxiTransportationPage');
+    console.log('ionViewDidLoad TaxiServicesPage');
   }
 
 }

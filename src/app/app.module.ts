@@ -40,7 +40,7 @@ import { ServicesMapPage } from '../pages/211/services-map/services-map';
 import { ServicesListPage } from '../pages/211/services-list/services-list';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { ServiceFor211DetailPage } from '../pages/211/service-for211-detail/service-for211-detail'
-import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
+import { ParatransitServicesPage } from '../pages/paratransit-services/paratransit-services';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { DirectionsPage } from '../pages/directions/directions';
@@ -50,9 +50,9 @@ import { DirectTransporationFinderPage } from '../pages/direct-transporation-fin
 import { TransportationEligibilityPage } from '../pages/transportation-eligibility/transportation-eligibility';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
-import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for211/sub-subcategories-for211';
-import { ServicesPage } from '../pages/211/services/services';
-import { TaxiTransportationPage } from '../pages/taxi-transportation/taxi-transportation';
+import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for211/sub-subcategories-for211'
+import { ServicesPage } from '../pages/211/services/services'
+import { TaxiServicesPage } from '../pages/taxi-services/taxi-services';
 import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
 
 // Providers
@@ -104,11 +104,11 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     SubcategoriesFor211Page,
     SubSubcategoriesFor211Page,
     ServicesPage,
-    TaxiTransportationPage,
+    TaxiServicesPage,
     ServicesMapPage,
     ServicesListPage,
     ServiceFor211DetailPage,
-    TransportationAgenciesPage,
+    ParatransitServicesPage,
     AboutUsPage,
     ContactUsPage,
     DirectTransporationFinderPage,
@@ -158,10 +158,10 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     SubcategoriesFor211Page,
     SubSubcategoriesFor211Page,
     ServicesPage,
-    TaxiTransportationPage,
+    TaxiServicesPage,
     ServicesMapPage,
     ServicesListPage,
-    TransportationAgenciesPage,
+    ParatransitServicesPage,
     AboutUsPage,
     ServiceFor211DetailPage,
     ContactUsPage,

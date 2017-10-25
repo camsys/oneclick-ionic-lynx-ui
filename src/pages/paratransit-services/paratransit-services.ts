@@ -14,10 +14,10 @@ import { FeedbackModalPage } from "../feedback-modal/feedback-modal";
 
 @IonicPage()
 @Component({
-  selector: 'page-transportation-agencies',
-  templateUrl: 'transportation-agencies.html'
+  selector: 'page-paratransit-services',
+  templateUrl: 'paratransit-services.html'
 })
-export class TransportationAgenciesPage {
+export class ParatransitServicesPage {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,

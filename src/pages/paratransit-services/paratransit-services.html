@@ -1,5 +1,5 @@
 <!--
-  Generated template for the TransportationAgenciesPage page.
+  Generated template for the ParatransitServicesPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar class="lynx-toolbar">
-    <ion-title>Transportation Options</ion-title>
+    <ion-title>{{ "pages.paratransit_services.header" | translate }}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -33,7 +33,7 @@
             <button ion-button round 
                     class="lynx-button-dark"
                     (click)="rateService(svc)">
-              Rate this Service
+              {{ "pages.paratransit_services.feedback_button" | translate }}
             </button>
             
           </ion-item>
