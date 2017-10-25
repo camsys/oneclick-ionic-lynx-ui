@@ -5,7 +5,7 @@
 
   <ion-navbar>
     <ion-title>
-      {{ "pages.transportation_eligibility.header" | transportation }}
+      {{ "pages.transportation_eligibility.header" | translate }}
     </ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -19,7 +19,7 @@
   <!-- ACCOMMODATIONS -->
   <ion-list class="lynx-list" [hidden]="accommodations.length === 0">
     <ion-list-header>
-      {{ "pages.transportation_eligibility.accommodations_header" | transportation }}
+      {{ "pages.transportation_eligibility.accommodations_header" | translate }}
     </ion-list-header>
 
     <ion-item *ngFor="let acc of accommodations">
@@ -33,7 +33,7 @@
   <!-- ELIGIBILITIES -->
   <ion-list class="lynx-list" [hidden]="eligibilities.length === 0">
     <ion-list-header>
-      {{ "pages.transportation_eligibility.eligibilities_header" | transportation }}
+      {{ "pages.transportation_eligibility.eligibilities_header" | translate }}
     </ion-list-header>
 
     <ion-item *ngFor="let elig of eligibilities">
