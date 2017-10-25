@@ -4,7 +4,9 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Select All That Apply</ion-title>
+    <ion-title>
+      {{ "pages.transportation_eligibility.header" | transportation }}
+    </ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -16,7 +18,9 @@
   
   <!-- ACCOMMODATIONS -->
   <ion-list class="lynx-list" [hidden]="accommodations.length === 0">
-    <ion-list-header>Accommodations</ion-list-header>
+    <ion-list-header>
+      {{ "pages.transportation_eligibility.accommodations_header" | transportation }}
+    </ion-list-header>
 
     <ion-item *ngFor="let acc of accommodations">
       <ion-label>{{acc.name}}</ion-label>
@@ -28,7 +32,9 @@
   
   <!-- ELIGIBILITIES -->
   <ion-list class="lynx-list" [hidden]="eligibilities.length === 0">
-    <ion-list-header>Eligibilities</ion-list-header>
+    <ion-list-header>
+      {{ "pages.transportation_eligibility.eligibilities_header" | transportation }}
+    </ion-list-header>
 
     <ion-item *ngFor="let elig of eligibilities">
       <ion-label>{{elig.name}}</ion-label>
@@ -44,7 +50,7 @@
             class="lynx-button-primary"
             id="view-paratransit-options-button"
             (click)="viewParatransitOptions()">
-      See All Available Options
+      {{ "pages.transportation_eligibility.plan_trip_button" | translate }}
       <ion-icon pull-right name="arrow-forward"></ion-icon>
     </button>
   </div>
