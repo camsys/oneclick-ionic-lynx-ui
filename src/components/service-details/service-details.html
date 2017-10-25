@@ -5,39 +5,44 @@
 
 <!-- FARE -->
 <p class="item-body service-details-section" *ngIf="service.fare">
-  <b>fare: </b>{{ service.fare | currency:'USD':true:'1.2-2' }}
+  <b>{{ "components.service_details.fare" | translate }}: </b>
+  {{ service.fare | currency:'USD':true:'1.2-2' }}
 </p>
 
 <!-- PHONE -->
 <p class="item-body service-details-section" *ngIf="!!(service.formatted_phone || service.phone)">
-  <b>phone: </b><a href="tel:{{service.phone}}">{{service.formatted_phone || service.phone}}</a>
+  <b>{{ "components.service_details.phone" | translate }}: </b>
+  <a href="tel:{{service.phone}}">{{service.formatted_phone || service.phone}}</a>
 </p>
 
 <!-- EMAIL -->
 <p class="item-body service-details-section" *ngIf="service.email">
-  <b>email: </b><a href="mailto:{{service.email}}">{{service.email}}</a>
+  <b>{{ "components.service_details.email" | translate }}: </b>
+  <a href="mailto:{{service.email}}">{{service.email}}</a>
 </p>
 
 <!-- WEBSITE -->
 <p class="item-body service-details-section" *ngIf="helpers.urlPresent(service.url)">
-  <b>website: </b><a href="{{service.url}}">{{service.url}}</a>
+  <b>{{ "components.service_details.url" | translate }}: </b>
+  <a href="{{service.url}}">{{service.url}}</a>
 </p>
 
 <!-- DESCRIPTION -->
 <!-- NOTE: Should be refactored to pull appropriate comment by user locale -->
 <p class="item-body service-details-section" *ngIf="service.comments && service.comments.en">
-  <b>description: </b>{{service.comments && service.comments.en}}
+  <b>{{ "components.service_details.description" | translate }}: </b>
+  {{service.comments && service.comments.en}}
 </p>
 
 <!-- SCHEDULE -->
 <div class="service-details-section" *ngIf="service.schedules && service.schedules.length > 0">
   <p class="item-body">
-    <b>schedule:</b>              
+    <b>{{ "components.service_details.schedule" | translate }}:</b>              
   </p>
   <ul class="service-schedule">
     <li *ngFor="let schedule of service.schedules">
       <b>{{ schedule.day | scheduleDay }}:</b>
-      {{ schedule.start_time | scheduleTime }} to 
+      {{ schedule.start_time | scheduleTime }} {{ "global.common.to" | translate }}
       {{ schedule.end_time | scheduleTime }}
     </li>
   </ul>              
