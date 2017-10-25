@@ -3,13 +3,13 @@
     <ion-row>
       <ion-col col-md-8 offset-md-2>
         <ion-list class="lynx-list" radio-group>
-          <ion-list-header>Sort By</ion-list-header>
+          <ion-list-header>{{ "pages.services.list_tab.sort_by_header" | translate }}</ion-list-header>
           <ion-item>
-            <ion-label><ion-icon name="car"></ion-icon>Driving</ion-label>
+            <ion-label><ion-icon name="car"></ion-icon>{{ "global.modes.car" | translate }}</ion-label>
             <ion-radio checked="true" value="driveTime" (ionSelect)="orderMatchList('drive_time')"></ion-radio>
           </ion-item>
           <ion-item>
-            <ion-label><ion-icon name="bus"></ion-icon>Transit</ion-label>
+            <ion-label><ion-icon name="bus"></ion-icon>{{ "global.modes.transit" | translate }}</ion-label>
             <ion-radio value="transitTime" (ionSelect)="orderMatchList('transit_time')"></ion-radio>
           </ion-item>
         </ion-list>
@@ -18,7 +18,7 @@
     <ion-row>
       <ion-col col-md-8 offset-md-2>
         <ion-list class="lynx-list">
-          <ion-list-header>Services</ion-list-header>
+          <ion-list-header>{{ "pages.services.list_tab.results_header" | translate }}</ion-list-header>
           <ion-item class="lynx-list-inline-item" text-wrap 
                     *ngFor="let match of matches" 
                     (click)="selectService(match)">

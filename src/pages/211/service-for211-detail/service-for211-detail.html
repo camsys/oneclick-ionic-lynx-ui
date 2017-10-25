@@ -30,7 +30,7 @@
           <!-- For each mode other than paratransit, build a button -->
           <ion-item *ngFor="let mode of basicModes">
             <h3 item-start class="item-heading mode-label">
-              {{ labelFor(mode) }}
+              {{ "global.modes." + mode | translate }}
             </h3>
             <div item-end class="mode-fare"
                  *ngIf="ready()">
@@ -47,7 +47,7 @@
           <!-- For paratransit, build a special button -->
           <ion-item>
             <h3 item-start class="item-heading mode-label">
-              Other Options
+              {{ "global.modes.paratransit" | translate }}
             </h3>
             <div item-end class="mode-fare" 
                  *ngIf="ready()">
