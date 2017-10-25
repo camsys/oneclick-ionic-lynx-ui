@@ -8,17 +8,17 @@ import { TripResponseModel } from "../../models/trip-response";
 import { ItineraryModel } from "../../models/itinerary";
 
 /**
- * Generated class for the DirectionsRouteDetailPage page.
+ * Generated class for the DirectionsMapTabPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-directions-route-detail',
-  templateUrl: 'directions-route-detail.html',
+  selector: 'page-directions-map-tab',
+  templateUrl: 'directions-map-tab.html',
 })
-export class DirectionsRouteDetailPage {
+export class DirectionsMapTabPage {
   trip:TripResponseModel;
   mode:string;
   itineraries: ItineraryModel[];

@@ -1,5 +1,5 @@
 <!--
-  Generated template for the DirectionsOptionsPage page.
+  Generated template for the DirectionsStepsTabPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -13,7 +13,7 @@
                (ngModelChange)="selectItinerary($event)">
     <ion-segment-button *ngFor="let itin of itineraries; let i = index" 
                         value="{{ i | toString }}">
-      OPTION {{i + 1}}
+      {{ "pages.directions.steps_tab.option" | translate }} {{i + 1}}
     </ion-segment-button>
   </ion-segment>
   
@@ -26,7 +26,7 @@
                col-12 col-md-8 offset-md-2 text-center 
                (click)="tripTimeDatepicker.open()">
         <h3>
-          Your trip on {{tripDate | date: 'mediumDate'}}
+          {{ "pages.directions.steps_tab.trip_date_label" | translate }} {{tripDate | date: 'mediumDate'}}
           <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="calendar"></ion-icon>
         </h3>
         
@@ -59,7 +59,7 @@
                        
                 <ion-col col-9 no-padding text-center class="leg-header-content">
                   <div  *ngIf="!trip.arrive_by" class="leg-time-header-content-description">
-                    depart at
+                    {{ "global.directions.depart_at" | translate }}
                   </div>
                   <div class="leg-time-header-content-time">
                     {{ leg.startTime | date:'shortTime'}}
@@ -179,14 +179,11 @@
                 <ion-col col-9 no-padding text-center class="leg-header-content">
                   
                   <div *ngIf="trip.arrive_by" class="leg-time-header-content-description">
-                    arrive by
+                    {{ "global.directions.arrive_by" | translate }}
                   </div>
                   <div class="leg-time-header-content-time">
                     {{ itin.legs[itin.legs.length - 1].endTime | date:'shortTime' }}
                   </div>
-                  <!-- <div *ngIf="trip.arrive_by" class="leg-time-header-content-date">
-                    {{ itin.legs[itin.legs.length - 1].endTime | date:'MMM d'}}
-                  </div> -->
                   
                 </ion-col>
                 

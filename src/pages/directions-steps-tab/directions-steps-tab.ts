@@ -10,17 +10,17 @@ import { DirectionsPage } from '../directions/directions';
 import { HelpersProvider } from '../../providers/helpers/helpers';
 
 /**
- * Generated class for the DirectionsOptionsPage page.
+ * Generated class for the DirectionsStepsTabPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-directions-options',
-  templateUrl: 'directions-options.html',
+  selector: 'page-directions-steps-tab',
+  templateUrl: 'directions-steps-tab.html',
 })
-export class DirectionsOptionsPage {
+export class DirectionsStepsTabPage {
   trip:TripResponseModel;
   mode:string;
   itineraries: ItineraryModel[];

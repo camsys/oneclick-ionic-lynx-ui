@@ -44,8 +44,8 @@ import { TransportationAgenciesPage } from '../pages/transportation-agencies/tra
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { DirectionsPage } from '../pages/directions/directions';
-import { DirectionsOptionsPage } from '../pages/directions-options/directions-options';
-import { DirectionsRouteDetailPage } from '../pages/directions-route-detail/directions-route-detail';
+import { DirectionsStepsTabPage } from '../pages/directions-steps-tab/directions-steps-tab';
+import { DirectionsMapTabPage } from '../pages/directions-map-tab/directions-map-tab';
 import { DirectTransporationFinderPage } from '../pages/direct-transporation-finder/direct-transporation-finder';
 import { TransportationEligibilityPage } from '../pages/transportation-eligibility/transportation-eligibility';
 import { SignInPage } from '../pages/sign-in/sign-in';
@@ -113,8 +113,8 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     ContactUsPage,
     DirectTransporationFinderPage,
     DirectionsPage,
-    DirectionsOptionsPage,
-    DirectionsRouteDetailPage,
+    DirectionsStepsTabPage,
+    DirectionsMapTabPage,
     TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
@@ -167,8 +167,8 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     ContactUsPage,
     DirectTransporationFinderPage,
     DirectionsPage,
-    DirectionsOptionsPage,
-    DirectionsRouteDetailPage,
+    DirectionsStepsTabPage,
+    DirectionsMapTabPage,
     TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
