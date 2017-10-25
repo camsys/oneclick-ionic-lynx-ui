@@ -37,12 +37,14 @@ export class MyApp {
 
   signedInPages: PageModel[];
   signedOutPages: PageModel[];
+  universalPages: PageModel[]; // Pages for both signed in and signed out users
   signInPage: PageModel;
   profilePage: PageModel;
   user: User;
   eligibilities: Eligibility[];
   accommodations: Accommodation[];
   locale: string;
+  user_name: any;
 
   constructor(public platform: Platform,
               public statusBar: StatusBar,
@@ -61,7 +63,7 @@ export class MyApp {
   }
 
   initializeApp() {    
-    this.translate.setDefaultLang('en'); // Set the default language to English
+    // this.translate.setDefaultLang('en'); // Set the default language to English
     
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -74,7 +76,11 @@ export class MyApp {
   // Retrieve the user's locale and set translation service to use it.
   setLang() {    
     if(this.auth.isSignedIn() && this.auth.preferredLocale()) {
-      this.translate.use(this.auth.preferredLocale());
+      if(this.auth.preferredLocale() == "keys") {
+        this.translate.use(undefined); // NOTE: Can set language to undefined to view keys        
+      } else {
+        this.translate.use(this.auth.preferredLocale());
+      }
     }
   }
   
@@ -86,6 +92,7 @@ export class MyApp {
       this.oneClickProvider.getProfile()
       .then((usr) => {
         this.user = usr;
+        this.user_name = { user: usr.first_name };
         this.eligibilities = this.user.eligibilities;
         this.accommodations = this.user.accommodations;
       })
@@ -104,32 +111,29 @@ export class MyApp {
 
   // Set up the menu with pages for signed in and signed out scenarios
   setMenu(){
+    
+    // Pages to display regardless of whether or not user is signed in or not
+    this.universalPages = [
+      { title: 'about_us', component: AboutUsPage },
+      { title: 'contact_us', component: ContactUsPage },
+      { title: 'transportation', component: TransportationAgenciesPage},
+      { title: 'categories', component: CategoriesFor211Page},
+      { title: 'resources', component: UserLocatorPage, params: { findServicesView: true}},
+      { title: 'privacy_policy', component: "privacy_policy"}
+    ]
 
     // Pages to display if user is signed in
-    this.signedInPages = [
-      { title: 'About Us', component: AboutUsPage },
-      { title: 'Contact Us', component: ContactUsPage },
-      { title: 'Transportation Options', component: TransportationAgenciesPage},
-      { title: 'Browse Services by Category', component: CategoriesFor211Page},
-      { title: 'Find Services by Location', component: UserLocatorPage, params: { findServicesView: true} },
-      { title: 'Privacy Policy', component: "privacy_policy"},
-      { title: 'Sign Out', component: "sign_out"},
-      { title: 'Temporary Language Test', component: TemporaryLanguageTestingPage}
-    ];
-
+    this.signedInPages = this.universalPages.concat([
+      { title: 'sign_out', component: "sign_out"}
+    ]);
+    
     // Pages to display if user is signed out
-    this.signedOutPages = [
-      { title: 'Home', component: HelpMeFindPage },
-      { title: 'About Us', component: AboutUsPage },
-      { title: 'Contact Us', component: ContactUsPage },
-      { title: 'Transportation Options', component: TransportationAgenciesPage},
-      { title: 'Browse Services by Category', component: CategoriesFor211Page},
-      { title: 'Find Services by Location', component: UserLocatorPage, params: { findServicesView: true}},
-      { title: 'Privacy Policy', component: "privacy_policy"}
-    ];
-
-    this.signInPage = { title: 'Sign In', component: SignInPage};
-    this.profilePage = { title: 'My Profile', component: UserProfilePage};
+    this.signedOutPages = this.universalPages.concat([
+      { title: 'home', component: HelpMeFindPage },
+    ]);
+    
+    this.signInPage = { title: 'sign_in', component: SignInPage};
+    this.profilePage = { title: 'profile', component: UserProfilePage};
   }
 
   // Open the appropriate page, or do something special for certain pages
