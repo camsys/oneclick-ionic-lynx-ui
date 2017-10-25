@@ -57,13 +57,14 @@ export class MyApp {
               public events: Events) {
     this.initializeApp();
     this.getUserInfo();
-    this.setLang();
     this.setMenu();
     this.setupSpinner();
   }
 
-  initializeApp() {    
-    // this.translate.setDefaultLang('en'); // Set the default language to English
+  initializeApp() {
+    this.translate.addLangs(["en", "es", "keys"]);
+    console.log("AVAILABLE LANGS: ", this.translate.getLangs());
+    this.translate.setDefaultLang('en'); // Set the default language to English
     
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -71,17 +72,6 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-  }
-  
-  // Retrieve the user's locale and set translation service to use it.
-  setLang() {    
-    if(this.auth.isSignedIn() && this.auth.preferredLocale()) {
-      if(this.auth.preferredLocale() == "keys") {
-        this.translate.use(undefined); // NOTE: Can set language to undefined to view keys        
-      } else {
-        this.translate.use(this.auth.preferredLocale());
-      }
-    }
   }
   
   // Make a call to OneClick to get the user's details

@@ -10,6 +10,9 @@ import { environment } from '../../app/environment'
 import { Session } from '../../models/session';
 import { User } from '../../models/user';
 
+import { TranslateService } from '@ngx-translate/core';
+
+
 @Injectable()
 export class AuthProvider {
 
@@ -18,8 +21,9 @@ export class AuthProvider {
     'Content-Type': 'application/json'
   })
 
-  constructor(public http: Http) { }
-
+  constructor(public http: Http,
+              private translate: TranslateService) { }
+  
   // Pulls the current session from local storage
   session(): Session {
     return (JSON.parse(localStorage.session || "{}") as Session);
@@ -110,6 +114,23 @@ export class AuthProvider {
   // Pulls the user location out of the session if available
   userLocation(): any {
     return this.session().user_starting_location || {};
+  }
+  
+  // Updates the session based on a user object, and updates the locale
+  updateSessionUser(user: User) {
+    let session = this.session();
+    session.user = user;
+    this.setSession(session);
+    
+    // Set the language based on the user's preferred locale
+    if(this.preferredLocale() == "keys") {
+      // Set language to undefined to view keys
+      this.translate.use(undefined);         
+    } else {
+      this.translate.use(this.preferredLocale());
+    }
+    
+    return this.user();
   }
 
 }

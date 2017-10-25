@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar class="lynx-toolbar">
-    <ion-title>Contact Us</ion-title>
+    <ion-title>{{ "pages.contact_us.header" | translate }}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -25,10 +25,10 @@
           <ion-item text-wrap *ngFor="let agency of agencies">
             <h3 class="item-heading">{{agency.name}}</h3>
             <p class="item-body" *ngIf="!!(agency.formatted_phone || agency.phone)">
-              <b>phone: </b><a href="tel:{{agency.phone}}">{{agency.formatted_phone || agency.phone}}</a>
+              <b>{{ "page.contact_us.phone" | translate }}: </b><a href="tel:{{agency.phone}}">{{agency.formatted_phone || agency.phone}}</a>
             </p>
             <p class="item-body" *ngIf="helpers.urlPresent(agency.url)">
-              <b>website: </b><a href="{{agency.url}}">{{agency.url}}</a>
+              <b>{{ "page.contact_us.website" | translate }}: </b><a href="{{agency.url}}">{{agency.url}}</a>
             </p>
           </ion-item>
         </ion-list>

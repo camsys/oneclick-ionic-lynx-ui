@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar class="lynx-toolbar">
-    <ion-title>About Us</ion-title>
+    <ion-title>{{ "pages.about_us.header" | translate }}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -28,10 +28,10 @@
               <a href="tel:{{agency.phone}}">{{agency.formatted_phone || agency.phone}}</a>
             </h4>
             <p class="item-body" *ngIf="helpers.urlPresent(agency.url)">
-              <b>website: </b><a href="{{agency.url}}">{{agency.url}}</a>
+              <b>{{ "pages.about_us.url" | translate }}: </b><a href="{{agency.url}}">{{agency.url}}</a>
             </p>
             <p class="item-body">
-              <b>description: </b>{{agency.comments.en}}
+              <b>{{ "pages.about_us.description" | translate }}: </b>{{agency.comments.en}}
             </p>
           </ion-item>
         </ion-list>

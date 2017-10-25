@@ -89,13 +89,7 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(json => JSON.parse(json).data.user as User)
-      .then((user) => {
-        // Store the profile in the session's user attribute
-        let session = this.auth.session();
-        session.user = user;
-        this.auth.setSession(session);
-        return user;
-      })
+      .then(user => this.auth.updateSessionUser(user)) // store user info in session storage
       .catch(this.handleError);
   }
 
@@ -139,6 +133,7 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(json => JSON.parse(json).data.user as User)
+      .then(user => this.auth.updateSessionUser(user)) // store user info in session storage
       .catch(this.handleError);
   }
 
