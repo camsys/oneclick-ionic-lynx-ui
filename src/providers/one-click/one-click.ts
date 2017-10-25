@@ -22,6 +22,7 @@ import { SearchResultModel } from '../../models/search-result';
 import { environment } from '../../app/environment'
 import { User } from '../../models/user';
 import { AuthProvider } from '../../providers/auth/auth';
+import { TranslateService } from '@ngx-translate/core';
 
 // OneClick Provider handles API Calls to the OneClick Core back-end.
 @Injectable()
@@ -30,7 +31,8 @@ export class OneClickProvider {
   public oneClickUrl = environment.BASE_ONECLICK_URL;
 
   constructor(public http: Http,
-              private auth: AuthProvider) {}
+              private auth: AuthProvider,
+              private translate: TranslateService) {}
 
   // Gets a list of all Transportation Agencies
   getTransportationAgencies(): Promise<AgencyModel[]> {
@@ -141,10 +143,14 @@ export class OneClickProvider {
   }
 
   getCategoriesFor211Services(lat: number, lng: number): Promise<CategoryFor211Model[]> {
+    var uri: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/categories?locale=' + 
+      this.locale()
+    );
+    
     if(lat && lng) {
-      uri = encodeURI(this.oneClickUrl+'oneclick_refernet/categories?lat='+lat+'&lng='+lng);
-    } else {
-      var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/categories');
+      uri = encodeURI(uri + '&lat=' + lat + '&lng=' + lng);
     }
 
     return this.http.get(uri)
@@ -155,10 +161,16 @@ export class OneClickProvider {
   }
 
   getSubcategoryForCategoryName(categoryName: string, lat: number, lng: number): Promise<SubcategoryFor211Model[]> {
+    var uri: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/sub_categories?category=' + 
+      categoryName +
+      '&locale=' +
+      this.locale()
+    );
+    
     if(lat && lng) {
-      uri = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_categories?category='+categoryName+'&lat='+lat+'&lng='+lng);
-    } else {
-      var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_categories?category='+categoryName);
+      uri = encodeURI(uri + '&lat=' + lat + '&lng=' + lng);
     }
 
     return this.http.get(uri)
@@ -170,12 +182,17 @@ export class OneClickProvider {
 
   getSubSubcategoryForSubcategoryName(subcategoryName: string, lat: number, lng: number): Promise<SubSubcategoryFor211Model[]>{
 
-    if(lat && lng) {
-      uri = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_sub_categories?sub_category='+subcategoryName+'&lat='+lat+'&lng='+lng);
-    } else {
-      var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_sub_categories?sub_category='+subcategoryName);
-    }
+    var uri: string = encodeURI(
+      this.oneClickUrl +
+      'oneclick_refernet/sub_sub_categories?sub_category=' +
+      subcategoryName + 
+      '&locale=' + 
+      this.locale()
+    );
     
+    if(lat && lng) {
+      uri = encodeURI(uri + '&lat=' + lat + '&lng=' + lng);
+    }
 
     // console.log(uri);
 
@@ -276,6 +293,11 @@ export class OneClickProvider {
   private handleError(error: any): any {
     console.error('An error occurred', error.text()); // for demo purposes only
     return Promise.reject(error);
+  }
+  
+  // Gets the current locale, or defaults to english
+  private locale() {
+    return this.translate.currentLang || "en";
   }
 
 }
