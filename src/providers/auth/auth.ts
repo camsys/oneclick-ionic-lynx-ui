@@ -4,13 +4,15 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
-import { environment } from '../../app/environment'
+import { Global } from '../../app/global';
+import { environment } from '../../app/environment';
+
+// Providers
+import { I18nProvider } from '../i18n/i18n';
 
 // Models
 import { Session } from '../../models/session';
 import { User } from '../../models/user';
-
-import { TranslateService } from '@ngx-translate/core';
 
 
 @Injectable()
@@ -22,7 +24,7 @@ export class AuthProvider {
   })
 
   constructor(public http: Http,
-              private translate: TranslateService) { }
+              private i18n: I18nProvider) { }
   
   // Pulls the current session from local storage
   session(): Session {
@@ -121,15 +123,8 @@ export class AuthProvider {
     let session = this.session();
     session.user = user;
     this.setSession(session);
-    
-    // Set the language based on the user's preferred locale
-    if(this.preferredLocale() == "keys") {
-      // Set language to undefined to view keys
-      this.translate.use(undefined);         
-    } else {
-      this.translate.use(this.preferredLocale());
-    }
-    
+    this.i18n.useLocale(this.preferredLocale());
+        
     return this.user();
   }
 

@@ -24,6 +24,9 @@ import { PageModel } from '../models/page';
 // PROVIDERS
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { AuthProvider } from '../providers/auth/auth';
+import { I18nProvider } from '../providers/i18n/i18n';
+
+import { environment } from './environment';
 
 
 @Component({
@@ -54,7 +57,8 @@ export class MyApp {
               private oneClickProvider: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
               private translate: TranslateService,
-              public events: Events) {
+              public events: Events,
+              private i18n: I18nProvider) {
     this.initializeApp();
     this.getUserInfo();
     this.setMenu();
@@ -62,13 +66,10 @@ export class MyApp {
   }
 
   initializeApp() {
-    this.translate.addLangs(["en", "es", "keys"]);
-    console.log("AVAILABLE LANGS: ", this.translate.getLangs());
-    this.translate.setDefaultLang('en'); // Set the default language to English
-    
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      this.i18n.initializeApp(); // Sets the default language
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

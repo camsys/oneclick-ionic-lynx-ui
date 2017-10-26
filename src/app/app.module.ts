@@ -17,8 +17,6 @@ import { Geolocation } from '@ionic-native/geolocation';
 // Other 3rd-Party Imports
 
 // Translations
-// import { TranslateModule } from "ng2-translate";
-// import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
@@ -61,6 +59,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { GeocodeServiceProvider } from '../providers/google/geocode-service';
 import { GoogleMapsHelpersProvider } from '../providers/google/google-maps-helpers';
 import { HelpersProvider } from '../providers/helpers/helpers';
+import { I18nProvider } from '../providers/i18n/i18n';
 
 // Models
 import { CategoryFor211Model } from '../models/category-for-211';
@@ -202,7 +201,8 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     LegStepModel,
     PageModel,
     SearchResultModel,
-    DatePicker
+    DatePicker,
+    I18nProvider
   ],
   exports: [
     CategoriesFor211Page,
