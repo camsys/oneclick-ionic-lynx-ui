@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
@@ -37,6 +37,7 @@ export class CategoriesFor211Page {
               public navParams: NavParams,
               private oneClickProvider: OneClickProvider,
               public events: Events,
+              private changeDetector: ChangeDetectorRef,
               private auth: AuthProvider) {
     
     this.searchResults = [];
@@ -68,6 +69,7 @@ export class CategoriesFor211Page {
       this.oneClickProvider.refernetKeywordSearch(query)
           .subscribe((results) => {
             this.searchResults = results;
+            this.changeDetector.detectChanges();
           });
     } else { // If query is empty, clear the results.
       this.searchResults = [];
