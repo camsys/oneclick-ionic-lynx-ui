@@ -16,5 +16,9 @@ export class ServiceDetailsComponent {
   @Input() service: OneClickServiceModel;
 
   constructor(private helpers: HelpersProvider) {}
+  
+  purposeList(): string {
+    return this.service.purposes.map((purp) => purp.name).join(', ');
+  }
 
 }

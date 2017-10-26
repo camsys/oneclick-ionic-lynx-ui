@@ -42,4 +42,9 @@
     </li>
   </ul>              
 </div>
-  
+
+<!-- PURPOSES -->
+<p class="item-body service-details-section" *ngIf="service.purposes.length > 0">
+  <b>eligible purposes: </b>
+  {{ purposeList() }}
+</p>

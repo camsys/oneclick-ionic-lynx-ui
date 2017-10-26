@@ -1,3 +1,7 @@
+import { Eligibility } from './eligibility';
+import { Accommodation } from './accommodation';
+import { Purpose } from './purpose';
+
 // Model for representing a transportation service from OneClick
 // (as opposed to a service from ReferNET)
 export class OneClickServiceModel {
@@ -11,6 +15,9 @@ export class OneClickServiceModel {
   comments?: any;
   schedules?: any[];
   fare?: number; // Not on OneClick service model, but helps for storing associated itinerary info on the service
+  purposes?: Purpose[];
+  accommodations?: Accommodation[];
+  eligibilities?: Eligibility[];
   
   constructor(attrs: any) {
     this.id = attrs.id;
@@ -22,5 +29,8 @@ export class OneClickServiceModel {
     this.formatted_phone = attrs.formatted_phone;
     this.comments = attrs.comments;
     this.schedules = attrs.schedules;
+    this.purposes = attrs.purposes || [];
+    this.accommodations = attrs.accommodations || [];
+    this.eligibilities = attrs.eligibilities || [];
   }
 }
