@@ -38,26 +38,6 @@
     </ion-item>
   </ion-list>
   
-  <!-- PURPOSES -->
-  <ion-list radio-group 
-            class="lynx-list"
-            [(ngModel)]="tripPurpose"
-            (ionChange)="updateCharacteristic()"
-            [hidden]="purposes.length === 0">
-    <ion-list-header>Trip Purpose</ion-list-header>
-
-    <ion-item *ngFor="let purp of purposes">
-      <ion-label>{{purp.name}}</ion-label>
-      <ion-radio [value]="purp"></ion-radio>
-    </ion-item>
-    
-    <!-- "Other" purpose just sends no trip purpose. -->
-    <ion-item>
-      <ion-label>Other</ion-label>
-      <ion-radio [value]="null"></ion-radio>
-    </ion-item>
-  </ion-list>
-  
   <!-- PLAN TRIP -->
   <div text-center id="view-paratransit-options-button-container" >
     <button ion-button round 
