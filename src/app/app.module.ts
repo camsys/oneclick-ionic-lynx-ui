@@ -6,6 +6,7 @@ import { Http, HttpModule } from '@angular/http';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ElasticModule } from 'angular2-elastic';
 import { DatePicker } from '@ionic-native/date-picker';
+import { LOCALE_ID } from '@angular/core';
 
 // Ionic Imports
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -17,7 +18,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 // Other 3rd-Party Imports
 
 // Translations
-import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateModule, TranslateLoader, TranslateService } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 export function createTranslateLoader(http: Http){
@@ -202,7 +203,14 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     PageModel,
     SearchResultModel,
     DatePicker,
-    I18nProvider
+    I18nProvider,
+    { 
+      provide: LOCALE_ID,   // Angular pipes (date, currency, etc.) get their locale from this
+      deps: [TranslateService], 
+      useFactory: (translate) => {
+        return translate.currentLang || translate.getDefaultLang();
+      }
+    }
   ],
   exports: [
     CategoriesFor211Page,
