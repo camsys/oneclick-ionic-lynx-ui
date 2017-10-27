@@ -87,6 +87,7 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number';
 import { PrettyFarePipe } from '../pipes/pretty-fare';
 import { ScheduleTimePipe } from '../pipes/schedule-time';
 import { ScheduleDayPipe } from '../pipes/schedule-day';
+import { TranslateCommentsPipe } from '../pipes/translate-comments';
 
 // Components
 import { PlaceSearchComponent } from '../components/place-search/place-search';
@@ -131,7 +132,8 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     ResponsiveDatepickerComponent,
     ResponsiveTimepickerComponent,
     PrettyTableNamePipe,
-    ServiceDetailsComponent
+    ServiceDetailsComponent,
+    TranslateCommentsPipe
   ],
   imports: [
     BrowserModule,
