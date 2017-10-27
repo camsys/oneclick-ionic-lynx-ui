@@ -5,17 +5,17 @@ import { GoogleMapsHelpersProvider } from '../../../providers/google/google-maps
 import { ServiceModel } from '../../../models/service';
 
 /**
- * Generated class for the ServicesMapPage page.
+ * Generated class for the ServicesMapTabPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-services-map',
-  templateUrl: 'services-map.html',
+  selector: 'page-services-map-tab',
+  templateUrl: 'services-map-tab.html',
 })
-export class ServicesMapPage {
+export class ServicesMapTabPage {
 
   // This is needed to dynamically change the div containing the marker's information
   service_map: google.maps.Map;

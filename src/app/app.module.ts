@@ -34,8 +34,8 @@ import { MyApp } from './app.component';
 import { HelpMeFindPage }          from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
 import { SubcategoriesFor211Page } from '../pages/211/subcategories-for211/subcategories-for211';
-import { ServicesMapPage } from '../pages/211/services-map/services-map';
-import { ServicesListPage } from '../pages/211/services-list/services-list';
+import { ServicesMapTabPage } from '../pages/211/services-map-tab/services-map-tab';
+import { ServicesListTabPage } from '../pages/211/services-list-tab/services-list-tab';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { ServiceFor211DetailPage } from '../pages/211/service-for211-detail/service-for211-detail'
 import { ParatransitServicesPage } from '../pages/paratransit-services/paratransit-services';
@@ -104,8 +104,8 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     SubSubcategoriesFor211Page,
     ServicesPage,
     TaxiServicesPage,
-    ServicesMapPage,
-    ServicesListPage,
+    ServicesMapTabPage,
+    ServicesListTabPage,
     ServiceFor211DetailPage,
     ParatransitServicesPage,
     AboutUsPage,
@@ -158,8 +158,8 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     SubSubcategoriesFor211Page,
     ServicesPage,
     TaxiServicesPage,
-    ServicesMapPage,
-    ServicesListPage,
+    ServicesMapTabPage,
+    ServicesListTabPage,
     ParatransitServicesPage,
     AboutUsPage,
     ServiceFor211DetailPage,

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
-import { ServicesMapPage } from '../services-map/services-map';
-import { ServicesListPage } from '../services-list/services-list';
+import { ServicesMapTabPage } from '../services-map-tab/services-map-tab';
+import { ServicesListTabPage } from '../services-list-tab/services-list-tab';
 import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 
 // import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
@@ -35,8 +35,8 @@ export class ServicesPage {
               private auth: AuthProvider) {
     this.subSubCategory = navParams.data.selected_sub_subcategory;
     this.matches_result = navParams.data.matches_result;
-    this.mapTab = ServicesMapPage;
-    this.servicesFromMatchListTab = ServicesListPage;
+    this.mapTab = ServicesMapTabPage;
+    this.servicesFromMatchListTab = ServicesListTabPage;
   }
 
   ionViewDidLoad() {

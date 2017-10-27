@@ -4,17 +4,17 @@ import { ServiceModel } from '../../../models/service';
 import { HelpersProvider } from '../../../providers/helpers/helpers';
 
 /**
- * Generated class for the ServicesListPage page.
+ * Generated class for the ServicesListTabPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-services-list',
-  templateUrl: 'services-list.html',
+  selector: 'page-services-list-tab',
+  templateUrl: 'services-list-tab.html',
 })
-export class ServicesListPage {
+export class ServicesListTabPage {
 
   matches: ServiceModel[];
   orderBy: String;
