@@ -58,6 +58,11 @@ export class I18nProvider {
       return environment.DEFAULT_LOCALE;
     }
   }
+  
+  // Returns the current locale being used (or the default one)
+  currentLocale(): string {
+    return this.translate.currentLang || this.translate.getDefaultLang();
+  }
 
 
 }

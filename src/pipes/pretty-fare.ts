@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
+import { I18nProvider } from '../providers/i18n/i18n';
 import { TranslateService } from '@ngx-translate/core';
 
 /**
@@ -11,7 +12,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class PrettyFarePipe implements PipeTransform {
   
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService,
+              private i18n: I18nProvider) { }
   
   transform(fares: number[]): string {
     
@@ -36,8 +38,7 @@ export class PrettyFarePipe implements PipeTransform {
   
   // Formats a number as USD, with no cents.
   formatFare(fare: number): string {
-    return new CurrencyPipe(this.translate.currentLang || 
-                            this.translate.getDefaultLang())
+    return new CurrencyPipe(this.i18n.currentLocale())
                .transform(fare, 'USD', true, '1.0-0');
   }
   

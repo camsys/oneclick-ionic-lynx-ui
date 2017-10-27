@@ -22,7 +22,7 @@ import { SearchResultModel } from '../../models/search-result';
 import { environment } from '../../app/environment'
 import { User } from '../../models/user';
 import { AuthProvider } from '../../providers/auth/auth';
-import { TranslateService } from '@ngx-translate/core';
+import { I18nProvider } from '../../providers/i18n/i18n';
 
 // OneClick Provider handles API Calls to the OneClick Core back-end.
 @Injectable()
@@ -32,7 +32,7 @@ export class OneClickProvider {
 
   constructor(public http: Http,
               private auth: AuthProvider,
-              private translate: TranslateService) {}
+              private i18n: I18nProvider) {}
 
   // Gets a list of all Transportation Agencies
   getTransportationAgencies(): Promise<AgencyModel[]> {
@@ -141,7 +141,7 @@ export class OneClickProvider {
     var uri: string = encodeURI(
       this.oneClickUrl + 
       'oneclick_refernet/categories?locale=' + 
-      this.locale()
+      this.i18n.currentLocale()
     );
     
     if(lat && lng) {
@@ -161,7 +161,7 @@ export class OneClickProvider {
       'oneclick_refernet/sub_categories?category=' + 
       categoryName +
       '&locale=' +
-      this.locale()
+      this.i18n.currentLocale()
     );
     
     if(lat && lng) {
@@ -182,7 +182,7 @@ export class OneClickProvider {
       'oneclick_refernet/sub_sub_categories?sub_category=' +
       subcategoryName + 
       '&locale=' + 
-      this.locale()
+      this.i18n.currentLocale()
     );
     
     if(lat && lng) {
@@ -288,11 +288,6 @@ export class OneClickProvider {
   private handleError(error: any): any {
     console.error('An error occurred', error.text()); // for demo purposes only
     return Promise.reject(error);
-  }
-  
-  // Gets the current locale, or defaults to english
-  private locale() {
-    return this.translate.currentLang || "en";
   }
 
 }

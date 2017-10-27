@@ -206,10 +206,8 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     I18nProvider,
     { 
       provide: LOCALE_ID,   // Angular pipes (date, currency, etc.) get their locale from this
-      deps: [TranslateService], 
-      useFactory: (translate) => {
-        return translate.currentLang || translate.getDefaultLang();
-      }
+      deps: [I18nProvider], 
+      useFactory: (i18n) => i18n.currentLocale()
     }
   ],
   exports: [
