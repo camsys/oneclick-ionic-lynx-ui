@@ -12,7 +12,7 @@ export class OneClickServiceModel {
   email?: string;
   phone?: string;
   formatted_phone?: string;
-  comments?: any;
+  description?: string;
   schedules?: any[];
   fare?: number; // Not on OneClick service model, but helps for storing associated itinerary info on the service
   purposes?: Purpose[];
@@ -27,7 +27,7 @@ export class OneClickServiceModel {
     this.email = attrs.email;
     this.phone = attrs.phone;
     this.formatted_phone = attrs.formatted_phone;
-    this.comments = attrs.comments;
+    this.description = attrs.description;
     this.schedules = attrs.schedules;
     this.purposes = attrs.purposes || [];
     this.accommodations = attrs.accommodations || [];

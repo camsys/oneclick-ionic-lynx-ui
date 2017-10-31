@@ -28,10 +28,9 @@
 </p>
 
 <!-- DESCRIPTION -->
-<!-- NOTE: Should be refactored to pull appropriate comment by user locale -->
-<p class="item-body service-details-section" *ngIf="service.comments">
+<p class="item-body service-details-section" *ngIf="service.description">
   <b>{{ "components.service_details.description" | translate }}: </b>
-  {{ service.comments | translateComments }}
+  {{ service.description }}
 </p>
 
 <!-- SCHEDULE -->

@@ -58,7 +58,10 @@ export class OneClickProvider {
   }
 
   public getAgencies(type: String): Promise<AgencyModel[]> {
-    let uri: string = encodeURI(this.oneClickUrl + 'agencies?type=' + type);
+    let uri: string = encodeURI(this.oneClickUrl + 
+      'agencies?type=' + type +
+      '&locale=' + this.i18n.currentLocale()
+    );
 
     return this.http.get(uri)
       .toPromise()
@@ -69,7 +72,10 @@ export class OneClickProvider {
 
   // Gets all paratransit services from OneClick
   public getParatransitServices(): Promise<OneClickServiceModel[]> {
-    let uri: string = encodeURI(this.oneClickUrl + 'services?type=paratransit');
+    let uri: string = encodeURI(this.oneClickUrl + 
+      'services?type=paratransit' +
+      '&locale=' + this.i18n.currentLocale()
+    );
 
     return this.http.get(uri)
       .toPromise()
