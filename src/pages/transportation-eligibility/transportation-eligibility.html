@@ -23,7 +23,7 @@
     </ion-list-header>
 
     <ion-item *ngFor="let acc of accommodations">
-      <ion-label>{{acc.name}}</ion-label>
+      <ion-label>{{acc.question}}</ion-label>
       <ion-checkbox [(ngModel)]="acc.value"
                     (ionChange)="updateCharacteristic()">
       </ion-checkbox>
@@ -37,7 +37,7 @@
     </ion-list-header>
 
     <ion-item *ngFor="let elig of eligibilities">
-      <ion-label>{{elig.name}}</ion-label>
+      <ion-label>{{elig.question}}</ion-label>
       <ion-checkbox [(ngModel)]="elig.value"
                     (ionChange)="updateCharacteristic()">
       </ion-checkbox>
