@@ -8,6 +8,9 @@ import { ElasticModule } from 'angular2-elastic';
 import { DatePicker } from '@ionic-native/date-picker';
 import { LOCALE_ID } from '@angular/core';
 
+// Environment
+import { environment } from './environment';
+
 // Ionic Imports
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -24,7 +27,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 export function createTranslateLoader(http: Http){
   // return new TranslateStaticLoader(http, 'assets/i18n', '.json');
   // return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
-  return new TranslateHttpLoader(http, 'https://s3.amazonaws.com/occ-lynx-qa/i18n/', '.json');
+  return new TranslateHttpLoader(http, environment.AWS_BUCKET, '.json');
 }
 
 // Ratings
