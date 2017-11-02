@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Headers } from '@angular/http';
 import { RequestOptions } from '@angular/http';
 
 
@@ -20,7 +19,6 @@ import { TripResponseModel } from '../../models/trip-response';
 import { FeedbackModel } from '../../models/feedback';
 import { SearchResultModel } from '../../models/search-result';
 
-import { Global } from '../../app/global';
 import { environment } from '../../app/environment'
 import { User } from '../../models/user';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -66,7 +64,7 @@ export class OneClickProvider {
       .then(json => JSON.parse(json).data.agencies as AgencyModel[])
       .catch(this.handleError);
   }
-  
+
   // Gets all paratransit services from OneClick
   public getParatransitServices(): Promise<OneClickServiceModel[]> {
     let uri: string = encodeURI(this.oneClickUrl + 'services?type=paratransit');
@@ -198,7 +196,7 @@ export class OneClickProvider {
   {
     let headers = this.auth.authHeaders();
     let options = new RequestOptions({ headers: headers });
-    
+
     return this.http
             .post(this.oneClickUrl+'trips/plan', tripRequest, options)
             .map( response => {
@@ -238,7 +236,7 @@ export class OneClickProvider {
             .toPromise()
             .catch(this.handleError);
   }
-  
+
   // Creates a feedback, including rating and review, for a service
   createFeedback(feedback: FeedbackModel): Promise<any> {
     let headers = this.auth.authHeaders();
@@ -249,7 +247,7 @@ export class OneClickProvider {
             .toPromise()
             .catch(this.handleError);
   }
-  
+
   // Makes a refernet keyword search call, returning the results array
   refernetKeywordSearch(term: string): Observable<SearchResultModel[]> {
     var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/search?term=' + term);

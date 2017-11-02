@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-
-import { HelpersProvider } from '../../providers/helpers/helpers';
 import { OneClickServiceModel } from "../../models/one-click-service";
 
 
@@ -15,8 +13,8 @@ export class ServiceDetailsComponent {
 
   @Input() service: OneClickServiceModel;
 
-  constructor(private helpers: HelpersProvider) {}
-  
+  constructor() {}
+
   purposeList(): string {
     return this.service.purposes.map((purp) => purp.name).join(', ');
   }

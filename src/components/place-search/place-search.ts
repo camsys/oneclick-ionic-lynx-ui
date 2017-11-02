@@ -3,7 +3,6 @@ import { FormControl } from '@angular/forms';
 import { Events } from 'ionic-angular';
 
 // MODELS
-import { OneClickPlaceModel } from "../../models/one-click-place";
 import { GooglePlaceModel } from "../../models/google-place";
 
 // PROVIDERS
@@ -23,7 +22,7 @@ import { OneClickProvider } from '../../providers/one-click/one-click';
 export class PlaceSearchComponent {
 
   query: string;
-  searchControl: FormControl; 
+  searchControl: FormControl;
   @Input() placeholder: string;
   autocompleteItems: GooglePlaceModel[];
   googleAutocompleteItems: GooglePlaceModel[];
@@ -41,21 +40,21 @@ export class PlaceSearchComponent {
     this.oneClickAutocompleteItems = [];
     this.autocompleteItems = [];
     this.place = null;
-    
+
     this.searchControl.valueChanges
                       .debounceTime(500)
                       .subscribe((query) => {
       this.updateAddressSearch(query);
     });
   }
-  
+
   // Updates the search items list based on the response from OneClick and Google
   updateAddressSearch(query) {
     if(!query || query === '') {
       this.autocompleteItems = [];
       return;
     }
-    
+
     this.oneClickProvider
     .getPlaces(query)
     .subscribe(places => {
@@ -71,28 +70,28 @@ export class PlaceSearchComponent {
       this.googleAutocompleteItems = places;
       this.refresh();
     });
-    
+
   }
-  
+
   // Refreshes the search results from the combined Google and OneClick search results,
   private refresh() {
     // Set autocomplete results to the combination of the google and oneclick place searches
     this.autocompleteItems = this.googleAutocompleteItems.concat(this.oneClickAutocompleteItems);
     this.events.publish('place-search:change');
   }
-  
+
   // Empties the search results array
   clear() {
     this.autocompleteItems = [];
   }
-  
+
   // Sets the place value and fills in the search bar, but doesn't run it as a query
   setPlace(place: GooglePlaceModel) {
     console.log("SETTING PLACE", place);
     this.place = place;
     this.searchControl.setValue(this.place.formatted_address, {emitEvent: false});
   }
-  
+
   // Select an item from the search results list
   chooseItem(item: any) {
     this.events.publish('spinner:show'); // Show spinner until geocoding call returns

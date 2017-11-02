@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser'
 
 // PAGES
-import { TemporaryLanguageTestingPage } from '../pages/temporary-language-testing/temporary-language-testing';
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
 import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
@@ -43,11 +42,11 @@ export class MyApp {
   eligibilities: Eligibility[];
   accommodations: Accommodation[];
 
-  constructor(public platform: Platform, 
-              public statusBar: StatusBar, 
-              public splashScreen: SplashScreen, 
-              private inAppBrowser: InAppBrowser, 
-              private auth: AuthProvider, 
+  constructor(public platform: Platform,
+              public statusBar: StatusBar,
+              public splashScreen: SplashScreen,
+              private inAppBrowser: InAppBrowser,
+              private auth: AuthProvider,
               private oneClickProvider: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
               public events: Events) {
@@ -85,7 +84,7 @@ export class MyApp {
         }
       })
     }
-    
+
     // Pages to display if user is signed in
     this.signedInPages = [
       { title: 'About Us', component: AboutUsPage },
@@ -96,10 +95,9 @@ export class MyApp {
       { title: 'Privacy Policy', component: "privacy_policy"},
       { title: 'Sign Out', component: "sign_out"}
     ];
-    
+
     // Pages to display if user is signed out
     this.signedOutPages = [
-      { title: 'Temporary Language Test', component: TemporaryLanguageTestingPage},
       { title: 'Home', component: HelpMeFindPage },
       { title: 'About Us', component: AboutUsPage },
       { title: 'Contact Us', component: ContactUsPage },
@@ -108,7 +106,7 @@ export class MyApp {
       { title: 'Find Services by Location', component: UserLocatorPage, params: { findServicesView: true}},
       { title: 'Privacy Policy', component: "privacy_policy"}
     ];
-    
+
     this.signInPage = { title: 'Sign In', component: SignInPage};
     this.profilePage = { title: 'My Profile', component: UserProfilePage};
   }
@@ -128,7 +126,7 @@ export class MyApp {
         // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component, page.params);
     }
-    
+
   }
 
   openUrl(url: string) {
@@ -137,7 +135,7 @@ export class MyApp {
       browser.show();
     });
   }
-  
+
   goHome() {
     this.nav.setRoot(HelpMeFindPage);
   }
@@ -159,7 +157,7 @@ export class MyApp {
     );
   }
 
-  // Subscribe to spinner:show and spinner:hide events that can be published by child pages  
+  // Subscribe to spinner:show and spinner:hide events that can be published by child pages
   setupSpinner() {
     this.events.subscribe('spinner:show', () => {
       this.showSpinner = true;

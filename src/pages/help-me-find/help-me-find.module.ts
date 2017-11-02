@@ -5,14 +5,8 @@ import { HelpMeFindPage } from './help-me-find';
 
 
 @NgModule({
-  declarations: [
-    HelpMeFindPage,
-  ],
   imports: [
     IonicPageModule.forChild(HelpMeFindPage),
-  ],
-  exports: [
-    HelpMeFindPage
   ]
 })
 

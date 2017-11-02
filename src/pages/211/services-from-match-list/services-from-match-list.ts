@@ -1,7 +1,6 @@
-import { Component, Output } from '@angular/core';
+import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { ServiceModel } from '../../../models/service';
-import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 import { HelpersProvider } from '../../../providers/helpers/helpers';
 
 /**
@@ -18,9 +17,9 @@ import { HelpersProvider } from '../../../providers/helpers/helpers';
 export class ServicesFromMatchListPage {
 
   matches: ServiceModel[];
-  orderBy: String;  
+  orderBy: String;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private helpers: HelpersProvider,
               public events: Events) {
@@ -30,7 +29,7 @@ export class ServicesFromMatchListPage {
 
   ionViewDidLoad() {
   }
-  
+
   // Orders the match list based on the passed string
   orderMatchList(orderBy: String) {
     if(orderBy == "transit_time") {

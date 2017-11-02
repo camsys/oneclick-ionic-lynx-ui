@@ -6,9 +6,6 @@ import { ServicesPage } from '../services/services'
 import { OneClickProvider } from '../../../providers/one-click/one-click';
 import { SubcategoryFor211Model } from '../../../models/subcategory-for-211'
 import { SubSubcategoryFor211Model } from '../../../models/sub-subcategory-for-211'
-import { ServiceModel } from '../../../models/service'
-import { Session } from '../../../models/session'
-import { GooglePlaceModel } from "../../../models/google-place";
 
 import { AuthProvider } from '../../../providers/auth/auth';
 

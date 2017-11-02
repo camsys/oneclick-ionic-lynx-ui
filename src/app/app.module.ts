@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { Http, HttpModule } from '@angular/http';
-import { CurrencyPipe } from '@angular/common';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ElasticModule } from 'angular2-elastic';
 import { DatePicker } from '@ionic-native/date-picker';
@@ -40,9 +39,8 @@ import { DirectTransporationFinderPage } from '../pages/direct-transporation-fin
 import { TransportationEligibilityPage } from '../pages/transportation-eligibility/transportation-eligibility';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
-import { TemporaryLanguageTestingPage } from '../pages/temporary-language-testing/temporary-language-testing';
-import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for211/sub-subcategories-for211'
-import { ServicesPage } from '../pages/211/services/services'
+import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for211/sub-subcategories-for211';
+import { ServicesPage } from '../pages/211/services/services';
 import { TaxiTransportationPage } from '../pages/taxi-transportation/taxi-transportation';
 import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
 
@@ -63,7 +61,6 @@ import { AddressComponentModel } from '../models/address-component';
 import { LocationModel } from '../models/location';
 import { TripModel } from "../models/trip";
 import { TripRequestModel } from "../models/trip-request";
-// import { TripResponseModel } from "../models/trip-response";
 import { ItineraryModel } from "../models/itinerary";
 import { LegModel } from "../models/leg";
 import { LegGeometryModel } from "../models/leg-geometry";
@@ -90,7 +87,6 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
 @NgModule({
   declarations: [
     MyApp,
-    TemporaryLanguageTestingPage,
     HelpMeFindPage,
     UserLocatorPage,
     CategoriesFor211Page,
@@ -144,7 +140,6 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TemporaryLanguageTestingPage,
     HelpMeFindPage,
     UserLocatorPage,
     CategoriesFor211Page,
@@ -197,6 +192,35 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     PageModel,
     SearchResultModel,
     DatePicker
+  ],
+  exports: [
+    CategoriesFor211Page,
+    MapFor211ServicesPage,
+    ServiceFor211DetailPage,
+    ServiceFor211ReviewPage,
+    ServicesPage,
+    ServicesFromMatchListPage,
+    SubSubcategoriesFor211Page,
+    SubcategoriesFor211Page,
+    AboutUsPage,
+    ContactUsPage,
+    DirectTransporationFinderPage,
+    DirectionsPage,
+    DirectionsOptionsPage,
+    DirectionsRouteDetailPage,
+    FeedbackModalPage,
+    HelpMeFindPage,
+    SignInPage,
+    TaxiTransportationPage,
+    TransportationAgenciesPage,
+    TransportationEligibilityPage,
+    UserLocatorPage,
+    UserProfilePage,
+    PlaceSearchComponent,
+    ResponsiveDatepickerComponent,
+    ResponsiveTimepickerComponent,
+    ServiceDetailsComponent,
+
   ]
 })
 
