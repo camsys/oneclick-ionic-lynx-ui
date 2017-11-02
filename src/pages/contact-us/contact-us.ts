@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 // Providers
 import { OneClickProvider } from '../../providers/one-click/one-click';
-import { HelpersProvider } from '../../providers/helpers/helpers';
 
 // Models
 import { AgencyModel } from '../../models/agency';
@@ -15,14 +14,13 @@ import { AgencyModel } from '../../models/agency';
 })
 export class ContactUsPage {
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private oneClickProvider: OneClickProvider,
-              private helpers: HelpersProvider) {}
+              private oneClickProvider: OneClickProvider) {}
 
   agencies: AgencyModel[];
 
-  ionViewDidLoad() {    
+  ionViewDidLoad() {
     this.oneClickProvider.getAllAgencies()
     .then(agencies => this.agencies = agencies);
   }

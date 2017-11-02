@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TripResponseModel } from '../../models/trip-response';
-import { ItineraryModel } from '../../models/itinerary';
 import { OneClickServiceModel } from '../../models/one-click-service';
 
 
@@ -22,7 +21,7 @@ export class TaxiTransportationPage {
   taxiServices: OneClickServiceModel[];
   mode: string;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams) {
     this.trip = navParams.data.trip_response;
     this.mode = navParams.data.mode;
@@ -31,7 +30,7 @@ export class TaxiTransportationPage {
       svc.fare = itin.cost;
       return svc;
     })
-    
+
   }
 
   ionViewDidLoad() {

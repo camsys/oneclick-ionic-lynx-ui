@@ -1,7 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, ModalController, ToastController } from 'ionic-angular';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
-import { environment } from '../../../app/environment';
 
 // Pages
 import { FeedbackModalPage } from "../../feedback-modal/feedback-modal";
@@ -62,7 +61,7 @@ export class ServiceFor211DetailPage {
     // Set origin and destination places
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
-    
+
     // Plan a trip and store the result.
     // Once response comes in, update the UI with travel times and allow
     // user to select a mode to view directions.
@@ -90,7 +89,7 @@ export class ServiceFor211DetailPage {
       this.tripPlanSubscription.unsubscribe();
     }
   }
-  
+
   // Returns true/false based on whether or not the tripResponse has returned yet
   ready(): boolean {
     return !!this.tripResponse && !!this.tripResponse.id;
@@ -143,7 +142,7 @@ export class ServiceFor211DetailPage {
 
     // Set trip types to the mode passed to this method
     tripRequest.trip_types = modes;
-    
+
     // Don't filter by schedule, because we aren't letting the user pick a time for paratransit or taxi
     // Also don't filter by eligibility, as doing so may exclude relevant results from the fare preview
     this.tripRequest.except_filters = ["schedule", "eligibility"];

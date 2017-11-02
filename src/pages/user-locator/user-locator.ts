@@ -1,7 +1,6 @@
 import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { FormControl } from '@angular/forms';
 
 // PROVIDERS
 import { GeocodeServiceProvider } from '../../providers/google/geocode-service';
@@ -13,7 +12,6 @@ import { CategoriesFor211Page } from '../211/categories-for211/categories-for211
 import { ServiceFor211DetailPage } from '../211/service-for211-detail/service-for211-detail';
 
 // MODELS
-import { OneClickPlaceModel } from "../../models/one-click-place";
 import { GooglePlaceModel } from "../../models/google-place";
 
 
@@ -154,32 +152,32 @@ export class UserLocatorPage {
   }
 
   // Centers map on a place
-  private centerMapOnPlace(item: GooglePlaceModel, originOrDestination: string) {
-    console.log('in centerMapOnPlace');
-    console.log(item);
-
-    if(originOrDestination == 'origin')
-    {
-      this.geoServiceProvider.getPlaceFromFormattedAddress(item)
-        .subscribe((places) => {
-          let place = places[0];
-          if(place != null)
-          {
-            this.zoomToOriginLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
-          }
-      });
-    }else if(originOrDestination == 'destination')
-    {
-      this.geoServiceProvider.getPlaceFromFormattedAddress(item)
-        .subscribe((places) => {
-          let place = places[0];
-          if(place != null)
-          {
-            this.zoomToDestinationLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
-          }
-        });
-    }
-  }
+  // private centerMapOnPlace(item: GooglePlaceModel, originOrDestination: string) {
+  //   console.log('in centerMapOnPlace');
+  //   console.log(item);
+  //
+  //   if(originOrDestination == 'origin')
+  //   {
+  //     this.geoServiceProvider.getPlaceFromFormattedAddress(item)
+  //       .subscribe((places) => {
+  //         let place = places[0];
+  //         if(place != null)
+  //         {
+  //           this.zoomToOriginLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
+  //         }
+  //     });
+  //   }else if(originOrDestination == 'destination')
+  //   {
+  //     this.geoServiceProvider.getPlaceFromFormattedAddress(item)
+  //       .subscribe((places) => {
+  //         let place = places[0];
+  //         if(place != null)
+  //         {
+  //           this.zoomToDestinationLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
+  //         }
+  //       });
+  //   }
+  // }
 
   // Store place in session hash
   private storePlaceInSession(place: GooglePlaceModel) {

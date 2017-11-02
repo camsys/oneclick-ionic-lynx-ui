@@ -4,8 +4,6 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMapsHelpersProvider } from '../../../providers/google/google-maps-helpers';
 import { ServiceModel } from '../../../models/service';
 
-import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
-
 /**
  * Generated class for the MapFor211ServicesPage page.
  *
@@ -26,9 +24,9 @@ export class MapFor211ServicesPage {
   markerSelected: boolean;
 
 
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams, 
-              public platform: Platform, 
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public platform: Platform,
               public geolocation: Geolocation,
               private googleMapsHelpers: GoogleMapsHelpersProvider,
               public events: Events) {
@@ -48,10 +46,10 @@ export class MapFor211ServicesPage {
     this.service_map = this.googleMapsHelpers.buildGoogleMap('service-results-map-canvas');
 
     let me = this;
-    
+
     // Draw service markers, with event handlers that open details window on click
     for (let service of this.matches) {
-      if( (typeof service.lat!='undefined' && service.lat) && 
+      if( (typeof service.lat!='undefined' && service.lat) &&
           (typeof service.lng!='undefined' && service.lng) ) {
         let service_location : google.maps.LatLng = new google.maps.LatLng (Number(service.lat), Number(service.lng));
 
@@ -71,7 +69,7 @@ export class MapFor211ServicesPage {
       }
 
     }
-    
+
     // Add event handler for clicking OFF a service marker, closing the details window
     google.maps.event.addListener(this.service_map, "click", function(event) {
       me.markerSelected = false;
