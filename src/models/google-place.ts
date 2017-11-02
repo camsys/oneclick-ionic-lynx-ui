@@ -23,6 +23,7 @@ export class GooglePlaceModel {
     return new OneClickPlaceModel({
       lat: this.geometry.lat,
       lng: this.geometry.lng,
+      name: this.formatted_address,
       street_number: this.addressComponent("street_number").long_name,
       route: this.addressComponent("route").long_name,
       city: this.addressComponent("locality").long_name,

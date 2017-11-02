@@ -63,7 +63,7 @@ export class ServicesPage {
       service: service,
       origin: this.auth.session().user_starting_location,
       destination: {
-        name: service.site_name,
+        formatted_address: service.site_name,
         geometry: {lat: service.lat, lng: service.lng}
       }
     })
