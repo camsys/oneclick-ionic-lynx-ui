@@ -91,7 +91,6 @@ export class DirectionsOptionsPage {
   // Makes a new trip request and reloads the Directions page.
   replanTrip() {
     this.events.publish('spinner:show');
-    console.log("REPLANNING TRIP", this.tripRequest);
     
     let result = this.oneClickProvider.getTripPlan(this.tripRequest).
       forEach(value => {

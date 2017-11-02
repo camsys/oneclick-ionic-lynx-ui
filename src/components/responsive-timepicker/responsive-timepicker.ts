@@ -28,11 +28,14 @@ export class ResponsiveTimepickerComponent {
 
   constructor(private nativeDatePicker: DatePicker,
               public platform: Platform,
-              public helpers: HelpersProvider) {
-    this.times = this.helpers.getTimesArray(new Date(this.time), 15); // Set list of available times to 15-min increments.
+              public helpers: HelpersProvider) { }
+  
+  ngOnInit() {
+    // Set list of available times to 15-min increments.    
+    this.times = this.helpers.getTimesArray(new Date(this.time), 15); 
   }
   
-  open() {    
+  open() {
     // Wait for platform to be ready...
     this.platform.ready()
     .then(() => {
