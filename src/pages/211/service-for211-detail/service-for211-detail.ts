@@ -111,11 +111,10 @@ export class ServiceFor211DetailPage {
         mode: mode
       });
     } else if (mode === 'uber') {
-      this.openUrl('https://m.uber.com/ul?&amp;client_id=Qu7RDPXW65A6G-JqqIgnbsfYglolUTIm&amp;action=setPickup&amp;pickup[latitude]='+tripResponse.origin.lat+
-        '&amp;pickup[longitude]='+tripResponse.origin.lng+'&amp;pickup[formatted_address]='+tripResponse.origin.name+
-        '&amp;dropoff[latitude]='+tripResponse.destination.lat+'&amp;dropoff[longitude]='+tripResponse.destination.lng+'&amp;dropoff[formatted_address]='+tripResponse.destination.name);
+      this.openUrl('https://m.uber.com/ul?&amp;client_id=Qu7RDPXW65A6G-JqqIgnbsfYglolUTIm&amp;action=setPickup&amp;'+
+        'pickup[latitude]='+tripResponse.origin.lat+'&amp;pickup[longitude]='+tripResponse.origin.lng+
+        '&amp;dropoff[latitude]='+tripResponse.destination.lat+'&amp;dropoff[longitude]='+tripResponse.destination.lng)
     }
-
   }
 
   openOtherTransportationOptions(){
