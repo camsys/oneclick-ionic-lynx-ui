@@ -148,7 +148,11 @@
         "steps_tab": {
           "header": "Step by Step",
           "option": "Option",
-          "trip_date_label": "Your trip on "
+          "trip_date_label": "Your trip on ",
+          "first_nontransit_step": "HEAD {{direction}} on {{street_name}} for {{distance}}",
+          "other_nontransit_step": "{{direction}} on {{street_name}} for {{distance}}",
+          "transit_step": "BOARD {{service_name}} Route {{route}} and ride it {{stops}} stops",
+          "last_transit_step": "GET OFF at stop: {{destination}}"
         }
       },
       

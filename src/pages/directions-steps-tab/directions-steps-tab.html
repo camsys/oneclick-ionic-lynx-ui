@@ -64,9 +64,6 @@
                   <div class="leg-time-header-content-time">
                     {{ leg.startTime | date:'shortTime'}}
                   </div>
-                  <!-- <div *ngIf="!trip.arrive_by" class="leg-time-header-content-date">
-                    {{ leg.startTime | date:'MMM d'}}
-                  </div> -->
                   
                 </ion-col>
                 
@@ -134,12 +131,28 @@
                     
                     <!-- for first step, give absolute direction -->
                     <div class="step-details-container" *ngIf="k === 0">
-                      HEAD {{step.absoluteDirection}} on {{step.streetName}} for {{step.distance | prettyDistance }}
+                      <!-- HEAD {{direction}} on {{street_name}} for {{distance}} -->
+                      {{ 
+                        "lynx.pages.directions.steps_tab.first_nontransit_step" | 
+                        translate:{
+                          direction: step.absoluteDirection,
+                          street_name: step.streetName,
+                          distance: (step.distance | prettyDistance)
+                        } 
+                      }}
                     </div>
                     
                     <!-- for subsequent steps, give relative directions -->
                     <div class="step-details-container" *ngIf="k > 0">
-                      {{step.relativeDirection}} on {{step.streetName}} for {{step.distance | prettyDistance }}
+                      <!-- {{direction}} on {{street_name}} for {{distance}} -->
+                      {{ 
+                        "lynx.pages.directions.steps_tab.other_nontransit_step" | 
+                        translate:{
+                          direction: step.relativeDirection,
+                          street_name: step.streetName,
+                          distance: (step.distance | prettyDistance)
+                        } 
+                      }}
                     </div>
                     
                   </ion-col>
@@ -151,14 +164,26 @@
                 <ion-row class="step-row">
                   <ion-col no-padding col-12>
                     <div class="step-details-container">
-                      BOARD {{leg.serviceName}} Route {{leg.route}} and ride it {{leg.intermediateStops.length}} stops.
+                      <!-- BOARD {{service_name}} Route {{route}} and ride it {{stops}} stops. -->
+                      {{ 
+                        "lynx.pages.directions.steps_tab.transit_step" | 
+                        translate:{
+                          service_name: leg.serviceName,
+                          route: leg.route,
+                          stops: leg.intermediateStops.length
+                        } 
+                      }}
                     </div>
                   </ion-col>
                 </ion-row>
                 <ion-row class="step-row">
                   <ion-col no-padding col-12>
                     <div class="step-details-container">
-                      GET OFF at stop: {{leg.to.name}}.
+                      <!-- GET OFF at stop: {{destination}} -->
+                      {{ 
+                        "lynx.pages.directions.steps_tab.last_transit_step" | 
+                        translate:{destination: leg.to.name} 
+                      }}
                     </div>
                   </ion-col>
                 </ion-row>
