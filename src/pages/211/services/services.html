@@ -23,13 +23,13 @@
         
         <!-- Map results tab -->
         <ion-tab  [root]="mapTab" 
-                  tabTitle="{{ 'pages.services.map_tab.header' | translate }}" 
+                  tabTitle="{{ 'lynx.pages.services.map_tab.header' | translate }}" 
                   [rootParams]="this.matches_result">
         </ion-tab>
 
         <!-- List results tab -->
         <ion-tab  [root]="servicesFromMatchListTab" 
-                  tabTitle="{{ 'pages.services.list_tab.header' | translate }}"
+                  tabTitle="{{ 'lynx.pages.services.list_tab.header' | translate }}"
                   [rootParams]="this.matches_result">
         </ion-tab>
       </ion-tabs>

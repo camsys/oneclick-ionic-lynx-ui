@@ -17,16 +17,16 @@
   <ion-toolbar class="lynx-toolbar" text-center>
 
     <div id="origin-search-container">
-      <ion-title>{{ "pages.user_locator.origin_search.label" | translate }}</ion-title>
+      <ion-title>{{ "lynx.pages.user_locator.origin_search.label" | translate }}</ion-title>
       <place-search #originSearch
-                    placeholder="{{ 'pages.user_locator.origin_search.placeholder_pending' | translate }}">
+                    placeholder="{{ 'lynx.pages.user_locator.origin_search.placeholder_pending' | translate }}">
       </place-search>
     </div>
 
     <div id="destination-search-container" [hidden]="findServicesView">
-      <ion-title>{{ "pages.user_locator.destination_search.label" | translate }}</ion-title>
+      <ion-title>{{ "lynx.pages.user_locator.destination_search.label" | translate }}</ion-title>
       <place-search #destinationSearch
-                    placeholder="{{ 'pages.user_locator.destination_search.placeholder_pending' | translate }}">
+                    placeholder="{{ 'lynx.pages.user_locator.destination_search.placeholder_pending' | translate }}">
       </place-search>
     </div>
 
@@ -61,7 +61,7 @@
             id="find-services-button"
             (click)="searchForServices(originSearch.place)"
             *ngIf="!!userLocation || originSearch.place">
-      {{ "pages.user_locator.resources_button" | translate }}
+      {{ "lynx.pages.user_locator.resources_button" | translate }}
       <ion-icon pull-right name="arrow-forward"></ion-icon>
     </button>
   </div>
@@ -72,7 +72,7 @@
             id="find-transportation-button"
             *ngIf="originSearch.place && destinationSearch.place"
             (click)="findTransportation(originSearch.place, destinationSearch.place)">
-        {{ "pages.user_locator.transportation_button" | translate }}
+        {{ "lynx.pages.user_locator.transportation_button" | translate }}
       <ion-icon pull-right name="arrow-forward"></ion-icon>
     </button>
   </div>

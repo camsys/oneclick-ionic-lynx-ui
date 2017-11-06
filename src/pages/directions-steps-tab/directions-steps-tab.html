@@ -13,7 +13,7 @@
                (ngModelChange)="selectItinerary($event)">
     <ion-segment-button *ngFor="let itin of itineraries; let i = index" 
                         value="{{ i | toString }}">
-      {{ "pages.directions.steps_tab.option" | translate }} {{i + 1}}
+      {{ "lynx.pages.directions.steps_tab.option" | translate }} {{i + 1}}
     </ion-segment-button>
   </ion-segment>
   
@@ -26,7 +26,7 @@
                col-12 col-md-8 offset-md-2 text-center 
                (click)="tripTimeDatepicker.open()">
         <h3>
-          {{ "pages.directions.steps_tab.trip_date_label" | translate }} {{tripDate | date: 'mediumDate'}}
+          {{ "lynx.pages.directions.steps_tab.trip_date_label" | translate }} {{tripDate | date: 'mediumDate'}}
           <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="calendar"></ion-icon>
         </h3>
         
@@ -59,7 +59,7 @@
                        
                 <ion-col col-9 no-padding text-center class="leg-header-content">
                   <div  *ngIf="!trip.arrive_by" class="leg-time-header-content-description">
-                    {{ "global.directions.depart_at" | translate }}
+                    {{ "lynx.global.directions.depart_at" | translate }}
                   </div>
                   <div class="leg-time-header-content-time">
                     {{ leg.startTime | date:'shortTime'}}
@@ -179,7 +179,7 @@
                 <ion-col col-9 no-padding text-center class="leg-header-content">
                   
                   <div *ngIf="trip.arrive_by" class="leg-time-header-content-description">
-                    {{ "global.directions.arrive_by" | translate }}
+                    {{ "lynx.global.directions.arrive_by" | translate }}
                   </div>
                   <div class="leg-time-header-content-time">
                     {{ itin.legs[itin.legs.length - 1].endTime | date:'shortTime' }}

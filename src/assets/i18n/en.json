@@ -1,0 +1,216 @@
+{
+  
+  "lynx": {
+    
+    "global": {
+      
+      "common": {
+        "to": "to"
+      },
+      
+      "languages": {
+        "en": "English",
+        "es": "Spanish"
+      },
+      
+      "modes": {
+        "car": "Drive",
+        "transit": "Bus & Train",
+        "taxi": "Taxi",
+        "uber": "Uber",
+        "paratransit": "Paratransit"
+      },
+      
+      "time": {
+        "hour_short": "hr",
+        "minute_short": "min",
+        "unknown": ""
+      },
+      
+      "distance": {
+        "feet_short": "ft",
+        "miles_short": "mi"
+      },
+      
+      "directions": {
+        "depart_at": "depart at",
+        "arrive_by": "arrive by"
+      },
+      
+      "fare": {
+        "no_fare": "n/a"
+      },
+      
+      "weekdays": {
+        "sun_short": "Sun",
+        "mon_short": "Mon",
+        "tue_short": "Tue",
+        "wed_short": "Wed",
+        "thu_short": "Thu",
+        "fri_short": "Fri",
+        "sat_short": "Sat"
+      }
+      
+    },
+    
+    "pages": {
+      
+      "about_us": {
+        "header": "About Us",
+        "url": "website",
+        "description": "description"
+      },
+      
+      "contact_us": {
+        "header": "About Us",
+        "url": "website",
+        "phone": "phone"
+      },
+      
+      "home": {
+        "welcome_message_1": "Welcome to LYNX",
+        "welcome_message_2": "How can we help you?",
+        "resources_button": "Helpful Resources",
+        "transportation_button": "Transportation"
+      },
+      
+      "menu": {
+        "welcome_user": "Welcome {{user}}!",
+        "profile": "Edit My Profile",
+        "about_us": "About Us",
+        "contact_us": "Contact Us",
+        "transportation": "Transportation Options",
+        "categories": "Browse Services by Category",
+        "resources": "Find Services by Location",
+        "privacy_policy": "Privacy Policy",
+        "sign_out": "Sign Out",
+        "language_test": "Temporary Language Test",
+        "home": "Home",
+        "sign_in": "Hello! Log In Now",
+        "sign_up": "Don't have an account?"
+      },
+      
+      "user_locator": {
+        "origin_search": {
+          "label": "Where Are You?",
+          "placeholder_pending": "Finding Your Location...",
+          "placeholder_found": ""
+        },
+        "destination_search": {
+          "label": "Where Are You Going?",
+          "placeholder": "Your Destination"
+        },
+        "resources_button": "Find Services",
+        "transportation_button": "Find Transportation"
+      },
+      
+      "categories": {
+        "resources_search": {
+          "label": "Resources in Your Area",
+          "placeholder": "Find Resources",
+          "category": "Category",
+          "sub_category": "Category",
+          "sub_sub_category": "Category",
+          "service": "Service"
+        }
+      },
+      
+      "services": {
+        "map_tab": {
+          "header": "Map",
+          "go_button": "Go"
+        },
+        "list_tab": {
+          "header": "List",
+          "sort_by_header": "Sort By",
+          "results_header": "Services"
+        }
+      },
+      
+      "service_details": {
+        "description_header": "About this Service",
+        "phone_header": "Have Questions?",
+        "feedback_header": "Have Feedback?",
+        "feedback_button": "Rate this Service",
+        "fare": "fare",
+        "phone": "phone",
+        "email": "email",
+        "url": "website",
+        "description": "description",
+        "schedule": "schedule"
+      },
+      
+      "directions": {
+        "header": "Directions",
+        "map_tab": {
+          "header": "Map"
+        },
+        "steps_tab": {
+          "header": "Step by Step",
+          "option": "Option",
+          "trip_date_label": "Your trip on "
+        }
+      },
+      
+      "taxi_services": {
+        "header": "Taxi Options"
+      },
+      
+      "paratransit_services": {
+        "header": "Transportation Options",
+        "feedback_button": "Rate this Service"
+      },
+      
+      "user_profile": {
+
+      },
+      
+      "transportation_eligibility": {
+        "header": "Select All That Apply",
+        "accommodations_header": "What Accommodations do You Need?",
+        "eligibilities_header": "Do You Meet Any Eligibility Requirements?",
+        "plan_trip_button": "See Transportation Options"      
+      },
+      
+      "feedback": {
+        "header": "Leave Feedback",
+        "review_placeholder": "Write a Review",
+        "email": "Your Email",
+        "phone": "Your Phone",
+        "submit_button": "Submit",
+        "cancel_button": "Cancel"
+      }
+      
+    }
+    
+  },
+  
+  "otp": {
+    
+    "DEPART": "DEPART",
+    "HARD_LEFT": "HARD_LEFT",
+    "LEFT": "LEFT",
+    "SLIGHTLY_LEFT": "SLIGHTLY_LEFT",
+    "CONTINUE": "CONTINUE",
+    "SLIGHTLY_RIGHT": "SLIGHTLY_RIGHT",
+    "RIGHT": "RIGHT",
+    "HARD_RIGHT": "HARD_RIGHT",
+    "CIRCLE_CLOCKWISE": "CIRCLE_CLOCKWISE",
+    "CIRCLE_COUNTERCLOCKWISE": "CIRCLE_COUNTERCLOCKWISE",
+    "ELEVATOR": "ELEVATOR",
+    "UTURN_LEFT": "UTURN_LEFT",
+    "UTURN_RIGHT": "UTURN_RIGHT",
+    
+    "NORTH": "NORTH",
+    "NORTHEAST": "NORTHEAST",
+    "EAST": "EAST",
+    "SOUTHEAST": "SOUTHEAST",
+    "SOUTH": "SOUTH",
+    "SOUTHWEST": "SOUTHWEST",
+    "WEST": "WEST",
+    "NORTHWEST": "NORTHWEST"
+    
+  }
+  
+  
+}

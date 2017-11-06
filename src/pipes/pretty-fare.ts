@@ -19,7 +19,7 @@ export class PrettyFarePipe implements PipeTransform {
     
     // If the fares array is empty, return a fare-unknown message.
     if(fares.length <= 0) {
-      return this.translate.instant("global.fare.no_fare");
+      return this.translate.instant("lynx.global.fare.no_fare");
     }
     
     // Pull out the min and max fares

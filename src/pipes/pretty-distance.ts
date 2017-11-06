@@ -14,11 +14,11 @@ export class PrettyDistancePipe implements PipeTransform {
     if (distanceInFeet <= 1000) {
       // For short distances (less than 1000 feet), return distance in feet rounded to nearest 10 feet.
       distanceInFeet = Math.round(distanceInFeet / 10) * 10;
-      return distanceInFeet + ' ' + this.translate.instant("global.distance.feet_short");
+      return distanceInFeet + ' ' + this.translate.instant("lynx.global.distance.feet_short");
     } else {
       // For longer distances, convert to miles and round to 1 decimal place.
       let distanceInMiles = Math.round(distanceInFeet / 5280 * 10) / 10; 
-      return distanceInMiles + ' ' + this.translate.instant("global.distance.miles_shor");
+      return distanceInMiles + ' ' + this.translate.instant("lynx.global.distance.miles_shor");
     }
   }
   
