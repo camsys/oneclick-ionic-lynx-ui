@@ -187,28 +187,37 @@
   
   "otp": {
     
-    "DEPART": "DEPART",
-    "HARD_LEFT": "HARD_LEFT",
-    "LEFT": "LEFT",
-    "SLIGHTLY_LEFT": "SLIGHTLY_LEFT",
-    "CONTINUE": "CONTINUE",
-    "SLIGHTLY_RIGHT": "SLIGHTLY_RIGHT",
-    "RIGHT": "RIGHT",
-    "HARD_RIGHT": "HARD_RIGHT",
-    "CIRCLE_CLOCKWISE": "CIRCLE_CLOCKWISE",
-    "CIRCLE_COUNTERCLOCKWISE": "CIRCLE_COUNTERCLOCKWISE",
-    "ELEVATOR": "ELEVATOR",
-    "UTURN_LEFT": "UTURN_LEFT",
-    "UTURN_RIGHT": "UTURN_RIGHT",
+    "relativeDirection": {
+      
+      "DEPART": "DEPART",
+      "HARD_LEFT": "HARD_LEFT",
+      "LEFT": "LEFT",
+      "SLIGHTLY_LEFT": "SLIGHTLY_LEFT",
+      "CONTINUE": "CONTINUE",
+      "SLIGHTLY_RIGHT": "SLIGHTLY_RIGHT",
+      "RIGHT": "RIGHT",
+      "HARD_RIGHT": "HARD_RIGHT",
+      "CIRCLE_CLOCKWISE": "CIRCLE_CLOCKWISE",
+      "CIRCLE_COUNTERCLOCKWISE": "CIRCLE_COUNTERCLOCKWISE",
+      "ELEVATOR": "ELEVATOR",
+      "UTURN_LEFT": "UTURN_LEFT",
+      "UTURN_RIGHT": "UTURN_RIGHT"
+      
+    },
     
-    "NORTH": "NORTH",
-    "NORTHEAST": "NORTHEAST",
-    "EAST": "EAST",
-    "SOUTHEAST": "SOUTHEAST",
-    "SOUTH": "SOUTH",
-    "SOUTHWEST": "SOUTHWEST",
-    "WEST": "WEST",
-    "NORTHWEST": "NORTHWEST"
+    "absoluteDirection": {
+      
+      "NORTH": "NORTH",
+      "NORTHEAST": "NORTHEAST",
+      "EAST": "EAST",
+      "SOUTHEAST": "SOUTHEAST",
+      "SOUTH": "SOUTH",
+      "SOUTHWEST": "SOUTHWEST",
+      "WEST": "WEST",
+      "NORTHWEST": "NORTHWEST"
+      
+    }
+    
     
   }
   
