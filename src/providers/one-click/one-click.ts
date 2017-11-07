@@ -93,15 +93,12 @@ export class OneClickProvider {
      var uri: string = encodeURI(this.oneClickUrl + 'users');
      return this.http.get(uri, options)
       .toPromise()
-      .then(response => response.text())
-      .then(json => JSON.parse(json).data.user as User)
-      .then(user => this.auth.updateSessionUser(user)) // store user info in session storage
+      .then((response) => this.unpackUserResponse(response))
       .catch(this.handleError);
   }
 
   // Updates a User in 1-Click
   updateProfile(user: User): Promise<User>{
-
     let headers = this.auth.authHeaders();
     let formatted_accs = {};
     let formatted_eligs = {};
@@ -121,26 +118,30 @@ export class OneClickProvider {
 
     let body = {
       "attributes": {
-      "first_name": user.first_name,
-      "last_name": user.last_name,
-      "email": user.email,
-      "password": user.password,
-      "preferred_locale": user.preferred_locale
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "email": user.email,
+        "password": user.password,
+        "preferred_locale": user.preferred_locale
       },
       "accommodations": formatted_accs,
       "eligibilities": formatted_eligs,
       "trip_types": formatted_trip_types
-      };
+    };
 
-     let options = new RequestOptions({ headers: headers });
+    let options = new RequestOptions({ headers: headers });
 
-     var uri: string = encodeURI(this.oneClickUrl + 'users');
-     return this.http.put(uri, body, options)
+    var uri: string = encodeURI(this.oneClickUrl + 'users');
+    return this.http.put(uri, body, options)
       .toPromise()
-      .then(response => response.text())
-      .then(json => JSON.parse(json).data.user as User)
-      .then(user => this.auth.updateSessionUser(user)) // store user info in session storage
+      .then((response) => this.unpackUserResponse(response))
       .catch(this.handleError);
+  }
+  
+  // Unpacks a OneClick user response and stores the user in the session
+  unpackUserResponse(response): User {
+    let user = JSON.parse(response.text()).data.user as User;
+    return this.auth.updateSessionUser(user); // store user info in session storage
   }
 
   getCategoriesFor211Services(lat: number, lng: number): Promise<CategoryFor211Model[]> {

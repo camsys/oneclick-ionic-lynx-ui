@@ -3,6 +3,7 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
+import { TranslateService } from '@ngx-translate/core';
 
 import { Global } from '../../app/global';
 import { environment } from '../../app/environment';
@@ -24,7 +25,7 @@ export class AuthProvider {
   })
 
   constructor(public http: Http,
-              private i18n: I18nProvider) { }
+              private translate: TranslateService) { }
   
   // Pulls the current session from local storage
   session(): Session {
@@ -123,8 +124,7 @@ export class AuthProvider {
     let session = this.session();
     session.user = user;
     this.setSession(session);
-    this.i18n.useLocale(this.preferredLocale());
-        
+    this.translate.use(this.preferredLocale());
     return this.user();
   }
 

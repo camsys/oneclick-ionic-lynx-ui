@@ -19,7 +19,7 @@ export class I18nProvider {
 
   constructor(public http: Http,
               public platform: Platform,
-              private translate: TranslateService) { }
+              public translate: TranslateService) { }
   
   // Initializes the App, adding available languages and setting the default language
   initializeApp() {
@@ -33,17 +33,6 @@ export class I18nProvider {
       });
     } else { // Otherwise, try to get the browser's preferred locale
       this.translate.setDefaultLang(this.getSuitableLanguage(this.translate.getBrowserLang()));
-    }
-  }
-  
-  // Updates the translation service to use the passed locale. If "keys" is
-  // passed, uses undefined as the locale
-  useLocale(locale: string) {
-    if(locale == "keys") {
-      // Set language to undefined to view keys
-      this.translate.use(undefined);         
-    } else {
-      this.translate.use(locale);
     }
   }
   

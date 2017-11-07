@@ -10,7 +10,8 @@
       
       "languages": {
         "en": "English",
-        "es": "Spanish"
+        "es": "Spanish",
+        "keys": "View Translation Keys"
       },
       
       "modes": {
@@ -166,7 +167,7 @@
       },
       
       "user_profile": {
-
+        "update_button": "Update"
       },
       
       "transportation_eligibility": {

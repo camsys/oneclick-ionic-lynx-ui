@@ -58,9 +58,10 @@
       <ion-col>
 
           <ion-select name="preferred_locale" [(ngModel)]="user.preferred_locale">
-            <ion-option value="en">English</ion-option>
-            <ion-option value="es">Spanish</ion-option>
-            <ion-option value="keys">Translation Keys</ion-option>
+            <ion-option *ngFor="let locale of available_locales"
+                        value="{{locale}}">
+              {{ "lynx.global.languages." + locale | translate }}
+            </ion-option>
           </ion-select>
 
       </ion-col>
@@ -103,7 +104,7 @@
     <ion-row>
         <ion-col>
           <button ion-button round class="lynx-button-dark center" type="submit" [disabled]="!updateProfileForm.form.valid">
-            Update
+            {{ "lynx.pages.user_profile.update_button" | translate }}
           </button>
         </ion-col>
     </ion-row>

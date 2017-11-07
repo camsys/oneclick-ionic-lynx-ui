@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
+import { environment } from '../../app/environment';
+
 // MODELS
 import {User} from '../../models/user';
 import {Eligibility} from '../../models/eligibility';
@@ -32,20 +34,18 @@ export class UserProfilePage {
   accommodations: Accommodation[];
   trip_types: TripType[];
   filtered_trip_types: TripType[];
+  available_locales: string[];
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public toastCtrl: ToastController,
               public oneClickProvider: OneClickProvider) {
+    this.available_locales = environment.AVAILABLE_LOCALES;
   }
 
   ionViewDidLoad() {
     this.oneClickProvider.getProfile()
-    .then(usr => this.user = usr)
-    .then(usr => this.eligibilities = this.user.eligibilities)
-    .then(usr => this.accommodations = this.user.accommodations)
-    .then(usr => this.trip_types = this.user.trip_types)
-    .then(usr => this.filterTripTypes())
+    .then((user) => this.updateUserData(user))
     .catch((error) => this.handleError(error))
   }
 
@@ -54,12 +54,16 @@ export class UserProfilePage {
     this.user.accommodations = this.accommodations
     this.user.trip_types = this.trip_types
     this.oneClickProvider.updateProfile(this.user)
-    .then(usr => this.user = usr)
-    .then(usr => this.eligibilities = this.user.eligibilities)
-    .then(usr => this.accommodations = this.user.accommodations)
-    .then(usr => this.trip_types = this.user.trip_types)
-    .then(usr => this.filterTripTypes())
+    .then((user) => this.updateUserData(user))
     .catch((error) => this.handleError(error))
+  }
+  
+  updateUserData(user: User) {
+    this.user = user;
+    this.eligibilities = this.user.eligibilities;
+    this.accommodations = this.user.accommodations;
+    this.trip_types = this.user.trip_types;
+    this.filterTripTypes();
   }
 
   filterTripTypes() {
