@@ -4,10 +4,9 @@ import { InAppBrowser } from "@ionic-native/in-app-browser";
 
 // Pages
 import { FeedbackModalPage } from "../../feedback-modal/feedback-modal";
-import { ServiceFor211ReviewPage } from '../service-for211-review/service-for211-review';
 import { DirectionsPage } from '../../directions/directions';
 import { TransportationEligibilityPage } from '../../transportation-eligibility/transportation-eligibility';
-import { TaxiTransportationPage } from '../../taxi-transportation/taxi-transportation';
+import { TaxiServicesPage } from '../../taxi-services/taxi-services';
 
 // Models
 import { ServiceModel } from '../../../models/service';
@@ -79,10 +78,6 @@ export class ServiceFor211DetailPage {
     console.log('ionViewDidLoad ServiceFor211DetailPage');
   }
 
-  openServiceReviewPage(){
-    this.navCtrl.push(ServiceFor211ReviewPage);
-  }
-
   // On page leave, unsubscribe from the trip plan call so it doesn't trigger errors when it resolves
   ionViewWillLeave() {
     if(this.tripPlanSubscription) {
@@ -106,7 +101,7 @@ export class ServiceFor211DetailPage {
         mode: mode
       });
     } else if (mode === 'taxi') {
-      this.navCtrl.push(TaxiTransportationPage, {
+      this.navCtrl.push(TaxiServicesPage, {
         trip_response: tripResponse,
         mode: mode
       });

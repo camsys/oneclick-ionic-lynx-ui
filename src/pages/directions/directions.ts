@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { DirectionsOptionsPage } from '../directions-options/directions-options';
-import { DirectionsRouteDetailPage } from '../directions-route-detail/directions-route-detail';
+import { DirectionsStepsTabPage } from '../directions-steps-tab/directions-steps-tab';
+import { DirectionsMapTabPage } from '../directions-map-tab/directions-map-tab';
 
 import { TripResponseModel } from "../../models/trip-response";
 
@@ -21,15 +21,15 @@ export class DirectionsPage {
 
   trip: TripResponseModel;
   mode: string;
-  routeOptions: any;
+  stepsTab: any;
   mapTab: any;
   directionsParams: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.trip = navParams.data.trip_response;
     this.mode = navParams.data.mode;
-    this.routeOptions = DirectionsOptionsPage;
-    this.mapTab = DirectionsRouteDetailPage;
+    this.stepsTab = DirectionsStepsTabPage;
+    this.mapTab = DirectionsMapTabPage;
     this.directionsParams = {
       trip: this.trip,
       mode: this.mode

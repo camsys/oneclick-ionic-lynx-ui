@@ -1,0 +1,23 @@
+page-services-map-tab {
+  
+  #service-results-map-canvas{
+    width: 100%;
+    height: 100%;
+  }
+  
+  .travel-time-container {
+    font-size: $font-size-sm;
+    font-weight: 900;
+    
+    &:first-of-type {
+      margin-right: size(2);
+    }
+  }
+  
+  ion-toolbar.lynx-toolbar {
+    ion-title.toolbar-title {
+      font-size: $font-size-md;
+    }
+  }
+
+}

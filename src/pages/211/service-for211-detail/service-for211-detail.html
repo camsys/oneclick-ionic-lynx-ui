@@ -14,7 +14,7 @@
   <ng-template #noServiceHeader>
     <ion-navbar class="lynx-toolbar">
       <div class="dynamic-toolbar-title"><b>{{ origin.label() }}</b></div>
-      <div class="dynamic-toolbar-title">to <b>{{destination.label() }}</b></div>
+      <div class="dynamic-toolbar-title">{{ "lynx.global.common.to" | translate}} <b>{{ destination.label() }}</b></div>
     </ion-navbar>
   </ng-template>
 
@@ -23,6 +23,8 @@
 
 <ion-content>
   <ion-grid>
+    
+    <!-- TRANSPORTATION OPTIONS -->
     <ion-row>
       <ion-col col-md-8 offset-md-2 no-padding>
         <ion-list class="lynx-list">
@@ -30,7 +32,7 @@
           <!-- For each mode other than paratransit, build a button -->
           <ion-item *ngFor="let mode of basicModes">
             <h3 item-start class="item-heading mode-label">
-              {{ labelFor(mode) }}
+              {{ "lynx.global.modes." + mode | translate }}
             </h3>
             <div item-end class="mode-fare"
                  *ngIf="ready()">
@@ -47,7 +49,7 @@
           <!-- For paratransit, build a special button -->
           <ion-item>
             <h3 item-start class="item-heading mode-label">
-              Other Options
+              {{ "lynx.global.modes.paratransit" | translate }}
             </h3>
             <div item-end class="mode-fare" 
                  *ngIf="ready()">
@@ -74,10 +76,13 @@
       </ion-col>
     </ion-row>
 
+
+    <!-- SERVICE DETAILS -->
+
     <!-- Show service details only if service is present -->
     <ion-row *ngIf="service">
       <ion-col col-md-8 offset-md-2>
-        <h3>About This Service</h3>
+        <h3>{{ "lynx.pages.service_details.description_header" | translate }}</h3>
         <p id="service-description">
           {{service.description}}          
         </p>
@@ -90,7 +95,7 @@
       <!-- Questions? button -->
       <!-- Show questions? button only if service phone # is present -->
       <ion-col col-md-6 text-center *ngIf="service.phone">
-        <h3>Have Questions?</h3>
+        <h3>{{ "lynx.pages.service_details.phone_header" | translate }}</h3>
         <a href="tel:{{service.phone}}">
           <button ion-button round
                   class="lynx-button-primary">
@@ -101,11 +106,11 @@
       
       <!-- Feedback? button -->
       <ion-col col-md-6 text-center>
-        <h3>Have Feedback?</h3>
+        <h3>{{ "lynx.pages.service_details.feedback_header" | translate }}</h3>
         <button ion-button round 
                 class="lynx-button-primary"
                 (click)="rateService(service)">
-          Rate this Service
+          {{ "lynx.pages.service_details.feedback_button" | translate }}
         </button>
       </ion-col>
       

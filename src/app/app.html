@@ -14,14 +14,14 @@
                 class="item-heading" 
                 id="menu-welcome-button"
                 (click)="goHome()">
-          Welcome {{ user ? user.first_name : "" }}!
+          {{ "lynx.pages.menu.welcome_user" | translate:user_name }}
         </button>
         
         <button ion-item menuClose 
                 class="item-heading"
                 id="menu-profile-button"
                 (click)="openPage(profilePage)">
-          My Profile
+          {{ "lynx.pages.menu.profile" | translate }}
         </button>
         
         <!-- Build a button for each page listed in the signedInPages attribute -->
@@ -29,7 +29,7 @@
                 class="item-heading" 
                 *ngFor="let p of signedInPages" 
                 (click)="openPage(p)">
-          {{p.title}}
+          {{ "lynx.pages.menu." + p.title | translate }}
         </button>
         
       </ion-list>
@@ -45,13 +45,13 @@
                 class="item-heading" 
                 id="menu-sign-in-button"
                 (click)="openPage(signInPage)">
-          Hello! Log In Now
+          {{ "lynx.pages.menu.sign_in" | translate }}
         </button>
         
         <button ion-item menuClose 
                 class="item-heading" 
                 id="menu-sign-up-button">
-          Don't have an account?
+          {{ "lynx.pages.menu.sign_up" | translate }}
         </button>
         
         <!-- Build a button for each page listed in the signedOutPages attribute -->
@@ -59,7 +59,7 @@
                 class="item-heading" 
                 *ngFor="let p of signedOutPages" 
                 (click)="openPage(p)">
-          {{p.title}}
+          {{ "lynx.pages.menu." + p.title | translate }}
         </button>
         
       </ion-list>

@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
+import { TranslateService } from '@ngx-translate/core';
 
-import { environment } from '../../app/environment'
+import { Global } from '../../app/global';
+import { environment } from '../../app/environment';
+
+// Providers
+import { I18nProvider } from '../i18n/i18n';
 
 // Models
 import { Session } from '../../models/session';
+import { User } from '../../models/user';
+
 
 @Injectable()
 export class AuthProvider {
@@ -17,13 +24,24 @@ export class AuthProvider {
     'Content-Type': 'application/json'
   })
 
-  constructor(public http: Http) { }
-
+  constructor(public http: Http,
+              private translate: TranslateService) { }
+  
   // Pulls the current session from local storage
   session(): Session {
     return (JSON.parse(localStorage.session || "{}") as Session);
   }
-
+  
+  // Pulls the user object out of the session
+  user(): User {
+    return this.session().user;
+  }
+  
+  // Gets the user's preferred locale
+  preferredLocale(): string {
+    return (this.user() || {})["preferred_locale"]
+  }
+  
   // Sets the local storage session variable to the passed object
   setSession(session: Session): void {
     localStorage.setItem('session', JSON.stringify(session));
@@ -99,6 +117,15 @@ export class AuthProvider {
   // Pulls the user location out of the session if available
   userLocation(): any {
     return this.session().user_starting_location || {};
+  }
+  
+  // Updates the session based on a user object, and updates the locale
+  updateSessionUser(user: User) {
+    let session = this.session();
+    session.user = user;
+    this.setSession(session);
+    this.translate.use(this.preferredLocale());
+    return this.user();
   }
 
 }

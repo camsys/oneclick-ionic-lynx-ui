@@ -1,0 +1,265 @@
+<!--
+  Generated template for the DirectionsStepsTabPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content>
+
+  
+  <!-- TRIP OPTION SELECTORS -->
+  <ion-segment [(ngModel)]="selectedItinerary" 
+               *ngIf="itineraries.length > 1"
+               (ngModelChange)="selectItinerary($event)">
+    <ion-segment-button *ngFor="let itin of itineraries; let i = index" 
+                        value="{{ i | toString }}">
+      {{ "lynx.pages.directions.steps_tab.option" | translate }} {{i + 1}}
+    </ion-segment-button>
+  </ion-segment>
+  
+  <!-- TRIP OPTION RESULTS -->
+  <ion-grid>
+    
+    <!-- Header row with editable trip date -->
+    <ion-row class="trip-date-row">
+      <ion-col class="trip-date-col" 
+               col-12 col-md-8 offset-md-2 text-center 
+               (click)="tripTimeDatepicker.open()">
+        <h3>
+          {{ "lynx.pages.directions.steps_tab.trip_date_label" | translate }} {{tripDate | date: 'mediumDate'}}
+          <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="calendar"></ion-icon>
+        </h3>
+        
+      </ion-col>
+      
+      <!-- opens native datepicker on mobile, or ionic datepicker in browser -->
+      <responsive-datepicker #tripTimeDatepicker                          
+                             [date]="tripDate"
+                             (change)="updateTripDate($event)">
+      </responsive-datepicker>
+
+    </ion-row>
+    
+    <div [ngSwitch]="selectedItinerary">
+      
+      <!-- Itinerary Rows -->
+      <ion-row class="itinerary-row" *ngFor="let itin of itineraries; let i = index">
+        <ion-col class="itinerary-col" col-12 col-md-8 offset-md-2 *ngSwitchCase="i.toString()">
+          
+          <!-- Leg Rows -->
+          <ion-row class="leg-row" *ngFor="let leg of itin.legs; let j = index">
+            
+            <!-- Leg Time Column -->
+            <ion-col no-padding col-3 class="leg-time-col">
+
+              <!-- The first leg is clickable to open the depart at datepicker -->
+              <ion-row class="leg-header-container"
+                       (click)="departAtTimepicker.open()"
+                       *ngIf="j === 0; else notFirstLeg">
+                       
+                <ion-col col-9 no-padding text-center class="leg-header-content">
+                  <div  *ngIf="!trip.arrive_by" class="leg-time-header-content-description">
+                    {{ "lynx.global.directions.depart_at" | translate }}
+                  </div>
+                  <div class="leg-time-header-content-time">
+                    {{ leg.startTime | date:'shortTime'}}
+                  </div>
+                  
+                </ion-col>
+                
+                <ion-col col-3 no-padding text-center class="leg-header-content leg-header-clickable">
+                  <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="clock"></ion-icon>
+                </ion-col>
+                
+                <!-- opens native timepicker on mobile, select menu on browser -->
+                <responsive-timepicker #departAtTimepicker
+                                       [time]="departAtTime"
+                                       (change)="updateDepartAt($event)">
+                </responsive-timepicker>
+                
+              </ion-row>
+
+                
+              <!-- All other legs are static -->
+              <ng-template  #notFirstLeg>
+                <ion-row class="leg-header-container">
+                  <ion-col col-9 no-padding text-center class="leg-header-container">
+                    {{leg.startTime | date:'shortTime'}}
+                  </ion-col>
+                  <ion-col col-3 no-padding>
+                  </ion-col>
+                </ion-row>
+              </ng-template>
+
+                
+            </ion-col>
+            
+            <!-- Leg Icon Column -->
+            <ion-col no-padding col-1 class="leg-icon-col">
+              <div class="leg-header-container">
+                <div class="leg-header-content">
+                  <ion-icon class="icon-med" name="{{leg.modeIconName()}}"></ion-icon>
+                </div>
+              </div>
+              
+              <!-- Leg Illustration: dotted or solid vertical line -->
+              <div class="leg-trail-illustration leg-trail-{{leg.modeIconName()}}"></div>
+            </ion-col>
+            
+            <!-- Leg Details Column -->
+            <ion-col no-padding col-8 class="leg-details-col">
+                
+              <!-- Leg Origin -->
+              <ion-row class="leg-header-row">
+                <ion-col no-padding col-12>
+                  <div class="leg-header-container">
+                    <div class="leg-header-content">
+                      <!-- Display the trip origin if it's the first leg. -->
+                      <h3>
+                        {{ j === 0 ? (trip.origin.name || trip.origin.formatted_address)  : leg.from.name }}
+                      </h3>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+              
+              
+              <!-- Step Rows (Walk, Bike, Drive) -->
+              <div *ngIf="!leg.isTransit()">
+                <ion-row class="step-row" *ngFor="let step of leg.steps; let k = index">
+                  <ion-col no-padding col-12>
+                    
+                    <!-- for first step, give absolute direction -->
+                    <div class="step-details-container" *ngIf="k === 0">
+                      <!-- HEAD {{direction}} on {{street_name}} for {{distance}} -->
+                      {{ 
+                        "lynx.pages.directions.steps_tab.first_nontransit_step" | 
+                        translate:{
+                          direction: step.absoluteDirection,
+                          street_name: step.streetName,
+                          distance: (step.distance | prettyDistance)
+                        } 
+                      }}
+                    </div>
+                    
+                    <!-- for subsequent steps, give relative directions -->
+                    <div class="step-details-container" *ngIf="k > 0">
+                      <!-- {{direction}} on {{street_name}} for {{distance}} -->
+                      {{ 
+                        "lynx.pages.directions.steps_tab.other_nontransit_step" | 
+                        translate:{
+                          direction: step.relativeDirection,
+                          street_name: step.streetName,
+                          distance: (step.distance | prettyDistance)
+                        } 
+                      }}
+                    </div>
+                    
+                  </ion-col>
+                </ion-row>
+              </div>
+
+              <!-- Step Rows (Transit) -->
+              <div *ngIf="leg.isTransit()">
+                <ion-row class="step-row">
+                  <ion-col no-padding col-12>
+                    <div class="step-details-container">
+                      <!-- BOARD {{service_name}} Route {{route}} and ride it {{stops}} stops. -->
+                      {{ 
+                        "lynx.pages.directions.steps_tab.transit_step" | 
+                        translate:{
+                          service_name: leg.serviceName,
+                          route: leg.route,
+                          stops: leg.intermediateStops.length
+                        } 
+                      }}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="step-row">
+                  <ion-col no-padding col-12>
+                    <div class="step-details-container">
+                      <!-- GET OFF at stop: {{destination}} -->
+                      {{ 
+                        "lynx.pages.directions.steps_tab.last_transit_step" | 
+                        translate:{destination: leg.to.name} 
+                      }}
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </div>
+
+              <!-- END step rows -->
+                
+            </ion-col>
+          </ion-row>
+          
+          <!-- Destination Leg Row -->
+          <ion-row class="leg-row">
+            
+            <!-- Leg Time Column -->
+            <ion-col no-padding col-3 class="leg-time-col">
+              <ion-row class="leg-header-container" (click)="arriveByTimepicker.open($event)">
+                
+                <ion-col col-9 no-padding text-center class="leg-header-content">
+                  
+                  <div *ngIf="trip.arrive_by" class="leg-time-header-content-description">
+                    {{ "lynx.global.directions.arrive_by" | translate }}
+                  </div>
+                  <div class="leg-time-header-content-time">
+                    {{ itin.legs[itin.legs.length - 1].endTime | date:'shortTime' }}
+                  </div>
+                  
+                </ion-col>
+                
+                <ion-col col-3 no-padding text-center class="leg-header-content leg-header-clickable">
+                  <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="clock"></ion-icon>
+                </ion-col>
+                
+                <!-- opens native timepicker on mobile, select menu on browser -->
+                <responsive-timepicker #arriveByTimepicker
+                                       [time]="arriveByTime"
+                                       (change)="updateArriveBy($event)">
+                </responsive-timepicker>
+                
+              </ion-row>
+            </ion-col>
+            
+            <!-- Leg Icon Column -->
+            <ion-col no-padding col-1 class="leg-icon-col">
+              <div class="leg-header-container">
+                <div class="leg-header-content">
+                  <ion-icon class="icon-med" name="radio-button-on"></ion-icon>
+                </div>
+              </div>
+            </ion-col>
+            
+            <!-- Leg Details Column -->
+            <ion-col no-padding col-8 class="leg-details-col">
+              <ion-row class="leg-header-row">
+                <ion-col no-padding col-12>
+                  <div class="leg-header-container">
+                    <div class="leg-header-content">
+                      <h3>
+                        {{ trip.destination.name || trip.destination.formatted_address }}
+                      </h3>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            
+          </ion-row>
+          
+          <!-- END leg rows -->
+
+        </ion-col>
+      </ion-row>
+      
+      <!-- END itinerary rows -->
+      
+    </div>
+
+  </ion-grid>
+  
+</ion-content>

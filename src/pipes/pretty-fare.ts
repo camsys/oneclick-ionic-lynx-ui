@@ -1,5 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
+import { I18nProvider } from '../providers/i18n/i18n';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generates a nicely formatted string based on an array of fares. May return
@@ -10,13 +12,14 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class PrettyFarePipe implements PipeTransform {
   
-  noFare: string = ""; // String for representing unknown fares
+  constructor(private translate: TranslateService,
+              private i18n: I18nProvider) { }
   
   transform(fares: number[]): string {
     
     // If the fares array is empty, return a fare-unknown message.
     if(fares.length <= 0) {
-      return this.noFare;
+      return this.translate.instant("lynx.global.fare.no_fare");
     }
     
     // Pull out the min and max fares
@@ -35,7 +38,8 @@ export class PrettyFarePipe implements PipeTransform {
   
   // Formats a number as USD, with no cents.
   formatFare(fare: number): string {
-    return new CurrencyPipe('en').transform(fare, 'USD', true, '1.0-0');
+    return new CurrencyPipe(this.i18n.currentLocale())
+               .transform(fare, 'USD', true, '1.0-0');
   }
   
   

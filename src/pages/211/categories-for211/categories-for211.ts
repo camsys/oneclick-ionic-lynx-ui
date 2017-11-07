@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
@@ -37,7 +37,8 @@ export class CategoriesFor211Page {
               public navParams: NavParams,
               private oneClickProvider: OneClickProvider,
               public events: Events,
-              private auth: AuthProvider) {
+              private auth: AuthProvider,
+              private changeDetector: ChangeDetectorRef) {
     
     this.searchResults = [];
     this.searchControl = new FormControl;
@@ -70,9 +71,11 @@ export class CategoriesFor211Page {
       this.oneClickProvider.refernetKeywordSearch(query)
           .subscribe((results) => {
             this.searchResults = results;
+            this.changeDetector.detectChanges();
           });
     } else { // If query is empty, clear the results.
       this.searchResults = [];
+      this.changeDetector.detectChanges();
     }
   }
   
@@ -118,6 +121,16 @@ export class CategoriesFor211Page {
         // If result can't link to a page, just clear the results
         this.searchResults = [];
     }
+  }
+  
+  // Returns the appropriate translation key for OneClick Refernet model class names
+  translationKeyFor(name: string) {
+    return {
+      "OneclickRefernet::Category": "category",
+      "OneclickRefernet::SubCategory": "sub_category",
+      "OneclickRefernet::SubSubCategory": "sub_sub_category",
+      "OneclickRefernet::Service": "service"
+    }[name];
   }
 
 }

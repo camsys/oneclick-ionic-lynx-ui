@@ -2,12 +2,13 @@ import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { InAppBrowser } from '@ionic-native/in-app-browser'
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 // PAGES
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
-import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
+import { ParatransitServicesPage } from '../pages/paratransit-services/paratransit-services';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
@@ -23,6 +24,9 @@ import { PageModel } from '../models/page';
 // PROVIDERS
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { AuthProvider } from '../providers/auth/auth';
+import { I18nProvider } from '../providers/i18n/i18n';
+
+import { environment } from './environment';
 
 
 @Component({
@@ -36,11 +40,14 @@ export class MyApp {
 
   signedInPages: PageModel[];
   signedOutPages: PageModel[];
+  universalPages: PageModel[]; // Pages for both signed in and signed out users
   signInPage: PageModel;
   profilePage: PageModel;
   user: User;
   eligibilities: Eligibility[];
   accommodations: Accommodation[];
+  locale: string;
+  user_name: any;
 
   constructor(public platform: Platform,
               public statusBar: StatusBar,
@@ -49,8 +56,11 @@ export class MyApp {
               private auth: AuthProvider,
               private oneClickProvider: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
-              public events: Events) {
+              private translate: TranslateService,
+              public events: Events,
+              private i18n: I18nProvider) {
     this.initializeApp();
+    this.getUserInfo();
     this.setMenu();
     this.setupSpinner();
   }
@@ -59,18 +69,21 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      this.i18n.initializeApp(); // Sets the default language
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
-
-  setMenu(){
-
+  
+  // Make a call to OneClick to get the user's details
+  getUserInfo() {
+    
     // Menu if you are signed in
     if(this.auth.isSignedIn()){
       this.oneClickProvider.getProfile()
       .then((usr) => {
         this.user = usr;
+        this.user_name = { user: usr.first_name };
         this.eligibilities = this.user.eligibilities;
         this.accommodations = this.user.accommodations;
       })
@@ -84,31 +97,34 @@ export class MyApp {
         }
       })
     }
+    
+  }
+
+  // Set up the menu with pages for signed in and signed out scenarios
+  setMenu(){
+    
+    // Pages to display regardless of whether or not user is signed in or not
+    this.universalPages = [
+      { title: 'about_us', component: AboutUsPage },
+      { title: 'contact_us', component: ContactUsPage },
+      { title: 'transportation', component: ParatransitServicesPage},
+      { title: 'categories', component: CategoriesFor211Page},
+      { title: 'resources', component: UserLocatorPage, params: { findServicesView: true}},
+      { title: 'privacy_policy', component: "privacy_policy"}
+    ]
 
     // Pages to display if user is signed in
-    this.signedInPages = [
-      { title: 'About Us', component: AboutUsPage },
-      { title: 'Contact Us', component: ContactUsPage },
-      { title: 'Transportation Options', component: TransportationAgenciesPage},
-      { title: 'Browse Services by Category', component: CategoriesFor211Page},
-      { title: 'Find Services by Location', component: UserLocatorPage, params: { findServicesView: true} },
-      { title: 'Privacy Policy', component: "privacy_policy"},
-      { title: 'Sign Out', component: "sign_out"}
-    ];
-
+    this.signedInPages = this.universalPages.concat([
+      { title: 'sign_out', component: "sign_out"}
+    ]);
+    
     // Pages to display if user is signed out
-    this.signedOutPages = [
-      { title: 'Home', component: HelpMeFindPage },
-      { title: 'About Us', component: AboutUsPage },
-      { title: 'Contact Us', component: ContactUsPage },
-      { title: 'Transportation Options', component: TransportationAgenciesPage},
-      { title: 'Browse Services by Category', component: CategoriesFor211Page},
-      { title: 'Find Services by Location', component: UserLocatorPage, params: { findServicesView: true}},
-      { title: 'Privacy Policy', component: "privacy_policy"}
-    ];
-
-    this.signInPage = { title: 'Sign In', component: SignInPage};
-    this.profilePage = { title: 'My Profile', component: UserProfilePage};
+    this.signedOutPages = this.universalPages.concat([
+      { title: 'home', component: HelpMeFindPage },
+    ]);
+    
+    this.signInPage = { title: 'sign_in', component: SignInPage};
+    this.profilePage = { title: 'profile', component: UserProfilePage};
   }
 
   // Open the appropriate page, or do something special for certain pages

@@ -6,6 +6,11 @@ import { Http, HttpModule } from '@angular/http';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ElasticModule } from 'angular2-elastic';
 import { DatePicker } from '@ionic-native/date-picker';
+import { LOCALE_ID } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+
+// Environment
+import { environment } from './environment';
 
 // Ionic Imports
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -15,8 +20,18 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Geolocation } from '@ionic-native/geolocation';
 
 // Other 3rd-Party Imports
-import { TranslateModule } from "ng2-translate";
-import { TranslateLoader, TranslateStaticLoader } from "ng2-translate"
+
+// Translations
+import { TranslateModule, TranslateLoader, TranslateService } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+
+export function createTranslateLoader(http: Http){
+  // return new TranslateStaticLoader(http, 'assets/i18n', '.json');
+  // return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, environment.AWS_BUCKET, '.json');
+}
+
+// Ratings
 import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
 
 // Pages
@@ -24,24 +39,23 @@ import { MyApp } from './app.component';
 import { HelpMeFindPage }          from '../pages/help-me-find/help-me-find';
 import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
 import { SubcategoriesFor211Page } from '../pages/211/subcategories-for211/subcategories-for211';
-import { MapFor211ServicesPage } from '../pages/211/map-for211-services/map-for211-services';
-import { ServicesFromMatchListPage } from '../pages/211/services-from-match-list/services-from-match-list';
+import { ServicesMapTabPage } from '../pages/211/services-map-tab/services-map-tab';
+import { ServicesListTabPage } from '../pages/211/services-list-tab/services-list-tab';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { ServiceFor211DetailPage } from '../pages/211/service-for211-detail/service-for211-detail'
-import { ServiceFor211ReviewPage } from '../pages/211/service-for211-review/service-for211-review'
-import { TransportationAgenciesPage } from '../pages/transportation-agencies/transportation-agencies';
+import { ParatransitServicesPage } from '../pages/paratransit-services/paratransit-services';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { DirectionsPage } from '../pages/directions/directions';
-import { DirectionsOptionsPage } from '../pages/directions-options/directions-options';
-import { DirectionsRouteDetailPage } from '../pages/directions-route-detail/directions-route-detail';
+import { DirectionsStepsTabPage } from '../pages/directions-steps-tab/directions-steps-tab';
+import { DirectionsMapTabPage } from '../pages/directions-map-tab/directions-map-tab';
 import { DirectTransporationFinderPage } from '../pages/direct-transporation-finder/direct-transporation-finder';
 import { TransportationEligibilityPage } from '../pages/transportation-eligibility/transportation-eligibility';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
-import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for211/sub-subcategories-for211';
-import { ServicesPage } from '../pages/211/services/services';
-import { TaxiTransportationPage } from '../pages/taxi-transportation/taxi-transportation';
+import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for211/sub-subcategories-for211'
+import { ServicesPage } from '../pages/211/services/services'
+import { TaxiServicesPage } from '../pages/taxi-services/taxi-services';
 import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
 
 // Providers
@@ -50,6 +64,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { GeocodeServiceProvider } from '../providers/google/geocode-service';
 import { GoogleMapsHelpersProvider } from '../providers/google/google-maps-helpers';
 import { HelpersProvider } from '../providers/helpers/helpers';
+import { I18nProvider } from '../providers/i18n/i18n';
 
 // Models
 import { CategoryFor211Model } from '../models/category-for-211';
@@ -93,18 +108,17 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     SubcategoriesFor211Page,
     SubSubcategoriesFor211Page,
     ServicesPage,
-    TaxiTransportationPage,
-    MapFor211ServicesPage,
-    ServicesFromMatchListPage,
+    TaxiServicesPage,
+    ServicesMapTabPage,
+    ServicesListTabPage,
     ServiceFor211DetailPage,
-    ServiceFor211ReviewPage,
-    TransportationAgenciesPage,
+    ParatransitServicesPage,
     AboutUsPage,
     ContactUsPage,
     DirectTransporationFinderPage,
     DirectionsPage,
-    DirectionsOptionsPage,
-    DirectionsRouteDetailPage,
+    DirectionsStepsTabPage,
+    DirectionsMapTabPage,
     TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
@@ -130,9 +144,11 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     Ionic2RatingModule,
     HttpModule,
     TranslateModule.forRoot({
-      provide: TranslateLoader,
-      useFactor: (createTranslateLoader),
-      deps: [Http]
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [Http]
+      }
     }),
     TextMaskModule,
     ElasticModule
@@ -146,23 +162,22 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     SubcategoriesFor211Page,
     SubSubcategoriesFor211Page,
     ServicesPage,
-    TaxiTransportationPage,
-    MapFor211ServicesPage,
-    ServicesFromMatchListPage,
-    TransportationAgenciesPage,
-    AboutUsPage,
+    TaxiServicesPage,
+    ServicesMapTabPage,
+    ServicesListTabPage,
     ServiceFor211DetailPage,
-    ServiceFor211ReviewPage,
+    ParatransitServicesPage,
+    AboutUsPage,
     ContactUsPage,
     DirectTransporationFinderPage,
     DirectionsPage,
-    DirectionsOptionsPage,
-    DirectionsRouteDetailPage,
+    DirectionsStepsTabPage,
+    DirectionsMapTabPage,
     TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
     UserProfilePage,
-    FeedbackModalPage
+    FeedbackModalPage,
   ],
   providers: [
     StatusBar,
@@ -191,31 +206,37 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     LegStepModel,
     PageModel,
     SearchResultModel,
-    DatePicker
+    DatePicker,
+    I18nProvider,
+    { 
+      provide: LOCALE_ID,   // Angular pipes (date, currency, etc.) get their locale from this
+      deps: [I18nProvider], 
+      useFactory: (i18n) => i18n.currentLocale()
+    }
   ],
   exports: [
+    HelpMeFindPage,
+    UserLocatorPage,
     CategoriesFor211Page,
-    MapFor211ServicesPage,
-    ServiceFor211DetailPage,
-    ServiceFor211ReviewPage,
-    ServicesPage,
-    ServicesFromMatchListPage,
-    SubSubcategoriesFor211Page,
     SubcategoriesFor211Page,
+    SubSubcategoriesFor211Page,
+    ServicesPage,
+    TaxiServicesPage,
+    ServicesMapTabPage,
+    ServicesListTabPage,
+    ServiceFor211DetailPage,
+    ParatransitServicesPage,
     AboutUsPage,
     ContactUsPage,
     DirectTransporationFinderPage,
     DirectionsPage,
-    DirectionsOptionsPage,
-    DirectionsRouteDetailPage,
-    FeedbackModalPage,
-    HelpMeFindPage,
-    SignInPage,
-    TaxiTransportationPage,
-    TransportationAgenciesPage,
+    DirectionsStepsTabPage,
+    DirectionsMapTabPage,
     TransportationEligibilityPage,
-    UserLocatorPage,
+    ContactUsPage,
+    SignInPage,
     UserProfilePage,
+    FeedbackModalPage,
     PlaceSearchComponent,
     ResponsiveDatepickerComponent,
     ResponsiveTimepickerComponent,
@@ -225,7 +246,3 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
 })
 
 export class AppModule {}
-
-export function createTranslateLoader(http: Http){
-  return new TranslateStaticLoader(http, 'assets/i18n', '.json');
-}

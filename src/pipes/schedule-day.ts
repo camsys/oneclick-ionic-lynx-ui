@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Transforms an integer into day of the week
@@ -7,9 +8,14 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'scheduleDay',
 })
 export class ScheduleDayPipe implements PipeTransform {
+  
+  constructor(private translate: TranslateService) { }
+  
   transform(day: number): string {
-    return this.shortDays[day];
+    return this.translate.instant(
+      "lynx.global.weekdays." + this.dayCodes[day] + "_short"
+    );
   }
   
-  shortDays: string[] = [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ];
+  dayCodes: string[] = [ "sun", "mon", "tue", "wed", "thu", "fri", "sat" ];
 }

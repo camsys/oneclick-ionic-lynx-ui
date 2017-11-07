@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { RequestOptions } from '@angular/http';
 
 
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs/Rx";
 import 'rxjs/add/operator/map';
 
 import { AgencyModel } from '../../models/agency';
@@ -22,6 +22,7 @@ import { SearchResultModel } from '../../models/search-result';
 import { environment } from '../../app/environment'
 import { User } from '../../models/user';
 import { AuthProvider } from '../../providers/auth/auth';
+import { I18nProvider } from '../../providers/i18n/i18n';
 
 // OneClick Provider handles API Calls to the OneClick Core back-end.
 @Injectable()
@@ -30,7 +31,8 @@ export class OneClickProvider {
   public oneClickUrl = environment.BASE_ONECLICK_URL;
 
   constructor(public http: Http,
-              private auth: AuthProvider) {}
+              private auth: AuthProvider,
+              private i18n: I18nProvider) {}
 
   // Gets a list of all Transportation Agencies
   getTransportationAgencies(): Promise<AgencyModel[]> {
@@ -56,7 +58,10 @@ export class OneClickProvider {
   }
 
   public getAgencies(type: String): Promise<AgencyModel[]> {
-    let uri: string = encodeURI(this.oneClickUrl + 'agencies?type=' + type);
+    let uri: string = encodeURI(this.oneClickUrl + 
+      'agencies?type=' + type +
+      '&locale=' + this.i18n.currentLocale()
+    );
 
     return this.http.get(uri)
       .toPromise()
@@ -67,7 +72,10 @@ export class OneClickProvider {
 
   // Gets all paratransit services from OneClick
   public getParatransitServices(): Promise<OneClickServiceModel[]> {
-    let uri: string = encodeURI(this.oneClickUrl + 'services?type=paratransit');
+    let uri: string = encodeURI(this.oneClickUrl + 
+      'services?type=paratransit' +
+      '&locale=' + this.i18n.currentLocale()
+    );
 
     return this.http.get(uri)
       .toPromise()
@@ -85,21 +93,12 @@ export class OneClickProvider {
      var uri: string = encodeURI(this.oneClickUrl + 'users');
      return this.http.get(uri, options)
       .toPromise()
-      .then(response => response.text())
-      .then(json => JSON.parse(json).data.user as User)
-      .then((user) => {
-        // Store the profile in the session's user attribute
-        let session = this.auth.session();
-        session.user = user;
-        this.auth.setSession(session);
-        return user;
-      })
+      .then((response) => this.unpackUserResponse(response))
       .catch(this.handleError);
   }
 
   // Updates a User in 1-Click
   updateProfile(user: User): Promise<User>{
-
     let headers = this.auth.authHeaders();
     let formatted_accs = {};
     let formatted_eligs = {};
@@ -119,32 +118,41 @@ export class OneClickProvider {
 
     let body = {
       "attributes": {
-      "first_name": user.first_name,
-      "last_name": user.last_name,
-      "email": user.email,
-      "password": user.password,
-      "preferred_locale": user.preferred_locale
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "email": user.email,
+        "password": user.password,
+        "preferred_locale": user.preferred_locale
       },
       "accommodations": formatted_accs,
       "eligibilities": formatted_eligs,
       "trip_types": formatted_trip_types
-      };
+    };
 
-     let options = new RequestOptions({ headers: headers });
+    let options = new RequestOptions({ headers: headers });
 
-     var uri: string = encodeURI(this.oneClickUrl + 'users');
-     return this.http.put(uri, body, options)
+    var uri: string = encodeURI(this.oneClickUrl + 'users');
+    return this.http.put(uri, body, options)
       .toPromise()
-      .then(response => response.text())
-      .then(json => JSON.parse(json).data.user as User)
+      .then((response) => this.unpackUserResponse(response))
       .catch(this.handleError);
+  }
+  
+  // Unpacks a OneClick user response and stores the user in the session
+  unpackUserResponse(response): User {
+    let user = JSON.parse(response.text()).data.user as User;
+    return this.auth.updateSessionUser(user); // store user info in session storage
   }
 
   getCategoriesFor211Services(lat: number, lng: number): Promise<CategoryFor211Model[]> {
+    var uri: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/categories?locale=' + 
+      this.i18n.currentLocale()
+    );
+    
     if(lat && lng) {
-      uri = encodeURI(this.oneClickUrl+'oneclick_refernet/categories?lat='+lat+'&lng='+lng);
-    } else {
-      var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/categories');
+      uri = encodeURI(uri + '&lat=' + lat + '&lng=' + lng);
     }
 
     return this.http.get(uri)
@@ -155,10 +163,16 @@ export class OneClickProvider {
   }
 
   getSubcategoryForCategoryName(categoryName: string, lat: number, lng: number): Promise<SubcategoryFor211Model[]> {
+    var uri: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/sub_categories?category=' + 
+      categoryName +
+      '&locale=' +
+      this.i18n.currentLocale()
+    );
+    
     if(lat && lng) {
-      uri = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_categories?category='+categoryName+'&lat='+lat+'&lng='+lng);
-    } else {
-      var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_categories?category='+categoryName);
+      uri = encodeURI(uri + '&lat=' + lat + '&lng=' + lng);
     }
 
     return this.http.get(uri)
@@ -170,12 +184,17 @@ export class OneClickProvider {
 
   getSubSubcategoryForSubcategoryName(subcategoryName: string, lat: number, lng: number): Promise<SubSubcategoryFor211Model[]>{
 
-    if(lat && lng) {
-      uri = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_sub_categories?sub_category='+subcategoryName+'&lat='+lat+'&lng='+lng);
-    } else {
-      var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_sub_categories?sub_category='+subcategoryName);
-    }
+    var uri: string = encodeURI(
+      this.oneClickUrl +
+      'oneclick_refernet/sub_sub_categories?sub_category=' +
+      subcategoryName + 
+      '&locale=' + 
+      this.i18n.currentLocale()
+    );
     
+    if(lat && lng) {
+      uri = encodeURI(uri + '&lat=' + lat + '&lng=' + lng);
+    }
 
     // console.log(uri);
 

@@ -3,6 +3,7 @@
  */
 
 export class ServiceModel {
+  id: number;
   agency_name:string;
   site_name:string;
   lat:number;
