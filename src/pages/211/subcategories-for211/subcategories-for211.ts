@@ -7,6 +7,7 @@ import { SubSubcategoriesFor211Page } from '../sub-subcategories-for211/sub-subc
 import { OneClickProvider } from '../../../providers/one-click/one-click';
 import { CategoryFor211Model } from '../../../models/category-for-211'
 import { SubcategoryFor211Model } from '../../../models/subcategory-for-211'
+import { AuthProvider } from '../../../providers/auth/auth';
 
 /**
  * Generated class for the SubcategoriesFor211Page page.
@@ -26,13 +27,16 @@ export class SubcategoriesFor211Page {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private oneClickProvider: OneClickProvider) {
+              private oneClickProvider: OneClickProvider,
+              private auth: AuthProvider) {
     this.category = navParams.data.selected_category;
   }
 
   getSubcategories(): void {
+    let userLocation = this.auth.userLocation();
+    let latlng = userLocation.geometry || {};
     this.oneClickProvider
-        .getSubcategoryForCategoryName(this.category.name)
+        .getSubcategoryForCategoryName(this.category.name, latlng['lat'], latlng['lng'])
         .then(subcategories => this.subcategories = subcategories);
   }
 

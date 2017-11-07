@@ -49,8 +49,10 @@ export class CategoriesFor211Page {
   }
 
   getCategories(): void {
+    let userLocation = this.auth.userLocation();
+    let latlng = userLocation.geometry || {};
     this.oneClickProvider
-        .getCategoriesFor211Services()
+        .getCategoriesFor211Services(latlng['lat'], latlng['lng'])
         .then(categories => this.categories = categories);
   }
 
