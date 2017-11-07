@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { RequestOptions } from '@angular/http';
 
 
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs/Rx";
 import 'rxjs/add/operator/map';
 
 import { AgencyModel } from '../../models/agency';

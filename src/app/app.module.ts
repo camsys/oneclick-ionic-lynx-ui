@@ -7,6 +7,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { ElasticModule } from 'angular2-elastic';
 import { DatePicker } from '@ionic-native/date-picker';
 import { LOCALE_ID } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
 // Environment
 import { environment } from './environment';
@@ -164,9 +165,9 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     TaxiServicesPage,
     ServicesMapTabPage,
     ServicesListTabPage,
+    ServiceFor211DetailPage,
     ParatransitServicesPage,
     AboutUsPage,
-    ServiceFor211DetailPage,
     ContactUsPage,
     DirectTransporationFinderPage,
     DirectionsPage,
@@ -176,7 +177,7 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     ContactUsPage,
     SignInPage,
     UserProfilePage,
-    FeedbackModalPage
+    FeedbackModalPage,
   ],
   providers: [
     StatusBar,
@@ -214,28 +215,28 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     }
   ],
   exports: [
+    HelpMeFindPage,
+    UserLocatorPage,
     CategoriesFor211Page,
-    MapFor211ServicesPage,
-    ServiceFor211DetailPage,
-    ServiceFor211ReviewPage,
-    ServicesPage,
-    ServicesFromMatchListPage,
-    SubSubcategoriesFor211Page,
     SubcategoriesFor211Page,
+    SubSubcategoriesFor211Page,
+    ServicesPage,
+    TaxiServicesPage,
+    ServicesMapTabPage,
+    ServicesListTabPage,
+    ServiceFor211DetailPage,
+    ParatransitServicesPage,
     AboutUsPage,
     ContactUsPage,
     DirectTransporationFinderPage,
     DirectionsPage,
-    DirectionsOptionsPage,
-    DirectionsRouteDetailPage,
-    FeedbackModalPage,
-    HelpMeFindPage,
-    SignInPage,
-    TaxiTransportationPage,
-    TransportationAgenciesPage,
+    DirectionsStepsTabPage,
+    DirectionsMapTabPage,
     TransportationEligibilityPage,
-    UserLocatorPage,
+    ContactUsPage,
+    SignInPage,
     UserProfilePage,
+    FeedbackModalPage,
     PlaceSearchComponent,
     ResponsiveDatepickerComponent,
     ResponsiveTimepickerComponent,
