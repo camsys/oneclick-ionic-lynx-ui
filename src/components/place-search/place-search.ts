@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef, HostListener } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Events } from 'ionic-angular';
 
@@ -28,6 +28,15 @@ export class PlaceSearchComponent {
   googleAutocompleteItems: GooglePlaceModel[];
   oneClickAutocompleteItems: GooglePlaceModel[];
   place: GooglePlaceModel;
+
+  @Output() onArrowDown: EventEmitter<any> = new EventEmitter<any>();
+  
+  @HostListener('keydown', ['$event'])
+  keyboardInput(event: KeyboardEvent) {
+    if(event.code === "ArrowDown") {
+      this.onArrowDown.emit();
+    }
+  }
 
   constructor(public geoServiceProvider: GeocodeServiceProvider,
               public oneClickProvider: OneClickProvider,
@@ -87,7 +96,6 @@ export class PlaceSearchComponent {
 
   // Sets the place value and fills in the search bar, but doesn't run it as a query
   setPlace(place: GooglePlaceModel) {
-    console.log("SETTING PLACE", place);
     this.place = place;
     this.searchControl.setValue(this.place.formatted_address, {emitEvent: false});
   }

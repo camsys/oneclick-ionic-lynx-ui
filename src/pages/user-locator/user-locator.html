@@ -19,14 +19,16 @@
     <div id="origin-search-container">
       <ion-title>{{ "lynx.pages.user_locator.origin_search.label" | translate }}</ion-title>
       <place-search #originSearch
-                    placeholder="{{ 'lynx.pages.user_locator.origin_search.placeholder_pending' | translate }}">
+                    placeholder="{{ 'lynx.pages.user_locator.origin_search.placeholder_pending' | translate }}"
+                    (onArrowDown)="originResults.focus()">
       </place-search>
     </div>
 
     <div id="destination-search-container" [hidden]="findServicesView">
       <ion-title>{{ "lynx.pages.user_locator.destination_search.label" | translate }}</ion-title>
       <place-search #destinationSearch
-                    placeholder="{{ 'lynx.pages.user_locator.destination_search.placeholder_pending' | translate }}">
+                    placeholder="{{ 'lynx.pages.user_locator.destination_search.placeholder_pending' | translate }}"
+                    (onArrowDown)="destinationResults.focus()">
       </place-search>
     </div>
 
@@ -37,23 +39,38 @@
 
 <ion-content>
 
-  <ion-list id="origin-autocomplete-results">
-    <ion-item *ngFor="let item of originSearch.autocompleteItems"
+  <autocomplete-results #originResults 
+    [items]="originSearch.autocompleteItems"
+    (onSelect)="originSearch.chooseItem($event)"
+    (onSelect)='centerMapOnPlace($event, "origin")'>
+  </autocomplete-results>
+  <!-- <ion-list id="origin-autocomplete-results" 
+            class="lynx-autocomplete-results">
+    <ion-item *ngFor="let item of originSearch.autocompleteItems; let i = index"
               tappable
+              [class.selected]="selectedOriginItem === i"
               (click)="originSearch.chooseItem(item)"
               (click)='centerMapOnPlace(item, "origin")'>
       <b>{{ item.name }}</b> {{ item.formatted_address }}
     </ion-item>
-  </ion-list>
+  </ion-list> -->
+  
+  <autocomplete-results #destinationResults 
+    [items]="destinationSearch.autocompleteItems"
+    (onSelect)="destinationSearch.chooseItem($event)"
+    (onSelect)='centerMapOnPlace($event, "destination")'>
+  </autocomplete-results>
 
-  <ion-list id="destination-autocomplete-results" [hidden]="findServicesView">
+  <!-- <ion-list id="destination-autocomplete-results" 
+            class="lynx-autocomplete-results" 
+            [hidden]="findServicesView">
     <ion-item *ngFor="let item of destinationSearch.autocompleteItems"
               tappable
               (click)="destinationSearch.chooseItem(item)"
               (click)='centerMapOnPlace(item, "destination")'>
       <b>{{ item.name }}</b> {{ item.formatted_address }}
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 
   <div text-center id="find-services-button-container" *ngIf="findServicesView">
     <button ion-button round
