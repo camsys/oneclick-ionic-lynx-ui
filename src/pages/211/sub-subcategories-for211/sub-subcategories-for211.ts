@@ -36,8 +36,10 @@ export class SubSubcategoriesFor211Page {
   }
 
   getSubSubCategories(): void {
+    let userLocation = this.auth.userLocation();
+    let latlng = userLocation.geometry || {};
     this.oneClickServiceProvider
-        .getSubSubcategoryForSubcategoryName(this.subcategory.name)
+        .getSubSubcategoryForSubcategoryName(this.subcategory.name, latlng['lat'], latlng['lng'])
         .then(sscs => this.subSubCategories = sscs);
   }
 

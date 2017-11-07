@@ -140,8 +140,12 @@ export class OneClickProvider {
       .catch(this.handleError);
   }
 
-  getCategoriesFor211Services(): Promise<CategoryFor211Model[]> {
-    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/categories');
+  getCategoriesFor211Services(lat: number, lng: number): Promise<CategoryFor211Model[]> {
+    if(lat && lng) {
+      uri = encodeURI(this.oneClickUrl+'oneclick_refernet/categories?lat='+lat+'&lng='+lng);
+    } else {
+      var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/categories');
+    }
 
     return this.http.get(uri)
       .toPromise()
@@ -150,8 +154,12 @@ export class OneClickProvider {
       .catch(this.handleError);
   }
 
-  getSubcategoryForCategoryName(categoryName: string): Promise<SubcategoryFor211Model[]> {
-    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_categories?category='+categoryName);
+  getSubcategoryForCategoryName(categoryName: string, lat: number, lng: number): Promise<SubcategoryFor211Model[]> {
+    if(lat && lng) {
+      uri = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_categories?category='+categoryName+'&lat='+lat+'&lng='+lng);
+    } else {
+      var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_categories?category='+categoryName);
+    }
 
     return this.http.get(uri)
       .toPromise()
@@ -160,9 +168,14 @@ export class OneClickProvider {
       .catch(this.handleError);
   }
 
-  getSubSubcategoryForSubcategoryName(subcategoryName: string): Promise<SubSubcategoryFor211Model[]>{
+  getSubSubcategoryForSubcategoryName(subcategoryName: string, lat: number, lng: number): Promise<SubSubcategoryFor211Model[]>{
 
-    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_sub_categories?sub_category='+subcategoryName);
+    if(lat && lng) {
+      uri = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_sub_categories?sub_category='+subcategoryName+'&lat='+lat+'&lng='+lng);
+    } else {
+      var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/sub_sub_categories?sub_category='+subcategoryName);
+    }
+    
 
     // console.log(uri);
 
