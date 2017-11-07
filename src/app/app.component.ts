@@ -3,7 +3,6 @@ import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { TranslateService } from '@ngx-translate/core';
 
 // PAGES
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
@@ -25,8 +24,6 @@ import { PageModel } from '../models/page';
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { AuthProvider } from '../providers/auth/auth';
 import { I18nProvider } from '../providers/i18n/i18n';
-
-import { environment } from './environment';
 
 
 @Component({
@@ -56,7 +53,6 @@ export class MyApp {
               private auth: AuthProvider,
               private oneClickProvider: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
-              private translate: TranslateService,
               public events: Events,
               private i18n: I18nProvider) {
     this.initializeApp();

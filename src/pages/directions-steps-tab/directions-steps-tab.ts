@@ -88,9 +88,8 @@ export class DirectionsStepsTabPage {
   // Makes a new trip request and reloads the Directions page.
   replanTrip() {
     this.events.publish('spinner:show');
-    console.log("REPLANNING TRIP", this.tripRequest);
 
-    let result = this.oneClickProvider.getTripPlan(this.tripRequest).
+    this.oneClickProvider.getTripPlan(this.tripRequest).
       forEach(value => {
         this.events.publish('spinner:hide');
         this._app.getRootNav()      // Load the new directions page on top of the parent page, not within the tab

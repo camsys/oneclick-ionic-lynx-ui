@@ -7,7 +7,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { ElasticModule } from 'angular2-elastic';
 import { DatePicker } from '@ionic-native/date-picker';
 import { LOCALE_ID } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+// import { Observable } from 'rxjs/Rx'; 
 
 // Environment
 import { environment } from './environment';
@@ -22,7 +22,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 // Other 3rd-Party Imports
 
 // Translations
-import { TranslateModule, TranslateLoader, TranslateService } from "@ngx-translate/core";
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 export function createTranslateLoader(http: Http){

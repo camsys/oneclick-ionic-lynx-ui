@@ -1,7 +1,6 @@
 import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 // PROVIDERS

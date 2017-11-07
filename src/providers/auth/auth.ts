@@ -4,12 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import { TranslateService } from '@ngx-translate/core';
-
-import { Global } from '../../app/global';
 import { environment } from '../../app/environment';
-
-// Providers
-import { I18nProvider } from '../i18n/i18n';
 
 // Models
 import { Session } from '../../models/session';
