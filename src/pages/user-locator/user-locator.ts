@@ -1,6 +1,11 @@
 import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+<<<<<<< HEAD
+=======
+import { FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+>>>>>>> Fill in missing translations
 
 // PROVIDERS
 import { GeocodeServiceProvider } from '../../providers/google/geocode-service';
@@ -44,7 +49,8 @@ export class UserLocatorPage {
               private googleMapsHelpers: GoogleMapsHelpersProvider,
               private changeDetector: ChangeDetectorRef,
               private auth: AuthProvider,
-              public events: Events
+              public events: Events,
+              private translate: TranslateService
             ) {
 
     this.map = null;
@@ -144,7 +150,7 @@ export class UserLocatorPage {
     this.geoServiceProvider.getPlaceFromLatLng(lat, lng)
     .subscribe( (places) => {
       this.userLocation = places[0];
-      this.originSearch.placeholder = "Your Location: " + this.userLocation.formatted_address;
+      this.originSearch.placeholder = this.translate.instant("lynx.pages.user_locator.placeholder_found") + this.userLocation.formatted_address;
 
       // Set the origin to the user location if it isn't already set
       this.originSearch.place = this.originSearch.place || this.userLocation;

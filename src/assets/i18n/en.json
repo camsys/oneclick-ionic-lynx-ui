@@ -94,7 +94,7 @@
         "origin_search": {
           "label": "Where Are You?",
           "placeholder_pending": "Finding Your Location...",
-          "placeholder_found": ""
+          "placeholder_found": "Your Location: "
         },
         "destination_search": {
           "label": "Where Are You Going?",
