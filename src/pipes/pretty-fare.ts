@@ -10,7 +10,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class PrettyFarePipe implements PipeTransform {
   
-  noFare: string = "n/a"; // String for representing unknown fares
+  noFare: string = ""; // String for representing unknown fares
   
   transform(fares: number[]): string {
     
