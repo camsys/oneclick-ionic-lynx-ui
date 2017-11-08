@@ -151,6 +151,7 @@ export class OneClickProvider {
       this.i18n.currentLocale()
     );
     
+    // Add lat & lng params
     if(lat && lng) { uri += ('&lat=' + lat + '&lng=' + lng); }
 
     return this.http.get(uri)
@@ -169,6 +170,7 @@ export class OneClickProvider {
       this.i18n.currentLocale()
     );
     
+    // Add lat & lng params
     if(lat && lng) { uri += ('&lat=' + lat + '&lng=' + lng); }
 
     return this.http.get(uri)
@@ -188,6 +190,7 @@ export class OneClickProvider {
       this.i18n.currentLocale()
     );
     
+    // Add lat & lng params
     if(lat && lng) { uri += ('&lat=' + lat + '&lng=' + lng); }
 
     return this.http.get(uri)
@@ -207,6 +210,7 @@ export class OneClickProvider {
       this.i18n.currentLocale()
     );
     
+    // Add lat & lng params
     if(lat && lng) { uri += ('&lat=' + lat + '&lng=' + lng); }
 
     return this.http.get(uri)
