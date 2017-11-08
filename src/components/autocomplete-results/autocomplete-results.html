@@ -1,11 +1,11 @@
 <div class="lynx-autocomplete-results-container"
-     [hidden]="items.length <= 0">
+     [hidden]="hidden || items.length <= 0">
   <ion-list class="lynx-autocomplete-results">
     <ion-item *ngFor="let item of items; let i = index"
               tappable
               [class.focus]="focusItem === i"
               (click)="selectItem(item)">
-      <b>{{ item.name }}</b> {{ item.formatted_address }}
+      <b *ngIf="item.title">{{ item.title }}: </b>{{ item.description }}
     </ion-item>
   </ion-list>
 </div>

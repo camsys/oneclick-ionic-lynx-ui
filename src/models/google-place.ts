@@ -2,6 +2,7 @@ import { AddressComponentModel } from './address-component';
 import { OneClickPlaceModel } from "./one-click-place";
 
 export class GooglePlaceModel {
+  name: string;
   address_components: AddressComponentModel[];
   formatted_address: string;
   geometry: {
@@ -21,6 +22,7 @@ export class GooglePlaceModel {
   
   toOneClickPlace(): OneClickPlaceModel {
     return new OneClickPlaceModel({
+      name: this.name,
       lat: this.geometry.lat,
       lng: this.geometry.lng,
       street_number: this.addressComponent("street_number").long_name,
@@ -43,7 +45,9 @@ export class GooglePlaceModel {
   
   // Returns a label for the place, either from the address components or using the formatted address
   label() {
-    return this.addressComponent(this.types[0])["long_name"] || this.formatted_address;
+    return this.name || 
+           this.addressComponent(this.types[0])["long_name"] || 
+           this.formatted_address;
   }
   
 }

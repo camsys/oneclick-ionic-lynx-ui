@@ -1,17 +1,32 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
 import { Events } from 'ionic-angular';
 
+import { AutocompleteItemModel } from '../../models/autocomplete-item';
+
 
 /**
  * Component for Displaying Autcomplete Results
+ * Items array should be an array of hashes with title and description fields
+ 
+  *** TERMINOLOGY ***
+  * Show/Hide: Makes the results list visible, regardless of whether any item is focused 
+  * Focus/Blur: Whether or not a particular item is highlighted.
+  * Select: Choosing an item from the list triggers the onSelect event.
  */
+     
 @Component({
   selector: 'autocomplete-results',
   templateUrl: 'autocomplete-results.html'
 })
 export class AutocompleteResultsComponent {
   
-  @Input() items: any[] = [];
+  // Index of the item currently focused on.
+  focusItem: number = null;
+  
+  @Input() hidden: Boolean = false; // Show results list by default
+  @Input() items: AutocompleteItemModel[] = []; // Autocomplete items list
+  
+  // Output event emitters for setting callbacks outside of the component
   @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBlur: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFocus: EventEmitter<any> = new EventEmitter<any>();
@@ -25,17 +40,42 @@ export class AutocompleteResultsComponent {
         this.focusOnNextItem(); // Go to next item on down arrow
       } else if (event.code === "ArrowUp") {
         this.focusOnPreviousItem(); // Go to previous item on up arrow
-      } else if (event.code === "Enter" || event.code === "Space") {
+      } else if (event.code === "Enter") {
         this.selectFocusItem(); // On space or enter, select the focused item
       }
     }
     
   }
-  
-  focusItem: number = null;
 
   constructor(public events: Events, 
               public el: ElementRef) { }
+            
+  // Sets hidden to false, showing results list
+  show() {
+    this.hidden = false;
+  }
+  
+  // Sets hidden to true, hiding results list
+  hide() {
+    this.hidden = true;
+  }
+  
+  // Applies focus to the list, defaulting to right before the first item
+  focus() {
+    this.show();
+    if(!this.isFocused()) {
+      this.focusItem = -1;
+      this.onFocus.emit();
+    }
+  }
+  
+  // Unfocuses from any item on the list
+  blur() {
+    if(this.isFocused()) {
+      this.focusItem = null;
+      this.onBlur.emit();
+    }
+  }
   
   // When an item is selected, emit the onSelect event, passing the selected item.
   selectItem(item: any): any {
@@ -53,22 +93,7 @@ export class AutocompleteResultsComponent {
   isFocused(): boolean {
     return this.focusItem != null;
   }
-  
-  // Applies focus to the list, defaulting to right before the first item
-  focus() {
-    if(!this.isFocused()) {
-      this.focusItem = -1;
-      this.onFocus.emit();
-    }
-  }
-  
-  // Unfocuses from any item on the list
-  blur() {
-    if(this.isFocused()) {
-      this.focusItem = null;
-      this.onBlur.emit();
-    }
-  }
+
   
   // Sets the focus to an item by index.
   // Focused item will be formatted differently.

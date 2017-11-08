@@ -2,5 +2,7 @@
 <ion-searchbar  [ngModel]="query"
                 [formControl]="searchControl"
                 [showCancelButton]="true"
-                [placeholder]="placeholder">
+                [placeholder]="placeholder"
+                (ionFocus)="ionFocus()"
+                (ionBlur)="ionBlur()">
 </ion-searchbar>

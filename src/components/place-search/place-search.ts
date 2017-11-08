@@ -4,6 +4,7 @@ import { Events } from 'ionic-angular';
 
 // MODELS
 import { GooglePlaceModel } from "../../models/google-place";
+import { AutocompleteItemModel } from "../../models/autocomplete-item";
 
 // PROVIDERS
 import { GeocodeServiceProvider } from '../../providers/google/geocode-service';
@@ -24,12 +25,15 @@ export class PlaceSearchComponent {
   query: string;
   searchControl: FormControl;
   @Input() placeholder: string;
-  autocompleteItems: GooglePlaceModel[];
-  googleAutocompleteItems: GooglePlaceModel[];
-  oneClickAutocompleteItems: GooglePlaceModel[];
+  autocompleteItems: AutocompleteItemModel[];
+  googleAutocompleteItems: AutocompleteItemModel[];
+  oneClickAutocompleteItems: AutocompleteItemModel[];
   place: GooglePlaceModel;
 
   @Output() onArrowDown: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onBlur: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onFocus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onSelect: EventEmitter<GooglePlaceModel> = new EventEmitter<GooglePlaceModel>();
   
   @HostListener('keydown', ['$event'])
   keyboardInput(event: KeyboardEvent) {
@@ -68,7 +72,7 @@ export class PlaceSearchComponent {
     .getPlaces(query)
     .subscribe(places => {
       // Set oneClickAutocompleteItems to the places call results and refresh the search results
-      this.oneClickAutocompleteItems = places;
+      this.oneClickAutocompleteItems = places.map((p) => this.convertPlaceToAutocompleteItem(p));
       this.refresh();
     });
 
@@ -76,7 +80,7 @@ export class PlaceSearchComponent {
     .getGooglePlaces(query)
     .subscribe(places => {
       // Set googleAutocompleteItems to the places call results and refresh the search results
-      this.googleAutocompleteItems = places;
+      this.googleAutocompleteItems = places.map((p) => this.convertPlaceToAutocompleteItem(p));
       this.refresh();
     });
 
@@ -103,12 +107,32 @@ export class PlaceSearchComponent {
   // Select an item from the search results list
   chooseItem(item: any) {
     this.events.publish('spinner:show'); // Show spinner until geocoding call returns
-    this.geoServiceProvider.getPlaceFromFormattedAddress(item)
+    
+    // Geocode the selected place
+    this.geoServiceProvider.getPlaceFromFormattedAddress(item.result)
     .subscribe((places) => {
-      this.setPlace(places[0]);
-      this.clear();
+      this.setPlace(places[0]); // Set the component's place variable to the first result
+      this.clear(); // Clear the autocomplete results
       this.events.publish('spinner:hide'); // Hide spinner once places are returned
+      this.onSelect.emit(this.place); // Emit the onSelect output event
     });
+  }
+  
+  // Converts a google place model to an autocomplete item model
+  convertPlaceToAutocompleteItem(place: GooglePlaceModel): AutocompleteItemModel {
+    return {
+      title: place.name,
+      description: place.formatted_address,
+      result: place
+    } as AutocompleteItemModel;
+  }
+  
+  // Pass through the ion-search focus and blur events
+  ionFocus() {
+    this.onFocus.emit();
+  }  
+  ionBlur() {
+    this.onBlur.emit();
   }
 
 }
