@@ -145,15 +145,14 @@ export class OneClickProvider {
   }
 
   getCategoriesFor211Services(lat: number, lng: number): Promise<CategoryFor211Model[]> {
-    var uri: string = encodeURI(
+    let uri: string = encodeURI(
       this.oneClickUrl + 
       'oneclick_refernet/categories?locale=' + 
       this.i18n.currentLocale()
     );
     
-    if(lat && lng) {
-      uri = encodeURI(uri + '&lat=' + lat + '&lng=' + lng);
-    }
+    // Add lat & lng params
+    if(lat && lng) { uri += ('&lat=' + lat + '&lng=' + lng); }
 
     return this.http.get(uri)
       .toPromise()
@@ -163,7 +162,7 @@ export class OneClickProvider {
   }
 
   getSubcategoryForCategoryName(categoryName: string, lat: number, lng: number): Promise<SubcategoryFor211Model[]> {
-    var uri: string = encodeURI(
+    let uri: string = encodeURI(
       this.oneClickUrl + 
       'oneclick_refernet/sub_categories?category=' + 
       categoryName +
@@ -171,9 +170,8 @@ export class OneClickProvider {
       this.i18n.currentLocale()
     );
     
-    if(lat && lng) {
-      uri = encodeURI(uri + '&lat=' + lat + '&lng=' + lng);
-    }
+    // Add lat & lng params
+    if(lat && lng) { uri += ('&lat=' + lat + '&lng=' + lng); }
 
     return this.http.get(uri)
       .toPromise()
@@ -184,7 +182,7 @@ export class OneClickProvider {
 
   getSubSubcategoryForSubcategoryName(subcategoryName: string, lat: number, lng: number): Promise<SubSubcategoryFor211Model[]>{
 
-    var uri: string = encodeURI(
+    let uri: string = encodeURI(
       this.oneClickUrl +
       'oneclick_refernet/sub_sub_categories?sub_category=' +
       subcategoryName + 
@@ -192,11 +190,8 @@ export class OneClickProvider {
       this.i18n.currentLocale()
     );
     
-    if(lat && lng) {
-      uri = encodeURI(uri + '&lat=' + lat + '&lng=' + lng);
-    }
-
-    // console.log(uri);
+    // Add lat & lng params
+    if(lat && lng) { uri += ('&lat=' + lat + '&lng=' + lng); }
 
     return this.http.get(uri)
       .toPromise()
@@ -207,15 +202,16 @@ export class OneClickProvider {
 
   // Gets refernet services based on subsubcategory name, and optional lat/lng
   getServicesFromSubSubCategoryName(subSubCategoryName: string, lat: number, lng: number): Promise<ServiceModel[]>{
-    let uri: string = this.oneClickUrl;
-
-    if(lat && lng) {
-      uri = encodeURI(uri+'oneclick_refernet/services?sub_sub_category='+subSubCategoryName+'&lat='+lat+'&lng='+lng);
-    } else {
-      uri = encodeURI(uri+'oneclick_refernet/services?sub_sub_category='+subSubCategoryName);
-    }
-
-    console.log(uri);
+    var uri: string = encodeURI(
+      this.oneClickUrl +
+      'oneclick_refernet/services?sub_sub_category=' +
+      subSubCategoryName + 
+      '&locale=' + 
+      this.i18n.currentLocale()
+    );
+    
+    // Add lat & lng params
+    if(lat && lng) { uri += ('&lat=' + lat + '&lng=' + lng); }
 
     return this.http.get(uri)
       .toPromise()
