@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
 import { Events } from 'ionic-angular';
 
-import { AutocompleteItemModel } from '../../models/autocomplete-item';
+import { SearchResultModel } from '../../models/search-result';
 
 
 /**
@@ -24,7 +24,7 @@ export class AutocompleteResultsComponent {
   focusItem: number = null;
   
   @Input() hidden: Boolean = false; // Show results list by default
-  @Input() items: AutocompleteItemModel[] = []; // Autocomplete items list
+  @Input() items: SearchResultModel[] = []; // Autocomplete items list
   
   // Output event emitters for setting callbacks outside of the component
   @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();

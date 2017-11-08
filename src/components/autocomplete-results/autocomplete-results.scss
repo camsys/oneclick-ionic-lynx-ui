@@ -5,7 +5,7 @@ autocomplete-results {
     z-index: 1000;
     width: 100%;
     height: 100%;
-    background-color: transparentize($lynxBlack, 0.7);
+    background-color: $lynxShadow;
   }
   
   ion-list.lynx-autocomplete-results {

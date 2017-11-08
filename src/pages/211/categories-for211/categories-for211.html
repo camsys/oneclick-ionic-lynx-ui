@@ -21,13 +21,19 @@
 
 <ion-content>
   
-  <ion-list id="search-autocomplete-results">
+  <!-- KEYWORD SEARCH RESULTS LISTS -->
+  <autocomplete-results #searchResultsList
+    [items]="searchResults"
+    (onSelect)="goToSearchResult($event)">
+  </autocomplete-results>  
+  
+  <!-- <ion-list id="search-autocomplete-results">
     <ion-item *ngFor="let result of searchResults" 
               tappable
               (click)="goToSearchResult(result)">
       <b>{{ "lynx.pages.categories.resources_search." + translationKeyFor(result.type) | translate }}: </b>{{result.label}}
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 
   <ion-grid>
     <ion-row>
