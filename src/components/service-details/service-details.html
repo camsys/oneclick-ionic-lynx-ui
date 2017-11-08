@@ -1,7 +1,19 @@
 <!-- SERVICE DETAILS -->
+
+
+<ion-row>
   
-<!-- NAME -->
-<h3 class="item-heading">{{service.name}}</h3>
+  <!-- LOGO -->
+  <ion-col no-padding class="image-container" *ngIf="service.logo">
+    <img src="{{service.logo}}"/>
+  </ion-col>
+
+  <!-- NAME -->
+  <ion-col no-padding>
+    <h3 class="item-heading">{{service.name}}</h3>
+  </ion-col>
+
+</ion-row>
 
 <!-- FARE -->
 <p class="item-body service-details-section" *ngIf="service.fare">
