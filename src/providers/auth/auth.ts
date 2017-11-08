@@ -9,7 +9,7 @@ import { environment } from '../../app/environment';
 // Models
 import { Session } from '../../models/session';
 import { User } from '../../models/user';
-
+import { GooglePlaceModel } from '../../models/google-place';
 
 @Injectable()
 export class AuthProvider {
@@ -111,7 +111,8 @@ export class AuthProvider {
 
   // Pulls the user location out of the session if available
   userLocation(): any {
-    return this.session().user_starting_location || {};
+    return (this.session().user_starting_location || 
+            {geometry: environment.DEFAULT_LOCATION}) as GooglePlaceModel;
   }
   
   // Updates the session based on a user object, and updates the locale

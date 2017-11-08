@@ -98,6 +98,7 @@ import { ResponsiveDatepickerComponent } from '../components/responsive-datepick
 import { ResponsiveTimepickerComponent } from '../components/responsive-timepicker/responsive-timepicker';
 import { PrettyTableNamePipe } from '../pipes/pretty-table-name';
 import { ServiceDetailsComponent } from '../components/service-details/service-details';
+import { AutocompleteResultsComponent } from '../components/autocomplete-results/autocomplete-results';
 
 @NgModule({
   declarations: [
@@ -135,7 +136,8 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
     ResponsiveDatepickerComponent,
     ResponsiveTimepickerComponent,
     PrettyTableNamePipe,
-    ServiceDetailsComponent
+    ServiceDetailsComponent,
+    AutocompleteResultsComponent
   ],
   imports: [
     BrowserModule,

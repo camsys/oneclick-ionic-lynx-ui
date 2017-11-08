@@ -37,6 +37,8 @@ $lynxWhite:       #f4f4f4;
 $lynxLtGray:      darken($lynxWhite, 10%);
 $lynxMdGray:      darken($lynxWhite, 35%);
 $lynxDkGray:      darken($lynxWhite, 60%);
+$lynxShadow:      transparentize($lynxBlack, 0.7);
+$lynxTranslucentPink: transparentize($lynxPink, 0.2);
 
 $colors: (
   primary:        $lynxDarkPink,

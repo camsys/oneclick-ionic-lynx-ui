@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild, HostListener } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
@@ -7,6 +7,7 @@ import { SubSubcategoriesFor211Page } from '../sub-subcategories-for211/sub-subc
 import { ServicesPage } from '../services/services';
 import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 
+import { AutocompleteResultsComponent } from "../../../components/autocomplete-results/autocomplete-results";
 
 // import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
 import { OneClickProvider } from '../../../providers/one-click/one-click';
@@ -14,7 +15,7 @@ import { CategoryFor211Model } from '../../../models/category-for-211';
 import { SearchResultModel } from '../../../models/search-result';
 
 import { AuthProvider } from '../../../providers/auth/auth';
-
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the CategoriesFor211Page page.
@@ -29,16 +30,26 @@ import { AuthProvider } from '../../../providers/auth/auth';
 })
 export class CategoriesFor211Page {
   
+  @ViewChild('searchResultsList') searchResultsList: AutocompleteResultsComponent;
+  
   categories: CategoryFor211Model[];
   searchControl: FormControl;
   searchResults: SearchResultModel[];
+  
+  @HostListener('keydown', ['$event'])
+  keyboardInput(event: KeyboardEvent) {
+    if(event.code === "ArrowDown") {
+      this.searchResultsList.focus(); // Focus on search results list when you arrow down from the input field
+    }
+  }
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private oneClickProvider: OneClickProvider,
               public events: Events,
               private auth: AuthProvider,
-              private changeDetector: ChangeDetectorRef) {
+              private changeDetector: ChangeDetectorRef,
+              private translate: TranslateService) {
     
     this.searchResults = [];
     this.searchControl = new FormControl;
@@ -70,7 +81,7 @@ export class CategoriesFor211Page {
     if(query) {
       this.oneClickProvider.refernetKeywordSearch(query)
           .subscribe((results) => {
-            this.searchResults = results;
+            this.searchResults = results.map((r) => this.translateSearchResult(r));
             this.changeDetector.detectChanges();
           });
     } else { // If query is empty, clear the results.
@@ -110,7 +121,7 @@ export class CategoriesFor211Page {
       
         this.navCtrl.push(ServiceFor211DetailPage, {
           service: service,
-          origin: this.auth.session().user_starting_location,
+          origin: this.auth.userLocation(),
           destination: {
             name: service.site_name,
             geometry: {lat: service.lat, lng: service.lng}
@@ -131,6 +142,13 @@ export class CategoriesFor211Page {
       "OneclickRefernet::SubSubCategory": "sub_sub_category",
       "OneclickRefernet::Service": "service"
     }[name];
+  }
+  
+  // Builds a translated title for a search result
+  translateSearchResult(result: SearchResultModel): SearchResultModel {
+    let tkey = "lynx.pages.categories.resources_search." + this.translationKeyFor(result.type);
+    result.title = this.translate.instant(tkey);
+    return result;
   }
 
 }
