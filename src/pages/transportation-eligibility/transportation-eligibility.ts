@@ -6,7 +6,6 @@ import { OneClickProvider } from '../../providers/one-click/one-click';
 import { User } from '../../models/user';
 import { Eligibility } from '../../models/eligibility';
 import { Accommodation } from '../../models/accommodation';
-import { Purpose } from '../../models/purpose';
 import { ParatransitServicesPage } from '../paratransit-services/paratransit-services';
 
 import { TripRequestModel } from "../../models/trip-request";
@@ -41,8 +40,8 @@ export class TransportationEligibilityPage {
     this.eligibilities = this.tripResponse.eligibilities;
     
     // If user is logged in, set the values for the eligibilities and accommodations based on their saved info
-    if(auth.session().user) {
-      this.user = auth.session().user;
+    if(this.auth.session().user) {
+      this.user = this.auth.session().user;
       this.setAccomAndEligValues();
     }
 

@@ -1,7 +1,6 @@
 import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 // PROVIDERS
@@ -19,7 +18,7 @@ import { GooglePlaceModel } from "../../models/google-place";
 
 // COMPONENTS
 import { PlaceSearchComponent } from "../../components/place-search/place-search";
-
+import { AutocompleteResultsComponent } from "../../components/autocomplete-results/autocomplete-results";
 
 @IonicPage()
 @Component({
@@ -31,12 +30,16 @@ export class UserLocatorPage {
   @ViewChild('originSearch') originSearch: PlaceSearchComponent;
   @ViewChild('destinationSearch') destinationSearch: PlaceSearchComponent;
 
+  @ViewChild('originResults') originResults: AutocompleteResultsComponent;
+  @ViewChild('destinationResults') destinationResults: AutocompleteResultsComponent;
+
   map: google.maps.Map;
   userLocation: GooglePlaceModel;
   findServicesView: Boolean; // Flag for showing the find svcs view vs. the direct transportation finder view
-  originMarker : google.maps.Marker;
-  destinationMarker : google.maps.Marker;
-  imageForDestinationMarker : string;
+  originMarker: google.maps.Marker;
+  destinationMarker: google.maps.Marker;
+  imageForDestinationMarker: string;
+  selectedOriginItem: number = null;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -66,9 +69,10 @@ export class UserLocatorPage {
   }
 
   ionViewWillLeave() {
-    // on leaving the page, unsubscribe from the place-search:change event to avoid
+    // on leaving the page, unsubscribe from the place-search events to avoid
     // detecting changes on destroyed views
     this.events.unsubscribe('place-search:change');
+    this.events.unsubscribe('place-search:keypress');
   }
 
   // Sets up the google map and geolocation services
@@ -155,30 +159,11 @@ export class UserLocatorPage {
   }
 
   // Centers map on a place
-  private centerMapOnPlace(item: GooglePlaceModel, originOrDestination: string) {
-    console.log('in centerMapOnPlace');
-    console.log(item);
-
-    if(originOrDestination == 'origin')
-    {
-      this.geoServiceProvider.getPlaceFromFormattedAddress(item)
-        .subscribe((places) => {
-          let place = places[0];
-          if(place != null)
-          {
-            this.zoomToOriginLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
-          }
-      });
-    }else if(originOrDestination == 'destination')
-    {
-      this.geoServiceProvider.getPlaceFromFormattedAddress(item)
-        .subscribe((places) => {
-          let place = places[0];
-          if(place != null)
-          {
-            this.zoomToDestinationLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
-          }
-        });
+  private centerMapOnPlace(place: GooglePlaceModel, originOrDestination: string) {
+    if(originOrDestination == 'origin') {
+      this.zoomToOriginLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
+    } else if(originOrDestination == 'destination') {
+      this.zoomToDestinationLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
     }
   }
 

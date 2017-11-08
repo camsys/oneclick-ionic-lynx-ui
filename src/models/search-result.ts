@@ -3,6 +3,6 @@ export class SearchResultModel {
   id: number;
   type: string;
   label: string;
-  score: number;
   result: any;
+  title: string;
 }
