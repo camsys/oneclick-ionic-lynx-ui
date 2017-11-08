@@ -61,6 +61,9 @@ export class ServiceFor211DetailPage {
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
 
+    // Show the spinner until the trip plan call returns
+    this.events.publish('spinner:show');
+
     // Plan a trip and store the result.
     // Once response comes in, update the UI with travel times and allow
     // user to select a mode to view directions.
@@ -69,6 +72,7 @@ export class ServiceFor211DetailPage {
     .subscribe((resp) => {
       this.tripResponse = new TripResponseModel(resp);
       this.updateTravelTimesFromTripResponse(this.tripResponse);
+      this.events.publish('spinner:hide');
       this.changeDetector.detectChanges();
     });
 
@@ -83,11 +87,6 @@ export class ServiceFor211DetailPage {
     if(this.tripPlanSubscription) {
       this.tripPlanSubscription.unsubscribe();
     }
-  }
-
-  // Returns true/false based on whether or not the tripResponse has returned yet
-  ready(): boolean {
-    return !!this.tripResponse && !!this.tripResponse.id;
   }
 
   // Opens the directions page for the desired mode, passing a clone of the

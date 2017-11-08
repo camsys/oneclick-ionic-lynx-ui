@@ -34,14 +34,12 @@
             <h3 item-start class="item-heading mode-label">
               {{ "lynx.global.modes." + mode | translate }}
             </h3>
-            <div item-end class="mode-fare"
-                 *ngIf="ready()">
+            <div item-end class="mode-fare">
               {{ tripResponse.costsByTripType(mode) | prettyFare }}
             </div>
             <button ion-button item-end round default
                     class="lynx-button-primary mode-trip-plan-button"
-                    (click)="openDirectionsPage(mode)"
-                    *ngIf="ready(); else calculatingDuration">
+                    (click)="openDirectionsPage(mode)">
               {{ durationFor(mode) | prettyTime }}
             </button>
           </ion-item>
@@ -51,27 +49,16 @@
             <h3 item-start class="item-heading mode-label">
               {{ "lynx.global.modes.paratransit" | translate }}
             </h3>
-            <div item-end class="mode-fare" 
-                 *ngIf="ready()">
+            <div item-end class="mode-fare" >
               {{ tripResponse.costsByTripType("paratransit") | prettyFare }}
             </div>
             <button ion-button item-end round default
                     class="lynx-button-primary mode-trip-plan-button"
-                    (click)="openOtherTransportationOptions()"
-                    *ngIf="ready(); else calculatingDuration">
+                    (click)="openOtherTransportationOptions()">
                     <ion-icon pull-right name="arrow-forward"></ion-icon>
             </button>
           </ion-item>
-          
-          <!-- Until the trip response data comes back, display this disabled button for each mode -->
-          <ng-template #calculatingDuration> 
-            <button ion-button item-end round default
-                    class="lynx-button-primary"
-                    disabled>
-              <ion-spinner name="dots"></ion-spinner>
-            </button>           
-          </ng-template>
-          
+
         </ion-list>
       </ion-col>
     </ion-row>
