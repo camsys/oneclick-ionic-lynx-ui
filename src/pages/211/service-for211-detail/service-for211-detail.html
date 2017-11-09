@@ -3,7 +3,8 @@
 
   <!-- If there's a service present, put its name and address in the header -->
   <ion-navbar class="lynx-toolbar" *ngIf="service; else noServiceHeader">
-    <ion-title>{{service.agency_name}}</ion-title>
+    <div class="dynamic-toolbar-title"><b>{{service.agency_name}}</b></div>
+    <!-- <ion-title>{{service.agency_name}}</ion-title> -->
     <div class="lynx-toolbar-body">{{service.address}}</div>
     <div *ngIf="service" class="lynx-toolbar-body">
       <a *ngIf="service.url" href="{{service.url}}" target="_blank">{{service.display_url}}</a>
