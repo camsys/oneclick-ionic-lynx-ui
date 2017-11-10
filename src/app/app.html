@@ -2,68 +2,69 @@
 <ion-menu class="lynx-menu" [content]="content" side="right" persistent="true">
 
   <ion-content>
-      
+
     <!-- Build menu buttons based on whether or not user is signed in or not -->
-    
+
     <!-- If signed in... -->
     <div *ngIf="auth.isSignedIn(); else notSignedIn">
-      
+
       <ion-list class="lynx-list lynx-list-contrast">
-      
-        <button ion-item menuClose 
-                class="item-heading" 
+
+        <button ion-item menuClose
+                class="item-heading"
                 id="menu-welcome-button"
                 (click)="goHome()">
           {{ "lynx.pages.menu.welcome_user" | translate:user_name }}
         </button>
-        
-        <button ion-item menuClose 
+
+        <button ion-item menuClose
                 class="item-heading"
                 id="menu-profile-button"
                 (click)="openPage(profilePage)">
           {{ "lynx.pages.menu.profile" | translate }}
         </button>
-        
+
         <!-- Build a button for each page listed in the signedInPages attribute -->
-        <button ion-item menuClose 
-                class="item-heading" 
-                *ngFor="let p of signedInPages" 
+        <button ion-item menuClose
+                class="item-heading"
+                *ngFor="let p of signedInPages"
                 (click)="openPage(p)">
           {{ "lynx.pages.menu." + p.title | translate }}
         </button>
-        
+
       </ion-list>
-      
+
     </div>
-    
+
     <!-- If not signed in... -->
     <ng-template #notSignedIn>
-      
+
       <ion-list class="lynx-list lynx-list-contrast">
-      
-        <button ion-item menuClose 
-                class="item-heading" 
+
+        <button ion-item menuClose
+                class="item-heading"
                 id="menu-sign-in-button"
                 (click)="openPage(signInPage)">
           {{ "lynx.pages.menu.sign_in" | translate }}
         </button>
-        
-        <button ion-item menuClose 
-                class="item-heading" 
-                id="menu-sign-up-button">
+
+        <button ion-item menuClose
+                class="item-heading"
+                id="menu-sign-up-button"
+                (click)="openPage(signUpPage)">
           {{ "lynx.pages.menu.sign_up" | translate }}
         </button>
-        
+
         <!-- Build a button for each page listed in the signedOutPages attribute -->
-        <button ion-item menuClose 
-                class="item-heading" 
-                *ngFor="let p of signedOutPages" 
+        <button ion-item menuClose
+                class="item-heading"
+                *ngFor="let p of signedOutPages"
                 (click)="openPage(p)">
           {{ "lynx.pages.menu." + p.title | translate }}
         </button>
-        
+
       </ion-list>
-      
+
     </ng-template>
 
   </ion-content>
@@ -71,8 +72,8 @@
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav  [root]="rootPage" 
-          #content 
+<ion-nav  [root]="rootPage"
+          #content
           swipeBackEnabled="false">
 </ion-nav>
 

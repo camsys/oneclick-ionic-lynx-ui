@@ -12,6 +12,7 @@ import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { SignInPage }  from '../pages/sign-in/sign-in';
+import { SignUpPage }  from '../pages/sign-up/sign-up';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 
 // MODELS
@@ -39,6 +40,7 @@ export class MyApp {
   signedOutPages: PageModel[];
   universalPages: PageModel[]; // Pages for both signed in and signed out users
   signInPage: PageModel;
+  signUpPage: PageModel;
   profilePage: PageModel;
   user: User;
   eligibilities: Eligibility[];
@@ -70,10 +72,10 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
-  
+
   // Make a call to OneClick to get the user's details
   getUserInfo() {
-    
+
     // Menu if you are signed in
     if(this.auth.isSignedIn()){
       this.oneClickProvider.getProfile()
@@ -93,12 +95,12 @@ export class MyApp {
         }
       })
     }
-    
+
   }
 
   // Set up the menu with pages for signed in and signed out scenarios
   setMenu(){
-    
+
     // Pages to display regardless of whether or not user is signed in or not
     this.universalPages = [
       { title: 'about_us', component: AboutUsPage },
@@ -113,13 +115,14 @@ export class MyApp {
     this.signedInPages = this.universalPages.concat([
       { title: 'sign_out', component: "sign_out"}
     ]);
-    
+
     // Pages to display if user is signed out
     this.signedOutPages = this.universalPages.concat([
       { title: 'home', component: HelpMeFindPage },
     ]);
-    
+
     this.signInPage = { title: 'sign_in', component: SignInPage};
+    this.signUpPage = { title: 'sign_up', component: SignUpPage};
     this.profilePage = { title: 'profile', component: UserProfilePage};
   }
 
