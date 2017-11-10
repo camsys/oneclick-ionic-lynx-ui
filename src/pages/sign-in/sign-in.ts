@@ -3,6 +3,7 @@ import {  IonicPage,
           NavController, 
           NavParams, 
           ToastController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 // Pages
 import { HelpMeFindPage } from '../help-me-find/help-me-find';
@@ -29,7 +30,8 @@ export class SignInPage {
               public navParams: NavParams,
               private authProvider: AuthProvider,
               private oneClickProvider: OneClickProvider,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              private translate: TranslateService) {
   }
 
   signIn() {
@@ -47,7 +49,7 @@ export class SignInPage {
             // On failed response, display a pop-up error message and remain on page.
             console.error(error.json().data.errors);
             let errorToast = this.toastCtrl.create({
-              message: "There was a problem logging in. Please check your username and password and try again.",
+              message: this.translate.instant("lynx.pages.sign_in.error_message"),
               position: "top",
               duration: 3000
             });

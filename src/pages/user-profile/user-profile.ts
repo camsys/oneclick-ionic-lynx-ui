@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '../../app/environment';
 
@@ -39,7 +40,8 @@ export class UserProfilePage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public toastCtrl: ToastController,
-              public oneClickProvider: OneClickProvider) {
+              public oneClickProvider: OneClickProvider,
+              private translate: TranslateService) {
     this.available_locales = environment.AVAILABLE_LOCALES;
   }
 
@@ -84,7 +86,7 @@ export class UserProfilePage {
       console.error("USER TOKEN EXPIRED", error);
       this.navCtrl.push(SignInPage);
       this.toastCtrl.create({
-        message: "Please sign in to continue.", 
+        message: this.translate.instant("lynx.pages.user_profile.sign_in_required_message"), 
         duration: 5000}
       ).present();
     } else {

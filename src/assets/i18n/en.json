@@ -167,7 +167,8 @@
       },
       
       "user_profile": {
-        "update_button": "Update"
+        "update_button": "Update",
+        "sign_in_required_message": "Please sign in to continue."
       },
       
       "transportation_eligibility": {
@@ -183,19 +184,25 @@
         "email": "Your Email",
         "phone": "Your Phone",
         "submit_button": "Submit",
-        "cancel_button": "Cancel"
+        "cancel_button": "Cancel",
+        "success_message": "Feedback successfully created.",
+        "error_message": "Error creating feedback"
       },
       
       "sign_in": {
         "header": "Sign In",
         "sign_in_button": "Sign In",
-        "reset_password_button": "Forgot your Password?"
+        "reset_password_button": "Forgot your Password?",
+        "error_message": "There was a problem signing in. Please check your username and password and try again."
       },
       
       "reset_password": {
         "header": "Reset Password",
         "reset_password_button": "Reset Password",
-        "reset_password_description": "To reset your password, enter your email address. You will be sent an email with your new password."
+        "reset_password_description": "To reset your password, enter your email address. You will be sent an email with your new password.",
+        "success_message": "Your password has been successfully reset. An email has been sent to {{email}}.",
+        "error_message": "There was a problem resetting your password. Please verify your email address and try again."
+
       }
       
     }
