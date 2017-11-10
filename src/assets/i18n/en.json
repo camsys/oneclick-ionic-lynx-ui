@@ -184,6 +184,18 @@
         "phone": "Your Phone",
         "submit_button": "Submit",
         "cancel_button": "Cancel"
+      },
+      
+      "sign_in": {
+        "header": "Sign In",
+        "sign_in_button": "Sign In",
+        "reset_password_button": "Forgot your Password?"
+      },
+      
+      "reset_password": {
+        "header": "Reset Password",
+        "reset_password_button": "Reset Password",
+        "reset_password_description": "To reset your password, enter your email address. You will be sent an email with your new password."
       }
       
     }

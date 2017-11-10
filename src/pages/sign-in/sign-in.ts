@@ -6,11 +6,14 @@ import {  IonicPage,
 
 // Pages
 import { HelpMeFindPage } from '../help-me-find/help-me-find';
+import { ResetPasswordPage } from '../reset-password/reset-password';
 
 // Providers
 import { AuthProvider } from '../../providers/auth/auth';
 import { OneClickProvider } from '../../providers/one-click/one-click';
 
+// Models
+import { User } from '../../models/user';
 
 @IonicPage()
 @Component({
@@ -19,7 +22,7 @@ import { OneClickProvider } from '../../providers/one-click/one-click';
 })
 export class SignInPage {
 
-  user = { email: null, password: null };
+  user: User = { email: null, password: null } as User;
   signInSubscription: any;
 
   constructor(public navCtrl: NavController, 
@@ -56,8 +59,8 @@ export class SignInPage {
     this.navCtrl.push(HelpMeFindPage);
   }
   
-  forgotPassword() {
-    console.log("FORGOT PASSWORD");
+  resetPassword() {
+    this.navCtrl.push(ResetPasswordPage);
   }
 
 }
