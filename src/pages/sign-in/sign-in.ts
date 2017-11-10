@@ -56,6 +56,8 @@ export class SignInPage {
     this.navCtrl.push(HelpMeFindPage);
   }
   
-  
+  forgotPassword() {
+    console.log("FORGOT PASSWORD");
+  }
 
 }

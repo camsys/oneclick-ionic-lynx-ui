@@ -108,7 +108,7 @@
       background-color: inherit;
       color: inherit;
       
-      &:active {
+      &:active, &:hover {
         color: $lynxPink;
       }
     }
