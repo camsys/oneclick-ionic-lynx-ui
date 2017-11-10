@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 // Providers
 import { OneClickProvider } from '../../providers/one-click/one-click';
@@ -23,7 +24,8 @@ export class ParatransitServicesPage {
               public navParams: NavParams,
               private oneClickProvider: OneClickProvider,
               public modalCtrl: ModalController,
-              public toastCtrl: ToastController) {}
+              public toastCtrl: ToastController,
+              private translate: TranslateService) {}
               
   tripResponse: TripResponseModel;
   transportationServices: OneClickServiceModel[];
@@ -51,7 +53,8 @@ export class ParatransitServicesPage {
     feedbackModal.onDidDismiss(data => {
       if(data) {
         let toast = this.toastCtrl.create({
-          message: (data.status === 200 ? 'Feedback created successfully' : 'Error creating feedback'),
+          message: (data.status === 200 ? this.translate.instant("lynx.pages.feedback.success_message") : 
+                                          this.translate.instant("lynx.pages.feedback.error_message")),
           position: 'bottom',
           duration: 3000
         });

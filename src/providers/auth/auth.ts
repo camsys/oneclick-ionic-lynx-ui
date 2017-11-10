@@ -108,6 +108,21 @@ export class AuthProvider {
       return Observable.of();
     }
   }
+  
+  // Resets the password of the provided user (only email required)
+  resetPassword(email: string): Observable<Response>{    
+    let uri: string = encodeURI(this.baseUrl + 'users/reset_password');
+    let body = JSON.stringify({user: { email: email }});
+    let options: RequestOptions = new RequestOptions({
+      headers: this.defaultHeaders
+    });
+    
+    return this.http
+        .post(uri, body, options)
+        .map((response: Response) => {
+          return response;
+        });
+  }
 
   // Pulls the user location out of the session if available
   userLocation(): any {

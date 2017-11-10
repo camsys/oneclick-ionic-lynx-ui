@@ -1,6 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, ModalController, ToastController } from 'ionic-angular';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
+import { TranslateService } from '@ngx-translate/core';
 
 // Pages
 import { FeedbackModalPage } from "../../feedback-modal/feedback-modal";
@@ -52,7 +53,8 @@ export class ServiceFor211DetailPage {
               private inAppBrowser: InAppBrowser,
               public changeDetector: ChangeDetectorRef,
               public toastCtrl: ToastController,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController,
+              private translate: TranslateService) {
 
     // Set the service (if present)
     this.service = navParams.data.service;
@@ -205,7 +207,8 @@ export class ServiceFor211DetailPage {
     feedbackModal.onDidDismiss(data => {
       if(data) {
         let toast = this.toastCtrl.create({
-          message: (data.status === 200 ? 'Feedback created successfully' : 'Error creating feedback'),
+          message: (data.status === 200 ? this.translate.instant("lynx.pages.feedback.success_message") : 
+                                          this.translate.instant("lynx.pages.feedback.error_message")),
           position: 'bottom',
           duration: 3000
         });
