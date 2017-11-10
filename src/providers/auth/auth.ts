@@ -110,16 +110,12 @@ export class AuthProvider {
   }
   
   // Resets the password of the provided user (only email required)
-  resetPassword(email: string): Observable<Response>{
-    console.log("RESETTING PASSWORD!!");
-    
+  resetPassword(email: string): Observable<Response>{    
     let uri: string = encodeURI(this.baseUrl + 'users/reset_password');
     let body = JSON.stringify({user: { email: email }});
     let options: RequestOptions = new RequestOptions({
       headers: this.defaultHeaders
     });
-    
-    console.log(uri, body, options);
     
     return this.http
         .post(uri, body, options)
