@@ -9,9 +9,17 @@
       },
       
       "languages": {
-        "en": "English",
-        "es": "Spanish",
-        "keys": "View Translation Keys"
+        "translated": {
+          "en": "English",
+          "es": "Spanish",
+          "keys": "View Translation Keys"
+        },
+        "native": {
+          "en": "English",
+          "es": "Espanol",
+          "keys": "View Translation Keys"
+        }
+
       },
       
       "modes": {
@@ -63,7 +71,7 @@
       },
       
       "contact_us": {
-        "header": "About Us",
+        "header": "Contact Us",
         "url": "website",
         "phone": "phone"
       },
@@ -85,7 +93,7 @@
         "resources": "Find Services by Location",
         "privacy_policy": "Privacy Policy",
         "sign_out": "Sign Out",
-        "language_test": "Temporary Language Test",
+        "language_selector": "Select Language",
         "home": "Home",
         "sign_in": "Hello! Log In Now",
         "sign_up": "Don't have an account?"
@@ -183,7 +191,30 @@
         "email": "Your Email",
         "phone": "Your Phone",
         "submit_button": "Submit",
-        "cancel_button": "Cancel"
+        "cancel_button": "Cancel",
+        "success_message": "Feedback successfully created.",
+        "error_message": "Error creating feedback"
+      },
+      
+      "sign_in": {
+        "header": "Sign In",
+        "sign_in_button": "Sign In",
+        "reset_password_button": "Forgot your Password?",
+        "error_message": "There was a problem signing in. Please check your username and password and try again."
+      },
+      
+      "reset_password": {
+        "header": "Reset Password",
+        "reset_password_button": "Reset Password",
+        "reset_password_description": "To reset your password, enter your email address. You will be sent an email with your new password.",
+        "success_message": "Your password has been successfully reset. An email has been sent to {{email}}.",
+        "error_message": "There was a problem resetting your password. Please verify your email address and try again."
+
+      },
+      
+      "language_selector_modal": {
+        "header": "Preferred Language",
+        "form_title": "Select Your Language"
       }
       
     }
