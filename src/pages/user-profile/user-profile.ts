@@ -30,7 +30,7 @@ import { SignInPage }  from '../sign-in/sign-in';
 })
 export class UserProfilePage {
 
-  user: User;
+  user: User = {} as User;
   eligibilities: Eligibility[];
   accommodations: Accommodation[];
   trip_types: TripType[];

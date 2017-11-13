@@ -1,3 +1,33 @@
 page-user-profile {
-
+  #profile-header > div {
+    font-weight: 400;
+  }
+  
+  #profile-subheader {
+    height: size(7);
+    
+    h1 {
+      margin: size(1) 0;
+    }
+  }
+  
+  #user-profile-container {
+    
+  }
+  
+  #user-attributes-row {
+    // margin-top: size(3);
+  }
+  
+  #accommodations-list {
+    margin-top: size(2);
+  }
+  
+  ion-list-header.profile-list-header {
+    border-top: none;
+    color: $lynxPink;
+    font-weight: 500;
+    font-size: $font-size-md;
+    margin-bottom: 0;
+  }
 }
