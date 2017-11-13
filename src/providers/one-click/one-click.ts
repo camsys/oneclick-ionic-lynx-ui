@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { RequestOptions } from '@angular/http';
 
-import { Events } from 'ionic-angular';
+// import { Events } from 'ionic-angular';
 
 import { Observable } from "rxjs/Rx";
 import 'rxjs/add/operator/map';
@@ -33,8 +33,7 @@ export class OneClickProvider {
 
   constructor(public http: Http,
               private auth: AuthProvider,
-              private i18n: I18nProvider,
-              private events: Events) {}
+              private i18n: I18nProvider) {}
 
   // Gets a list of all Transportation Agencies
   getTransportationAgencies(): Promise<AgencyModel[]> {
@@ -143,7 +142,6 @@ export class OneClickProvider {
   // Unpacks a OneClick user response and stores the user in the session
   unpackUserResponse(response): User {
     let user = JSON.parse(response.text()).data.user as User;
-    this.events.publish('user:updated', user);  // Publish user updated event for pages to listen to
     return this.auth.updateSessionUser(user); // store user info in session storage
   }
 
