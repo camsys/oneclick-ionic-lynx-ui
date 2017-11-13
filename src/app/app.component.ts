@@ -59,6 +59,11 @@ export class MyApp {
     this.getUserInfo();
     this.setMenu();
     this.setupSpinner();
+    
+    // When user is updated, update user info.
+    this.events.subscribe("user:updated", (usr) => {
+      this.updateUserInfo(usr);
+    })
   }
 
   initializeApp() {
@@ -77,12 +82,6 @@ export class MyApp {
     // Menu if you are signed in
     if(this.auth.isSignedIn()){
       this.oneClickProvider.getProfile()
-      .then((usr) => {
-        this.user = usr;
-        this.user_name = { user: usr.first_name };
-        this.eligibilities = this.user.eligibilities;
-        this.accommodations = this.user.accommodations;
-      })
       .catch((error) => {
         // If the user token is expired, sign the user out automatically
         if(error.status === 401) {
@@ -94,6 +93,13 @@ export class MyApp {
       })
     }
     
+  }
+  
+  updateUserInfo(usr) {
+    this.user = usr;
+    this.user_name = { user: usr.first_name };
+    this.eligibilities = this.user.eligibilities;
+    this.accommodations = this.user.accommodations;
   }
 
   // Set up the menu with pages for signed in and signed out scenarios

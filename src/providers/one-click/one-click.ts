@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { RequestOptions } from '@angular/http';
 
+import { Events } from 'ionic-angular';
 
 import { Observable } from "rxjs/Rx";
 import 'rxjs/add/operator/map';
@@ -32,7 +33,8 @@ export class OneClickProvider {
 
   constructor(public http: Http,
               private auth: AuthProvider,
-              private i18n: I18nProvider) {}
+              private i18n: I18nProvider,
+              private events: Events) {}
 
   // Gets a list of all Transportation Agencies
   getTransportationAgencies(): Promise<AgencyModel[]> {
@@ -141,6 +143,7 @@ export class OneClickProvider {
   // Unpacks a OneClick user response and stores the user in the session
   unpackUserResponse(response): User {
     let user = JSON.parse(response.text()).data.user as User;
+    this.events.publish('user:updated', user);  // Publish user updated event for pages to listen to
     return this.auth.updateSessionUser(user); // store user info in session storage
   }
 
@@ -289,7 +292,7 @@ export class OneClickProvider {
   // Console log the error and pass along a rejected promise... if uncaught
   // by the calling component, will still raise an error.
   private handleError(error: any): any {
-    console.error('An error occurred', error.text()); // for demo purposes only
+    console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error);
   }
 

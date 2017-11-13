@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import {  IonicPage, 
           NavController, 
-          NavParams, 
+          NavParams,
+          Events,
           ToastController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -31,7 +32,8 @@ export class SignInPage {
               private authProvider: AuthProvider,
               private oneClickProvider: OneClickProvider,
               private toastCtrl: ToastController,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private events: Events) {
   }
 
   signIn() {

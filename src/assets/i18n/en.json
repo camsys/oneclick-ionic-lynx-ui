@@ -167,8 +167,17 @@
       },
       
       "user_profile": {
-        "update_button": "Update",
-        "sign_in_required_message": "Please sign in to continue."
+        "update_button": "Save Profile",
+        "sign_in_required_message": "Please sign in to continue.",
+        "header": "My Profile",
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "email": "Email Address",
+        "password": "Password",
+        "language": "Language",
+        "accommodations": "Accommodations",
+        "eligibilities": "Eligibilities",
+        "trip_types": "Preferred Trip Types"
       },
       
       "transportation_eligibility": {
