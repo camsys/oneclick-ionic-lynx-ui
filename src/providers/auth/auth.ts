@@ -5,6 +5,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../app/environment';
+import { Events } from 'ionic-angular';
 
 // Models
 import { Session } from '../../models/session';
@@ -20,6 +21,7 @@ export class AuthProvider {
   })
 
   constructor(public http: Http,
+              public events: Events,
               private translate: TranslateService) { }
   
   // Pulls the current session from local storage
@@ -29,7 +31,7 @@ export class AuthProvider {
   
   // Pulls the user object out of the session
   user(): User {
-    return this.session().user;
+    return this.session().user as User;
   }
   
   // Gets the user's preferred locale
@@ -131,12 +133,20 @@ export class AuthProvider {
   }
   
   // Updates the session based on a user object, and updates the locale
-  updateSessionUser(user: User) {
+  updateSessionUser(user: User): User {
     let session = this.session();
     session.user = user;
     this.setSession(session);
-    this.translate.use(this.preferredLocale());
+    this.events.publish('user:updated', user);  // Publish user updated event for pages to listen to
+    // this.translate.use(this.preferredLocale());
     return this.user();
+  }
+  
+  // Sets the preferred locale, regardless of whether or not user is logged in
+  setPreferredLocale(locale: string): User {
+    let user = (this.user() || {}) as User;
+    user["preferred_locale"] = locale;
+    return this.updateSessionUser(user);
   }
 
 }

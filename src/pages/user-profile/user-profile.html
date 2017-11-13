@@ -85,7 +85,7 @@
           <ion-select name="preferred_locale" [(ngModel)]="user.preferred_locale">
             <ion-option *ngFor="let locale of available_locales"
                         value="{{locale}}">
-              {{ "lynx.global.languages." + locale | translate }}
+              {{ "lynx.global.languages.native." + locale | translate }}
             </ion-option>
           </ion-select>
         

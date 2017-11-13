@@ -9,9 +9,17 @@
       },
       
       "languages": {
-        "en": "English",
-        "es": "Spanish",
-        "keys": "View Translation Keys"
+        "translated": {
+          "en": "English",
+          "es": "Spanish",
+          "keys": "View Translation Keys"
+        },
+        "native": {
+          "en": "English",
+          "es": "Espanol",
+          "keys": "View Translation Keys"
+        }
+
       },
       
       "modes": {
@@ -63,7 +71,7 @@
       },
       
       "contact_us": {
-        "header": "About Us",
+        "header": "Contact Us",
         "url": "website",
         "phone": "phone"
       },
@@ -85,7 +93,7 @@
         "resources": "Find Services by Location",
         "privacy_policy": "Privacy Policy",
         "sign_out": "Sign Out",
-        "language_test": "Temporary Language Test",
+        "language_selector": "Select Language",
         "home": "Home",
         "sign_in": "Hello! Log In Now",
         "sign_up": "Don't have an account?"
@@ -212,6 +220,11 @@
         "success_message": "Your password has been successfully reset. An email has been sent to {{email}}.",
         "error_message": "There was a problem resetting your password. Please verify your email address and try again."
 
+      },
+      
+      "language_selector_modal": {
+        "header": "Preferred Language",
+        "form_title": "Select Your Language"
       }
       
     }

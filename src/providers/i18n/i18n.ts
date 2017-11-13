@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Globalization } from 'ionic-native';
-import { Platform } from 'ionic-angular';
+import { Platform, Events } from 'ionic-angular';
 
 import { environment } from '../../app/environment';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,6 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class I18nProvider {
 
   constructor(public http: Http,
+              public events: Events,
               public platform: Platform,
               public translate: TranslateService) { }
   
@@ -34,6 +35,15 @@ export class I18nProvider {
     } else { // Otherwise, try to get the browser's preferred locale
       this.translate.setDefaultLang(this.getSuitableLanguage(this.translate.getBrowserLang()));
     }
+    
+    // When user is updated, set locale to user's preferred locale.
+    this.events.subscribe("user:updated", (user) => {
+      if(user.preferred_locale) {
+        this.setLocale(user.preferred_locale);
+      }
+    })
+    
+
   }
   
   // Iron out any quirks in the browser/device's preferred locale code. Then,
@@ -52,6 +62,12 @@ export class I18nProvider {
   currentLocale(): string {
     return this.translate.currentLang || this.translate.getDefaultLang();
   }
+  
+  // Sets the locale, defaulting to default language.
+  setLocale(locale: string) {
+    this.translate.use(locale || this.currentLocale());
+  }
+  
 
 
 }
