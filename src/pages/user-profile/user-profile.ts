@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -36,6 +37,7 @@ export class UserProfilePage {
   trip_types: TripType[];
   filtered_trip_types: TripType[];
   available_locales: string[];
+  @ViewChild('updateProfileForm') updateProfileForm: NgForm = {} as NgForm;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,

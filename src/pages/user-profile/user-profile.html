@@ -9,7 +9,8 @@
   </ion-navbar>
   
   <ion-toolbar id="profile-subheader" class="lynx-toolbar" text-center>
-    <h1>{{user.first_name}} {{user.last_name}}</h1>
+    <h1 *ngIf="user.first_name && user.last_name">{{user.first_name}} {{user.last_name}}</h1>
+    <h1 *ngIf="!user.first_name || !user.last_name">{{user.email}}</h1>
   </ion-toolbar>
 </ion-header>
 
@@ -32,8 +33,7 @@
                         type="text" 
                         placeholder="First Name" 
                         name="first_name" 
-                        [(ngModel)]="user.first_name" 
-                        required>
+                        [(ngModel)]="user.first_name">
             </ion-input>          
           </ion-item>
           
@@ -44,8 +44,7 @@
                         type="text" 
                         placeholder="Last name" 
                         name="last_name" 
-                        [(ngModel)]="user.last_name" 
-                        required>
+                        [(ngModel)]="user.last_name">
             </ion-input>          
           </ion-item>
           
@@ -68,7 +67,8 @@
                         type="password" 
                         placeholder="Password" 
                         name="password" 
-                        [(ngModel)]="user.password">
+                        [(ngModel)]="user.password"
+                        required>
             </ion-input>
           </ion-item>
       </ion-col>   
@@ -144,17 +144,10 @@
           </ion-list>
        </ion-col>
     </ion-row>
-    
-    
-    <!-- <ion-row id="submit-button-container">
-        <ion-col no-padding>
-          <button ion-button round class="lynx-button-dark center" type="submit" [disabled]="!updateProfileForm.form.valid">
-            {{ "lynx.pages.user_profile.update_button" | translate }}
-          </button>
-        </ion-col>
-    </ion-row> -->
       
     </form>
+    
+  
   </div>
 
 </ion-content>
@@ -164,7 +157,8 @@
   <ion-toolbar transparent id="submit-button-container" text-center>
     <button ion-button round 
             class="lynx-button-dark center" 
-            form="ngForm">
+            form="ngForm"
+            [disabled]="!updateProfileForm.valid">
       {{ "lynx.pages.user_profile.update_button" | translate }}
     </button>
   </ion-toolbar>
