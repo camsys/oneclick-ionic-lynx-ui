@@ -30,4 +30,14 @@ page-user-profile {
     font-size: $font-size-md;
     margin-bottom: 0;
   }
+  
+  .scroll-content {
+    margin-bottom: 0 !important;
+    padding-bottom: size(5) !important;
+  }
+  
+  #submit-button-container {
+    height: size(7);
+    padding: size(2) 0;
+  }
 }

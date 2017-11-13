@@ -167,7 +167,7 @@
       },
       
       "user_profile": {
-        "update_button": "Update",
+        "update_button": "Save Profile",
         "sign_in_required_message": "Please sign in to continue.",
         "header": "My Profile",
         "first_name": "First Name",

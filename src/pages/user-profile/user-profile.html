@@ -17,7 +17,9 @@
 
 
   <div id="user-profile-container" *ngIf="user">
-    <form (ngSubmit)="updateProfile()" #updateProfileForm="ngForm">
+    <form id="ngForm"
+          (ngSubmit)="updateProfile()" 
+          #updateProfileForm="ngForm">
       
       <!-- Basic Attribues -->
       <ion-row>
@@ -142,17 +144,28 @@
           </ion-list>
        </ion-col>
     </ion-row>
-      
-    <!-- Submit -->
-    <ion-row>
+    
+    
+    <!-- <ion-row id="submit-button-container">
         <ion-col no-padding>
           <button ion-button round class="lynx-button-dark center" type="submit" [disabled]="!updateProfileForm.form.valid">
             {{ "lynx.pages.user_profile.update_button" | translate }}
           </button>
         </ion-col>
-    </ion-row>
+    </ion-row> -->
       
     </form>
   </div>
 
 </ion-content>
+
+<!-- Submit -->
+<ion-footer transparent no-border>
+  <ion-toolbar transparent id="submit-button-container" text-center>
+    <button ion-button round 
+            class="lynx-button-dark center" 
+            form="ngForm">
+      {{ "lynx.pages.user_profile.update_button" | translate }}
+    </button>
+  </ion-toolbar>
+</ion-footer>
