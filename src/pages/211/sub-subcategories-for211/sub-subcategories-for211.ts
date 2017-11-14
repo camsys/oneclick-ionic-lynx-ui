@@ -39,7 +39,7 @@ export class SubSubcategoriesFor211Page {
     let userLocation = this.auth.userLocation();
     let latlng = userLocation.geometry || {};
     this.oneClickServiceProvider
-        .getSubSubcategoryForSubcategoryName(this.subcategory.name, latlng['lat'], latlng['lng'])
+        .getSubSubcategoryForSubcategoryName(this.subcategory.code, latlng['lat'], latlng['lng'])
         .then(sscs => this.subSubCategories = sscs);
   }
 
@@ -53,7 +53,7 @@ export class SubSubcategoriesFor211Page {
     let latlng = userLocation.geometry || {};
 
     this.oneClickServiceProvider
-    .getServicesFromSubSubCategoryName(subSubCategory.name, latlng['lat'], latlng['lng'])
+    .getServicesFromSubSubCategoryName(subSubCategory.code, latlng['lat'], latlng['lng'])
     .then((value) => {
       this.events.publish('spinner:hide'); // Hide spinner once results come back
       this.navCtrl.push(ServicesPage, {

@@ -106,7 +106,7 @@ export class CategoriesFor211Page {
         this.events.publish('spinner:show'); // Show spinner while results are loading
 
         this.oneClickProvider
-        .getServicesFromSubSubCategoryName(ssc.name, latlng['lat'], latlng['lng'])
+        .getServicesFromSubSubCategoryName(ssc.code, latlng['lat'], latlng['lng'])
         .then((value) => {
           this.events.publish('spinner:hide'); // Hide spinner once results come back
           this.navCtrl.push(ServicesPage, {
