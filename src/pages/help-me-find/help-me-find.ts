@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
 import { UserLocatorPage }    from '../user-locator/user-locator';
@@ -29,14 +29,19 @@ export class HelpMeFindPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              private platform: Platform,
               private alertCtrl: AlertController,
               public oneClickProvider: OneClickProvider,
               public translate: TranslateService) {
   }
 
   ionViewDidLoad() {
-    this.oneClickProvider.getAlerts()
-      .then(alerts => this.alerts = alerts)
+    
+    // Wait until after platform is ready, so we have the user's preferred locale
+    this.platform.ready().then(() => {
+      this.oneClickProvider.getAlerts()
+        .then(alerts => this.alerts = alerts);
+    });
   }
 
   openResourcesPage() {
