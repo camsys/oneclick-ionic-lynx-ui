@@ -224,9 +224,12 @@ export class OneClickProvider {
   {
     let headers = this.auth.authHeaders();
     let options = new RequestOptions({ headers: headers });
+    let uri = encodeURI(this.oneClickUrl + 
+                        'trips/plan?locale=' +
+                        this.i18n.currentLocale())
 
     return this.http
-            .post(this.oneClickUrl+'trips/plan', tripRequest, options)
+            .post(uri, tripRequest, options)
             .map( response => {
               return (response.json().data.trip as TripResponseModel)
             })
@@ -235,9 +238,12 @@ export class OneClickProvider {
   getAlerts(): Promise<Alert[]>{
     let headers = this.auth.authHeaders();
     let options = new RequestOptions({ headers: headers });
+    let uri = encodeURI(this.oneClickUrl + 
+                        'alerts?locale=' +
+                        this.i18n.currentLocale())
 
     return this.http
-            .get(this.oneClickUrl+'alerts', options)
+            .get(uri, options)
             .toPromise()
             .then(response => response.text())
             .then(json => JSON.parse(json).data.user_alerts as Alert[])
