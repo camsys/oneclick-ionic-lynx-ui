@@ -45,7 +45,7 @@ export class MyApp {
   eligibilities: Eligibility[];
   accommodations: Accommodation[];
   locale: string;
-  user_name: any;
+  user_name: any = { user: "" };
 
   constructor(public platform: Platform,
               public statusBar: StatusBar,
@@ -91,7 +91,7 @@ export class MyApp {
       this.oneClickProvider.getProfile()
       .then((usr) => {
         this.user = usr;
-        this.user_name = { user: usr.first_name };
+        this.user_name = { user: usr.first_name || usr.email.split('@')[0] };
         this.eligibilities = this.user.eligibilities;
         this.accommodations = this.user.accommodations;
       })

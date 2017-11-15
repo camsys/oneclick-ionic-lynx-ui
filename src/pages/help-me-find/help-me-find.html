@@ -5,6 +5,7 @@
     <button *ngIf="alerts.length > 0" ion-button
             round
             class="lynx-button-primary"
+            tabindex="10"
             (click)="presentAlerts()"> 
       <ion-icon class="padded" name="mail"></ion-icon>
       <ion-label>{{ "lynx.pages.home.alerts_button" | translate }}</ion-label>
