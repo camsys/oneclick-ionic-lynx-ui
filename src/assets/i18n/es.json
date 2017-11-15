@@ -80,7 +80,8 @@
         "welcome_message_1": "es_Welcome to LYNX",
         "welcome_message_2": "es_How can we help you?",
         "resources_button": "es_Helpful Resources",
-        "transportation_button": "es_Transportation"
+        "transportation_button": "es_Transportation",
+        "alerts_button": "es_Alerts"
       },
       
       "menu": {
@@ -175,17 +176,7 @@
       },
       
       "user_profile": {
-        "update_button": "es_Save Profile",
-        "sign_in_required_message": "es_Please sign in to continue.",
-        "header": "es_My Profile",
-        "first_name": "es_First Name",
-        "last_name": "es_Last Name",
-        "email": "es_Email Address",
-        "password": "es_Password",
-        "language": "es_Language",
-        "accommodations": "es_Accommodations",
-        "eligibilities": "es_Eligibilities",
-        "trip_types": "es_Preferred Trip Types"
+        "update_button": "es_Update"
       },
       
       "transportation_eligibility": {
@@ -236,18 +227,18 @@
     "relativeDirection": {
       
       "DEPART": "es_DEPART",
-      "HARD_LEFT": "es_HARD_LEFT",
+      "HARD_LEFT": "es_HARD LEFT",
       "LEFT": "es_LEFT",
-      "SLIGHTLY_LEFT": "es_SLIGHTLY_LEFT",
+      "SLIGHTLY_LEFT": "es_SLIGHTLY LEFT",
       "CONTINUE": "es_CONTINUE",
-      "SLIGHTLY_RIGHT": "es_SLIGHTLY_RIGHT",
+      "SLIGHTLY_RIGHT": "es_SLIGHTLY RIGHT",
       "RIGHT": "es_RIGHT",
-      "HARD_RIGHT": "es_HARD_RIGHT",
-      "CIRCLE_CLOCKWISE": "es_CIRCLE_CLOCKWISE",
-      "CIRCLE_COUNTERCLOCKWISE": "es_CIRCLE_COUNTERCLOCKWISE",
+      "HARD_RIGHT": "es_HARD RIGHT",
+      "CIRCLE_CLOCKWISE": "es_CIRCLE CLOCKWISE",
+      "CIRCLE_COUNTERCLOCKWISE": "es_CIRCLE COUNTERCLOCKWISE",
       "ELEVATOR": "es_ELEVATOR",
-      "UTURN_LEFT": "es_UTURN_LEFT",
-      "UTURN_RIGHT": "es_UTURN_RIGHT"
+      "UTURN_LEFT": "es_UTURN LEFT",
+      "UTURN_RIGHT": "es_UTURN RIGHT"
       
     },
     
