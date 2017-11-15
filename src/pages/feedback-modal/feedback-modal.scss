@@ -1,7 +1,15 @@
 page-feedback-modal {
   
   #feedback-modal-title {
-    margin-top: size(4);
+    margin-top: size(3);
+    margin-bottom: size(1);
+    height: size(6);
+  }
+  
+  #subject-picker-container {
+    margin-top: size(3);
+    margin-bottom: size(1);
+    height: size(6);
   }
   
   #feedback-modal-rating {
