@@ -118,7 +118,6 @@ export class MyApp {
       { title: 'about_us', component: AboutUsPage },
       { title: 'contact_us', component: ContactUsPage },
       { title: 'transportation', component: ParatransitServicesPage},
-      { title: 'categories', component: CategoriesFor211Page},
       { title: 'resources', component: UserLocatorPage, params: { findServicesView: true}},
       { title: 'privacy_policy', component: "privacy_policy" }
     ] as PageModel[];
