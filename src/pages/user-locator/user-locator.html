@@ -30,7 +30,7 @@
     <div id="destination-search-container" [hidden]="findServicesView">
       <ion-title>{{ "lynx.pages.user_locator.destination_search.label" | translate }}</ion-title>
       <place-search #destinationSearch
-                    placeholder="{{ 'lynx.pages.user_locator.destination_search.placeholder_pending' | translate }}"
+                    placeholder="{{ 'lynx.pages.user_locator.destination_search.placeholder' | translate }}"
                     (onArrowDown)="destinationResults.focus()"
                     (onFocus)="destinationResults.show()"                  
                     (onFocus)="originResults.hide()"
