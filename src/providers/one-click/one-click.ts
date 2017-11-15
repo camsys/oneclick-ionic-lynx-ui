@@ -284,8 +284,12 @@ export class OneClickProvider {
   }
 
   // Makes a refernet keyword search call, returning the results array
-  refernetKeywordSearch(term: string): Observable<SearchResultModel[]> {
-    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/search?term=' + term);
+  refernetKeywordSearch(term: string, typeFilter: string = ""): Observable<SearchResultModel[]> {
+    var uri: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/search?term=' + term +
+      '&locale=' + this.i18n.currentLocale() +
+      '&type=' + typeFilter);
 
     return this.http.get(uri)
       .map( (response) => {

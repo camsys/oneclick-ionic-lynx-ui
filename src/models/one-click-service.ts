@@ -1,6 +1,7 @@
 import { Eligibility } from './eligibility';
 import { Accommodation } from './accommodation';
 import { Purpose } from './purpose';
+import { SearchResultModel } from './search-result';
 
 // Model for representing a transportation service from OneClick
 // (as opposed to a service from ReferNET)
@@ -33,4 +34,21 @@ export class OneClickServiceModel {
     this.accommodations = attrs.accommodations || [];
     this.eligibilities = attrs.eligibilities || [];
   }
+  
+  search(query: string): Boolean {
+    query = query.toLowerCase();
+    return (
+      this.name.toLowerCase().search(query) >= 0 ||
+      this.description.toLowerCase().search(query) >= 0
+    );
+  }
+  
+  toSearchResult(): SearchResultModel {
+    return {
+      id: this.id,
+      type: "Service",
+      label: this.name,
+      result: this 
+    };
+  } 
 }
