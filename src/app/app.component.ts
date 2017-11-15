@@ -1,8 +1,10 @@
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { Nav, Platform, Events, ModalController } from 'ionic-angular';
+import { Nav, Platform, Events, ModalController, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+
+import { TranslateService } from '@ngx-translate/core';
 
 // PAGES
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
@@ -14,12 +16,14 @@ import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { SignInPage }  from '../pages/sign-in/sign-in';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { LanguageSelectorModalPage } from '../pages/language-selector-modal/language-selector-modal';
+import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
 
 // MODELS
 import { User } from '../models/user';
 import { Eligibility } from '../models/eligibility';
 import { Accommodation } from '../models/accommodation';
 import { PageModel } from '../models/page';
+import { ServiceModel} from '../models/service';
 
 // PROVIDERS
 import { OneClickProvider } from '../providers/one-click/one-click';
@@ -56,6 +60,8 @@ export class MyApp {
               private changeDetector: ChangeDetectorRef,
               public events: Events,
               private modalCtrl: ModalController,
+              private toastCtrl: ToastController,
+              private translate: TranslateService,
               private i18n: I18nProvider) {
     this.initializeApp();
     this.getUserInfo();
@@ -118,8 +124,8 @@ export class MyApp {
       { title: 'about_us', component: AboutUsPage },
       { title: 'contact_us', component: ContactUsPage },
       { title: 'transportation', component: ParatransitServicesPage},
-      { title: 'categories', component: CategoriesFor211Page},
       { title: 'resources', component: UserLocatorPage, params: { findServicesView: true}},
+      { title: 'feedback', component: "feedback" },
       { title: 'privacy_policy', component: "privacy_policy" }
     ] as PageModel[];
 
@@ -150,6 +156,12 @@ export class MyApp {
         break;
       case "language_selector":
         this.openLanguageSelectorModal();
+        break;
+      case "feedback":
+        FeedbackModalPage.createModal(this.modalCtrl, 
+                                      this.toastCtrl,
+                                      this.translate)
+                         .present();
         break;
       default:
         // Reset the content nav to have just this page

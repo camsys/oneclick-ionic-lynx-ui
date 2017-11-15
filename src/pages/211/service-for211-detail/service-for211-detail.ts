@@ -203,19 +203,11 @@ export class ServiceFor211DetailPage {
   }
 
   rateService(service: ServiceModel) {
-    let feedbackModal = this.modalCtrl.create(FeedbackModalPage, { refernet_service: service });
-    feedbackModal.onDidDismiss(data => {
-      if(data) {
-        let toast = this.toastCtrl.create({
-          message: (data.status === 200 ? this.translate.instant("lynx.pages.feedback.success_message") : 
-                                          this.translate.instant("lynx.pages.feedback.error_message")),
-          position: 'bottom',
-          duration: 3000
-        });
-        toast.present();
-      }
-    })
-    feedbackModal.present();
+    FeedbackModalPage.createModal(this.modalCtrl, 
+                                  this.toastCtrl,
+                                  this.translate,
+                                { subject: service, type: "OneclickRefernet::Service" })
+                     .present();
   }
 
   openUrl(url: string) {
