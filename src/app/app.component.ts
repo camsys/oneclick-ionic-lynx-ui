@@ -57,6 +57,8 @@ export class MyApp {
               public events: Events,
               private modalCtrl: ModalController,
               private i18n: I18nProvider) {
+    
+                
     this.initializeApp();
     this.getUserInfo();
     this.setMenu();
@@ -89,12 +91,7 @@ export class MyApp {
     // If User email and token are stored in session, make a call to 1click to get up-to-date user profile
     if(this.auth.isSignedIn()){
       this.oneClickProvider.getProfile()
-      .then((usr) => {
-        this.user = usr;
-        this.user_name = { user: usr.first_name || usr.email.split('@')[0] };
-        this.eligibilities = this.user.eligibilities;
-        this.accommodations = this.user.accommodations;
-      })
+      .then((usr) => this.updateUserInfo(usr))
       .catch((error) => {
         // If the user token is expired, sign the user out automatically
         if(error.status === 401) {
@@ -111,7 +108,7 @@ export class MyApp {
   // Updates this component's user model based on the information stored in the session
   updateUserInfo(usr) {
     this.user = usr;
-    this.user_name = { user: usr.first_name };
+    this.user_name = { user: usr.first_name || usr.email.split('@')[0] };
     this.eligibilities = this.user.eligibilities;
     this.accommodations = this.user.accommodations;
   }
