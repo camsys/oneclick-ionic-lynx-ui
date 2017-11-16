@@ -63,6 +63,8 @@ export class MyApp {
               private toastCtrl: ToastController,
               private translate: TranslateService,
               private i18n: I18nProvider) {
+    
+                
     this.initializeApp();
     this.getUserInfo();
     this.setMenu();
