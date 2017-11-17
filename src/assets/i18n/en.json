@@ -138,7 +138,7 @@
       },
       
       "service_details": {
-        "description_header": "About this Service",
+        "details_header": "About this Service",
         "phone_header": "Have Questions?",
         "feedback_header": "Have Feedback?",
         "feedback_button": "Rate this Service",
@@ -147,7 +147,17 @@
         "email": "email",
         "url": "website",
         "description": "description",
-        "schedule": "schedule"
+        "schedule": "schedule",
+        "area_served": "Area Served",
+        "eligibility": "Eligibility",
+        "fees": "Fees",
+        "intake_procedure": "Intake Procedure",
+        "service_description": "Service Description",
+        "services": "Services",
+        "site_hours": "Site Hours",
+        "program_service_hours": "Program Service Hours",
+        "documents_required": "Documents Required",
+        "payment_options": "Payment Options"
       },
       
       "directions": {

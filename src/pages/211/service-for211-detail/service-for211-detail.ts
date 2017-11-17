@@ -37,6 +37,7 @@ export class ServiceFor211DetailPage {
   tripRequest: TripRequestModel;
   tripResponse: TripResponseModel = new TripResponseModel({});
   tripPlanSubscription: any;
+  detailKeys: string[] = []; // Array of the non-null detail keys in the details hash
 
   transitTime: number = 0;
   driveTime: number = 0;
@@ -62,6 +63,18 @@ export class ServiceFor211DetailPage {
     // Set origin and destination places
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
+    
+    // Set the detail keys to the non-null details
+    this.detailKeys = Object.keys(this.service.details)
+                            .filter((k) => this.service.details[k] !== null);
+                            
+    // Replace newline characters with html break tags in detail strings
+    this.detailKeys.forEach((k) => 
+      { 
+        this.service.details[k] = this.service.details[k]
+                                              .replace(/(?:\r\n|\r|\n)/g, '<br />');
+      }
+    );
 
     // Show the spinner until the trip plan call returns
     this.events.publish('spinner:show');

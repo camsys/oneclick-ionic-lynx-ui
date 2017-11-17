@@ -138,7 +138,7 @@
       },
       
       "service_details": {
-        "description_header": "es_About this Service",
+        "details_header": "es_About this Service",
         "phone_header": "es_Have Questions?",
         "feedback_header": "es_Have Feedback?",
         "feedback_button": "es_Rate this Service",
@@ -147,7 +147,17 @@
         "email": "es_email",
         "url": "es_website",
         "description": "es_description",
-        "schedule": "es_schedule"
+        "schedule": "es_schedule",
+        "area_served": "es_Area Served",
+        "eligibility": "es_Eligibility",
+        "fees": "es_Fees",
+        "intake_procedure": "es_Intake Procedure",
+        "service_description": "es_Service Description",
+        "services": "es_Services",
+        "site_hours": "es_Site Hours",
+        "program_service_hours": "es_Program Service Hours",
+        "documents_required": "es_Documents Required",
+        "payment_options": "es_Payment Options"
       },
       
       "directions": {
@@ -176,7 +186,17 @@
       },
       
       "user_profile": {
-        "update_button": "es_Update"
+        "update_button": "es_Save Profile",
+        "sign_in_required_message": "es_Please sign in to continue.",
+        "header": "es_My Profile",
+        "first_name": "es_First Name",
+        "last_name": "es_Last Name",
+        "email": "es_Email Address",
+        "password": "es_Password",
+        "language": "es_Language",
+        "accommodations": "es_Accommodations",
+        "eligibilities": "es_Eligibilities",
+        "trip_types": "es_Preferred Trip Types"
       },
       
       "transportation_eligibility": {

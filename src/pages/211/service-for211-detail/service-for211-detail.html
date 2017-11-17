@@ -70,10 +70,13 @@
     <!-- Show service details only if service is present -->
     <ion-row *ngIf="service">
       <ion-col col-md-8 offset-md-2>
-        <h3>{{ "lynx.pages.service_details.description_header" | translate }}</h3>
-        <p id="service-description">
-          {{service.description}}          
-        </p>
+        <h3>{{ "lynx.pages.service_details.details_header" | translate }}</h3>
+        
+        <!-- insert a line for each non-null key in the details hash -->
+        <div *ngFor="let k of detailKeys" class="">
+          <b>{{ "lynx.pages.service_details." + k | translate }}: </b>
+          <span [innerHTML]="service.details[k]"></span>
+        </div>
       </ion-col>
     </ion-row>
     
