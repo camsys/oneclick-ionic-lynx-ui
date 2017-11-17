@@ -65,6 +65,13 @@ button.lynx-button-circle {
   height: size(5);
   width: size(5);
 }
+button.lynx-button-circle-lg {
+  border-radius: 50%;
+  font-size: $font-size-lg;
+  font-weight: 900;
+  height: size(7);
+  width: size(7);
+}
 
 // Link-style Buttons
 a.lynx-button-link,
