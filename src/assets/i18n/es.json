@@ -142,12 +142,6 @@
         "phone_header": "es_Have Questions?",
         "feedback_header": "es_Have Feedback?",
         "feedback_button": "es_Rate this Service",
-        "fare": "es_fare",
-        "phone": "es_phone",
-        "email": "es_email",
-        "url": "es_website",
-        "description": "es_description",
-        "schedule": "es_schedule",
         "area_served": "es_Area Served",
         "eligibility": "es_Eligibility",
         "fees": "es_Fees",
@@ -158,6 +152,18 @@
         "program_service_hours": "es_Program Service Hours",
         "documents_required": "es_Documents Required",
         "payment_options": "es_Payment Options"
+      },
+      
+      "transportation_service_details": {
+        "fare": "es_fare",
+        "phone": "es_phone",
+        "email": "es_email",
+        "url": "es_website",
+        "description": "es_description",
+        "schedule": "es_schedule",
+        "purposes_header": "es_eligible purposes",
+        "accommodations_header": "es_accommodations provided",
+        "eligibilities_header": "es_eligibility requirements"
       },
       
       "directions": {
