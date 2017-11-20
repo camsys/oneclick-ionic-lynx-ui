@@ -151,7 +151,10 @@
         "site_hours": "es_Site Hours",
         "program_service_hours": "es_Program Service Hours",
         "documents_required": "es_Documents Required",
-        "payment_options": "es_Payment Options"
+        "payment_options": "es_Payment Options",
+        "languages_spoken": "es_Languages Spoken",
+        "travel_instructions": "es_Travel Instructions",
+        "area_served": "es_Area Served"
       },
       
       "transportation_service_details": {
@@ -163,7 +166,7 @@
         "schedule": "es_schedule",
         "purposes_header": "es_eligible purposes",
         "accommodations_header": "es_accommodations provided",
-        "eligibilities_header": "es_eligibility requirements"
+        "eligibilities_header": "es_eligibility requirements (any one)"
       },
       
       "directions": {

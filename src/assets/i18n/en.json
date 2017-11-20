@@ -151,7 +151,10 @@
         "site_hours": "Site Hours",
         "program_service_hours": "Program Service Hours",
         "documents_required": "Documents Required",
-        "payment_options": "Payment Options"
+        "payment_options": "Payment Options",
+        "languages_spoken": "Languages Spoken",
+        "travel_instructions": "Travel Instructions",
+        "area_served": "Area Served"
       },
       
       "transportation_service_details": {
