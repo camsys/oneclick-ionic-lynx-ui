@@ -175,10 +175,8 @@ export class ServiceFor211DetailPage {
 
   // Updates the returned modes list with the modes returned from the given response
   updateReturnedModes(tripResponse: TripResponseModel) {
-    let responseModes = tripResponse.itineraries.map((itin) => itin.trip_type);
-    
     this.returnedModes = this.basicModes.filter((mode) => {
-      return responseModes.findIndex((m) => m === mode) >= 0;
+      return tripResponse.includesTripType(mode);
     })
   }
 

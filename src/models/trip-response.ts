@@ -43,5 +43,12 @@ export class TripResponseModel {
                     .filter((cost) => typeof(cost) === "number");
     return costs;
   }
+  
+  // returns true/false if the trip includes an itinerary of the given mode
+  includesTripType(tripType: string) {
+    return this.itineraries
+               .map((itin) => itin.trip_type)
+               .findIndex((tt) => tt === tripType) >= 0
+  }
 
 }
