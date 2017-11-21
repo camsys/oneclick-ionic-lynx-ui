@@ -34,6 +34,7 @@ export class ServiceFor211DetailPage {
   destination: GooglePlaceModel;
   basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
   allModes:string[] = ['transit', 'car', 'taxi', 'uber', 'paratransit'] // All modes
+  returnedModes:string[] = [] // All the basic modes returned from the plan call
   tripRequest: TripRequestModel;
   tripResponse: TripResponseModel = new TripResponseModel({});
   tripPlanSubscription: any;
@@ -87,6 +88,7 @@ export class ServiceFor211DetailPage {
     .subscribe((resp) => {
       this.tripResponse = new TripResponseModel(resp);
       this.updateTravelTimesFromTripResponse(this.tripResponse);
+      this.updateReturnedModes(this.tripResponse);
       this.events.publish('spinner:hide');
       this.changeDetector.detectChanges();
     });
@@ -169,6 +171,15 @@ export class ServiceFor211DetailPage {
     if(driveItin && driveItin.duration) {
       this.driveTime = driveItin.duration;
     }
+  }
+
+  // Updates the returned modes list with the modes returned from the given response
+  updateReturnedModes(tripResponse: TripResponseModel) {
+    let responseModes = tripResponse.itineraries.map((itin) => itin.trip_type);
+    
+    this.returnedModes = this.basicModes.filter((mode) => {
+      return responseModes.findIndex((m) => m === mode) >= 0;
+    })
   }
 
   // Returns a trip response object but with only the itineraries of the passed mode

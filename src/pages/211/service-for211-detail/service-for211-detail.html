@@ -31,7 +31,7 @@
         <ion-list class="lynx-list">
           
           <!-- For each mode other than paratransit, build a button -->
-          <ion-item *ngFor="let mode of basicModes">
+          <ion-item *ngFor="let mode of returnedModes">
             <h3 item-start class="item-heading mode-label">
               {{ "lynx.global.modes." + mode | translate }}
             </h3>
