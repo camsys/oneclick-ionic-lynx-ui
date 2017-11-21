@@ -54,7 +54,7 @@
           <!-- For paratransit, build a special button -->
           <ion-item *ngIf="tripResponse.includesTripType('paratransit')">
             <h3 item-start class="item-heading standout mode-label">
-              {{ "lynx.global.modes.paratransit" | translate }}
+              {{ "lynx.global.modes.find_other_options" | translate }}
             </h3>
             <div item-end class="mode-fare" >
               {{ tripResponse.costsByTripType("paratransit") | prettyFare }}
