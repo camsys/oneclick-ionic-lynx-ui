@@ -34,6 +34,7 @@ export class ServiceFor211DetailPage {
   destination: GooglePlaceModel;
   basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
   allModes:string[] = ['transit', 'car', 'taxi', 'uber', 'paratransit'] // All modes
+  returnedModes:string[] = [] // All the basic modes returned from the plan call
   tripRequest: TripRequestModel;
   tripResponse: TripResponseModel = new TripResponseModel({});
   tripPlanSubscription: any;
@@ -59,14 +60,18 @@ export class ServiceFor211DetailPage {
 
     // Set the service (if present)
     this.service = navParams.data.service;
-
+    
+    if(this.service) {
+      // Set the detail keys to the non-null details
+      this.detailKeys = Object.keys(this.service.details)
+                              .filter((k) => this.service.details[k] !== null);
+    }
+    
     // Set origin and destination places
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
     
-    // Set the detail keys to the non-null details
-    this.detailKeys = Object.keys(this.service.details)
-                            .filter((k) => this.service.details[k] !== null);
+
                             
     // Replace newline characters with html break tags in detail strings
     this.detailKeys.forEach((k) => 
@@ -87,6 +92,7 @@ export class ServiceFor211DetailPage {
     .subscribe((resp) => {
       this.tripResponse = new TripResponseModel(resp);
       this.updateTravelTimesFromTripResponse(this.tripResponse);
+      this.updateReturnedModes(this.tripResponse);
       this.events.publish('spinner:hide');
       this.changeDetector.detectChanges();
     });
@@ -169,6 +175,13 @@ export class ServiceFor211DetailPage {
     if(driveItin && driveItin.duration) {
       this.driveTime = driveItin.duration;
     }
+  }
+
+  // Updates the returned modes list with the modes returned from the given response
+  updateReturnedModes(tripResponse: TripResponseModel) {
+    this.returnedModes = this.basicModes.filter((mode) => {
+      return tripResponse.includesTripType(mode);
+    })
   }
 
   // Returns a trip response object but with only the itineraries of the passed mode

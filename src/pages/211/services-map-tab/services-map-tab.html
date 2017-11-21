@@ -16,11 +16,11 @@
                (click)="selectService(selectedMatch)">
     <ion-title text-wrap>{{selectedMatch.agency_name}}</ion-title>
     
-    <span class="travel-time-container">
+    <span class="travel-time-container" *ngIf="selectedMatch.drive_time">
       <ion-icon class="icon-lg" name="car"></ion-icon>
       {{selectedMatch.drive_time | prettyTime}}
     </span>
-    <span class="travel-time-container">
+    <span class="travel-time-container" *ngIf="selectedMatch.transit_time">
       <ion-icon class="icon-lg" name="bus"></ion-icon>
       {{selectedMatch.transit_time | prettyTime}}
     </span>   

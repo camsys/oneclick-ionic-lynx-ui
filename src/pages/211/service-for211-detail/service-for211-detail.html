@@ -9,6 +9,9 @@
     <div *ngIf="service" class="lynx-toolbar-body">
       <a *ngIf="service.url" href="{{service.url}}" target="_blank">{{service.display_url}}</a>
     </div>
+    <button ion-button end menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
   </ion-navbar>
   
   <!-- If no service is present, put the origin and destination in the header -->
@@ -16,6 +19,9 @@
     <ion-navbar class="lynx-toolbar">
       <div class="dynamic-toolbar-title"><b>{{ origin.label() }}</b></div>
       <div class="dynamic-toolbar-title">{{ "lynx.global.common.to" | translate}} <b>{{ destination.label() }}</b></div>
+      <button ion-button end menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
     </ion-navbar>
   </ng-template>
 
@@ -31,7 +37,7 @@
         <ion-list class="lynx-list">
           
           <!-- For each mode other than paratransit, build a button -->
-          <ion-item *ngFor="let mode of basicModes">
+          <ion-item *ngFor="let mode of returnedModes">
             <h3 item-start class="item-heading mode-label">
               {{ "lynx.global.modes." + mode | translate }}
             </h3>
@@ -46,9 +52,9 @@
           </ion-item>
           
           <!-- For paratransit, build a special button -->
-          <ion-item>
+          <ion-item *ngIf="tripResponse.includesTripType('paratransit')">
             <h3 item-start class="item-heading standout mode-label">
-              {{ "lynx.global.modes.find_other_options" | translate }}
+              {{ "lynx.global.modes.paratransit" | translate }}
             </h3>
             <div item-end class="mode-fare" >
               {{ tripResponse.costsByTripType("paratransit") | prettyFare }}
