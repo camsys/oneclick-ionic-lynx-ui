@@ -27,7 +27,8 @@
         "transit": "Bus & Train",
         "taxi": "Taxi",
         "uber": "Uber",
-        "paratransit": "Paratransit"
+        "paratransit": "Paratransit",
+        "find_other_options": "Find Other Options"
       },
       
       "time": {
