@@ -60,14 +60,18 @@ export class ServiceFor211DetailPage {
 
     // Set the service (if present)
     this.service = navParams.data.service;
-
+    
+    if(this.service) {
+      // Set the detail keys to the non-null details
+      this.detailKeys = Object.keys(this.service.details)
+                              .filter((k) => this.service.details[k] !== null);
+    }
+    
     // Set origin and destination places
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
     
-    // Set the detail keys to the non-null details
-    this.detailKeys = Object.keys(this.service.details)
-                            .filter((k) => this.service.details[k] !== null);
+
                             
     // Replace newline characters with html break tags in detail strings
     this.detailKeys.forEach((k) => 
