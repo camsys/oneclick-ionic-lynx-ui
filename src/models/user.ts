@@ -13,6 +13,7 @@ export class User {
   preferred_locale: string;
   trip_types: TripType[]; 
   password: string;
+  password_confirmation: string;
 }
 
 export class TripType {

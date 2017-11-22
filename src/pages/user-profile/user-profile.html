@@ -64,13 +64,20 @@
           <ion-item>
             <ion-label>{{"lynx.pages.user_profile.password" | translate}}</ion-label>
             <ion-input  class="lynx-input" 
-                        type="password" 
+                        [type]="passwordFieldType" 
                         placeholder=""
                         name="password" 
-                        [(ngModel)]="user.password"
-                        required>
-            </ion-input>
+                        [(ngModel)]="user.password">
+            </ion-input>z
+            <div (click)="toggleShowPassword()"
+                 class="lynx-button-link link-pink"
+                 item-end>
+              {{ (this.showPassword ? "lynx.pages.user_profile.hide_pw" : "lynx.pages.user_profile.show_pw") | translate}}
+            </div>
           </ion-item>
+          
+
+
       </ion-col>   
     </ion-row>
     

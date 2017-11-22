@@ -37,7 +37,10 @@ export class UserProfilePage {
   trip_types: TripType[];
   filtered_trip_types: TripType[];
   available_locales: string[];
+  
   @ViewChild('updateProfileForm') updateProfileForm: NgForm = {} as NgForm;
+  public passwordFieldType = "password";
+  public showPassword = false;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -54,9 +57,12 @@ export class UserProfilePage {
   }
 
   updateProfile() {
-    this.user.eligibilities = this.eligibilities
-    this.user.accommodations = this.accommodations
-    this.user.trip_types = this.trip_types
+    this.user.eligibilities = this.eligibilities;
+    this.user.accommodations = this.accommodations;
+    this.user.trip_types = this.trip_types;
+    if(this.user.password && this.user.password.length > 0) {
+      this.user.password_confirmation = this.user.password;
+    }
     this.oneClickProvider.updateProfile(this.user)
     .then((user) => this.updateUserData(user))
     .catch((error) => this.handleError(error))
@@ -93,6 +99,15 @@ export class UserProfilePage {
       ).present();
     } else {
       console.error(error);
+    }
+  }
+  
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+    if (this.showPassword){
+      this.passwordFieldType = "type";
+    } else {
+      this.passwordFieldType = "password";
     }
   }
 

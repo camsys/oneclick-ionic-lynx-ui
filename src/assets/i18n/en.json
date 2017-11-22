@@ -98,7 +98,8 @@
         "language_selector": "Select Language",
         "home": "Home",
         "sign_in": "Hello! Log In Now",
-        "sign_up": "Don't have an account?"
+        "sign_up": "Don't have an account?",
+        "feedback": "Leave Feedback"
       },
       
       "user_locator": {
@@ -206,7 +207,9 @@
         "language": "Language",
         "accommodations": "Accommodations",
         "eligibilities": "Eligibilities",
-        "trip_types": "Preferred Trip Types"
+        "trip_types": "Preferred Trip Types",
+        "show_pw": "show",
+        "hide_pw": "hide"
       },
       
       "transportation_eligibility": {

@@ -116,15 +116,21 @@ export class OneClickProvider {
     for (let trip_type of user.trip_types){
       formatted_trip_types[trip_type.code] = trip_type.value;
     }
+    
+    let attributes = {
+      "first_name": user.first_name,
+      "last_name": user.last_name,
+      "email": user.email,
+      "preferred_locale": user.preferred_locale
+    }
+    
+    if(user.password && user.password_confirmation) {
+      attributes["password"] = user.password;
+      attributes["password_confirmation"] = user.password_confirmation;
+    }
 
     let body = {
-      "attributes": {
-        "first_name": user.first_name,
-        "last_name": user.last_name,
-        "email": user.email,
-        "password": user.password,
-        "preferred_locale": user.preferred_locale
-      },
+      "attributes": attributes,
       "accommodations": formatted_accs,
       "eligibilities": formatted_eligs,
       "trip_types": formatted_trip_types

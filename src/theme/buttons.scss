@@ -74,16 +74,31 @@ button.lynx-button-circle-lg {
 }
 
 // Link-style Buttons
-a.lynx-button-link,
-button.lynx-button-link {
+div.lynx-button-link,
+button.lynx-button-link,
+a.lynx-button-link {
   background-color: transparent;
+  cursor: pointer;
   font-size: $font-size-md;
   font-weight: 500;
   margin: size(1);
   text-decoration: none;
   
   &:active, &:hover {
-    color: $lynxWhite;
     opacity: 1.0;
+  }
+  
+  // Link colorings
+  &.link-pink {
+    color: $lynxDarkPink;
+    &:active, &:hover {
+      color: $lynxPink;
+    }
+  }
+  &.link-black {
+    color: $lynxBlack;
+    &:active, &:hover {
+      color: $lynxWhite;
+    }
   }
 }
