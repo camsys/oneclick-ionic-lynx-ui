@@ -7,15 +7,17 @@ import { environment } from '../../app/environment';
 */
 @Injectable()
 export class GoogleMapsHelpersProvider {
+  
+  minZoom: number = 10;
+  maxZoom: number = 16;
 
   // Sets up a map element with default options, and returns it
   buildGoogleMap(mapDivId: string): google.maps.Map {
     // Create the Map with default settings
-    let minZoomLevel = 10;
     let latLng = new google.maps.LatLng(environment.DEFAULT_LOCATION.lat, environment.DEFAULT_LOCATION.lng);
     let mapOptions = {
       center: latLng,
-      zoom: minZoomLevel,
+      zoom: this.minZoom,
       mapTypeControl: false,
       streetViewControl: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -88,7 +90,8 @@ export class GoogleMapsHelpersProvider {
 
   // Builds a routeline with default formatting, and returns it. Takes an array
   // of google maps latlngs and a string of the leg's mode
-  drawRouteLine(routePoints: google.maps.LatLng[], mode: string="BUS") {
+  drawRouteLine(routePoints: google.maps.LatLng[], 
+                mode: string="BUS"): google.maps.Polyline {
 
     switch(mode) {
 
@@ -131,14 +134,30 @@ export class GoogleMapsHelpersProvider {
   // Zooms map view to fit each object in the passed array.
   // Accepts a map and an array of objects to zoom to.
   zoomToObjects(map: google.maps.Map, objs: any[]): void {
+
+    // Map objects to arrays of points, then flatten into a flat array of points
+    let points:google.maps.LatLng[] = objs.map((obj):google.maps.LatLng[] => {
+      if(obj instanceof google.maps.Polyline) {
+        return obj.getPath().getArray();
+      } else if(obj instanceof google.maps.Marker) {
+        return [obj.getPosition()];
+      } else if (obj instanceof google.maps.LatLng) {
+        return [obj];
+      } else {
+        return [];
+      }
+    }).reduce((acc, cur) => acc.concat(cur), []);
+  
+    // Then, zoom the map to the array of points
+    this.zoomToPoints(map, points);
+  }
+  
+  // Zooms the passed map to the minimum box encompassing all of the passed latlngs
+  zoomToPoints(map: google.maps.Map, points: google.maps.LatLng[]) {
     var bounds = new google.maps.LatLngBounds();
-
-    objs.forEach(function(obj) {
-      var points = obj.getPath().getArray();
-      points.forEach((p) => bounds.extend(p));
-    })
-
-    map.fitBounds(bounds);
+    points.forEach((p) => bounds.extend(p));
+    map.fitBounds(bounds); // fit the map to the bounds
+    map.setZoom(Math.min(map.getZoom(), this.maxZoom)); // reduce zoom to the max zoom if necessary
   }
 
   // Drops a pin at the given latLng
