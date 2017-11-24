@@ -1,5 +1,7 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, ModalController, ToastController } from 'ionic-angular';
+import { Component, ChangeDetectorRef, ViewChild, HostListener } from '@angular/core';
+import { IonicPage, NavController, NavParams, 
+         Events, ModalController, ToastController,
+         Content } from 'ionic-angular';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { TranslateService } from '@ngx-translate/core';
 
@@ -28,6 +30,13 @@ import { OneClickProvider } from '../../../providers/one-click/one-click';
   templateUrl: 'service-for211-detail.html',
 })
 export class ServiceFor211DetailPage {
+  
+  // Detect when the screen is resized and resize the content based on the
+  // new header bar height.
+  @ViewChild(Content) content: Content;
+  @HostListener('window:resize') onResize() {
+    this.content && this.content.resize();
+  }
 
   service: ServiceModel;
   origin: GooglePlaceModel;
@@ -71,8 +80,6 @@ export class ServiceFor211DetailPage {
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
     
-
-                            
     // Replace newline characters with html break tags in detail strings
     this.detailKeys.forEach((k) => 
       { 
@@ -96,7 +103,7 @@ export class ServiceFor211DetailPage {
       this.events.publish('spinner:hide');
       this.changeDetector.detectChanges();
     });
-
+    
   }
 
   ionViewDidLoad() {

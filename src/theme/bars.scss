@@ -24,6 +24,15 @@ ion-toolbar.lynx-toolbar {
     position: inherit !important;
   }
   
+  // Dynamic title text wraps, and font size gets smaller on smaller screens
+  ion-title.dynamic-toolbar-title .toolbar-title {
+    white-space: initial;
+    
+    @media (max-width: 40em) {
+      font-size: $font-size-md;
+    }
+  }
+    
   .lynx-toolbar-body {
     font-size: $font-size-sm;
     
@@ -76,28 +85,4 @@ ion-tabs {
 }
 .searchbar-ios-cancel {
   color: $lynxBlack;
-}
-
-
-// This class uses media queries to scale the size of the toolbar font based
-// on the width of the screen.
-.dynamic-toolbar-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  
-  @media (min-width: 0em) {
-    font-size: $font-size-sm;
-    margin: size(-1) 0;
-  }
-  
-  @media (min-width: 25em) {
-    font-size: $font-size-md;
-    margin: size(-2) 0;
-  }
-  
-  @media (min-width: 40em) {
-    font-size: $font-size-lg;
-    margin: size(-4) 0;
-  }
 }
