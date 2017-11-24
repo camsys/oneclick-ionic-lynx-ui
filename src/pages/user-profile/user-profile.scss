@@ -44,4 +44,8 @@ page-user-profile {
   #preferred-locale-item ion-label {
     max-width: size(7);
   }
+  
+  #show-password-button {
+    z-index: 100;
+  }
 }
