@@ -86,3 +86,15 @@ ion-tabs {
 .searchbar-ios-cancel {
   color: $lynxBlack;
 }
+
+ion-toolbar.lynx-toolbar {
+  @media (min-width: #{map-get($grid-breakpoints, sm)}) {
+    padding-left: 8.3%;
+    padding-right: 8.3%;
+  }
+  
+  @media (min-width: #{map-get($grid-breakpoints, md)}) {
+    padding-left: 16.7%;
+    padding-right: 16.7%;
+  }
+}
