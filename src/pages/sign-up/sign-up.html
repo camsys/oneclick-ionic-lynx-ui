@@ -12,13 +12,15 @@
 <ion-content padding>
 
   <div>
-    <form [formGroup]="signUpForm" (ngSubmit)="signUp()" #signUpForm="ngForm">
+    <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately.</p>
 
-      <ion-row>
-        <ion-col>
-          <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png"/>
-        </ion-col>
-      </ion-row>
+    <ion-row>
+      <ion-col>
+        <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png"/>
+      </ion-col>
+    </ion-row>
+
+    <form [formGroup]="signUpFormGroup" (ngSubmit)="signUp()" #signUpForm="ngForm">
 
       <ion-row>
         <ion-col>
@@ -55,6 +57,7 @@
       </ion-row>
 
     </form>
+
   </div>
 
 </ion-content>

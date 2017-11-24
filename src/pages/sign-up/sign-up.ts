@@ -3,11 +3,13 @@ import {  IonicPage, NavController, NavParams, ToastController } from 'ionic-ang
 
 // Pages
 import { HelpMeFindPage } from '../help-me-find/help-me-find';
+import { SignInPage } from '../sign-in/sign-in';
 
 // Providers
 import { AuthProvider } from '../../providers/auth/auth';
 import { OneClickProvider } from '../../providers/one-click/one-click';
-import {FormControl, FormGroup} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { EmailAddressValidator } from '../../validators/email-address'
 
 /**
  * Generated class for the SignUpPage page.
@@ -25,71 +27,53 @@ export class SignUpPage {
   formControlEmail: FormControl;
   formControlPassword: FormControl;
   formControlPasswordConfirm: FormControl;
-  formGroup: FormGroup;
+  signUpFormGroup: FormGroup;
+  submitAttempt: boolean = false;
 
   constructor(public navCtrl: NavController,
+              public formBuilder: FormBuilder,
               public navParams: NavParams,
               private authProvider: AuthProvider,
               private oneClickProvider: OneClickProvider,
               private toastCtrl: ToastController) {
-    this.formControlEmail = new FormControl('value', validateEmail())
-    this.formControlPassword = new FormControl('value', validatePassword())
-    this.formControlPasswordConfirm = new FormControl('value', validatePasswordConfirm())
 
-    this.formGroup = new FormGroup({
-      email: new FormControl('test1');
-      password: new FormControl('test2');
+    this.signUpFormGroup = formBuilder.group({
+      formControlEmail: ['', Validators.compose([Validators.required, EmailAddressValidator.isValid, Validators.maxLength(30),])],
+      formControlPassword: ['', Validators.compose([Validators.required])],
+      formControlPasswordConfirm: ['', Validators.compose([Validators.required])]
     });
-
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignUpPage');
   }
 
-  validateEmail()
-  {
-
-  }
-
-  validatePassword()
-  {
-
-  }
-
-  validatePasswordConfirm()
-  {
-
-  }
-
   signUp() {
-    // this.authProvider
-    //   .signIn(this.user.email, this.user.password)
-    //   .subscribe(
-    //     data => {
-    //       // Get the user's profile data and store it in the session
-    //       this.oneClickProvider.getProfile();
-    //
-    //       // Redirect the user to the home page
-    //       this.navCtrl.push(HelpMeFindPage);
-    //     },
-    //     error => {
-    //       // On failed response, display a pop-up error message and remain on page.
-    //       console.error(error.json().data.errors);
-    //       let errorToast = this.toastCtrl.create({
-    //         message: "There was a problem logging in. Please check your username and password and try again.",
-    //         position: "top",
-    //         duration: 3000
-    //       });
-    //       errorToast.present();
-    //     }
-    //   );
-    //
-
-    console.log('This was submitted to the signUp actions class');
-
-    // // Redirect the user to the home page
-    // this.navCtrl.push(HelpMeFindPage);
+    if(!this.signUpFormGroup.valid) {
+      console.log("INVLAID submission DO NOT pass it on to the server");
+      console.log(this.signUpFormGroup.errors.toString());
+      let errorToast = this.toastCtrl.create({
+        message: this.signUpFormGroup.errors.toString(),
+        position: "top",
+        duration: 3000
+      });
+      errorToast.present();
+    }else {
+      console.log("Valid submission pass it on to the server");
+      this.authProvider
+        .signUp(this.formControlEmail.value, this.formControlPassword.value, this.formControlPasswordConfirm.value)
+        .subscribe(
+          data => {this.navCtrl.push(SignInPage);},
+          error => {
+            console.error(error.json().data.errors);
+                  let errorToast = this.toastCtrl.create({
+                    message: "There was a problem logging in. Please check your username and password and try again.",
+                    position: "top",
+                    duration: 3000
+                  });
+                  errorToast.present();
+          });
+    }
   }
 
 }
