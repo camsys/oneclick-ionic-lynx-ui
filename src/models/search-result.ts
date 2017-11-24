@@ -4,5 +4,5 @@ export class SearchResultModel {
   type: string;
   label: string;
   result: any;
-  title: string;
+  title?: string;
 }

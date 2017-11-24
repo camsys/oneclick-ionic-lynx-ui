@@ -9,23 +9,26 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar class="lynx-toolbar lynx-toolbar-overlay" text-center 
-               *ngIf="selectedMatch != null">
-    <ion-title>{{selectedMatch.agency_name}}</ion-title>
+  <ion-toolbar id="go-toolbar"
+               class="lynx-toolbar lynx-toolbar-overlay" 
+               text-center 
+               *ngIf="selectedMatch != null"
+               (click)="selectService(selectedMatch)">
+    <ion-title text-wrap>{{selectedMatch.agency_name}}</ion-title>
     
-    <span class="travel-time-container">
+    <span class="travel-time-container" *ngIf="selectedMatch.drive_time">
       <ion-icon class="icon-lg" name="car"></ion-icon>
       {{selectedMatch.drive_time | prettyTime}}
     </span>
-    <span class="travel-time-container">
+    <span class="travel-time-container" *ngIf="selectedMatch.transit_time">
       <ion-icon class="icon-lg" name="bus"></ion-icon>
       {{selectedMatch.transit_time | prettyTime}}
     </span>   
 
-    <ion-buttons end>
-      <button ion-button 
-              class="lynx-button-white lynx-button-circle"
-              (click)="selectService(selectedMatch)">
+    <ion-buttons id="go-button-container" end>
+      <button id="go-button"
+              ion-button
+              class="lynx-button-white lynx-button-circle-lg">
         {{ "lynx.pages.services.map_tab.go_button" | translate }}
       </button>
     </ion-buttons>

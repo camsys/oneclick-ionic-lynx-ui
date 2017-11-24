@@ -9,9 +9,17 @@
       },
       
       "languages": {
-        "en": "English",
-        "es": "Spanish",
-        "keys": "View Translation Keys"
+        "translated": {
+          "en": "English",
+          "es": "Spanish",
+          "keys": "View Translation Keys"
+        },
+        "native": {
+          "en": "English",
+          "es": "Espanol",
+          "keys": "View Translation Keys"
+        }
+
       },
       
       "modes": {
@@ -19,7 +27,8 @@
         "transit": "Bus & Train",
         "taxi": "Taxi",
         "uber": "Uber",
-        "paratransit": "Paratransit"
+        "paratransit": "Paratransit",
+        "find_other_options": "Find Other Options"
       },
       
       "time": {
@@ -63,7 +72,7 @@
       },
       
       "contact_us": {
-        "header": "About Us",
+        "header": "Contact Us",
         "url": "website",
         "phone": "phone"
       },
@@ -72,7 +81,8 @@
         "welcome_message_1": "Welcome to LYNX",
         "welcome_message_2": "How can we help you?",
         "resources_button": "Helpful Resources",
-        "transportation_button": "Transportation"
+        "transportation_button": "Transportation",
+        "alerts_button": "Alerts"
       },
       
       "menu": {
@@ -85,10 +95,11 @@
         "resources": "Find Services by Location",
         "privacy_policy": "Privacy Policy",
         "sign_out": "Sign Out",
-        "language_test": "Temporary Language Test",
+        "language_selector": "Select Language",
         "home": "Home",
         "sign_in": "Hello! Log In Now",
-        "sign_up": "Don't have an account?"
+        "sign_up": "Don't have an account?",
+        "feedback": "Leave Feedback"
       },
       
       "user_locator": {
@@ -129,16 +140,35 @@
       },
       
       "service_details": {
-        "description_header": "About this Service",
+        "details_header": "About this Service",
         "phone_header": "Have Questions?",
         "feedback_header": "Have Feedback?",
         "feedback_button": "Rate this Service",
+        "area_served": "Area Served",
+        "eligibility": "Eligibility",
+        "fees": "Fees",
+        "intake_procedure": "Intake Procedure",
+        "service_description": "Service Description",
+        "services": "Services",
+        "site_hours": "Site Hours",
+        "program_service_hours": "Program Service Hours",
+        "documents_required": "Documents Required",
+        "payment_options": "Payment Options",
+        "languages_spoken": "Languages Spoken",
+        "travel_instructions": "Travel Instructions",
+        "area_served": "Area Served"
+      },
+      
+      "transportation_service_details": {
         "fare": "fare",
         "phone": "phone",
         "email": "email",
         "url": "website",
         "description": "description",
-        "schedule": "schedule"
+        "schedule": "schedule",
+        "purposes_header": "eligible purposes",
+        "accommodations_header": "accommodations provided",
+        "eligibilities_header": "eligibility requirements (any one)"
       },
       
       "directions": {
@@ -167,7 +197,19 @@
       },
       
       "user_profile": {
-        "update_button": "Update"
+        "update_button": "Save Profile",
+        "sign_in_required_message": "Please sign in to continue.",
+        "header": "My Profile",
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "email": "Email Address",
+        "password": "Password",
+        "language": "Language",
+        "accommodations": "Accommodations",
+        "eligibilities": "Eligibilities",
+        "trip_types": "Preferred Trip Types",
+        "show_pw": "show",
+        "hide_pw": "hide"
       },
       
       "transportation_eligibility": {
@@ -183,7 +225,30 @@
         "email": "Your Email",
         "phone": "Your Phone",
         "submit_button": "Submit",
-        "cancel_button": "Cancel"
+        "cancel_button": "Cancel",
+        "success_message": "Feedback successfully created.",
+        "error_message": "Error creating feedback"
+      },
+      
+      "sign_in": {
+        "header": "Sign In",
+        "sign_in_button": "Sign In",
+        "reset_password_button": "Forgot your Password?",
+        "error_message": "There was a problem signing in. Please check your username and password and try again."
+      },
+      
+      "reset_password": {
+        "header": "Reset Password",
+        "reset_password_button": "Reset Password",
+        "reset_password_description": "To reset your password, enter your email address. You will be sent an email with your new password.",
+        "success_message": "Your password has been successfully reset. An email has been sent to {{email}}.",
+        "error_message": "There was a problem resetting your password. Please verify your email address and try again."
+
+      },
+      
+      "language_selector_modal": {
+        "header": "Preferred Language",
+        "form_title": "Select Your Language"
       }
       
     }
@@ -195,18 +260,18 @@
     "relativeDirection": {
       
       "DEPART": "DEPART",
-      "HARD_LEFT": "HARD_LEFT",
+      "HARD_LEFT": "HARD LEFT",
       "LEFT": "LEFT",
-      "SLIGHTLY_LEFT": "SLIGHTLY_LEFT",
+      "SLIGHTLY_LEFT": "SLIGHTLY LEFT",
       "CONTINUE": "CONTINUE",
-      "SLIGHTLY_RIGHT": "SLIGHTLY_RIGHT",
+      "SLIGHTLY_RIGHT": "SLIGHTLY RIGHT",
       "RIGHT": "RIGHT",
-      "HARD_RIGHT": "HARD_RIGHT",
-      "CIRCLE_CLOCKWISE": "CIRCLE_CLOCKWISE",
-      "CIRCLE_COUNTERCLOCKWISE": "CIRCLE_COUNTERCLOCKWISE",
+      "HARD_RIGHT": "HARD RIGHT",
+      "CIRCLE_CLOCKWISE": "CIRCLE CLOCKWISE",
+      "CIRCLE_COUNTERCLOCKWISE": "CIRCLE COUNTERCLOCKWISE",
       "ELEVATOR": "ELEVATOR",
-      "UTURN_LEFT": "UTURN_LEFT",
-      "UTURN_RIGHT": "UTURN_RIGHT"
+      "UTURN_LEFT": "UTURN LEFT",
+      "UTURN_RIGHT": "UTURN RIGHT"
       
     },
     

@@ -1,97 +1,149 @@
-<!--
-  Generated template for the UserProfilePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar>
-    <ion-title><img src="../../assets/img/Lynx-logo-pink-xsm.png" alt="LYNX Icon"></ion-title>
+  <ion-navbar class="lynx-toolbar lynx-toolbar-black">
+    <ion-title text-center id="profile-header">
+      {{"lynx.pages.user_profile.header" | translate}}
+    </ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
   </ion-navbar>
+  
+  <ion-toolbar id="profile-subheader" class="lynx-toolbar" text-center>
+    <h1 *ngIf="user.first_name && user.last_name">{{user.first_name}} {{user.last_name}}</h1>
+    <h1 *ngIf="!user.first_name || !user.last_name">{{user.email}}</h1>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
 
-  <div *ngIf="user">
-    <form (ngSubmit)="updateProfile()" #updateProfileForm="ngForm">
+  <div id="user-profile-container" *ngIf="user">
+    <form id="ngForm"
+          (ngSubmit)="updateProfile()" 
+          #updateProfileForm="ngForm">
       
       <!-- Basic Attribues -->
       <ion-row>
-        <ion-col>
-          <ion-input  class="lynx-input" 
-                      type="text" 
-                      placeholder="First Name" 
-                      name="first_name" 
-                      [(ngModel)]="user.first_name" 
-                      required>
-          </ion-input>
-          <ion-input  class="lynx-input" 
-                      type="text" 
-                      placeholder="Last name" 
-                      name="last_name" 
-                      [(ngModel)]="user.last_name" 
-                      required>
-          </ion-input>
-          <ion-input  class="lynx-input" 
-                      type="email" 
-                      placeholder="Email" 
-                      name="email" 
-                      [(ngModel)]="user.email" 
-                      required>
-          </ion-input>
-          <ion-input  class="lynx-input" 
-                      type="password" 
-                      placeholder="Password" 
-                      name="password" 
-                      [(ngModel)]="user.password">
-          </ion-input>
+        <ion-col no-padding>
+          
+          <!-- FIRST NAME -->
+          <ion-item>
+            <ion-label>{{"lynx.pages.user_profile.first_name" | translate}}</ion-label>
+            <ion-input  class="lynx-input" 
+                        type="text" 
+                        placeholder=""
+                        name="first_name" 
+                        [(ngModel)]="user.first_name">
+            </ion-input>          
+          </ion-item>
+          
+          <!-- LAST NAME -->
+          <ion-item>
+            <ion-label>{{"lynx.pages.user_profile.last_name" | translate}}</ion-label>
+            <ion-input  class="lynx-input" 
+                        type="text" 
+                        placeholder=""
+                        name="last_name" 
+                        [(ngModel)]="user.last_name">
+            </ion-input>          
+          </ion-item>
+          
+          <!-- EMAIL -->
+          <ion-item>
+            <ion-label>{{"lynx.pages.user_profile.email" | translate}}</ion-label>
+            <ion-input  class="lynx-input" 
+                        type="email" 
+                        placeholder=""
+                        name="email" 
+                        [(ngModel)]="user.email" 
+                        required>
+            </ion-input>
+          </ion-item>
+          
+          <!-- PASSWORD -->
+          <ion-item>
+            <ion-label>{{"lynx.pages.user_profile.password" | translate}}</ion-label>
+            <ion-input  class="lynx-input" 
+                        [type]="passwordFieldType" 
+                        placeholder=""
+                        name="password" 
+                        [(ngModel)]="user.password">
+            </ion-input>z
+            <div (click)="toggleShowPassword()"
+                 class="lynx-button-link link-pink"
+                 item-end>
+              {{ (this.showPassword ? "lynx.pages.user_profile.hide_pw" : "lynx.pages.user_profile.show_pw") | translate}}
+            </div>
+          </ion-item>
+          
+
+
       </ion-col>   
     </ion-row>
     
          
     <!-- Preferred Locale -->
     <ion-row>
-      <ion-col>
+      <ion-col no-padding>
 
+        <ion-item>
+          
+          <ion-label>{{"lynx.pages.user_profile.language" | translate}}</ion-label>
           <ion-select name="preferred_locale" [(ngModel)]="user.preferred_locale">
             <ion-option *ngFor="let locale of available_locales"
                         value="{{locale}}">
-              {{ "lynx.global.languages." + locale | translate }}
+              {{ "lynx.global.languages.native." + locale | translate }}
             </ion-option>
           </ion-select>
+        
+        </ion-item>
 
       </ion-col>
     </ion-row>
     
-    <!-- Accomodations and Eligibilities -->
+    <!-- ACCOMMODATIONS -->
     <ion-row>
-      <ion-col>
-          <ion-list>
-            <ion-item *ngFor="let accommodation of accommodations">
-              <ion-label>{{accommodation.note}}</ion-label>
-              <ion-checkbox [(ngModel)]=accommodation.value [ngModelOptions]="{standalone: true}"></ion-checkbox>
-            </ion-item>
-          </ion-list>
+      <ion-col no-padding>
+        <ion-list id="accommodations-list">
+          <ion-list-header class="profile-list-header">
+            {{"lynx.pages.user_profile.accommodations" | translate}}
+          </ion-list-header>
+          
+          <ion-item *ngFor="let accommodation of accommodations">
+            <ion-label>{{accommodation.note}}</ion-label>
+            <ion-checkbox [(ngModel)]=accommodation.value [ngModelOptions]="{standalone: true}"></ion-checkbox>
+          </ion-item>
+        </ion-list>
 
+      </ion-col>
+    </ion-row>
+    
+    <!-- ELIGIBILITIES -->
+    <ion-row>
+      <ion-col no-padding>
 
-          <ion-list>
-            <ion-item *ngFor="let eligibility of eligibilities">
-                <ion-label>{{eligibility.note}}</ion-label>
-                <ion-checkbox [(ngModel)]=eligibility.value [ngModelOptions]="{standalone: true}"></ion-checkbox>
-            </ion-item>
-          </ion-list>
+        <ion-list id="eligibilities-list">
+          <ion-list-header class="profile-list-header">
+            {{"lynx.pages.user_profile.eligibilities" | translate}}
+          </ion-list-header>
+          
+          <ion-item *ngFor="let eligibility of eligibilities">
+              <ion-label>{{eligibility.note}}</ion-label>
+              <ion-checkbox [(ngModel)]=eligibility.value [ngModelOptions]="{standalone: true}"></ion-checkbox>
+          </ion-item>
+        </ion-list>
 
        </ion-col>
     </ion-row>
 
     <!-- Preferred Trip Types -->
     <ion-row>
-      <ion-col>
+      <ion-col no-padding>
           <ion-list>
+            <ion-list-header class="profile-list-header">
+              {{"lynx.pages.user_profile.trip_types" | translate}}
+            </ion-list-header>
+            
             <ion-item *ngFor="let trip_type of trip_types">
               <ion-label>{{trip_type.name}}</ion-label>
               <ion-checkbox [(ngModel)]=trip_type.value [ngModelOptions]="{standalone: true}"></ion-checkbox>
@@ -100,16 +152,21 @@
        </ion-col>
     </ion-row>
       
-    <!-- Submit -->
-    <ion-row>
-        <ion-col>
-          <button ion-button round class="lynx-button-dark center" type="submit" [disabled]="!updateProfileForm.form.valid">
-            {{ "lynx.pages.user_profile.update_button" | translate }}
-          </button>
-        </ion-col>
-    </ion-row>
-      
     </form>
+    
+  
   </div>
 
 </ion-content>
+
+<!-- Submit -->
+<ion-footer transparent no-border>
+  <ion-toolbar transparent id="submit-button-container" text-center>
+    <button ion-button round 
+            class="lynx-button-dark center" 
+            form="ngForm"
+            [disabled]="!updateProfileForm.valid">
+      {{ "lynx.pages.user_profile.update_button" | translate }}
+    </button>
+  </ion-toolbar>
+</ion-footer>

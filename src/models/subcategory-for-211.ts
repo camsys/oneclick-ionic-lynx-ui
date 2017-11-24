@@ -4,5 +4,6 @@
 
 export class SubcategoryFor211Model {
   name: string;
+  code: string;
   service_count: number;
 }

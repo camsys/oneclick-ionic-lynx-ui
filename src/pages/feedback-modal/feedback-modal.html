@@ -16,7 +16,31 @@
   
   <!-- Feedback form group -->
   <form [formGroup]="feedbackForm" (ngSubmit)="submit()">
-    <h2 id="feedback-modal-title">{{service().name || service().agency_name}}</h2>
+    
+    <!-- If a subject is present, use its name as the heading -->
+    <h2 *ngIf="subject; else subjectPicker" 
+        id="feedback-modal-title"
+        (click)="showSubjectPicker()">
+      {{subject.name || subject.agency_name}}
+      <ion-icon class="icon-sm" name="create"></ion-icon> <!-- edit icon -->
+    </h2>
+    
+    <!-- If no subject is present, allow user to pick one -->
+    <ng-template #subjectPicker>
+
+      <ion-item text-center id="subject-picker-container">
+        <ion-input placeholder="What is this feedback about?"
+                   [formControl]="searchControl"
+                   #searchInput></ion-input>
+      </ion-item>
+      
+      <!-- SERVICE SEARCH RESULTS LISTS -->
+      <autocomplete-results #searchResultsList
+                            [items]="searchResults"
+                            (onSelect)="selectResult($event)">
+      </autocomplete-results>  
+
+    </ng-template>
     
     <!-- Rating stars -->
     <ion-item text-center>
@@ -47,11 +71,11 @@
     <div id="feedback-modal-buttons">
       <button ion-button round
               type="submit"
-              class="lynx-button-dark">{{ "lynx.pages.feedback.submit" | translate }}</button>
+              class="lynx-button-dark">{{ "lynx.pages.feedback.submit_button" | translate }}</button>
       <button ion-button round 
               class="lynx-button-white"
               type="button"
-              (click)="cancel()">{{ "lynx.pages.feedback.cancel" | translate }}</button>
+              (click)="cancel()">{{ "lynx.pages.feedback.cancel_button" | translate }}</button>
     </div>
   </form>
   

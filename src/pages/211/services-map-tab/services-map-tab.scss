@@ -6,7 +6,7 @@ page-services-map-tab {
   }
   
   .travel-time-container {
-    font-size: $font-size-sm;
+    font-size: $font-size-md;
     font-weight: 900;
     
     &:first-of-type {
@@ -14,9 +14,28 @@ page-services-map-tab {
     }
   }
   
-  ion-toolbar.lynx-toolbar {
-    ion-title.toolbar-title {
-      font-size: $font-size-md;
+  #go-toolbar {
+    cursor: pointer;
+    min-height: size(9);
+    @media (min-width: 0em) {
+      padding: 0 5%;
+    }
+    
+    @media (min-width: 25em) {
+      padding: 0 15%;
+    }
+    
+    @media (min-width: 40em) {
+      padding: 0 25%;
+    }
+    
+    &:hover {
+      background-color: transparentize($lynxPink, 0.5);
+    }
+    
+    ion-title .toolbar-title {
+      font-size: $font-size-lg;
+      white-space: initial !important;
     }
   }
 

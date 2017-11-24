@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 // Providers
 import { OneClickProvider } from '../../providers/one-click/one-click';
@@ -23,7 +24,8 @@ export class ParatransitServicesPage {
               public navParams: NavParams,
               private oneClickProvider: OneClickProvider,
               public modalCtrl: ModalController,
-              public toastCtrl: ToastController) {}
+              public toastCtrl: ToastController,
+              private translate: TranslateService) {}
               
   tripResponse: TripResponseModel;
   transportationServices: OneClickServiceModel[];
@@ -47,18 +49,11 @@ export class ParatransitServicesPage {
   
   // Open the feedback modal for rating the service
   rateService(service: OneClickServiceModel) {
-    let feedbackModal = this.modalCtrl.create(FeedbackModalPage, { oneclick_service: service });
-    feedbackModal.onDidDismiss(data => {
-      if(data) {
-        let toast = this.toastCtrl.create({
-          message: (data.status === 200 ? 'Feedback created successfully' : 'Error creating feedback'),
-          position: 'bottom',
-          duration: 3000
-        });
-        toast.present();
-      }
-    })
-    feedbackModal.present();
+    FeedbackModalPage.createModal(this.modalCtrl, 
+                                  this.toastCtrl,
+                                  this.translate,
+                                { subject: service, type: "Service" })
+                     .present();
   }
 
 }

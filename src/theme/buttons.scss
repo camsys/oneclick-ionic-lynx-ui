@@ -12,7 +12,7 @@ button.lynx-button-primary {
     color: inherit;
   }
   
-  &:active {
+  &:active, &:hover {
     background-color: $lynxBlack;
     color: $lynxWhite;
   }
@@ -25,7 +25,7 @@ button.lynx-button-outline {
   border: size(-5) solid $lynxDarkPink;
   color: $lynxDarkPink;
   
-  &:active {
+  &:active, &:hover {
     background-color: $lynxDarkPink;
     color: $lynxWhite;
   }
@@ -38,8 +38,8 @@ button.lynx-button-dark {
   border: size(-5) solid $lynxDarkPink;
   color: $lynxWhite;
   
-  &:active {
-    background-color: $lynxWhite;
+  &:active, &:hover {
+    background-color: $lynxWhite !important;
     border-color: $lynxLtGray;
     color: $lynxDarkPink;
   }
@@ -51,7 +51,7 @@ button.lynx-button-white {
   background-color: $lynxWhite;
   color: $lynxDarkPink;
   
-  &:active {
+  &:active, &:hover {
     background-color: $lynxDarkPink;
     color: $lynxWhite;
   }
@@ -64,4 +64,41 @@ button.lynx-button-circle {
   font-weight: 900;
   height: size(5);
   width: size(5);
+}
+button.lynx-button-circle-lg {
+  border-radius: 50%;
+  font-size: $font-size-lg;
+  font-weight: 900;
+  height: size(7);
+  width: size(7);
+}
+
+// Link-style Buttons
+div.lynx-button-link,
+button.lynx-button-link,
+a.lynx-button-link {
+  background-color: transparent;
+  cursor: pointer;
+  font-size: $font-size-md;
+  font-weight: 500;
+  margin: size(1);
+  text-decoration: none;
+  
+  &:active, &:hover {
+    opacity: 1.0;
+  }
+  
+  // Link colorings
+  &.link-pink {
+    color: $lynxDarkPink;
+    &:active, &:hover {
+      color: $lynxPink;
+    }
+  }
+  &.link-black {
+    color: $lynxBlack;
+    &:active, &:hover {
+      color: $lynxWhite;
+    }
+  }
 }

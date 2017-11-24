@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '../../app/environment';
 
@@ -29,17 +31,22 @@ import { SignInPage }  from '../sign-in/sign-in';
 })
 export class UserProfilePage {
 
-  user: User;
+  user: User = {} as User;
   eligibilities: Eligibility[];
   accommodations: Accommodation[];
   trip_types: TripType[];
   filtered_trip_types: TripType[];
   available_locales: string[];
+  
+  @ViewChild('updateProfileForm') updateProfileForm: NgForm = {} as NgForm;
+  public passwordFieldType = "password";
+  public showPassword = false;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public toastCtrl: ToastController,
-              public oneClickProvider: OneClickProvider) {
+              public oneClickProvider: OneClickProvider,
+              private translate: TranslateService) {
     this.available_locales = environment.AVAILABLE_LOCALES;
   }
 
@@ -50,9 +57,12 @@ export class UserProfilePage {
   }
 
   updateProfile() {
-    this.user.eligibilities = this.eligibilities
-    this.user.accommodations = this.accommodations
-    this.user.trip_types = this.trip_types
+    this.user.eligibilities = this.eligibilities;
+    this.user.accommodations = this.accommodations;
+    this.user.trip_types = this.trip_types;
+    if(this.user.password && this.user.password.length > 0) {
+      this.user.password_confirmation = this.user.password;
+    }
     this.oneClickProvider.updateProfile(this.user)
     .then((user) => this.updateUserData(user))
     .catch((error) => this.handleError(error))
@@ -84,11 +94,20 @@ export class UserProfilePage {
       console.error("USER TOKEN EXPIRED", error);
       this.navCtrl.push(SignInPage);
       this.toastCtrl.create({
-        message: "Please sign in to continue.", 
+        message: this.translate.instant("lynx.pages.user_profile.sign_in_required_message"), 
         duration: 5000}
       ).present();
     } else {
       console.error(error);
+    }
+  }
+  
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+    if (this.showPassword){
+      this.passwordFieldType = "type";
+    } else {
+      this.passwordFieldType = "password";
     }
   }
 

@@ -1,6 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, ModalController, ToastController } from 'ionic-angular';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
+import { TranslateService } from '@ngx-translate/core';
 
 // Pages
 import { FeedbackModalPage } from "../../feedback-modal/feedback-modal";
@@ -33,9 +34,11 @@ export class ServiceFor211DetailPage {
   destination: GooglePlaceModel;
   basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
   allModes:string[] = ['transit', 'car', 'taxi', 'uber', 'paratransit'] // All modes
+  returnedModes:string[] = [] // All the basic modes returned from the plan call
   tripRequest: TripRequestModel;
   tripResponse: TripResponseModel = new TripResponseModel({});
   tripPlanSubscription: any;
+  detailKeys: string[] = []; // Array of the non-null detail keys in the details hash
 
   transitTime: number = 0;
   driveTime: number = 0;
@@ -52,14 +55,34 @@ export class ServiceFor211DetailPage {
               private inAppBrowser: InAppBrowser,
               public changeDetector: ChangeDetectorRef,
               public toastCtrl: ToastController,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController,
+              private translate: TranslateService) {
 
     // Set the service (if present)
     this.service = navParams.data.service;
-
+    
+    if(this.service) {
+      // Set the detail keys to the non-null details
+      this.detailKeys = Object.keys(this.service.details)
+                              .filter((k) => this.service.details[k] !== null);
+    }
+    
     // Set origin and destination places
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
+    
+
+                            
+    // Replace newline characters with html break tags in detail strings
+    this.detailKeys.forEach((k) => 
+      { 
+        this.service.details[k] = this.service.details[k]
+                                              .replace(/(?:\r\n|\r|\n)/g, '<br />');
+      }
+    );
+
+    // Show the spinner until the trip plan call returns
+    this.events.publish('spinner:show');
 
     // Plan a trip and store the result.
     // Once response comes in, update the UI with travel times and allow
@@ -69,6 +92,8 @@ export class ServiceFor211DetailPage {
     .subscribe((resp) => {
       this.tripResponse = new TripResponseModel(resp);
       this.updateTravelTimesFromTripResponse(this.tripResponse);
+      this.updateReturnedModes(this.tripResponse);
+      this.events.publish('spinner:hide');
       this.changeDetector.detectChanges();
     });
 
@@ -83,11 +108,6 @@ export class ServiceFor211DetailPage {
     if(this.tripPlanSubscription) {
       this.tripPlanSubscription.unsubscribe();
     }
-  }
-
-  // Returns true/false based on whether or not the tripResponse has returned yet
-  ready(): boolean {
-    return !!this.tripResponse && !!this.tripResponse.id;
   }
 
   // Opens the directions page for the desired mode, passing a clone of the
@@ -157,6 +177,13 @@ export class ServiceFor211DetailPage {
     }
   }
 
+  // Updates the returned modes list with the modes returned from the given response
+  updateReturnedModes(tripResponse: TripResponseModel) {
+    this.returnedModes = this.basicModes.filter((mode) => {
+      return tripResponse.includesTripType(mode);
+    })
+  }
+
   // Returns a trip response object but with only the itineraries of the passed mode
   tripResponseWithFilteredItineraries(tripResponse: TripResponseModel,
                                       mode: string) {
@@ -202,18 +229,11 @@ export class ServiceFor211DetailPage {
   }
 
   rateService(service: ServiceModel) {
-    let feedbackModal = this.modalCtrl.create(FeedbackModalPage, { refernet_service: service });
-    feedbackModal.onDidDismiss(data => {
-      if(data) {
-        let toast = this.toastCtrl.create({
-          message: (data.status === 200 ? 'Feedback created successfully' : 'Error creating feedback'),
-          position: 'bottom',
-          duration: 3000
-        });
-        toast.present();
-      }
-    })
-    feedbackModal.present();
+    FeedbackModalPage.createModal(this.modalCtrl, 
+                                  this.toastCtrl,
+                                  this.translate,
+                                { subject: service, type: "OneclickRefernet::Service" })
+                     .present();
   }
 
   openUrl(url: string) {

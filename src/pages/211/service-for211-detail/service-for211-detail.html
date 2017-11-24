@@ -3,11 +3,15 @@
 
   <!-- If there's a service present, put its name and address in the header -->
   <ion-navbar class="lynx-toolbar" *ngIf="service; else noServiceHeader">
-    <ion-title>{{service.agency_name}}</ion-title>
+    <div class="dynamic-toolbar-title"><b>{{service.agency_name}}</b></div>
+    <!-- <ion-title>{{service.agency_name}}</ion-title> -->
     <div class="lynx-toolbar-body">{{service.address}}</div>
     <div *ngIf="service" class="lynx-toolbar-body">
       <a *ngIf="service.url" href="{{service.url}}" target="_blank">{{service.display_url}}</a>
     </div>
+    <button ion-button end menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
   </ion-navbar>
   
   <!-- If no service is present, put the origin and destination in the header -->
@@ -15,6 +19,9 @@
     <ion-navbar class="lynx-toolbar">
       <div class="dynamic-toolbar-title"><b>{{ origin.label() }}</b></div>
       <div class="dynamic-toolbar-title">{{ "lynx.global.common.to" | translate}} <b>{{ destination.label() }}</b></div>
+      <button ion-button end menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
     </ion-navbar>
   </ng-template>
 
@@ -30,48 +37,35 @@
         <ion-list class="lynx-list">
           
           <!-- For each mode other than paratransit, build a button -->
-          <ion-item *ngFor="let mode of basicModes">
+          <ion-item *ngFor="let mode of returnedModes">
             <h3 item-start class="item-heading mode-label">
               {{ "lynx.global.modes." + mode | translate }}
             </h3>
-            <div item-end class="mode-fare"
-                 *ngIf="ready()">
+            <div item-end class="mode-fare">
               {{ tripResponse.costsByTripType(mode) | prettyFare }}
             </div>
             <button ion-button item-end round default
                     class="lynx-button-primary mode-trip-plan-button"
-                    (click)="openDirectionsPage(mode)"
-                    *ngIf="ready(); else calculatingDuration">
+                    (click)="openDirectionsPage(mode)">
               {{ durationFor(mode) | prettyTime }}
             </button>
           </ion-item>
           
           <!-- For paratransit, build a special button -->
-          <ion-item>
-            <h3 item-start class="item-heading mode-label">
-              {{ "lynx.global.modes.paratransit" | translate }}
+          <ion-item *ngIf="tripResponse.includesTripType('paratransit')">
+            <h3 item-start class="item-heading standout mode-label">
+              {{ "lynx.global.modes.find_other_options" | translate }}
             </h3>
-            <div item-end class="mode-fare" 
-                 *ngIf="ready()">
+            <div item-end class="mode-fare" >
               {{ tripResponse.costsByTripType("paratransit") | prettyFare }}
             </div>
             <button ion-button item-end round default
                     class="lynx-button-primary mode-trip-plan-button"
-                    (click)="openOtherTransportationOptions()"
-                    *ngIf="ready(); else calculatingDuration">
+                    (click)="openOtherTransportationOptions()">
                     <ion-icon pull-right name="arrow-forward"></ion-icon>
             </button>
           </ion-item>
-          
-          <!-- Until the trip response data comes back, display this disabled button for each mode -->
-          <ng-template #calculatingDuration> 
-            <button ion-button item-end round default
-                    class="lynx-button-primary"
-                    disabled>
-              <ion-spinner name="dots"></ion-spinner>
-            </button>           
-          </ng-template>
-          
+
         </ion-list>
       </ion-col>
     </ion-row>
@@ -82,10 +76,13 @@
     <!-- Show service details only if service is present -->
     <ion-row *ngIf="service">
       <ion-col col-md-8 offset-md-2>
-        <h3>{{ "lynx.pages.service_details.description_header" | translate }}</h3>
-        <p id="service-description">
-          {{service.description}}          
-        </p>
+        <h3>{{ "lynx.pages.service_details.details_header" | translate }}</h3>
+        
+        <!-- insert a line for each non-null key in the details hash -->
+        <div *ngFor="let k of detailKeys" class="">
+          <b>{{ "lynx.pages.service_details." + k | translate }}: </b>
+          <span [innerHTML]="service.details[k]"></span>
+        </div>
       </ion-col>
     </ion-row>
     

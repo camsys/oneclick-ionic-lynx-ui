@@ -5,6 +5,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../app/environment';
+import { Events } from 'ionic-angular';
 
 // Models
 import { Session } from '../../models/session';
@@ -20,6 +21,7 @@ export class AuthProvider {
   })
 
   constructor(public http: Http,
+              public events: Events,
               private translate: TranslateService) { }
 
   // Pulls the current session from local storage
@@ -29,7 +31,7 @@ export class AuthProvider {
 
   // Pulls the user object out of the session
   user(): User {
-    return this.session().user;
+    return this.session().user as User;
   }
 
   // Gets the user's preferred locale
@@ -136,6 +138,21 @@ export class AuthProvider {
       return Observable.of();
     }
   }
+  
+  // Resets the password of the provided user (only email required)
+  resetPassword(email: string): Observable<Response>{    
+    let uri: string = encodeURI(this.baseUrl + 'users/reset_password');
+    let body = JSON.stringify({user: { email: email }});
+    let options: RequestOptions = new RequestOptions({
+      headers: this.defaultHeaders
+    });
+    
+    return this.http
+        .post(uri, body, options)
+        .map((response: Response) => {
+          return response;
+        });
+  }
 
   // Pulls the user location out of the session if available
   userLocation(): any {
@@ -144,12 +161,20 @@ export class AuthProvider {
   }
 
   // Updates the session based on a user object, and updates the locale
-  updateSessionUser(user: User) {
+  updateSessionUser(user: User): User {
     let session = this.session();
     session.user = user;
     this.setSession(session);
-    this.translate.use(this.preferredLocale());
+    this.events.publish('user:updated', user);  // Publish user updated event for pages to listen to
+    // this.translate.use(this.preferredLocale());
     return this.user();
+  }
+  
+  // Sets the preferred locale, regardless of whether or not user is logged in
+  setPreferredLocale(locale: string): User {
+    let user = (this.user() || {}) as User;
+    user["preferred_locale"] = locale;
+    return this.updateSessionUser(user);
   }
 
 }

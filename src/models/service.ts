@@ -14,5 +14,17 @@ export class ServiceModel {
   phone: string;
   url: string;
   display_url: string; 
-  description: string;
+  details: {
+    service_description: string;
+    eligibility: string;
+    fees: string;
+    intake_procedure: string;
+    program_service_hours: string;
+    documents_required: string;
+    payment_options: string;
+    site_hours: string;
+    languages_spoken: string;
+    travel_instructions: string;
+    area_served: string;
+  };
 }

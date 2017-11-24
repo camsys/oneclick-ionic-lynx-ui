@@ -2,7 +2,7 @@
      [hidden]="hidden || items.length <= 0">
   <ion-list class="lynx-autocomplete-results">
     <ion-item *ngFor="let item of items; let i = index"
-              tappable
+              tappable text-wrap
               [class.focus]="focusItem === i"
               (click)="selectItem(item)">
       <b *ngIf="item.title">{{ item.title }}: </b>{{ item.label }}

@@ -1,16 +1,21 @@
 import { Component } from '@angular/core';
 import {  IonicPage, 
           NavController, 
-          NavParams, 
+          NavParams,
+          Events,
           ToastController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 // Pages
 import { HelpMeFindPage } from '../help-me-find/help-me-find';
+import { ResetPasswordPage } from '../reset-password/reset-password';
 
 // Providers
 import { AuthProvider } from '../../providers/auth/auth';
 import { OneClickProvider } from '../../providers/one-click/one-click';
 
+// Models
+import { User } from '../../models/user';
 
 @IonicPage()
 @Component({
@@ -19,14 +24,16 @@ import { OneClickProvider } from '../../providers/one-click/one-click';
 })
 export class SignInPage {
 
-  user = { email: null, password: null };
+  user: User = { email: null, password: null } as User;
   signInSubscription: any;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private authProvider: AuthProvider,
               private oneClickProvider: OneClickProvider,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              private translate: TranslateService,
+              private events: Events) {
   }
 
   signIn() {
@@ -44,7 +51,7 @@ export class SignInPage {
             // On failed response, display a pop-up error message and remain on page.
             console.error(error.json().data.errors);
             let errorToast = this.toastCtrl.create({
-              message: "There was a problem logging in. Please check your username and password and try again.",
+              message: this.translate.instant("lynx.pages.sign_in.error_message"),
               position: "top",
               duration: 3000
             });
@@ -56,6 +63,8 @@ export class SignInPage {
     this.navCtrl.push(HelpMeFindPage);
   }
   
-  
+  resetPassword() {
+    this.navCtrl.push(ResetPasswordPage);
+  }
 
 }

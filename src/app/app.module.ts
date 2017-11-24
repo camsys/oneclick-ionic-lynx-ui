@@ -58,6 +58,8 @@ import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for21
 import { ServicesPage } from '../pages/211/services/services'
 import { TaxiServicesPage } from '../pages/taxi-services/taxi-services';
 import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
+import { ResetPasswordPage } from '../pages/reset-password/reset-password';
+import { LanguageSelectorModalPage } from '../pages/language-selector-modal/language-selector-modal';
 
 // Providers
 import { OneClickProvider } from '../providers/one-click/one-click';
@@ -127,6 +129,8 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     SignUpPage,
     UserProfilePage,
     FeedbackModalPage,
+    ResetPasswordPage,
+    LanguageSelectorModalPage,
     PrettyTimePipe,
     PrettyDistancePipe,
     ToStringPipe,
@@ -183,6 +187,8 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     SignUpPage,
     UserProfilePage,
     FeedbackModalPage,
+    ResetPasswordPage,
+    LanguageSelectorModalPage
   ],
   providers: [
     StatusBar,
@@ -243,6 +249,8 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     SignUpPage,
     UserProfilePage,
     FeedbackModalPage,
+    ResetPasswordPage,
+    LanguageSelectorModalPage,
     PlaceSearchComponent,
     ResponsiveDatepickerComponent,
     ResponsiveTimepickerComponent,

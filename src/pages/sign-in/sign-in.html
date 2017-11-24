@@ -1,7 +1,7 @@
 <ion-header no-border>
 
   <ion-navbar transparent>
-    <ion-title>Sign In</ion-title>
+    <ion-title>{{ "lynx.pages.sign_in.header" | translate }}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -42,8 +42,16 @@
       <ion-row>
         <ion-col>
           <button ion-button round class="lynx-button-dark center" type="submit" [disabled]="!signInForm.form.valid">
-            Login
+            {{ "lynx.pages.sign_in.sign_in_button" | translate }}
           </button>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col text-center>
+          <a href="#" class="lynx-button-link link-black" (click)="resetPassword()">
+            {{ "lynx.pages.sign_in.reset_password_button" | translate }}
+          </a>
         </ion-col>
       </ion-row>
       

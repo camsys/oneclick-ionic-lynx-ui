@@ -19,5 +19,13 @@ export class ServiceDetailsComponent {
   purposeList(): string {
     return this.service.purposes.map((purp) => purp.name).join(', ');
   }
+  
+  eligibilityList(): string {
+    return this.service.eligibilities.map((elig) => elig.name).join(', ');
+  }
+  
+  accommodationList(): string {
+    return this.service.accommodations.map((acc) => acc.name).join(', ');
+  }
 
 }

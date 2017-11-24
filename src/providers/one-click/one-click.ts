@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { RequestOptions } from '@angular/http';
 
+// import { Events } from 'ionic-angular';
 
 import { Observable } from "rxjs/Rx";
 import 'rxjs/add/operator/map';
@@ -115,15 +116,21 @@ export class OneClickProvider {
     for (let trip_type of user.trip_types){
       formatted_trip_types[trip_type.code] = trip_type.value;
     }
+    
+    let attributes = {
+      "first_name": user.first_name,
+      "last_name": user.last_name,
+      "email": user.email,
+      "preferred_locale": user.preferred_locale
+    }
+    
+    if(user.password && user.password_confirmation) {
+      attributes["password"] = user.password;
+      attributes["password_confirmation"] = user.password_confirmation;
+    }
 
     let body = {
-      "attributes": {
-        "first_name": user.first_name,
-        "last_name": user.last_name,
-        "email": user.email,
-        "password": user.password,
-        "preferred_locale": user.preferred_locale
-      },
+      "attributes": attributes,
       "accommodations": formatted_accs,
       "eligibilities": formatted_eligs,
       "trip_types": formatted_trip_types
@@ -224,9 +231,12 @@ export class OneClickProvider {
   {
     let headers = this.auth.authHeaders();
     let options = new RequestOptions({ headers: headers });
+    let uri = encodeURI(this.oneClickUrl + 
+                        'trips/plan?locale=' +
+                        this.i18n.currentLocale())
 
     return this.http
-            .post(this.oneClickUrl+'trips/plan', tripRequest, options)
+            .post(uri, tripRequest, options)
             .map( response => {
               return (response.json().data.trip as TripResponseModel)
             })
@@ -235,9 +245,12 @@ export class OneClickProvider {
   getAlerts(): Promise<Alert[]>{
     let headers = this.auth.authHeaders();
     let options = new RequestOptions({ headers: headers });
+    let uri = encodeURI(this.oneClickUrl + 
+                        'alerts?locale=' +
+                        this.i18n.currentLocale())
 
     return this.http
-            .get(this.oneClickUrl+'alerts', options)
+            .get(uri, options)
             .toPromise()
             .then(response => response.text())
             .then(json => JSON.parse(json).data.user_alerts as Alert[])
@@ -277,8 +290,12 @@ export class OneClickProvider {
   }
 
   // Makes a refernet keyword search call, returning the results array
-  refernetKeywordSearch(term: string): Observable<SearchResultModel[]> {
-    var uri: string = encodeURI(this.oneClickUrl+'oneclick_refernet/search?term=' + term);
+  refernetKeywordSearch(term: string, typeFilter: string = ""): Observable<SearchResultModel[]> {
+    var uri: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/search?term=' + term +
+      '&locale=' + this.i18n.currentLocale() +
+      '&type=' + typeFilter);
 
     return this.http.get(uri)
       .map( (response) => {
@@ -289,7 +306,7 @@ export class OneClickProvider {
   // Console log the error and pass along a rejected promise... if uncaught
   // by the calling component, will still raise an error.
   private handleError(error: any): any {
-    console.error('An error occurred', error.text()); // for demo purposes only
+    console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error);
   }
 
