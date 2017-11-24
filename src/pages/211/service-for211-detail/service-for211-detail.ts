@@ -106,8 +106,8 @@ export class ServiceFor211DetailPage {
     
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ServiceFor211DetailPage');
+  ionViewDidEnter() {
+    this.content.resize(); // Make sure content isn't covered by navbar
   }
 
   // On page leave, unsubscribe from the trip plan call so it doesn't trigger errors when it resolves
