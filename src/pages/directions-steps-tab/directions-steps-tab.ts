@@ -91,6 +91,7 @@ export class DirectionsStepsTabPage {
 
     this.oneClickProvider.getTripPlan(this.tripRequest).
       forEach(value => {
+        this._app.getRootNav().pop(); // Remove the directions pages and reload them
         this.events.publish('spinner:hide');
         this._app.getRootNav()      // Load the new directions page on top of the parent page, not within the tab
         .push(DirectionsPage, {
