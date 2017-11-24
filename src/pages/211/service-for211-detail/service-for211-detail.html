@@ -34,7 +34,7 @@
     
     <!-- TRANSPORTATION OPTIONS -->
     <ion-row>
-      <ion-col col-md-8 offset-md-2 no-padding>
+      <ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2 no-padding>
         <ion-list class="lynx-list">
           
           <!-- For each mode other than paratransit, build a button -->
@@ -76,7 +76,7 @@
 
     <!-- Show service details only if service is present -->
     <ion-row *ngIf="service">
-      <ion-col col-md-8 offset-md-2>
+      <ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2>
         <h3>{{ "lynx.pages.service_details.details_header" | translate }}</h3>
         
         <!-- insert a line for each non-null key in the details hash -->
