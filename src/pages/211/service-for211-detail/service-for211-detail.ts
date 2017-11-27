@@ -133,9 +133,17 @@ export class ServiceFor211DetailPage {
         mode: mode
       });
     } else if (mode === 'uber') {
-      this.openUrl('https://m.uber.com/ul?&amp;client_id=Qu7RDPXW65A6G-JqqIgnbsfYglolUTIm&amp;action=setPickup&amp;'+
-        'pickup[latitude]='+tripResponse.origin.lat+'&amp;pickup[longitude]='+tripResponse.origin.lng+
-        '&amp;dropoff[latitude]='+tripResponse.destination.lat+'&amp;dropoff[longitude]='+tripResponse.destination.lng)
+      let uberUrl = encodeURI(
+        'https://m.uber.com/ul/?' +
+        'action=setPickup' +
+        '&client_id=Qu7RDPXW65A6G-JqqIgnbsfYglolUTIm' + 
+        '&pickup[latitude]=' + tripResponse.origin.lat + 
+        '&pickup[longitude]=' + tripResponse.origin.lng +
+        '&dropoff[latitude]=' + tripResponse.destination.lat + 
+        '&dropoff[longitude]=' + tripResponse.destination.lng
+      );
+      
+      this.openUrl(uberUrl);
     }
   }
 
@@ -244,7 +252,7 @@ export class ServiceFor211DetailPage {
   }
 
   openUrl(url: string) {
-    let browser = this.inAppBrowser.create(url);
+    let browser = this.inAppBrowser.create(url, '_system');
     browser.show();
   }
 
