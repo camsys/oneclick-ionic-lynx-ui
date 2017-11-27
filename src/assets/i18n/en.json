@@ -234,7 +234,11 @@
         "header": "Sign In",
         "sign_in_button": "Sign In",
         "reset_password_button": "Forgot your Password?",
-        "error_message": "There was a problem signing in. Please check your username and password and try again."
+        "error_messages": {
+          "default":  "There was a problem signing in. Please check your username and password and try again.",
+          "last_attempt": "This is your last attempt to sign in before your account is temporarily locked. Please verify your username and password before trying again.",
+          "locked": "Your account has been temporarily locked after three failed log in attempts. Wait 10 minutes before trying again."
+        }
       },
       
       "reset_password": {
