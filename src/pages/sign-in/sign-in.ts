@@ -42,10 +42,11 @@ export class SignInPage {
         .subscribe(
           data => { 
             // Get the user's profile data and store it in the session
-            this.oneClickProvider.getProfile();
-            
-            // Redirect the user to the home page
-            this.navCtrl.push(HelpMeFindPage);
+            this.oneClickProvider.getProfile()
+                // Then, redirect the user to the home page
+                .then((usr) => {
+                  this.navCtrl.push(HelpMeFindPage);
+                });
           },
           error => {            
             // On failed response, display a pop-up error message and remain on page.
