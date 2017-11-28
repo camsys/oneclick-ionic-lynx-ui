@@ -52,11 +52,13 @@ export class AutocompleteResultsComponent {
             
   // Sets hidden to false, showing results list
   show() {
+    console.log("SHOWING");
     this.hidden = false;
   }
   
   // Sets hidden to true, hiding results list
   hide() {
+    console.log("HIDING");
     this.hidden = true;
   }
   

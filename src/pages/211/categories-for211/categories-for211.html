@@ -13,7 +13,8 @@
   </ion-navbar>
   <ion-toolbar class="lynx-toolbar" text-center>
     <ion-searchbar placeholder="{{ 'lynx.pages.categories.resources_search.placeholder' | translate}}" 
-                   [formControl]="searchControl">
+                   [formControl]="searchControl"
+                   (ionFocus)="searchResultsList.show()">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
