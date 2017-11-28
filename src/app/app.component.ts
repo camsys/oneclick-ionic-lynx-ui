@@ -127,6 +127,7 @@ export class MyApp {
       { title: 'contact_us', component: ContactUsPage },
       { title: 'transportation', component: ParatransitServicesPage},
       { title: 'resources', component: UserLocatorPage, params: { findServicesView: true}},
+      { title: 'language_selector', component: "language_selector" },
       { title: 'feedback', component: "feedback" },
       { title: 'privacy_policy', component: "privacy_policy" }
     ] as PageModel[];
@@ -138,8 +139,7 @@ export class MyApp {
     
     // Pages to display if user is signed out
     this.signedOutPages = ([
-      { title: 'home', component: HelpMeFindPage },
-      { title: 'language_selector', component: "language_selector" }
+      { title: 'home', component: HelpMeFindPage }
     ] as PageModel[]).concat(this.universalPages);
     
     this.signInPage = { title: 'sign_in', component: SignInPage} as PageModel;
@@ -210,7 +210,12 @@ export class MyApp {
     languageSelectorModal.onDidDismiss(locale => {
       if(locale) {       
         // If a new locale was selected, store it as the preferred locale in the session
-        this.auth.setPreferredLocale(locale); 
+        this.user = this.auth.setPreferredLocale(locale); 
+        
+        // If user is signed in, update their information with the new locale.
+        if(this.auth.isSignedIn()) {
+          this.oneClickProvider.updateProfile(this.user);
+        }
       }
     })
     languageSelectorModal.present();
