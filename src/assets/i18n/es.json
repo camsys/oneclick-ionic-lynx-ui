@@ -220,6 +220,7 @@
       },
       
       "feedback": {
+        "contact": "es_In case we need to contact you.",
         "header": "es_Leave Feedback",
         "review_placeholder": "es_Write a Review",
         "email": "es_Your Email",
