@@ -207,7 +207,7 @@
         "password": "Password",
         "language": "Language",
         "accommodations": "Accommodations",
-        "eligibilities": "Eligibilities",
+        "eligibilities": "Rider Characteristics",
         "trip_types": "Preferred Trip Types",
         "show_pw": "show",
         "hide_pw": "hide"
@@ -216,12 +216,12 @@
       "transportation_eligibility": {
         "header": "Select All That Apply",
         "accommodations_header": "What Accommodations do You Need?",
-        "eligibilities_header": "Do You Meet Any Eligibility Requirements?",
+        "eligibilities_header": "Which of these Characteristics Apply to You?",
         "plan_trip_button": "See Transportation Options"      
       },
       
       "feedback": {
-        "contact" "In case we need to contact you"
+        "contact": "In case we need to contact you",
         "header": "Leave Feedback",
         "review_placeholder": "Write a Review",
         "email": "Your Email",
