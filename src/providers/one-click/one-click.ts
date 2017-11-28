@@ -165,6 +165,7 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model[])
+      .then(categories => this.filterEmptyCategories(categories))
       .catch(this.handleError);
   }
 
@@ -184,6 +185,7 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as SubcategoryFor211Model[])
+      .then(subCats => this.filterEmptyCategories(subCats))
       .catch(this.handleError);
   }
 
@@ -204,6 +206,7 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as SubSubcategoryFor211Model[])
+      .then(subSubCats => this.filterEmptyCategories(subSubCats))
       .catch(this.handleError);
   }
 
@@ -308,6 +311,11 @@ export class OneClickProvider {
   private handleError(error: any): any {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error);
+  }
+  
+  // Filters out any categories without associated services
+  private filterEmptyCategories(categories: any[]): any[] {
+    return categories.filter(cat => cat.service_count > 0);
   }
 
 }
