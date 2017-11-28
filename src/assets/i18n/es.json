@@ -123,7 +123,8 @@
           "category": "es_Category",
           "sub_category": "es_Category",
           "sub_sub_category": "es_Category",
-          "service": "es_Service"
+          "service": "es_Service",
+          "empty_search_result": "es_No results found."
         }
       },
       
@@ -220,7 +221,7 @@
       },
       
       "feedback": {
-        "contact": "es_In case we need to contact you.",
+        "contact" "In case we need to contact you"
         "header": "es_Leave Feedback",
         "review_placeholder": "es_Write a Review",
         "email": "es_Your Email",

@@ -123,7 +123,8 @@
           "category": "Category",
           "sub_category": "Category",
           "sub_sub_category": "Category",
-          "service": "Service"
+          "service": "Service",
+          "empty_search_result": "No results found."
         }
       },
       
