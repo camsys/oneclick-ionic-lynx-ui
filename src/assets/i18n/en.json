@@ -227,7 +227,8 @@
         "submit_button": "Submit",
         "cancel_button": "Cancel",
         "success_message": "Feedback successfully created.",
-        "error_message": "Error creating feedback"
+        "error_message": "Error creating feedback",
+        "subject_picker_placeholder": "What is this feedback about?"
       },
       
       "sign_in": {

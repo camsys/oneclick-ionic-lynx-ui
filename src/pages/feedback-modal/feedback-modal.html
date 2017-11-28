@@ -29,7 +29,7 @@
     <ng-template #subjectPicker>
 
       <ion-item text-center id="subject-picker-container">
-        <ion-input placeholder="What is this feedback about?"
+        <ion-input placeholder="{{ 'lynx.pages.feedback.subject_picker_placeholder' | translate }}"
                    [formControl]="searchControl"
                    #searchInput></ion-input>
       </ion-item>

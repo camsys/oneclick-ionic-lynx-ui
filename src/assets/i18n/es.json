@@ -28,7 +28,7 @@
         "taxi": "es_Taxi",
         "uber": "es_Uber",
         "paratransit": "es_Paratransit",
-        "find_other_options": "Encuentra Otras Opciones"
+        "find_other_options": "es_Find Other Options"
       },
       
       "time": {
@@ -98,7 +98,8 @@
         "language_selector": "es_Select Language",
         "home": "es_Home",
         "sign_in": "es_Hello! Log In Now",
-        "sign_up": "es_Don't have an account?"
+        "sign_up": "es_Don't have an account?",
+        "feedback": "es_Leave Feedback"
       },
       
       "user_locator": {
@@ -206,7 +207,9 @@
         "language": "es_Language",
         "accommodations": "es_Accommodations",
         "eligibilities": "es_Eligibilities",
-        "trip_types": "es_Preferred Trip Types"
+        "trip_types": "es_Preferred Trip Types",
+        "show_pw": "es_show",
+        "hide_pw": "es_hide"
       },
       
       "transportation_eligibility": {
@@ -224,14 +227,19 @@
         "submit_button": "es_Submit",
         "cancel_button": "es_Cancel",
         "success_message": "es_Feedback successfully created.",
-        "error_message": "es_Error creating feedback"
+        "error_message": "es_Error creating feedback",
+        "subject_picker_placeholder": "es_What is this feedback about?"
       },
       
       "sign_in": {
         "header": "es_Sign In",
         "sign_in_button": "es_Sign In",
         "reset_password_button": "es_Forgot your Password?",
-        "error_message": "es_There was a problem signing in. Please check your username and password and try again."
+        "error_messages": {
+          "default":  "There was a problem signing in. Please check your username and password and try again.",
+          "last_attempt": "es_This is your last attempt to sign in before your account is temporarily locked. Please verify your username and password before trying again.",
+          "locked": "es_Your account has been temporarily locked after three failed log in attempts. Wait 10 minutes before trying again."
+        }
       },
       
       "reset_password": {
