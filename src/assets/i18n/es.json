@@ -1,13 +1,13 @@
 {
-  
+
   "lynx": {
-    
+
     "global": {
-      
+
       "common": {
         "to": "es_to"
       },
-      
+
       "languages": {
         "translated": {
           "en": "es_English",
@@ -21,7 +21,7 @@
         }
 
       },
-      
+
       "modes": {
         "car": "es_Drive",
         "transit": "es_Bus & Train",
@@ -30,27 +30,27 @@
         "paratransit": "es_Paratransit",
         "find_other_options": "es_Find Other Options"
       },
-      
+
       "time": {
         "hour_short": "es_hr",
         "minute_short": "es_min",
         "unknown": "es_"
       },
-      
+
       "distance": {
         "feet_short": "es_ft",
         "miles_short": "es_mi"
       },
-      
+
       "directions": {
         "depart_at": "es_depart at",
         "arrive_by": "es_arrive by"
       },
-      
+
       "fare": {
         "no_fare": "es_n/a"
       },
-      
+
       "weekdays": {
         "sun_short": "es_Sun",
         "mon_short": "es_Mon",
@@ -60,23 +60,23 @@
         "fri_short": "es_Fri",
         "sat_short": "es_Sat"
       }
-      
+
     },
-    
+
     "pages": {
-      
+
       "about_us": {
         "header": "es_About Us",
         "url": "es_website",
         "description": "es_description"
       },
-      
+
       "contact_us": {
         "header": "es_Contact Us",
         "url": "es_website",
         "phone": "es_phone"
       },
-      
+
       "home": {
         "welcome_message_1": "es_Welcome to LYNX",
         "welcome_message_2": "es_How can we help you?",
@@ -84,7 +84,7 @@
         "transportation_button": "es_Transportation",
         "alerts_button": "es_Alerts"
       },
-      
+
       "menu": {
         "welcome_user": "es_Welcome {{user}}!",
         "profile": "es_Edit My Profile",
@@ -101,7 +101,7 @@
         "sign_up": "es_Don't have an account?",
         "feedback": "es_Leave Feedback"
       },
-      
+
       "user_locator": {
         "origin_search": {
           "label": "es_Where Are You?",
@@ -115,7 +115,7 @@
         "resources_button": "es_Find Services",
         "transportation_button": "es_Find Transportation"
       },
-      
+
       "categories": {
         "resources_search": {
           "label": "es_Resources in Your Area",
@@ -127,7 +127,7 @@
           "empty_search_result": "es_No results found."
         }
       },
-      
+
       "services": {
         "map_tab": {
           "header": "es_Map",
@@ -139,7 +139,7 @@
           "results_header": "es_Services"
         }
       },
-      
+
       "service_details": {
         "details_header": "es_About this Service",
         "phone_header": "es_Have Questions?",
@@ -159,7 +159,7 @@
         "travel_instructions": "es_Travel Instructions",
         "area_served": "es_Area Served"
       },
-      
+
       "transportation_service_details": {
         "fare": "es_fare",
         "phone": "es_phone",
@@ -171,7 +171,7 @@
         "accommodations_header": "es_accommodations provided",
         "eligibilities_header": "es_eligibility requirements (any one)"
       },
-      
+
       "directions": {
         "header": "es_Directions",
         "map_tab": {
@@ -187,16 +187,16 @@
           "last_transit_step": "es_GET OFF at stop: {{destination}}"
         }
       },
-      
+
       "taxi_services": {
         "header": "es_Taxi Options"
       },
-      
+
       "paratransit_services": {
         "header": "es_Transportation Options",
         "feedback_button": "es_Rate this Service"
       },
-      
+
       "user_profile": {
         "update_button": "es_Save Profile",
         "sign_in_required_message": "es_Please sign in to continue.",
@@ -212,14 +212,14 @@
         "show_pw": "es_show",
         "hide_pw": "es_hide"
       },
-      
+
       "transportation_eligibility": {
         "header": "es_Select All That Apply",
         "accommodations_header": "es_What Accommodations do You Need?",
         "eligibilities_header": "es_Which of these Characteristics Apply to You?",
-        "plan_trip_button": "es_See Transportation Options"      
+        "plan_trip_button": "es_See Transportation Options"
       },
-      
+
       "feedback": {
         "contact": "es_In case we need to contact you",
         "header": "es_Leave Feedback",
@@ -232,18 +232,35 @@
         "error_message": "es_Error creating feedback",
         "subject_picker_placeholder": "es_What is this feedback about?"
       },
-      
+
       "sign_in": {
         "header": "es_Sign In",
         "sign_in_button": "es_Sign In",
         "reset_password_button": "es_Forgot your Password?",
         "error_messages": {
-          "default":  "There was a problem signing in. Please check your username and password and try again.",
+          "default":  "es_There was a problem signing in. Please check your username and password and try again.",
           "last_attempt": "es_This is your last attempt to sign in before your account is temporarily locked. Please verify your username and password before trying again.",
           "locked": "es_Your account has been temporarily locked after three failed log in attempts. Wait 10 minutes before trying again."
         }
       },
-      
+
+      "sign_up": {
+        "header": "es_Sign Up",
+        "sign_up_button": "es_Sign Up",
+        "error_messages": {
+          "default":  "es_There was a problem signing up. Please ccorrect the following errors.",
+          "email_bad": "es_This email address is invalid.",
+          "email_used": "es_User email addresses must be unique.",
+          "password_bad": "es_Your password must be at least 6 characters.",
+          "password_mismatch": "es_The passwords do not match."
+        },
+        "placeholders": {
+          "email": "es_valid email address",
+          "password": "es_password must be 6 characters long",
+          "confirm_password": "es_confirm password",
+        }
+      },
+
       "reset_password": {
         "header": "es_Reset Password",
         "reset_password_button": "es_Reset Password",
@@ -252,20 +269,20 @@
         "error_message": "es_There was a problem resetting your password. Please verify your email address and try again."
 
       },
-      
+
       "language_selector_modal": {
         "header": "es_Preferred Language",
         "form_title": "es_Select Your Language"
       }
-      
+
     }
-    
+
   },
-  
+
   "otp": {
-    
+
     "relativeDirection": {
-      
+
       "DEPART": "es_DEPART",
       "HARD_LEFT": "es_HARD LEFT",
       "LEFT": "es_LEFT",
@@ -279,11 +296,11 @@
       "ELEVATOR": "es_ELEVATOR",
       "UTURN_LEFT": "es_UTURN LEFT",
       "UTURN_RIGHT": "es_UTURN RIGHT"
-      
+
     },
-    
+
     "absoluteDirection": {
-      
+
       "NORTH": "es_NORTH",
       "NORTHEAST": "es_NORTHEAST",
       "EAST": "es_EAST",
@@ -292,11 +309,11 @@
       "SOUTHWEST": "es_SOUTHWEST",
       "WEST": "es_WEST",
       "NORTHWEST": "es_NORTHWEST"
-      
+
     }
-    
-    
+
+
   }
-  
-  
+
+
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {  IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 // Pages
 import { HelpMeFindPage } from '../help-me-find/help-me-find';
@@ -24,9 +25,9 @@ import { EmailAddressValidator } from '../../validators/email-address'
 })
 export class SignUpPage {
 
-  formControlEmail: FormControl;
-  formControlPassword: FormControl;
-  formControlPasswordConfirm: FormControl;
+  // formControlEmail: FormControl;
+  // formControlPassword: FormControl;
+  // formControlPasswordConfirm: FormControl;
   signUpFormGroup: FormGroup;
   submitAttempt: boolean = false;
 
@@ -35,7 +36,8 @@ export class SignUpPage {
               public navParams: NavParams,
               private authProvider: AuthProvider,
               private oneClickProvider: OneClickProvider,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              private translate: TranslateService) {
 
     this.signUpFormGroup = formBuilder.group({
       formControlEmail: ['', Validators.compose([Validators.required, EmailAddressValidator.isValid, Validators.maxLength(30),])],
@@ -61,32 +63,32 @@ export class SignUpPage {
         .subscribe(
           data => {this.navCtrl.push(SignInPage);},
           error => {
-            let errors: string = "There was a problem with signup. Please, correct the following: <br />";
-
-            if(error.json().data.errors.email == 'is invalid')
-            {
-              errors += "This email address is invalid. <br />"
-            }
-            if(error.json().data.errors.email == 'is used')
-            {
-              errors += "This email address is already. User email addresses must be unique. <br /> \n"
-            }
-            if(error.json().data.errors.email == 'is too short (minimum is 6 characters)')
-            {
-              errors += "Your password must be at least 6 characters. Please enter a new one. <br / \n"
-            }
-            if(error.json().data.errors.password_confirmation == "doesn't match Password")
-            {
-              errors += "The passwords do not match. Please retype them. <br />"
-            }
+            // let errors: string = this.translate.instant("lynx.pages.sign_up.error_messages.default");
+            //
+            // if(error.json().data.errors.email == 'is invalid')
+            // {
+            //   errors += this.translate.instant("lynx.pages.sign_up.error_messages.email_bad");
+            // }
+            // if(error.json().data.errors.email == 'has already been taken')
+            // {
+            //   errors += this.translate.instant("lynx.pages.sign_up.error_messages.email_used");
+            // }
+            // if(error.json().data.errors.email == 'is too short (minimum is 6 characters)')
+            // {
+            //   errors += this.translate.instant("lynx.pages.sign_up.error_messages.password_bad");
+            // }
+            // if(error.json().data.errors.password_confirmation == "doesn't match Password")
+            // {
+            //   errors += this.translate.instant("lynx.pages.sign_up.error_messages.password_mismatch");
+            // }
 
             console.error(error.json().data.errors);
-            let errorToast = this.toastCtrl.create({
-              message: errors,
-              position: "top",
-              duration: 25000
-            });
-            errorToast.present();
+            // let errorToast = this.toastCtrl.create({
+            //   message: errors,
+            //   position: "top",
+            //   duration: 25000
+            // });
+            // errorToast.present();
           });
     }
   }

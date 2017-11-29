@@ -1,7 +1,7 @@
 <ion-header no-border>
 
   <ion-navbar transparent>
-    <ion-title>Sign Up</ion-title>
+    <!--<ion-title>{{ "lynx.pages.sign_up.header" | translate }}</ion-title>-->
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -24,24 +24,26 @@
 
       <ion-row>
         <ion-col>
+          <!--placeholder="{{ 'lynx.pages.user_locator.origin_search.placeholders.email' | translate }}"-->
           <ion-input  formControlName="formControlEmail"
                       class="lynx-input"
                       type="text"
-                      placeholder="Email"
                       name="email"
                       required>
           </ion-input>
+          <!--placeholder="{{ 'lynx.pages.user_locator.origin_search.placeholders.password' | translate }}"-->
           <ion-input  formControlName="formControlPassword"
                       class="lynx-input"
                       type="password"
-                      placeholder="Password"
+
                       name="password"
                       required minlength="4" >
           </ion-input>
+          <!--placeholder="{{ 'lynx.pages.user_locator.origin_search.placeholders.confirm_password' | translate }}"-->
           <ion-input  formControlName="formControlPasswordConfirm"
                       class="lynx-input"
                       type="password"
-                      placeholder="Confirm Password"
+
                       name="confirm_password"
                       required>
           </ion-input>
@@ -51,7 +53,7 @@
       <ion-row>
         <ion-col>
           <button ion-button round class="lynx-button-dark center" type="submit" [disabled]="!signUpForm.form.valid">
-            Create Account
+            <!--{{ "lynx.pages.sign_up.sign_up_button" | translate }}-->
           </button>
         </ion-col>
       </ion-row>
