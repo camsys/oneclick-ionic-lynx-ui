@@ -29,7 +29,7 @@
     <ng-template #subjectPicker>
 
       <ion-item text-center id="subject-picker-container">
-        <ion-input placeholder="What is this feedback about?"
+        <ion-input placeholder="{{ 'lynx.pages.feedback.subject_picker_placeholder' | translate }}"
                    [formControl]="searchControl"
                    #searchInput></ion-input>
       </ion-item>
@@ -54,6 +54,12 @@
                     formControlName="review">
       </ion-textarea>
     </ion-item>
+    
+    <br>
+    <br>
+    <h4>
+        {{ "lynx.pages.feedback.contact" | translate }}
+    </h4>
     
     <!-- Email input just a standard text input -->
     <ion-item>

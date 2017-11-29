@@ -14,7 +14,6 @@ import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { UserLocatorPage }  from '../pages/user-locator/user-locator';
 import { SignInPage }  from '../pages/sign-in/sign-in';
-import { SignUpPage }  from '../pages/sign-up/sign-up';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { LanguageSelectorModalPage } from '../pages/language-selector-modal/language-selector-modal';
 import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
@@ -45,7 +44,6 @@ export class MyApp {
   signedOutPages: PageModel[];
   universalPages: PageModel[]; // Pages for both signed in and signed out users
   signInPage: PageModel;
-  signUpPage: PageModel;
   profilePage: PageModel;
   user: User;
   eligibilities: Eligibility[];
@@ -65,13 +63,13 @@ export class MyApp {
               private toastCtrl: ToastController,
               private translate: TranslateService,
               private i18n: I18nProvider) {
-
-
+    
+                
     this.initializeApp();
     this.getUserInfo();
     this.setMenu();
     this.setupSpinner();
-
+    
     // When user is updated, update user info.
     this.events.subscribe("user:updated", (user) => {
       this.updateUserInfo(user);
@@ -82,19 +80,20 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-
+      
       this.i18n.initializeApp(); // Sets the default language based on device or browser
-
+      
       // Set the locale to whatever's in storage, or use the default
       this.i18n.setLocale(this.auth.preferredLocale());
-
+      
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
-
+  
   // Make a call to OneClick to get the user's details
   getUserInfo() {
+    
     // If User email and token are stored in session, make a call to 1click to get up-to-date user profile
     if(this.auth.isSignedIn()){
       this.oneClickProvider.getProfile()
@@ -108,26 +107,27 @@ export class MyApp {
         }
       })
     }
-
+    
   }
-
+  
   // Updates this component's user model based on the information stored in the session
   updateUserInfo(usr) {
     this.user = usr;
-    this.user_name = { user: usr.first_name || usr.email.split('@')[0] };
+    this.user_name = { user: usr.first_name || (usr.email || '').split('@')[0] };
     this.eligibilities = this.user.eligibilities;
     this.accommodations = this.user.accommodations;
   }
 
   // Set up the menu with pages for signed in and signed out scenarios
   setMenu(){
-
+    
     // Pages to display regardless of whether or not user is signed in or not
     this.universalPages = [
       { title: 'about_us', component: AboutUsPage },
       { title: 'contact_us', component: ContactUsPage },
       { title: 'transportation', component: ParatransitServicesPage},
       { title: 'resources', component: UserLocatorPage, params: { findServicesView: true}},
+      { title: 'language_selector', component: "language_selector" },
       { title: 'feedback', component: "feedback" },
       { title: 'privacy_policy', component: "privacy_policy" }
     ] as PageModel[];
@@ -136,15 +136,13 @@ export class MyApp {
     this.signedInPages = this.universalPages.concat([
       { title: 'sign_out', component: "sign_out"}
     ] as PageModel[]);
-
+    
     // Pages to display if user is signed out
     this.signedOutPages = ([
-      { title: 'home', component: HelpMeFindPage },
-      { title: 'language_selector', component: "language_selector" }
+      { title: 'home', component: HelpMeFindPage }
     ] as PageModel[]).concat(this.universalPages);
-
+    
     this.signInPage = { title: 'sign_in', component: SignInPage} as PageModel;
-    this.signUpPage = { title: 'sign_up', component: SignUpPage} as PageModel;
     this.profilePage = { title: 'profile', component: UserProfilePage} as PageModel;
   }
 
@@ -162,7 +160,7 @@ export class MyApp {
         this.openLanguageSelectorModal();
         break;
       case "feedback":
-        FeedbackModalPage.createModal(this.modalCtrl,
+        FeedbackModalPage.createModal(this.modalCtrl, 
                                       this.toastCtrl,
                                       this.translate)
                          .present();
@@ -202,17 +200,22 @@ export class MyApp {
       }
     );
   }
-
+  
   // Creates and presents a modal for changing the locale.
   openLanguageSelectorModal() {
     let languageSelectorModal = this.modalCtrl.create(
-      LanguageSelectorModalPage,
+      LanguageSelectorModalPage, 
       { locale: this.i18n.currentLocale() }
     );
     languageSelectorModal.onDidDismiss(locale => {
-      if(locale) {
+      if(locale) {       
         // If a new locale was selected, store it as the preferred locale in the session
-        this.auth.setPreferredLocale(locale);
+        this.user = this.auth.setPreferredLocale(locale); 
+        
+        // If user is signed in, update their information with the new locale.
+        if(this.auth.isSignedIn()) {
+          this.oneClickProvider.updateProfile(this.user);
+        }
       }
     })
     languageSelectorModal.present();

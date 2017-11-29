@@ -80,7 +80,7 @@
       "home": {
         "welcome_message_1": "Welcome to LYNX",
         "welcome_message_2": "How can we help you?",
-        "resources_button": "Helpful Resources",
+        "resources_button": "Community Resources",
         "transportation_button": "Transportation",
         "alerts_button": "Alerts"
       },
@@ -123,7 +123,8 @@
           "category": "Category",
           "sub_category": "Category",
           "sub_sub_category": "Category",
-          "service": "Service"
+          "service": "Service",
+          "empty_search_result": "No results found."
         }
       },
       
@@ -206,7 +207,7 @@
         "password": "Password",
         "language": "Language",
         "accommodations": "Accommodations",
-        "eligibilities": "Eligibilities",
+        "eligibilities": "Rider Characteristics",
         "trip_types": "Preferred Trip Types",
         "show_pw": "show",
         "hide_pw": "hide"
@@ -215,11 +216,12 @@
       "transportation_eligibility": {
         "header": "Select All That Apply",
         "accommodations_header": "What Accommodations do You Need?",
-        "eligibilities_header": "Do You Meet Any Eligibility Requirements?",
+        "eligibilities_header": "Which of these Characteristics Apply to You?",
         "plan_trip_button": "See Transportation Options"      
       },
       
       "feedback": {
+        "contact": "In case we need to contact you",
         "header": "Leave Feedback",
         "review_placeholder": "Write a Review",
         "email": "Your Email",
@@ -227,14 +229,19 @@
         "submit_button": "Submit",
         "cancel_button": "Cancel",
         "success_message": "Feedback successfully created.",
-        "error_message": "Error creating feedback"
+        "error_message": "Error creating feedback",
+        "subject_picker_placeholder": "What is this feedback about?"
       },
       
       "sign_in": {
         "header": "Sign In",
         "sign_in_button": "Sign In",
         "reset_password_button": "Forgot your Password?",
-        "error_message": "There was a problem signing in. Please check your username and password and try again."
+        "error_messages": {
+          "default":  "There was a problem signing in. Please check your username and password and try again.",
+          "last_attempt": "This is your last attempt to sign in before your account is temporarily locked. Please verify your username and password before trying again.",
+          "locked": "Your account has been temporarily locked after three failed log in attempts. Wait 10 minutes before trying again."
+        }
       },
       
       "reset_password": {

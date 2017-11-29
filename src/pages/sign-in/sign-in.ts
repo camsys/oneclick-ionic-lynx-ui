@@ -42,25 +42,35 @@ export class SignInPage {
         .subscribe(
           data => { 
             // Get the user's profile data and store it in the session
-            this.oneClickProvider.getProfile();
-            
-            // Redirect the user to the home page
-            this.navCtrl.push(HelpMeFindPage);
+            this.oneClickProvider.getProfile()
+                // Then, redirect the user to the home page
+                .then((usr) => {
+                  this.navCtrl.push(HelpMeFindPage);
+                });
           },
           error => {            
             // On failed response, display a pop-up error message and remain on page.
             console.error(error.json().data.errors);
+            let errorBody = error.json().data.errors;
+            
+            // Based on which log in attempt this is, customize the error message
+            let errorCode = '';
+            if (errorBody.last_attempt) {
+              errorCode = 'last_attempt';
+            } else if (errorBody.locked) {
+              errorCode = 'locked';
+            } else {
+              errorCode = 'default';
+            }
+            
             let errorToast = this.toastCtrl.create({
-              message: this.translate.instant("lynx.pages.sign_in.error_message"),
+              message: this.translate.instant("lynx.pages.sign_in.error_messages." + errorCode),
               position: "top",
               duration: 3000
             });
             errorToast.present();
           }
         );
-        
-    // Redirect the user to the home page
-    this.navCtrl.push(HelpMeFindPage);
   }
   
   resetPassword() {

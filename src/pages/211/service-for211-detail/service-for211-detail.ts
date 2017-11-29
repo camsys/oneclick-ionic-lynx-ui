@@ -1,5 +1,7 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, ModalController, ToastController } from 'ionic-angular';
+import { Component, ChangeDetectorRef, ViewChild, HostListener } from '@angular/core';
+import { IonicPage, NavController, NavParams, 
+         Events, ModalController, ToastController,
+         Content } from 'ionic-angular';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { TranslateService } from '@ngx-translate/core';
 
@@ -28,6 +30,13 @@ import { OneClickProvider } from '../../../providers/one-click/one-click';
   templateUrl: 'service-for211-detail.html',
 })
 export class ServiceFor211DetailPage {
+  
+  // Detect when the screen is resized and resize the content based on the
+  // new header bar height.
+  @ViewChild(Content) content: Content;
+  @HostListener('window:resize') onResize() {
+    this.content && this.content.resize();
+  }
 
   service: ServiceModel;
   origin: GooglePlaceModel;
@@ -71,8 +80,6 @@ export class ServiceFor211DetailPage {
     this.origin = new GooglePlaceModel(navParams.data.origin);
     this.destination = new GooglePlaceModel(navParams.data.destination);
     
-
-                            
     // Replace newline characters with html break tags in detail strings
     this.detailKeys.forEach((k) => 
       { 
@@ -96,11 +103,11 @@ export class ServiceFor211DetailPage {
       this.events.publish('spinner:hide');
       this.changeDetector.detectChanges();
     });
-
+    
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ServiceFor211DetailPage');
+  ionViewDidEnter() {
+    this.content.resize(); // Make sure content isn't covered by navbar
   }
 
   // On page leave, unsubscribe from the trip plan call so it doesn't trigger errors when it resolves
@@ -126,9 +133,17 @@ export class ServiceFor211DetailPage {
         mode: mode
       });
     } else if (mode === 'uber') {
-      this.openUrl('https://m.uber.com/ul?&amp;client_id=Qu7RDPXW65A6G-JqqIgnbsfYglolUTIm&amp;action=setPickup&amp;'+
-        'pickup[latitude]='+tripResponse.origin.lat+'&amp;pickup[longitude]='+tripResponse.origin.lng+
-        '&amp;dropoff[latitude]='+tripResponse.destination.lat+'&amp;dropoff[longitude]='+tripResponse.destination.lng)
+      let uberUrl = encodeURI(
+        'https://m.uber.com/ul/?' +
+        'action=setPickup' +
+        '&client_id=Qu7RDPXW65A6G-JqqIgnbsfYglolUTIm' + 
+        '&pickup[latitude]=' + tripResponse.origin.lat + 
+        '&pickup[longitude]=' + tripResponse.origin.lng +
+        '&dropoff[latitude]=' + tripResponse.destination.lat + 
+        '&dropoff[longitude]=' + tripResponse.destination.lng
+      );
+      
+      this.openUrl(uberUrl);
     }
   }
 
@@ -237,7 +252,7 @@ export class ServiceFor211DetailPage {
   }
 
   openUrl(url: string) {
-    let browser = this.inAppBrowser.create(url);
+    let browser = this.inAppBrowser.create(url, '_system');
     browser.show();
   }
 

@@ -3,8 +3,7 @@
 
   <!-- If there's a service present, put its name and address in the header -->
   <ion-navbar class="lynx-toolbar" *ngIf="service; else noServiceHeader">
-    <div class="dynamic-toolbar-title"><b>{{service.agency_name}}</b></div>
-    <!-- <ion-title>{{service.agency_name}}</ion-title> -->
+    <ion-title class="dynamic-toolbar-title"><b>{{service.agency_name}}</b></ion-title>
     <div class="lynx-toolbar-body">{{service.address}}</div>
     <div *ngIf="service" class="lynx-toolbar-body">
       <a *ngIf="service.url" href="{{service.url}}" target="_blank">{{service.display_url}}</a>
@@ -17,8 +16,10 @@
   <!-- If no service is present, put the origin and destination in the header -->
   <ng-template #noServiceHeader>
     <ion-navbar class="lynx-toolbar">
-      <div class="dynamic-toolbar-title"><b>{{ origin.label() }}</b></div>
-      <div class="dynamic-toolbar-title">{{ "lynx.global.common.to" | translate}} <b>{{ destination.label() }}</b></div>
+      <ion-title class="dynamic-toolbar-title"><b>{{ origin.label() }}</b></ion-title>
+      <ion-title class="dynamic-toolbar-title">
+        {{ "lynx.global.common.to" | translate}} <b>{{ destination.label() }}</b>
+      </ion-title>
       <button ion-button end menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
@@ -33,7 +34,7 @@
     
     <!-- TRANSPORTATION OPTIONS -->
     <ion-row>
-      <ion-col col-md-8 offset-md-2 no-padding>
+      <ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2 no-padding>
         <ion-list class="lynx-list">
           
           <!-- For each mode other than paratransit, build a button -->
@@ -75,7 +76,7 @@
 
     <!-- Show service details only if service is present -->
     <ion-row *ngIf="service">
-      <ion-col col-md-8 offset-md-2>
+      <ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2>
         <h3>{{ "lynx.pages.service_details.details_header" | translate }}</h3>
         
         <!-- insert a line for each non-null key in the details hash -->

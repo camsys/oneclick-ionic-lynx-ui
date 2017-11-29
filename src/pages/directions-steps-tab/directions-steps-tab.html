@@ -23,7 +23,7 @@
     <!-- Header row with editable trip date -->
     <ion-row class="trip-date-row">
       <ion-col class="trip-date-col" 
-               col-12 col-md-8 offset-md-2 text-center 
+               col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 text-center 
                (click)="tripTimeDatepicker.open()">
         <h3>
           {{ "lynx.pages.directions.steps_tab.trip_date_label" | translate }} {{tripDate | date: 'mediumDate'}}
@@ -44,7 +44,7 @@
       
       <!-- Itinerary Rows -->
       <ion-row class="itinerary-row" *ngFor="let itin of itineraries; let i = index">
-        <ion-col class="itinerary-col" col-12 col-md-8 offset-md-2 *ngSwitchCase="i.toString()">
+        <ion-col class="itinerary-col" col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 *ngSwitchCase="i.toString()">
           
           <!-- Leg Rows -->
           <ion-row class="leg-row" *ngFor="let leg of itin.legs; let j = index">

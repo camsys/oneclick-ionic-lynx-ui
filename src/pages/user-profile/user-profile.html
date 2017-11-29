@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content no-padding padding-vertical>
 
 
   <div id="user-profile-container" *ngIf="user">
@@ -22,9 +22,9 @@
           (ngSubmit)="updateProfile()" 
           #updateProfileForm="ngForm">
       
-      <!-- Basic Attribues -->
+      <!-- Basic Attributes -->
       <ion-row>
-        <ion-col no-padding>
+        <ion-col no-padding padding-right col-sm-10 offset-sm-1 col-md-8 offset-md-2>
           
           <!-- FIRST NAME -->
           <ion-item>
@@ -68,15 +68,14 @@
                         placeholder=""
                         name="password" 
                         [(ngModel)]="user.password">
-            </ion-input>z
+            </ion-input>
             <div (click)="toggleShowPassword()"
+                 id="show-password-button"
                  class="lynx-button-link link-pink"
                  item-end>
               {{ (this.showPassword ? "lynx.pages.user_profile.hide_pw" : "lynx.pages.user_profile.show_pw") | translate}}
             </div>
           </ion-item>
-          
-
 
       </ion-col>   
     </ion-row>
@@ -84,12 +83,12 @@
          
     <!-- Preferred Locale -->
     <ion-row>
-      <ion-col no-padding>
+      <ion-col no-padding padding-right col-sm-10 offset-sm-1 col-md-8 offset-md-2>
 
-        <ion-item>
+        <ion-item id="preferred-locale-item">
           
           <ion-label>{{"lynx.pages.user_profile.language" | translate}}</ion-label>
-          <ion-select name="preferred_locale" [(ngModel)]="user.preferred_locale">
+          <ion-select ion-start name="preferred_locale" [(ngModel)]="user.preferred_locale">
             <ion-option *ngFor="let locale of available_locales"
                         value="{{locale}}">
               {{ "lynx.global.languages.native." + locale | translate }}
@@ -103,7 +102,7 @@
     
     <!-- ACCOMMODATIONS -->
     <ion-row>
-      <ion-col no-padding>
+      <ion-col no-padding padding-right col-sm-10 offset-sm-1 col-md-8 offset-md-2>
         <ion-list id="accommodations-list">
           <ion-list-header class="profile-list-header">
             {{"lynx.pages.user_profile.accommodations" | translate}}
@@ -120,7 +119,7 @@
     
     <!-- ELIGIBILITIES -->
     <ion-row>
-      <ion-col no-padding>
+      <ion-col no-padding padding-right col-sm-10 offset-sm-1 col-md-8 offset-md-2>
 
         <ion-list id="eligibilities-list">
           <ion-list-header class="profile-list-header">
@@ -138,7 +137,7 @@
 
     <!-- Preferred Trip Types -->
     <ion-row>
-      <ion-col no-padding>
+      <ion-col no-padding padding-right col-sm-10 offset-sm-1 col-md-8 offset-md-2>
           <ion-list>
             <ion-list-header class="profile-list-header">
               {{"lynx.pages.user_profile.trip_types" | translate}}

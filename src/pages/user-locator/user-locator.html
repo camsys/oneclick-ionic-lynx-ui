@@ -57,7 +57,7 @@
 
   <!-- 211 SERVICE FINDER BUTTON -->
   <div text-center id="find-services-button-container" *ngIf="findServicesView">
-    <button ion-button round
+    <button ion-button large round
             class="lynx-button-primary"
             id="find-services-button"
             (click)="searchForServices(originSearch.place)"
@@ -69,7 +69,7 @@
   
   <!-- PLAN TRIP BUTTON -->
   <div text-center id="find-transportation-button-container" *ngIf="!findServicesView">
-    <button ion-button round
+    <button ion-button large round
             class="lynx-button-primary"
             id="find-transportation-button"
             *ngIf="originSearch.place && destinationSearch.place"

@@ -6,6 +6,9 @@ autocomplete-results {
     width: 100%;
     height: 100%;
     background-color: $lynxShadow;
+
+    @include offset-sm-1;    
+    @include offset-md-2;
   }
   
   ion-list.lynx-autocomplete-results {

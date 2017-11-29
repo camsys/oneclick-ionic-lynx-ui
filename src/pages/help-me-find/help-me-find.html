@@ -22,7 +22,7 @@
   
   <ion-grid>
     <ion-row>
-      <ion-col col-md-8 offset-md-2>
+      <ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2>
 
         <ion-card class="lynx-card-help-me-find">
 
@@ -40,20 +40,22 @@
             
             <div class="lynx-help-me-find-buttons">
               
-              <button ion-button
-                      large round full
-                      class="lynx-button-white"
-                      menuClose
-                      (click)="openResourcesPage()"> 
-                {{ "lynx.pages.home.resources_button" | translate }}
-              </button>
-              
+              <!-- TRANSPORTATION FINDER -->
               <button ion-button 
                       large round full
                       class="lynx-button-white"
                       menuClose
                       (click)="openTransportationPage()"> 
                 {{ "lynx.pages.home.transportation_button" | translate }}
+              </button>
+                
+              <!-- 211 RESOURCES FINDER -->
+              <button ion-button
+                      large round full
+                      class="lynx-button-white"
+                      menuClose
+                      (click)="openResourcesPage()"> 
+                {{ "lynx.pages.home.resources_button" | translate }}
               </button>
               
             </div>

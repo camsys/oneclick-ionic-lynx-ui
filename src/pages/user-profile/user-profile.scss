@@ -40,4 +40,12 @@ page-user-profile {
     height: size(7);
     padding: size(2) 0;
   }
+  
+  #preferred-locale-item ion-label {
+    max-width: size(7);
+  }
+  
+  #show-password-button {
+    z-index: 100;
+  }
 }

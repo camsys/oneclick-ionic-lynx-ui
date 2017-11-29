@@ -52,11 +52,13 @@ export class AutocompleteResultsComponent {
             
   // Sets hidden to false, showing results list
   show() {
+    console.log("SHOWING");
     this.hidden = false;
   }
   
   // Sets hidden to true, hiding results list
   hide() {
+    console.log("HIDING");
     this.hidden = true;
   }
   
@@ -78,7 +80,10 @@ export class AutocompleteResultsComponent {
   }
   
   // When an item is selected, emit the onSelect event, passing the selected item.
-  selectItem(item: any): any {
+  selectItem(item: any, event?): any {
+    if(event) {
+      event.stopPropagation();
+    }
     this.onSelect.emit(item);
   }
   
@@ -114,5 +119,5 @@ export class AutocompleteResultsComponent {
       this.blur();      
     }
   }
-
+  
 }
