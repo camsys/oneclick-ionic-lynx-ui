@@ -1,17 +1,17 @@
 <ion-header no-border>
   <ion-navbar transparent>
-    
+
     <div *ngIf="alerts" id="messages-button">
     <button *ngIf="alerts.length > 0" ion-button
             round
             class="lynx-button-primary"
             tabindex="10"
-            (click)="presentAlerts()"> 
+            (click)="presentAlerts()">
       <ion-icon class="padded" name="mail"></ion-icon>
       <ion-label>{{ "lynx.pages.home.alerts_button" | translate }}</ion-label>
     </button>
     </div>
-    
+
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -19,7 +19,7 @@
 </ion-header>
 
 <ion-content fullscreen padding>
-  
+
   <ion-grid>
     <ion-row>
       <ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2>
@@ -28,44 +28,44 @@
 
           <ion-card-header text-wrap text-center>
 
-            <img class="lynx-logo-md" src="../../assets/img/Lynx-logo-white-med.png" alt="LYNX logo" />
+            <img class="lynx-logo-md" src="assets/img/Lynx-logo-white-med.png" alt="LYNX logo" />
             {{ "lynx.pages.home.welcome_message_1" | translate }}
-            
+
           </ion-card-header>
-          
+
 
           <ion-card-content text-wrap text-center>
-            
+
             {{ "lynx.pages.home.welcome_message_2" | translate }}
-            
+
             <div class="lynx-help-me-find-buttons">
-              
+
               <!-- TRANSPORTATION FINDER -->
-              <button ion-button 
+              <button ion-button
                       large round full
                       class="lynx-button-white"
                       menuClose
-                      (click)="openTransportationPage()"> 
+                      (click)="openTransportationPage()">
                 {{ "lynx.pages.home.transportation_button" | translate }}
               </button>
-                
+
               <!-- 211 RESOURCES FINDER -->
               <button ion-button
                       large round full
                       class="lynx-button-white"
                       menuClose
-                      (click)="openResourcesPage()"> 
+                      (click)="openResourcesPage()">
                 {{ "lynx.pages.home.resources_button" | translate }}
               </button>
-              
+
             </div>
 
           </ion-card-content>
 
         </ion-card>
-        
+
       </ion-col>
     </ion-row>
-  </ion-grid>        
+  </ion-grid>
 
 </ion-content>
