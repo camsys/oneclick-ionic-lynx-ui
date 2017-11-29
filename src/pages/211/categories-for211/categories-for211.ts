@@ -156,7 +156,7 @@ export class CategoriesFor211Page {
   
   // Returns a translated message for empty search results
   emptySearchResult(): SearchResultModel {
-    return { label: this.translate.instant('lynx.pages.categories.empty_search_result') } as SearchResultModel;
+    return { label: this.translate.instant('lynx.pages.categories.resources_search.empty_search_result') } as SearchResultModel;
   }
 
 }
