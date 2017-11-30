@@ -248,7 +248,7 @@
         "header": "es_Sign Up",
         "sign_up_button": "es_Sign Up",
         "error_messages": {
-          "default":  "es_There was a problem signing up. Please ccorrect the following errors.",
+          "default":  "es_There was a problem signing up. Please correct the following errors.",
           "email_bad": "es_This email address is invalid.",
           "email_used": "es_User email addresses must be unique.",
           "password_bad": "es_Your password must be at least 6 characters.",

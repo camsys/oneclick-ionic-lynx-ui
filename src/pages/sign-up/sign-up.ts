@@ -61,34 +61,34 @@ export class SignUpPage {
       this.authProvider
         .signUp(this.signUpFormGroup.controls.formControlEmail.value, this.signUpFormGroup.controls.formControlPassword.value, this.signUpFormGroup.controls.formControlPasswordConfirm.value)
         .subscribe(
-          data => {this.navCtrl.push(SignInPage);},
+          data => {this.navCtrl.push(HelpMeFindPage);},
           error => {
-            // let errors: string = this.translate.instant("lynx.pages.sign_up.error_messages.default");
-            //
-            // if(error.json().data.errors.email == 'is invalid')
-            // {
-            //   errors += this.translate.instant("lynx.pages.sign_up.error_messages.email_bad");
-            // }
-            // if(error.json().data.errors.email == 'has already been taken')
-            // {
-            //   errors += this.translate.instant("lynx.pages.sign_up.error_messages.email_used");
-            // }
-            // if(error.json().data.errors.email == 'is too short (minimum is 6 characters)')
-            // {
-            //   errors += this.translate.instant("lynx.pages.sign_up.error_messages.password_bad");
-            // }
-            // if(error.json().data.errors.password_confirmation == "doesn't match Password")
-            // {
-            //   errors += this.translate.instant("lynx.pages.sign_up.error_messages.password_mismatch");
-            // }
+            let errors: string = this.translate.instant("lynx.pages.sign_up.error_messages.default");
+
+            if(error.json().data.errors.email == 'is invalid')
+            {
+              errors += this.translate.instant("lynx.pages.sign_up.error_messages.email_bad");
+            }
+            if(error.json().data.errors.email == 'has already been taken')
+            {
+              errors += this.translate.instant("lynx.pages.sign_up.error_messages.email_used");
+            }
+            if(error.json().data.errors.email == 'is too short (minimum is 6 characters)')
+            {
+              errors += this.translate.instant("lynx.pages.sign_up.error_messages.password_bad");
+            }
+            if(error.json().data.errors.password_confirmation == "doesn't match Password")
+            {
+              errors += this.translate.instant("lynx.pages.sign_up.error_messages.password_mismatch");
+            }
 
             console.error(error.json().data.errors);
-            // let errorToast = this.toastCtrl.create({
-            //   message: errors,
-            //   position: "top",
-            //   duration: 25000
-            // });
-            // errorToast.present();
+            let errorToast = this.toastCtrl.create({
+              message: errors,
+              position: "top",
+              duration: 25000
+            });
+            errorToast.present();
           });
     }
   }
