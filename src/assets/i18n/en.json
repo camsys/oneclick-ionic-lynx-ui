@@ -230,7 +230,8 @@
         "cancel_button": "Cancel",
         "success_message": "Feedback successfully created.",
         "error_message": "Error creating feedback",
-        "subject_picker_placeholder": "What is this feedback about?"
+        "subject_picker_placeholder": "What is this feedback about?",
+        "empty_search_result": "No matching services found."
       },
 
       "sign_in": {

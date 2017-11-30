@@ -53,6 +53,7 @@ export class FeedbackModalPage {
               public viewCtrl: ViewController,
               public oneClick: OneClickProvider,
               public events: Events,
+              public translate: TranslateService,
               private changeDetector: ChangeDetectorRef,
               private formBuilder: FormBuilder) {
     
@@ -141,6 +142,9 @@ export class FeedbackModalPage {
   // Combines the oneclick and refernet results into a single array
   updateSearchResults() {
     this.searchResults = this.refernetResults.concat(this.oneclickResults);
+    if(this.searchResults.length === 0) {
+      this.searchResults = [ this.emptySearchResult() ];
+    }
     this.changeDetector.detectChanges();
   }
   
@@ -151,11 +155,21 @@ export class FeedbackModalPage {
     this.updateSearchResults();
   }
   
-  // Selects a service from the search results
+  // Returns a translated message for empty search results
+  emptySearchResult(): SearchResultModel {
+    return { 
+      label: this.translate.instant('lynx.pages.feedback.empty_search_result'),
+      type: null,
+      result: null
+    } as SearchResultModel;
+  }
+  
+  // Selects a service from the search results and hides the results list
   selectResult(result: SearchResultModel) {
     this.subjectType = result.type;
     this.subject = result.result;
     this.setSubjectValues();
+    this.searchResultsList.hide();
   }
   
   // Sets the feedbackable id and type in the form

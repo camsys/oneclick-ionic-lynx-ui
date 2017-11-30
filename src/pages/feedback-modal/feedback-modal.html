@@ -31,6 +31,7 @@
       <ion-item text-center id="subject-picker-container">
         <ion-input placeholder="{{ 'lynx.pages.feedback.subject_picker_placeholder' | translate }}"
                    [formControl]="searchControl"
+                   (ionFocus)="searchResultsList.show()"
                    #searchInput></ion-input>
       </ion-item>
       
@@ -38,7 +39,7 @@
       <autocomplete-results #searchResultsList
                             [items]="searchResults"
                             (onSelect)="selectResult($event)">
-      </autocomplete-results>  
+      </autocomplete-results>
 
     </ng-template>
     
