@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from 'ionic-angular';
+import { environment } from '../../app/environment';
 
 import { UserLocatorPage }    from '../user-locator/user-locator';
 
@@ -27,16 +29,20 @@ export class HelpMeFindPage {
 
   alerts: Alert[];
 
+  awsImageLocation;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private platform: Platform,
               private alertCtrl: AlertController,
               public oneClickProvider: OneClickProvider,
+              public sanitizer: DomSanitizer,
               public translate: TranslateService) {
   }
 
   ionViewDidLoad() {
-    
+    this.awsImageLocation = this.sanitizer.bypassSecurityTrustStyle('url(' + environment.AWS_IMAGE_ASSET_BUCKET + 'find-page-background.jpg)');
+    console.log(this.awsImageLocation);
     // Wait until after platform is ready, so we have the user's preferred locale
     this.platform.ready().then(() => {
       this.oneClickProvider.getAlerts()

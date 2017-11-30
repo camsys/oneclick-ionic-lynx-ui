@@ -8,7 +8,7 @@
 
   <ion-navbar class="lynx-toolbar lynx-toolbar-black">
     <ion-title text-center>
-      <img class="lynx-logo-sm" src="../../assets/img/Lynx-logo-pink-xsm.png" alt="LYNX Icon">
+      <img class="lynx-logo-sm" src="assets/img/Lynx-logo-pink-xsm.png" alt="LYNX Icon">
     </ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -32,7 +32,7 @@
       <place-search #destinationSearch
                     placeholder="{{ 'lynx.pages.user_locator.destination_search.placeholder' | translate }}"
                     (onArrowDown)="destinationResults.focus()"
-                    (onFocus)="destinationResults.show()"                  
+                    (onFocus)="destinationResults.show()"
                     (onFocus)="originResults.hide()"
                     (onSelect)="centerMapOnPlace($event, 'destination')">
       </place-search>
@@ -46,11 +46,11 @@
 <ion-content>
 
   <!-- ORIGIN AND DESTINATION AUTOCOMPLETE RESULTS LISTS -->
-  <autocomplete-results #originResults 
+  <autocomplete-results #originResults
     [items]="originSearch.autocompleteItems"
     (onSelect)="originSearch.chooseItem($event)">
-  </autocomplete-results>  
-  <autocomplete-results #destinationResults 
+  </autocomplete-results>
+  <autocomplete-results #destinationResults
     [items]="destinationSearch.autocompleteItems"
     (onSelect)="destinationSearch.chooseItem($event)">
   </autocomplete-results>
@@ -66,7 +66,7 @@
       <ion-icon pull-right name="arrow-forward"></ion-icon>
     </button>
   </div>
-  
+
   <!-- PLAN TRIP BUTTON -->
   <div text-center id="find-transportation-button-container" *ngIf="!findServicesView">
     <button ion-button large round

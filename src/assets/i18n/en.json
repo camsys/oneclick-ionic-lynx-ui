@@ -1,13 +1,13 @@
 {
-  
+
   "lynx": {
-    
+
     "global": {
-      
+
       "common": {
         "to": "to"
       },
-      
+
       "languages": {
         "translated": {
           "en": "English",
@@ -21,7 +21,7 @@
         }
 
       },
-      
+
       "modes": {
         "car": "Drive",
         "transit": "Bus & Train",
@@ -30,27 +30,27 @@
         "paratransit": "Paratransit",
         "find_other_options": "Find Other Options"
       },
-      
+
       "time": {
         "hour_short": "hr",
         "minute_short": "min",
         "unknown": ""
       },
-      
+
       "distance": {
         "feet_short": "ft",
         "miles_short": "mi"
       },
-      
+
       "directions": {
         "depart_at": "depart at",
         "arrive_by": "arrive by"
       },
-      
+
       "fare": {
         "no_fare": "n/a"
       },
-      
+
       "weekdays": {
         "sun_short": "Sun",
         "mon_short": "Mon",
@@ -60,23 +60,23 @@
         "fri_short": "Fri",
         "sat_short": "Sat"
       }
-      
+
     },
-    
+
     "pages": {
-      
+
       "about_us": {
         "header": "About Us",
         "url": "website",
         "description": "description"
       },
-      
+
       "contact_us": {
         "header": "Contact Us",
         "url": "website",
         "phone": "phone"
       },
-      
+
       "home": {
         "welcome_message_1": "Welcome to LYNX",
         "welcome_message_2": "How can we help you?",
@@ -84,7 +84,7 @@
         "transportation_button": "Transportation",
         "alerts_button": "Alerts"
       },
-      
+
       "menu": {
         "welcome_user": "Welcome {{user}}!",
         "profile": "Edit My Profile",
@@ -101,7 +101,7 @@
         "sign_up": "Don't have an account?",
         "feedback": "Leave Feedback"
       },
-      
+
       "user_locator": {
         "origin_search": {
           "label": "Where Are You?",
@@ -115,7 +115,7 @@
         "resources_button": "Find Services",
         "transportation_button": "Find Transportation"
       },
-      
+
       "categories": {
         "resources_search": {
           "label": "Resources in Your Area",
@@ -127,7 +127,7 @@
           "empty_search_result": "No results found."
         }
       },
-      
+
       "services": {
         "map_tab": {
           "header": "Map",
@@ -139,7 +139,7 @@
           "results_header": "Services"
         }
       },
-      
+
       "service_details": {
         "details_header": "About this Service",
         "phone_header": "Have Questions?",
@@ -159,7 +159,7 @@
         "travel_instructions": "Travel Instructions",
         "area_served": "Area Served"
       },
-      
+
       "transportation_service_details": {
         "fare": "fare",
         "phone": "phone",
@@ -171,7 +171,7 @@
         "accommodations_header": "accommodations provided",
         "eligibilities_header": "eligibility requirements (any one)"
       },
-      
+
       "directions": {
         "header": "Directions",
         "map_tab": {
@@ -187,16 +187,16 @@
           "last_transit_step": "GET OFF at stop: {{destination}}"
         }
       },
-      
+
       "taxi_services": {
         "header": "Taxi Options"
       },
-      
+
       "paratransit_services": {
         "header": "Transportation Options",
         "feedback_button": "Rate this Service"
       },
-      
+
       "user_profile": {
         "update_button": "Save Profile",
         "sign_in_required_message": "Please sign in to continue.",
@@ -212,14 +212,14 @@
         "show_pw": "show",
         "hide_pw": "hide"
       },
-      
+
       "transportation_eligibility": {
         "header": "Select All That Apply",
         "accommodations_header": "What Accommodations do You Need?",
         "eligibilities_header": "Which of these Characteristics Apply to You?",
-        "plan_trip_button": "See Transportation Options"      
+        "plan_trip_button": "See Transportation Options"
       },
-      
+
       "feedback": {
         "contact": "In case we need to contact you",
         "header": "Leave Feedback",
@@ -232,7 +232,7 @@
         "error_message": "Error creating feedback",
         "subject_picker_placeholder": "What is this feedback about?"
       },
-      
+
       "sign_in": {
         "header": "Sign In",
         "sign_in_button": "Sign In",
@@ -243,7 +243,22 @@
           "locked": "Your account has been temporarily locked after three failed log in attempts. Wait 10 minutes before trying again."
         }
       },
-      
+
+      "sign_up": {
+        "header": "Sign Up",
+        "sign_up_button": "Sign Up",
+        "error_messages": {
+          "default":  "There was a problem signing up. Please correct the following errors.",
+          "email_bad": "This email address is invalid.",
+          "email_used": "User email addresses must be unique.",
+          "password_bad": "Your password must be at least 6 characters.",
+          "password_mismatch": "The passwords do not match."
+        },
+        "email_placeholder": "email address",
+        "password_placeholder": "password must be 6 characters long",
+        "confirm_password_placeholder": "confirm password"
+      },
+
       "reset_password": {
         "header": "Reset Password",
         "reset_password_button": "Reset Password",
@@ -252,20 +267,20 @@
         "error_message": "There was a problem resetting your password. Please verify your email address and try again."
 
       },
-      
+
       "language_selector_modal": {
         "header": "Preferred Language",
         "form_title": "Select Your Language"
       }
-      
+
     }
-    
+
   },
-  
+
   "otp": {
-    
+
     "relativeDirection": {
-      
+
       "DEPART": "DEPART",
       "HARD_LEFT": "HARD LEFT",
       "LEFT": "LEFT",
@@ -279,11 +294,11 @@
       "ELEVATOR": "ELEVATOR",
       "UTURN_LEFT": "UTURN LEFT",
       "UTURN_RIGHT": "UTURN RIGHT"
-      
+
     },
-    
+
     "absoluteDirection": {
-      
+
       "NORTH": "NORTH",
       "NORTHEAST": "NORTHEAST",
       "EAST": "EAST",
@@ -292,11 +307,11 @@
       "SOUTHWEST": "SOUTHWEST",
       "WEST": "WEST",
       "NORTHWEST": "NORTHWEST"
-      
+
     }
-    
-    
+
+
   }
-  
-  
+
+
 }

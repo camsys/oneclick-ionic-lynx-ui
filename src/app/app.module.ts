@@ -7,7 +7,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { ElasticModule } from 'angular2-elastic';
 import { DatePicker } from '@ionic-native/date-picker';
 import { LOCALE_ID } from '@angular/core';
-// import { Observable } from 'rxjs/Rx'; 
+// import { Observable } from 'rxjs/Rx';
 
 // Environment
 import { environment } from './environment';
@@ -52,6 +52,7 @@ import { DirectionsMapTabPage } from '../pages/directions-map-tab/directions-map
 import { DirectTransporationFinderPage } from '../pages/direct-transporation-finder/direct-transporation-finder';
 import { TransportationEligibilityPage } from '../pages/transportation-eligibility/transportation-eligibility';
 import { SignInPage } from '../pages/sign-in/sign-in';
+import { SignUpPage } from '../pages/sign-up/sign-up';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for211/sub-subcategories-for211'
 import { ServicesPage } from '../pages/211/services/services'
@@ -125,6 +126,7 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
+    SignUpPage,
     UserProfilePage,
     FeedbackModalPage,
     ResetPasswordPage,
@@ -182,6 +184,7 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
+    SignUpPage,
     UserProfilePage,
     FeedbackModalPage,
     ResetPasswordPage,
@@ -216,9 +219,9 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     SearchResultModel,
     DatePicker,
     I18nProvider,
-    { 
+    {
       provide: LOCALE_ID,   // Angular pipes (date, currency, etc.) get their locale from this
-      deps: [I18nProvider], 
+      deps: [I18nProvider],
       useFactory: (i18n) => i18n.currentLocale()
     }
   ],
@@ -243,6 +246,7 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     TransportationEligibilityPage,
     ContactUsPage,
     SignInPage,
+    SignUpPage,
     UserProfilePage,
     FeedbackModalPage,
     ResetPasswordPage,

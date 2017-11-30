@@ -6,7 +6,7 @@ ion-navbar {
     letter-spacing: 0.14em;
     background: blue;
   }
-  
+
   button.lynx-button-primary {
     background-color: $lynxTranslucentPink;
   }
@@ -17,39 +17,38 @@ ion-navbar {
 page-help-me-find {
 
   ion-content {
-    background-image: url(../../assets/img/patrick-tomasso-352182.jpg);
     background-position-x: 50%;
     background-size: cover;
   }
-  
+
   .lynx-card-help-me-find {
     background-color: $lynxTranslucentPink;
-    
+
     ion-card-header.card-header {
       padding: size(3) size(6) size(2);
-      
+
       img.lynx-logo-md {
         margin: size(1) auto;
       }
     }
-    
+
     ion-card-content.card-content {
-      
+
       color: $lynxWhite;
       padding: size(2) size(4) size(1);
-      
+
       .lynx-help-me-find-buttons {
-        
+
         margin: size(2) 0 size(4);
-        
+
         button {
           margin: size(2) 0;
         }
-        
+
       }
 
     }
-    
+
 
   }
 
