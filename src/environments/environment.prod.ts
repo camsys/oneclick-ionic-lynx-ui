@@ -6,6 +6,6 @@ export const environment = {
     lat: 28.538336, 
     lng: -81.379234
   },
-  AVAILABLE_LOCALES: [ 'en', 'es', 'keys' ],
+  AVAILABLE_LOCALES: [ 'en', 'es' ],
   DEFAULT_LOCALE: 'en'
 };
