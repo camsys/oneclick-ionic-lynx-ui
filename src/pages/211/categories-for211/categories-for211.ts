@@ -134,6 +134,7 @@ export class CategoriesFor211Page {
       default:
         // If result can't link to a page, just clear the results
         this.searchResults = [];
+        this.changeDetector.detectChanges();
     }
   }
   
