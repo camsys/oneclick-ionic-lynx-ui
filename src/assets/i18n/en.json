@@ -254,11 +254,9 @@
           "password_bad": "Your password must be at least 6 characters.",
           "password_mismatch": "The passwords do not match."
         },
-        "placeholders": {
-          "email": "valid email address",
-          "password": "password must be 6 characters long",
-          "confirm_password": "confirm password",
-        }
+        "email_placeholder": "email address",
+        "password_placeholder": "password must be 6 characters long",
+        "confirm_password_placeholder": "confirm password"
       },
 
       "reset_password": {
