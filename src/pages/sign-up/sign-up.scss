@@ -1,0 +1,13 @@
+page-sign-up {
+  .content-ios,.content-md,.content-wp {
+    background-color: $lynxPink;
+  }
+
+  .invalid {
+    border: 1px solid #ea6153;
+  }
+
+  .toast-message {
+    white-space: pre;
+  }
+}

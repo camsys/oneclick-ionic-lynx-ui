@@ -23,22 +23,22 @@ export class AuthProvider {
   constructor(public http: Http,
               public events: Events,
               private translate: TranslateService) { }
-  
+
   // Pulls the current session from local storage
   session(): Session {
     return (JSON.parse(localStorage.session || "{}") as Session);
   }
-  
+
   // Pulls the user object out of the session
   user(): User {
     return this.session().user as User;
   }
-  
+
   // Gets the user's preferred locale
   preferredLocale(): string {
     return (this.user() || {})["preferred_locale"]
   }
-  
+
   // Sets the local storage session variable to the passed object
   setSession(session: Session): void {
     localStorage.setItem('session', JSON.stringify(session));
@@ -62,6 +62,34 @@ export class AuthProvider {
       return this.defaultHeaders;
     }
   }
+
+  //creates a new user
+  signUp(email_address: string, password: string, password_confirmation: string): Observable<Response> {
+    let uri: string = encodeURI(this.baseUrl + 'sign_up');
+    let body = JSON.stringify({user: { email: email_address, password:  password, password_confirmation: password_confirmation }});
+    let options: RequestOptions = new RequestOptions({
+      headers: this.defaultHeaders
+    });
+
+    return this.http
+      .post(uri, body, options)
+      .map((response: Response) => {
+
+        // Pull the session hash (user email and auth token) out of the response
+        let data = response.json().data;
+        let session = data.session || {};
+
+        // Store session info in local storage to keep user logged in
+        if(session.email && session.authentication_token) {
+          this.setSession(session);
+        }
+
+        return response;
+      });
+
+
+  }
+
 
   // Signs in a user via email and password, storing their token to local storage
   signIn(email: string, password: string): Observable<Response> {
@@ -128,10 +156,10 @@ export class AuthProvider {
 
   // Pulls the user location out of the session if available
   userLocation(): any {
-    return (this.session().user_starting_location || 
+    return (this.session().user_starting_location ||
             {geometry: environment.DEFAULT_LOCATION}) as GooglePlaceModel;
   }
-  
+
   // Updates the session based on a user object, and updates the locale
   updateSessionUser(user: User): User {
     let session = this.session();
