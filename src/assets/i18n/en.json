@@ -113,7 +113,9 @@
           "placeholder": "Your Destination"
         },
         "resources_button": "Find Services",
-        "transportation_button": "Find Transportation"
+        "transportation_button": "Find Transportation",
+        "transportation_subtitle": "Directions and Transit Options",
+        "resources_subtitle": "211 Services for Medical, Housing, VA, and Other Needs"
       },
 
       "categories": {

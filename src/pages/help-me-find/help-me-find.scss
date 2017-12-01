@@ -37,14 +37,18 @@ page-help-me-find {
       color: $lynxWhite;
       padding: size(2) size(4) size(1);
 
+      .lynx-welcome-message-2 {
+        font-size: x-large;
+      }
+
       .lynx-help-me-find-buttons {
 
         margin: size(2) 0 size(4);
 
-        button {
-          margin: size(2) 0;
-        }
-
+ 
+      }
+      .lynx-help-me-find-buttons-subtitle {
+        text-alighn: center !important;
       }
 
     }
