@@ -252,8 +252,7 @@ export class ServiceFor211DetailPage {
   }
 
   openUrl(url: string) {
-    let browser = this.inAppBrowser.create(url, '_system');
-    browser.show();
+    this.inAppBrowser.create(url, '_system');
   }
 
 }
