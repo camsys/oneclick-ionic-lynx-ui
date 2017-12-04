@@ -252,8 +252,9 @@ export class ServiceFor211DetailPage {
                      .present();
   }
 
-  openEmailModal() {
-    let emailModal = this.modalCtrl.create(EmailModalPage);
+  openEmailModal(service: ServiceModel) {
+    console.log(service);
+    let emailModal = this.modalCtrl.create(EmailModalPage, {service: service});
     emailModal.present();
   }
 

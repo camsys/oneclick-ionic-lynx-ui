@@ -15,16 +15,12 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 })
 export class EmailModalPage {
 
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navParams: NavParams) {
+     console.log('UserId', navParams.get('service'));
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EmailModalPage');
-  }
-
-  presentProfileModal() {
-   let profileModal = this.modalCtrl.create(ServiceModel, { userId: 8675309 });
-   profileModal.present();
   }
 
 }
