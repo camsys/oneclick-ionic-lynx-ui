@@ -36,7 +36,9 @@
 
           <ion-card-content text-wrap text-center>
 
+            <div class="lynx-welcome-message-2">
             {{ "lynx.pages.home.welcome_message_2" | translate }}
+            </div>
 
             <div class="lynx-help-me-find-buttons">
 
@@ -48,6 +50,10 @@
                       (click)="openTransportationPage()">
                 {{ "lynx.pages.home.transportation_button" | translate }}
               </button>
+              <div class="lynx-help-me-find-buttons-subtitle">
+                {{ "lynx.pages.home.transportation_subtitle" | translate }}
+              </div>
+              <br>
 
               <!-- 211 RESOURCES FINDER -->
               <button ion-button
@@ -55,8 +61,14 @@
                       class="lynx-button-white"
                       menuClose
                       (click)="openResourcesPage()">
+                <ion-row>
                 {{ "lynx.pages.home.resources_button" | translate }}
+                </ion-row>
+
               </button>
+              <div class="lynx-help-me-find-buttons-subtitle">
+                {{ "lynx.pages.home.resources_subtitle" | translate }} 
+              </div>
 
             </div>
 
