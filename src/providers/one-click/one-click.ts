@@ -241,7 +241,9 @@ export class OneClickProvider {
     return this.http
             .post(uri, tripRequest, options)
             .map( response => {
-              return (response.json().data.trip as TripResponseModel)
+              let trip = (response.json().data.trip as TripResponseModel);
+              console.log("TRIP RESPONSE RETURNED", trip);
+              return trip;
             })
   }
 

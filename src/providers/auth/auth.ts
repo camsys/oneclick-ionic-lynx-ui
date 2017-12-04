@@ -42,12 +42,23 @@ export class AuthProvider {
   // Sets the local storage session variable to the passed object
   setSession(session: Session): void {
     localStorage.setItem('session', JSON.stringify(session));
-  }
-
+  }  
+  
   // Returns true/false if a user is signed in
   isSignedIn(): Boolean {
     let session = this.session();
     return !!(session && session.email && session.authentication_token);
+  }
+  
+  // Returns true/false if email address matches guest email addresses
+  isGuestEmail(email: string): Boolean {
+    return email.search(environment.GUEST_USER_EMAIL_DOMAIN) >= 0;
+  }
+  
+  // Returns true/false if the stored user is a registered user
+  isRegisteredUser(): Boolean {
+    let session = this.session();
+    return session && session.email && session.email.search(environment.GUEST_USER_EMAIL_DOMAIN) < 0;
   }
 
   // Constructs a hash of necessary Auth Headers for communicating with OneClick

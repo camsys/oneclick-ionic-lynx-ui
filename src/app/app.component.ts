@@ -66,11 +66,12 @@ export class MyApp {
               private translate: TranslateService,
               private i18n: I18nProvider) {
 
+    this.platform.ready().then(() => {
 
-    this.initializeApp();
-    this.getUserInfo();
-    this.setMenu();
-    this.setupSpinner();
+      this.initializeApp();
+      this.getUserInfo();
+      
+    });
 
     // When user is updated, update user info.
     this.events.subscribe("user:updated", (user) => {
@@ -79,18 +80,22 @@ export class MyApp {
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+    // Okay, so the platform is ready and our plugins are available.
+    // Here you can do any higher level native things you might need.
 
-      this.i18n.initializeApp(); // Sets the default language based on device or browser
+    this.i18n.initializeApp(); // Sets the default language based on device or browser
 
-      // Set the locale to whatever's in storage, or use the default
-      this.i18n.setLocale(this.auth.preferredLocale());
+    // Set the locale to whatever's in storage, or use the default
+    this.i18n.setLocale(this.auth.preferredLocale());
 
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
+    this.statusBar.styleDefault();
+    this.splashScreen.hide();
+    
+    // Set up the page links for the sidebar menu
+    this.setMenu();
+    
+    // Set up the spinner div
+    this.setupSpinner();
   }
 
   // Make a call to OneClick to get the user's details
