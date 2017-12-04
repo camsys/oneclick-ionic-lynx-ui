@@ -4,42 +4,52 @@
   <ion-content>
 
     <!-- Build menu buttons based on whether or not user is signed in or not -->
+    
 
-    <!-- If signed in... -->
-    <div *ngIf="auth.isSignedIn(); else notSignedIn">
+    <ion-list class="lynx-list lynx-list-contrast">
 
-      <ion-list class="lynx-list lynx-list-contrast">
+      <!-- If signed in... -->
+      <div *ngIf="auth.isSignedIn(); else notSignedIn">
 
-        <button ion-item menuClose
-                class="item-heading"
-                id="menu-welcome-button"
-                (click)="goHome()">
-          {{ "lynx.pages.menu.welcome_user" | translate:user_name }}
-        </button>
+          <button ion-item menuClose
+                  class="item-heading"
+                  id="menu-welcome-button"
+                  (click)="goHome()">
+            {{ "lynx.pages.menu.welcome_user" | translate:user_name }}
+          </button>
 
-        <button ion-item menuClose
-                class="item-heading"
-                id="menu-profile-button"
-                (click)="openPage(profilePage)">
-          {{ "lynx.pages.menu.profile" | translate }}
-        </button>
+          <button ion-item menuClose
+                  class="item-heading"
+                  id="menu-profile-button"
+                  (click)="openPage(profilePage)">
+            {{ "lynx.pages.menu.profile" | translate }}
+          </button>
 
-        <!-- Build a button for each page listed in the signedInPages attribute -->
-        <button ion-item menuClose
-                class="item-heading"
-                *ngFor="let p of signedInPages"
-                (click)="openPage(p)">
-          {{ "lynx.pages.menu." + p.title | translate }}
-        </button>
+          <!-- Build a button for each page listed in the signedInPages attribute -->
+          <button ion-item menuClose
+                  class="item-heading"
+                  *ngFor="let p of signedInPages"
+                  (click)="openPage(p)">
+            {{ "lynx.pages.menu." + p.title | translate }}
+          </button>
 
-      </ion-list>
 
-    </div>
+      </div>
+      
+      <!-- Social media links -->
+      <ion-item>
+        <a class="lynx-button-link link-white" 
+           href="https://twitter.com/lynxbusorlando">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="lynx-button-link link-white" 
+           href="https://www.facebook.com/golynx/">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </a>        
+      </ion-item>
 
-    <!-- If not signed in... -->
-    <ng-template #notSignedIn>
-
-      <ion-list class="lynx-list lynx-list-contrast">
+      <!-- If not signed in... -->
+      <ng-template #notSignedIn>
 
         <button ion-item menuClose
                 class="item-heading"
@@ -63,9 +73,9 @@
           {{ "lynx.pages.menu." + p.title | translate }}
         </button>
 
-      </ion-list>
-
-    </ng-template>
+      </ng-template>
+      
+    </ion-list>
 
   </ion-content>
 

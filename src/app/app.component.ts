@@ -131,7 +131,8 @@ export class MyApp {
       { title: 'resources', component: UserLocatorPage, params: { findServicesView: true}},
       { title: 'language_selector', component: "language_selector" },
       { title: 'feedback', component: "feedback" },
-      { title: 'privacy_policy', component: "privacy_policy" }
+      { title: 'privacy_policy', component: "privacy_policy" },
+      { title: 'live_211_chat', component: "live_211_chat" }
     ] as PageModel[];
 
     // Pages to display if user is signed in
@@ -163,6 +164,9 @@ export class MyApp {
         break;
       case "language_selector":
         this.openLanguageSelectorModal();
+        break;
+      case "live_211_chat":
+        this.openUrl('https://server4.clickandchat.com/chat');
         break;
       case "feedback":
         FeedbackModalPage.createModal(this.modalCtrl,

@@ -101,4 +101,10 @@ a.lynx-button-link {
       color: $lynxWhite;
     }
   }
+  &.link-white {
+    color: $lynxWhite;
+    &:active, &:hover {
+      color: $lynxPink;
+    }
+  }
 }

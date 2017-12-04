@@ -48,7 +48,7 @@
     }
     
     .icon {
-      color: $lynxBlack;
+      color: inherit;
     }
     
     &.lynx-list-inline-item {
@@ -104,10 +104,16 @@
     background-color: $lynxBlack;
     color: $lynxWhite;
     
-    div,span,button,i {
+    ion-item,button,a,.ion-item {
       background-color: inherit;
       color: inherit;
       
+      a {
+        margin-left: 0;
+      }
+    }
+    
+    button,a {
       &:active, &:hover {
         color: $lynxPink;
       }
