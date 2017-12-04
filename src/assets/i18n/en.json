@@ -80,9 +80,11 @@
       "home": {
         "welcome_message_1": "Welcome to LYNX",
         "welcome_message_2": "How can we help you?",
-        "resources_button": "Community Resources",
-        "transportation_button": "Transportation",
-        "alerts_button": "Alerts"
+        "alerts_button": "Alerts",
+        "resources_button": "Find Services",
+        "transportation_button": "Find Transportation",
+        "transportation_subtitle": "Directions and Transit Options",
+        "resources_subtitle": "211 Services for Medical, Housing, VA, and Other Needs"
       },
 
       "menu": {
@@ -112,11 +114,7 @@
         "destination_search": {
           "label": "Where Are You Going?",
           "placeholder": "Your Destination"
-        },
-        "resources_button": "Find Services",
-        "transportation_button": "Find Transportation",
-        "transportation_subtitle": "Directions and Transit Options",
-        "resources_subtitle": "211 Services for Medical, Housing, VA, and Other Needs"
+        }
       },
 
       "categories": {
