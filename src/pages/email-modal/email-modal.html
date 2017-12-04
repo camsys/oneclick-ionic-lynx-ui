@@ -7,12 +7,19 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{navParams.get('service').id}}</ion-title>
+    <ion-title>Translate Email this Result</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+    <!-- Submit button creates a feedback, cancel discards data without leaving feedback-->
+    <button ion-button round 
+            class="lynx-button-white"
+            type="button"
+            (click)="cancel()">{{ "lynx.pages.email.cancel_button" | translate }}
+    </button>
 
 </ion-content>

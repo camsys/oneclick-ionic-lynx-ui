@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ServiceModel } from "../../models/service";
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, ViewController, NavController, NavParams, ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the EmailModalPage page.
@@ -15,8 +15,12 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 })
 export class EmailModalPage {
 
-  constructor(public navParams: NavParams) {
+  constructor(public navParams: NavParams, public viewCtrl: ViewController) {
      console.log('UserId', navParams.get('service'));
+  }
+
+  cancel() {
+    this.viewCtrl.dismiss(null);
   }
 
   ionViewDidLoad() {
