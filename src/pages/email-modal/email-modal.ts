@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ServiceModel } from "../../models/service";
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the EmailModalPage page.
@@ -14,11 +15,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class EmailModalPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EmailModalPage');
+  }
+
+  presentProfileModal() {
+   let profileModal = this.modalCtrl.create(ServiceModel, { userId: 8675309 });
+   profileModal.present();
   }
 
 }

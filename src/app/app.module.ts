@@ -58,6 +58,7 @@ import { SubSubcategoriesFor211Page } from '../pages/211/sub-subcategories-for21
 import { ServicesPage } from '../pages/211/services/services'
 import { TaxiServicesPage } from '../pages/taxi-services/taxi-services';
 import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
+import { EmailModalPage } from '../pages/email-modal/email-modal';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { LanguageSelectorModalPage } from '../pages/language-selector-modal/language-selector-modal';
 
@@ -129,6 +130,7 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     SignUpPage,
     UserProfilePage,
     FeedbackModalPage,
+    EmailModalPage,
     ResetPasswordPage,
     LanguageSelectorModalPage,
     PrettyTimePipe,
@@ -187,6 +189,7 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     SignUpPage,
     UserProfilePage,
     FeedbackModalPage,
+    EmailModalPage,
     ResetPasswordPage,
     LanguageSelectorModalPage
   ],
@@ -249,6 +252,7 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     SignUpPage,
     UserProfilePage,
     FeedbackModalPage,
+    EmailModalPage,
     ResetPasswordPage,
     LanguageSelectorModalPage,
     PlaceSearchComponent,

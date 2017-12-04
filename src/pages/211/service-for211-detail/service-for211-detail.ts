@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 // Pages
 import { FeedbackModalPage } from "../../feedback-modal/feedback-modal";
+import { EmailModalPage } from "../../email-modal/email-modal";
 import { DirectionsPage } from '../../directions/directions';
 import { TransportationEligibilityPage } from '../../transportation-eligibility/transportation-eligibility';
 import { TaxiServicesPage } from '../../taxi-services/taxi-services';
@@ -249,6 +250,11 @@ export class ServiceFor211DetailPage {
                                   this.translate,
                                 { subject: service, type: "OneclickRefernet::Service" })
                      .present();
+  }
+
+  openEmailModal() {
+    let emailModal = this.modalCtrl.create(EmailModalPage);
+    emailModal.present();
   }
 
   openUrl(url: string) {

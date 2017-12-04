@@ -92,7 +92,7 @@
       
       <!-- Questions? button -->
       <!-- Show questions? button only if service phone # is present -->
-      <ion-col col-md-6 text-center *ngIf="service.phone">
+      <ion-col col-md-4 text-center *ngIf="service.phone">
         <h3>{{ "lynx.pages.service_details.phone_header" | translate }}</h3>
         <a href="tel:{{service.phone}}">
           <button ion-button round
@@ -103,12 +103,22 @@
       </ion-col>
       
       <!-- Feedback? button -->
-      <ion-col col-md-6 text-center>
+      <ion-col col-md-4 text-center>
         <h3>{{ "lynx.pages.service_details.feedback_header" | translate }}</h3>
         <button ion-button round 
                 class="lynx-button-primary"
                 (click)="rateService(service)">
           {{ "lynx.pages.service_details.feedback_button" | translate }}
+        </button>
+      </ion-col>
+
+      <!-- Email button -->
+      <ion-col col-md-4 text-center>
+        <h3>{{ "lynx.pages.service_details.email_header" | translate }}</h3>
+        <button ion-button round 
+                class="lynx-button-primary"
+                (click)="openEmailModal()">
+          {{ "lynx.pages.service_details.email_button" | translate }}
         </button>
       </ion-col>
       
