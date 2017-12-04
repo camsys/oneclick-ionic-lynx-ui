@@ -12,7 +12,8 @@ export class GooglePlaceModel {
   place_id: string;
   types: string[];
   
-  constructor(attrs: any) {    
+  constructor(attrs: any) { 
+    this.name = attrs.name;   
     this.address_components = attrs.address_components || [];
     this.formatted_address = attrs.formatted_address || "";
     this.geometry = attrs.geometry || {};
