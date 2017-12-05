@@ -9,7 +9,7 @@
     <ion-list class="lynx-list lynx-list-contrast">
 
       <!-- If signed in... -->
-      <div *ngIf="auth.isSignedIn(); else notSignedIn">
+      <div *ngIf="auth.isRegisteredUser(); else notRegistered">
 
           <button ion-item menuClose
                   class="item-heading"
@@ -49,7 +49,7 @@
       </ion-item>
 
       <!-- If not signed in... -->
-      <ng-template #notSignedIn>
+      <ng-template #notRegistered>
 
         <button ion-item menuClose
                 class="item-heading"

@@ -102,7 +102,7 @@ export class MyApp {
   getUserInfo() {
 
     // If User email and token are stored in session, make a call to 1click to get up-to-date user profile
-    if(this.auth.isSignedIn()){
+    if(this.auth.isRegisteredUser()){
       this.oneClickProvider.getProfile()
       .catch((error) => {
         // If the user token is expired, sign the user out automatically
