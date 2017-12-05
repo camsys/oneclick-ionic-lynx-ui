@@ -5,7 +5,8 @@
     "global": {
 
       "common": {
-        "to": "to"
+        "to": "to",
+        "send_email": "Send Email"
       },
 
       "languages": {
