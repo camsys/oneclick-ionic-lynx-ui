@@ -137,7 +137,8 @@
         "list_tab": {
           "header": "List",
           "sort_by_header": "Sort By",
-          "results_header": "Services"
+          "results_header": "Services",
+          "email_yourself": "Email yourself this list"
         }
       },
 
@@ -146,6 +147,8 @@
         "phone_header": "Have Questions?",
         "feedback_header": "Have Feedback?",
         "feedback_button": "Rate this Service",
+        "email_header": "Email Yourself this Service",
+        "email_button": "Email"
         "area_served": "Area Served",
         "eligibility": "Eligibility",
         "fees": "Fees",
@@ -234,6 +237,15 @@
         "subject_picker_placeholder": "What is this feedback about?",
         "empty_search_result": "No matching services found."
       },
+
+      "email": {
+        "header": "Email this Result",
+        "description": "Enter your email address to send yourself this result as an email.",
+        "submit_button": "Send Email",
+        "cancel_button": "Cancel",
+        "placeholder": "Enter Your Email Address"
+      },
+
 
       "sign_in": {
         "header": "Sign In",

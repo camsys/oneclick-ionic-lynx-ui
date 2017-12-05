@@ -306,6 +306,17 @@ export class OneClickProvider {
       });
   }
 
+  // Email 211 Services
+  email211Service(email: string, id: number[]): Promise<any> {
+    let headers = this.auth.authHeaders();
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http
+            .post(this.oneClickUrl + 'oneclick_refernet/email', { email:  email, "services": id}, options)
+            .toPromise()
+            .catch(this.handleError);
+  }
+
   // Console log the error and pass along a rejected promise... if uncaught
   // by the calling component, will still raise an error.
   private handleError(error: any): any {
