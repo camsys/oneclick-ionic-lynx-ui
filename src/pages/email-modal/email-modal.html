@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Translate Email this Result</ion-title>
+    <ion-title>{{ "lynx.pages.email.header" | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,14 +16,14 @@
 <ion-content padding>
 
     <ion-item>
-      This is where a description goes and it needs to be transalted
+      {{ "lynx.pages.email.description" | translate}}
     </ion-item>
 
 
     <form [formGroup]="emailForm" (ngSubmit)="send()">
       <!-- Email input just a standard text input -->
       <ion-item>
-        <ion-input type="email" formControlName="email" placeholder="Translate Enter Your Email"></ion-input>
+        <ion-input type="email" formControlName="email" placeholder="{{'lynx.pages.email.placeholder' | translate}}"></ion-input>
       </ion-item>
       
       <!-- Submit button creates a feedback, cancel discards data without leaving feedback-->
