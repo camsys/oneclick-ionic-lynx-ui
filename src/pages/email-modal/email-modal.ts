@@ -19,6 +19,7 @@ export class EmailModalPage {
 
   emailForm: FormGroup;
   service: ServiceModel;
+  services: ServiceModel[];
 
   constructor(public navParams: NavParams, 
               public viewCtrl: ViewController, 
@@ -26,6 +27,7 @@ export class EmailModalPage {
               private formBuilder: FormBuilder,
               private toastCtrl: ToastController) {
      this.service = navParams.get('service');
+     this.services = navParams.get('services');
      this.emailForm = this.formBuilder.group({
       email: ['']
     });
@@ -36,7 +38,22 @@ export class EmailModalPage {
   }
 
   send(){
-    this.oneClick.email211Service(this.emailForm.value['email'],[this.service.id]);
+
+    var ids = new Array();
+    
+    // Get Ids of Services Array if it was passed
+    if(this.services != null){
+      for (var i = 0; i < this.services.length; i++) { 
+        ids.push(this.services[i].id);
+      }
+    }
+
+    // Get ID of a single service if it was passed
+    if(this.service != null){
+      ids.push(this.service.id);
+    }
+    
+    this.oneClick.email211Service(this.emailForm.value['email'],ids);
     this.viewCtrl.dismiss(null);
     let toast = this.toastCtrl.create({
       message: "translate me email sent",

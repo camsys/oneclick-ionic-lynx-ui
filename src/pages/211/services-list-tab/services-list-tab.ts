@@ -1,7 +1,8 @@
 import { Component} from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, ModalController, ToastController } from 'ionic-angular';
 import { ServiceModel } from '../../../models/service';
 import { HelpersProvider } from '../../../providers/helpers/helpers';
+import { EmailModalPage } from "../../email-modal/email-modal";
 
 /**
  * Generated class for the ServicesListTabPage page.
@@ -21,6 +22,7 @@ export class ServicesListTabPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              public modalCtrl: ModalController,
               private helpers: HelpersProvider,
               public events: Events) {
     this.matches = navParams.data;
@@ -62,5 +64,11 @@ export class ServicesListTabPage {
 
   selectService(match : ServiceModel){
     this.events.publish('service:selected', match);
+  }
+
+  openEmailModal(services: ServiceModel[]) {
+    console.log(services);
+    let emailModal = this.modalCtrl.create(EmailModalPage, {services: services});
+    emailModal.present();
   }
 }
