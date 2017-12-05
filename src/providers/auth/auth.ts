@@ -43,20 +43,45 @@ export class AuthProvider {
   setSession(session: Session): void {
     localStorage.setItem('session', JSON.stringify(session));
   }
-
-  // Returns true/false if a user is signed in
-  isSignedIn(): Boolean {
+  
+  // Returns true/false if user is signed in (guest or registered)
+  // If optional User param, checks if that particular user is signed in
+  isSignedIn(user?: User): Boolean {
     let session = this.session();
-    return !!(session && session.email && session.authentication_token);
+    if(user) {
+      return !!(session && session.email && session.email === user.email);
+    } else {
+      return !!(session && session.email);      
+    }
+  }
+  
+  // Returns true/false if email address matches guest email addresses
+  isGuestEmail(email: string): Boolean {
+    return email.search(environment.GUEST_USER_EMAIL_DOMAIN) >= 0;
+  }
+  
+  // Returns true/false if user is signed in and is a registered user
+  isRegisteredUser(): Boolean {
+    return this.isSignedIn() && !this.isGuestEmail(this.session().email);
+  }
+
+  // Returns true/false if user is signed in and is a guest user
+  isGuestUser(): Boolean {
+    return this.isSignedIn() && this.isGuestEmail(this.session().email);
   }
 
   // Constructs a hash of necessary Auth Headers for communicating with OneClick
   authHeaders(): Headers {
-    if(this.isSignedIn()) {
+    if(this.isRegisteredUser()) {
       return new Headers({
         'Content-Type': 'application/json',
         'X-User-Email': this.session().email,
         'X-User-Token': this.session().authentication_token
+      });
+    } else if(this.isGuestUser()) {
+      return new Headers({
+        'Content-Type': 'application/json',
+        'X-User-Email': this.session().email
       });
     } else {
       return this.defaultHeaders;
@@ -163,10 +188,10 @@ export class AuthProvider {
   // Updates the session based on a user object, and updates the locale
   updateSessionUser(user: User): User {
     let session = this.session();
+    session.email = user.email;
     session.user = user;
     this.setSession(session);
     this.events.publish('user:updated', user);  // Publish user updated event for pages to listen to
-    // this.translate.use(this.preferredLocale());
     return this.user();
   }
   

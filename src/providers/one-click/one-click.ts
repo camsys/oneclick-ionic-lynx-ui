@@ -241,7 +241,15 @@ export class OneClickProvider {
     return this.http
             .post(uri, tripRequest, options)
             .map( response => {
-              return (response.json().data.trip as TripResponseModel)
+              let trip = (response.json().data.trip as TripResponseModel);
+              let user = trip.user as User;
+              // If no user is signed in, OR the user is signed in as the user
+              // returned by the trip plan call, store returned user info in the session.
+              if(!this.auth.isSignedIn() || this.auth.isSignedIn(user)) {
+                this.auth.updateSessionUser(user);
+              }
+              
+              return trip;
             })
   }
 
