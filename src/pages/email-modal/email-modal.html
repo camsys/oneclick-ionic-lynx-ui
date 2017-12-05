@@ -15,11 +15,28 @@
 
 <ion-content padding>
 
-    <!-- Submit button creates a feedback, cancel discards data without leaving feedback-->
-    <button ion-button round 
-            class="lynx-button-white"
-            type="button"
-            (click)="cancel()">{{ "lynx.pages.email.cancel_button" | translate }}
-    </button>
+
+    <form [formGroup]="emailForm" (ngSubmit)="send()">
+      <!-- Email input just a standard text input -->
+      <ion-item>
+        <ion-label>{{ "lynx.pages.email.email" | translate }}</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      
+      <!-- Submit button creates a feedback, cancel discards data without leaving feedback-->
+      <div id="email-modal-buttons">
+        <button ion-button round
+                type="submit"
+                class="lynx-button-dark">{{ "lynx.pages.email.submit_button" | translate }}</button>
+        <!-- Submit button creates a feedback, cancel discards data without leaving feedback-->
+        <button ion-button round 
+                class="lynx-button-white"
+                type="button"
+                (click)="cancel()">{{ "lynx.pages.email.cancel_button" | translate }}
+        </button>
+      </div>
+    </form>
+
+
 
 </ion-content>

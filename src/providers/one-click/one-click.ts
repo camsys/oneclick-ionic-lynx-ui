@@ -307,7 +307,7 @@ export class OneClickProvider {
   }
 
   // Email 211 Services
-  email211Service(email: string, id: string[]): Promise<any> {
+  email211Service(email: string, id: number[]): Promise<any> {
     let headers = this.auth.authHeaders();
     let options = new RequestOptions({ headers: headers });
 
