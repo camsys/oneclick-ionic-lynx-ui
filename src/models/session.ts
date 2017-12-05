@@ -6,4 +6,5 @@ export class Session {
   authentication_token: string;
   user?: User;
   user_starting_location: GooglePlaceModel;
+  recent_places: GooglePlaceModel[];
 }
