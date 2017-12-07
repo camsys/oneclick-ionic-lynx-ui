@@ -305,9 +305,7 @@ export class OneClickProvider {
     return this.http
                .get(this.oneClickUrl + 'feedbacks', this.requestOptions())
                .map( response => {
-                 let feedbacks = (response.json().data.feedbacks as FeedbackModel[]);
-                 console.log("FEEDBACKS GOT: ", feedbacks);
-                 return feedbacks;
+                 return (response.json().data.feedbacks as FeedbackModel[]);
                })
                .catch(this.handleError);
   }
