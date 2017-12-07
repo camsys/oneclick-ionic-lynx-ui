@@ -3,6 +3,7 @@ import { ServiceModel } from "../../models/service";
 import { IonicPage, ViewController, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { OneClickProvider } from '../../providers/one-click/one-click';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the EmailModalPage page.
@@ -25,7 +26,8 @@ export class EmailModalPage {
               public viewCtrl: ViewController, 
               public oneClick: OneClickProvider, 
               private formBuilder: FormBuilder,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              private translate: TranslateService) {
      this.service = navParams.get('service');
      this.services = navParams.get('services');
      this.emailForm = this.formBuilder.group({
@@ -56,7 +58,7 @@ export class EmailModalPage {
     this.oneClick.email211Service(this.emailForm.value['email'],ids);
     this.viewCtrl.dismiss(null);
     let toast = this.toastCtrl.create({
-      message: "translate me email sent",
+      message: this.translate.instant('lynx.pages.email.email_sent'),
       position: 'bottom',
       duration: 3000
     });

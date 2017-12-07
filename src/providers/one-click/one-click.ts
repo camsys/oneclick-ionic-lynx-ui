@@ -320,7 +320,7 @@ export class OneClickProvider {
     let options = new RequestOptions({ headers: headers });
 
     return this.http
-            .post(this.oneClickUrl + 'oneclick_refernet/email', { email:  email, "services": id}, options)
+            .post(this.oneClickUrl + 'oneclick_refernet/email', { email:  email, "services": id, locale: this.i18n.currentLocale()}, options)
             .toPromise()
             .catch(this.handleError);
   }

@@ -244,7 +244,8 @@
         "description": "Enter your email address to send yourself this result as an email.",
         "submit_button": "Send Email",
         "cancel_button": "Cancel",
-        "placeholder": "Enter Your Email Address"
+        "placeholder": "Enter Your Email Address",
+        "email_send": "Email Sent"
       },
 
 
