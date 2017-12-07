@@ -118,4 +118,19 @@ export class AutocompleteResultsComponent {
     }
   }
   
+  // Determines if the item's title and label do not contain one another
+  distinctTitleAndLabel(item: SearchResultModel): Boolean {
+    return item.title && 
+           item.label && 
+           !(item.title === item.label) && 
+           !this.similarStrings(item.title, item.label);
+  }
+  
+  // If more than three words overlap, the two strings are considered similar
+  similarStrings(str1:String, str2:String): Boolean {
+    let words1 = str1.split(/[\s,]+/);
+    let words2 = str2.split(/[\s,]+/);    
+    return words1.filter((w) => words2.indexOf(w) >= 0).length >= 3; // If more than 3 words overlap, consider them the same
+  }
+  
 }

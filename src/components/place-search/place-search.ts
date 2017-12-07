@@ -89,7 +89,7 @@ export class PlaceSearchComponent {
   // Refreshes the search results from the combined Google and OneClick search results,
   private refresh() {
     // Set autocomplete results to the combination of the google and oneclick place searches
-    this.autocompleteItems = this.googleAutocompleteItems.concat(this.oneClickAutocompleteItems);
+    this.autocompleteItems = this.oneClickAutocompleteItems.concat(this.googleAutocompleteItems);
     this.events.publish('place-search:change');
   }
 

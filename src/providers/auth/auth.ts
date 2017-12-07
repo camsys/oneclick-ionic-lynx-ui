@@ -19,6 +19,8 @@ export class AuthProvider {
   public defaultHeaders: Headers = new Headers({
     'Content-Type': 'application/json'
   })
+  public recentPlacesLength: number = 10; // Max # of places in a recent places list
+  public guestUserEmailDomain: string = "example.com"; // Guest users will be identified by their email addresses belonging to this domain
 
   constructor(public http: Http,
               public events: Events,
@@ -57,7 +59,7 @@ export class AuthProvider {
   
   // Returns true/false if email address matches guest email addresses
   isGuestEmail(email: string): Boolean {
-    return email.search(environment.GUEST_USER_EMAIL_DOMAIN) >= 0;
+    return email.search(this.guestUserEmailDomain) >= 0;
   }
   
   // Returns true/false if user is signed in and is a registered user
@@ -180,9 +182,29 @@ export class AuthProvider {
   }
 
   // Pulls the user location out of the session if available
-  userLocation(): any {
+  userLocation(): GooglePlaceModel {
     return (this.session().user_starting_location ||
             {geometry: environment.DEFAULT_LOCATION}) as GooglePlaceModel;
+  }
+  
+  // Pulls out the user's recent places from the session, if available
+  recentPlaces(): GooglePlaceModel[] {
+    return (this.session().recent_places || []) as GooglePlaceModel[];
+  }
+  
+  // Sets the recent places array to a new array of google places
+  setRecentPlaces(places: GooglePlaceModel[]): GooglePlaceModel[] {
+    let session = this.session();
+    session.recent_places = places.slice(0, this.recentPlacesLength); // Limit the list to X places
+    this.setSession(session);
+    return this.recentPlaces();
+  }
+  
+  // Adds a single recent place to the array of recent places, at the top of the list
+  addRecentPlace(place: GooglePlaceModel): GooglePlaceModel[] {
+    let recentPlaces = this.recentPlaces();
+    recentPlaces.unshift(place); // Insert the new place at the top of the list.
+    return this.setRecentPlaces(recentPlaces);
   }
 
   // Updates the session based on a user object, and updates the locale
