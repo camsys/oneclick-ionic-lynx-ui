@@ -298,6 +298,19 @@ export class OneClickProvider {
                .toPromise()
                .catch(this.handleError);
   }
+  
+  // Gets a list of the user's feedbacks
+  getFeedbacks(): Observable<FeedbackModel[]> {
+
+    return this.http
+               .get(this.oneClickUrl + 'feedbacks', this.requestOptions())
+               .map( response => {
+                 let feedbacks = (response.json().data.feedbacks as FeedbackModel[]);
+                 console.log("FEEDBACKS GOT: ", feedbacks);
+                 return feedbacks;
+               })
+               .catch(this.handleError);
+  }
 
   // Makes a refernet keyword search call, returning the results array
   refernetKeywordSearch(term: string, typeFilter: string = ""): Observable<SearchResultModel[]> {
