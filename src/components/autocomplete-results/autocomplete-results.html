@@ -6,7 +6,7 @@
               tappable text-wrap
               [class.focus]="focusItem === i"
               (click)="selectItem(item, $event)">
-      <b *ngIf="item.title">{{ item.title }}: </b>{{ item.label }}
+      <b *ngIf="item.title">{{item.title}}</b><b *ngIf="item.title && item.label && distinctTitleAndLabel(item)">: </b><span *ngIf="!item.title || distinctTitleAndLabel(item)">{{ item.label }}</span>
     </ion-item>
   </ion-list>
 </div>

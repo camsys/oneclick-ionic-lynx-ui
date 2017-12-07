@@ -114,7 +114,7 @@ export class MyApp {
         }
       })
     }
-
+    
   }
 
   // Updates this component's user model based on the information stored in the session

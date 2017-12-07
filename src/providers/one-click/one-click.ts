@@ -34,6 +34,11 @@ export class OneClickProvider {
   constructor(public http: Http,
               private auth: AuthProvider,
               private i18n: I18nProvider) {}
+              
+  // Constructs a request options hash with auth headers
+  requestOptions(): RequestOptions {
+    return new RequestOptions({ headers: this.auth.authHeaders() });
+  }
 
   // Gets a list of all Transportation Agencies
   getTransportationAgencies(): Promise<AgencyModel[]> {
@@ -50,11 +55,21 @@ export class OneClickProvider {
     return this.getAgencies("");
   }
 
+  // Gets OneClick global landmarks and user's stomping grounds based on a query string
   public getPlaces(places_query: String ): Observable<GooglePlaceModel[]> {
-    return this.http.
-      get(this.oneClickUrl + `places?name=%25${places_query}%25`).
-      map( response => {
-        return (response.json().data.places as GooglePlaceModel[])
+    return this.http
+     .get(this.oneClickUrl + "places?name=" + places_query + "&max_results=10", this.requestOptions())
+     .map( (response) => {
+       return response.json().data.places as GooglePlaceModel[];
+     })
+  }
+  
+  // Gets users stomping grounds
+  public getStompingGrounds(): Observable<GooglePlaceModel[]> {
+    return this.http
+      .get(this.oneClickUrl + "stomping_grounds", this.requestOptions())
+      .map( (response) => {
+        return response.json().data.stomping_grounds as GooglePlaceModel[];
       })
   }
 
@@ -87,12 +102,8 @@ export class OneClickProvider {
 
   // Gets a User from 1-Click
   getProfile(): Promise<User>{
-
-     let headers = this.auth.authHeaders();
-     let options = new RequestOptions({ headers: headers });
-
      var uri: string = encodeURI(this.oneClickUrl + 'users');
-     return this.http.get(uri, options)
+     return this.http.get(uri, this.requestOptions())
       .toPromise()
       .then((response) => this.unpackUserResponse(response))
       .catch(this.handleError);
@@ -100,7 +111,6 @@ export class OneClickProvider {
 
   // Updates a User in 1-Click
   updateProfile(user: User): Promise<User>{
-    let headers = this.auth.authHeaders();
     let formatted_accs = {};
     let formatted_eligs = {};
     let formatted_trip_types = {};
@@ -136,10 +146,8 @@ export class OneClickProvider {
       "trip_types": formatted_trip_types
     };
 
-    let options = new RequestOptions({ headers: headers });
-
     var uri: string = encodeURI(this.oneClickUrl + 'users');
-    return this.http.put(uri, body, options)
+    return this.http.put(uri, body, this.requestOptions())
       .toPromise()
       .then((response) => this.unpackUserResponse(response))
       .catch(this.handleError);
@@ -232,14 +240,12 @@ export class OneClickProvider {
 
   getTripPlan(tripRequest: TripRequestModel): Observable<TripResponseModel>
   {
-    let headers = this.auth.authHeaders();
-    let options = new RequestOptions({ headers: headers });
     let uri = encodeURI(this.oneClickUrl + 
                         'trips/plan?locale=' +
                         this.i18n.currentLocale())
 
     return this.http
-            .post(uri, tripRequest, options)
+            .post(uri, tripRequest, this.requestOptions())
             .map( response => {
               let trip = (response.json().data.trip as TripResponseModel);
               let user = trip.user as User;
@@ -254,18 +260,16 @@ export class OneClickProvider {
   }
 
   getAlerts(): Promise<Alert[]>{
-    let headers = this.auth.authHeaders();
-    let options = new RequestOptions({ headers: headers });
     let uri = encodeURI(this.oneClickUrl + 
                         'alerts?locale=' +
                         this.i18n.currentLocale())
 
     return this.http
-            .get(uri, options)
-            .toPromise()
-            .then(response => response.text())
-            .then(json => JSON.parse(json).data.user_alerts as Alert[])
-            .catch(this.handleError);
+               .get(uri, this.requestOptions())
+               .toPromise()
+               .then(response => response.text())
+               .then(json => JSON.parse(json).data.user_alerts as Alert[])
+               .catch(this.handleError);
   }
 
   ackAlert(alert: Alert){
@@ -274,9 +278,6 @@ export class OneClickProvider {
       return
     }
 
-    let headers = this.auth.authHeaders();
-    let options = new RequestOptions({ headers: headers });
-
     let body = {
       "user_alert": {
         "acknowledged": true
@@ -284,20 +285,18 @@ export class OneClickProvider {
     };
 
     return this.http
-            .put(this.oneClickUrl+'alerts/'+alert.id, body, options)
-            .toPromise()
-            .catch(this.handleError);
+               .put(this.oneClickUrl+'alerts/'+alert.id, body, this.requestOptions())
+               .toPromise()
+               .catch(this.handleError);
   }
 
   // Creates a feedback, including rating and review, for a service
   createFeedback(feedback: FeedbackModel): Promise<any> {
-    let headers = this.auth.authHeaders();
-    let options = new RequestOptions({ headers: headers });
 
     return this.http
-            .post(this.oneClickUrl + 'feedbacks', { feedback: feedback}, options)
-            .toPromise()
-            .catch(this.handleError);
+               .post(this.oneClickUrl + 'feedbacks', { feedback: feedback}, this.requestOptions())
+               .toPromise()
+               .catch(this.handleError);
   }
 
   // Makes a refernet keyword search call, returning the results array
@@ -316,11 +315,10 @@ export class OneClickProvider {
 
   // Email 211 Services
   email211Service(email: string, id: number[]): Promise<any> {
-    let headers = this.auth.authHeaders();
-    let options = new RequestOptions({ headers: headers });
-
     return this.http
-            .post(this.oneClickUrl + 'oneclick_refernet/email', { email:  email, "services": id, locale: this.i18n.currentLocale()}, options)
+            .post(this.oneClickUrl + 'oneclick_refernet/email', 
+                  { email:  email, "services": id, locale: this.i18n.currentLocale()}, 
+                  this.requestOptions())
             .toPromise()
             .catch(this.handleError);
   }
