@@ -2,7 +2,7 @@
 <widget id="lynx.onelick.camsys" version="0.6.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Lynx</name>
     <description>STUFF WE DO.</description>
-    <author email="mmaranda@camsys.com" href="http://ionicframework.com/">Cambridge Systematics</author>
+    <author email="AppStore@camsys.com" href="http://ionicframework.com/">Cambridge Systematics</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
@@ -77,23 +77,25 @@
         <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
+        <icon height="1024" src="resources/ios/icon/icon-1024.png" width="1024" />
+        <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
     <allow-navigation href="http://10.0.0.62:8100" />
     <allow-navigation href="http://192.168.207.60:8100" />
     <allow-navigation href="http://192.168.207.60:8101" />
     <allow-navigation href="http://10.0.0.62:8101" />
     <engine name="android" spec="^6.3.0" />
-    <engine name="browser" spec="^4.1.0" />
-    <engine name="ios" spec="^4.5.0" />
-    <plugin name="cordova-plugin-console" spec="^1.0.7" />
-    <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
+    <engine name="ios" spec="4.5.4" />
+    <engine name="browser" spec="5.0.1" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
+    <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
+    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-globalization" spec="^1.0.7" />
-    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
-    <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
-    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.2.3" />
 </widget>
