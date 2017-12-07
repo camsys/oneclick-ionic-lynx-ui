@@ -151,7 +151,7 @@ export class UserLocatorPage {
     this.geoServiceProvider.getPlaceFromLatLng(lat, lng)
     .subscribe( (places) => {
       this.userLocation = places[0];
-      this.originSearch.placeholder = this.translate.instant("lynx.pages.user_locator.placeholder_found") + this.userLocation.formatted_address;
+      this.originSearch.placeholder = this.translate.instant("lynx.pages.user_locator.origin_search.placeholder_found") + this.userLocation.formatted_address;
 
       // Set the origin to the user location if it isn't already set
       this.originSearch.place = this.originSearch.place || this.userLocation;
