@@ -18,6 +18,7 @@ import { SignUpPage } from '../pages/sign-up/sign-up'
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { LanguageSelectorModalPage } from '../pages/language-selector-modal/language-selector-modal';
 import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
+import { FeedbackStatusPage } from '../pages/feedback-status/feedback-status';
 
 // MODELS
 import { User } from '../models/user';
@@ -132,10 +133,11 @@ export class MyApp {
     this.universalPages = [
       { title: 'about_us', component: AboutUsPage },
       { title: 'contact_us', component: ContactUsPage },
-      { title: 'transportation', component: ParatransitServicesPage},
+      { title: 'transportation', component: ParatransitServicesPage },
       { title: 'resources', component: UserLocatorPage, params: { findServicesView: true}},
       { title: 'language_selector', component: "language_selector" },
       { title: 'feedback', component: "feedback" },
+      { title: 'feedback_status', component: FeedbackStatusPage },
       { title: 'privacy_policy', component: "privacy_policy" },
       { title: 'live_211_chat', component: "live_211_chat" }
     ] as PageModel[];
@@ -158,7 +160,7 @@ export class MyApp {
   // Open the appropriate page, or do something special for certain pages
   openPage(page) {
 
-    console.log(page);
+    console.log("Routing to page: ", page);
 
     switch(page.component) {
       case "sign_out":

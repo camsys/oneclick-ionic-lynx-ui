@@ -61,6 +61,7 @@ import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
 import { EmailModalPage } from '../pages/email-modal/email-modal';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { LanguageSelectorModalPage } from '../pages/language-selector-modal/language-selector-modal';
+import { FeedbackStatusPage } from '../pages/feedback-status/feedback-status';
 
 // Providers
 import { OneClickProvider } from '../providers/one-click/one-click';
@@ -133,6 +134,7 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     EmailModalPage,
     ResetPasswordPage,
     LanguageSelectorModalPage,
+    FeedbackStatusPage,
     PrettyTimePipe,
     PrettyDistancePipe,
     ToStringPipe,
@@ -191,7 +193,8 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     FeedbackModalPage,
     EmailModalPage,
     ResetPasswordPage,
-    LanguageSelectorModalPage
+    LanguageSelectorModalPage,
+    FeedbackStatusPage
   ],
   providers: [
     StatusBar,
@@ -255,11 +258,11 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     EmailModalPage,
     ResetPasswordPage,
     LanguageSelectorModalPage,
+    FeedbackStatusPage,
     PlaceSearchComponent,
     ResponsiveDatepickerComponent,
     ResponsiveTimepickerComponent,
-    ServiceDetailsComponent,
-
+    ServiceDetailsComponent
   ]
 })
 

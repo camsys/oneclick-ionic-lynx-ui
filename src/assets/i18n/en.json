@@ -103,7 +103,8 @@
         "home": "Home",
         "sign_in": "Hello! Log In Now",
         "sign_up": "Don't have an account?",
-        "feedback": "Leave Feedback"
+        "feedback": "Leave Feedback",
+        "feedback_status": "Review Feedback Status"
       },
 
       "user_locator": {
@@ -287,6 +288,18 @@
       "language_selector_modal": {
         "header": "Preferred Language",
         "form_title": "Select Your Language"
+      },
+      
+      "feedback_status": {
+        "header": "Status of Your Feedback",
+        "feedback_header_w_subj": "Your Feedback about {{subject}} from {{date}}",
+        "feedback_header_no_subj": "Your Feedback from {{date}}",
+        "rating": "Rating",
+        "review": "Review",
+        "status": "Status",
+        "status_pending": "Pending",
+        "status_acknowledged": "Acknowledged by {{commenter}} on {{date}}",
+        "with_comment": "with comment"
       }
 
     }

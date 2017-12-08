@@ -56,4 +56,10 @@ rating.lynx-rating {
       }
     }
   }
+  
+  &.lynx-rating-sm {
+    ul.rating > li {
+      font-size: $font-size-sm;
+    }
+  }
 }
