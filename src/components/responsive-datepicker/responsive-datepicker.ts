@@ -53,7 +53,8 @@ export class ResponsiveDatepickerComponent {
     if(this.platform.is('android') || this.platform.is('ios')) {
       this.nativeDatePicker.show({
         date: oldDate,
-        mode: 'date'
+        mode: 'date',
+        androidTheme: this.nativeDatePicker.ANDROID_THEMES.THEME_HOLO_DARK
       }).then(
         (date) => {
           let newDate = date;

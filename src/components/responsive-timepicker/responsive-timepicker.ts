@@ -72,7 +72,8 @@ export class ResponsiveTimepickerComponent {
       this.nativeDatePicker.show({
         date: oldTime,
         mode: 'time',
-        minuteInterval: 15
+        minuteInterval: 15,
+        androidTheme: this.nativeDatePicker.ANDROID_THEMES.THEME_HOLO_DARK
       }).then(
         (time) => {
           this.time = this.helpers.dateISOStringWithTimeZoneOffset(time);
