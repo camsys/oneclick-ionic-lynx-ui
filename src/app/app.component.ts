@@ -79,11 +79,11 @@ export class MyApp {
       
       // Only catch 500 errors for now, but can add additional error codes to the
       // if statement (and to translations) to catch additional error types
-      if(error.status === 500) {
+      if(error.status.toString()[0] === "5") {
         this.goHome();
         this.events.publish('spinner:hide'); // stop the spinner once we're back on the home page
         let errorToast = this.toastCtrl.create({
-          message: this.translate.instant('lynx.global.error_messages.' + error.status),
+          message: this.translate.instant('lynx.global.error_messages.500'),
           position: 'top',
           duration: 3000
         });
