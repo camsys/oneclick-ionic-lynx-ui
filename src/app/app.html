@@ -38,14 +38,12 @@
       
       <!-- Social media links -->
       <ion-item>
-        <a class="lynx-button-link link-white" 
-           href="https://twitter.com/lynxbusorlando">
+        <button class="lynx-button-link link-white" (click)="exNav.goTo('https://twitter.com/lynxbusorlando')">
           <ion-icon name="logo-twitter"></ion-icon>
-        </a>
-        <a class="lynx-button-link link-white" 
-           href="https://www.facebook.com/golynx/">
+        </button>
+        <button class="lynx-button-link link-white" (click)="exNav.goTo('https://www.facebook.com/golynx/')">
           <ion-icon name="logo-facebook"></ion-icon>
-        </a>        
+        </button>        
       </ion-item>
 
       <!-- If not signed in... -->

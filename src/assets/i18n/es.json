@@ -304,6 +304,13 @@
         "status_pending": "es_Pending",
         "status_acknowledged": "es_Acknowledged by {{commenter}} on {{date}}",
         "with_comment": "es_with comment"
+      },
+      
+      "external_navigation": {
+        "header": "es_Leaving LYNX VTracs",
+        "message": "es_Are you sure you'd like to leave the site?",
+        "cancel_button": "es_Back",
+        "confirm_button": "es_Continue"
       }
 
     }

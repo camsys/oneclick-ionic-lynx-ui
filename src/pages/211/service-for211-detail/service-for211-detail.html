@@ -6,7 +6,10 @@
     <ion-title class="dynamic-toolbar-title"><b>{{service.agency_name}}</b></ion-title>
     <div class="lynx-toolbar-body">{{service.address}}</div>
     <div *ngIf="service" class="lynx-toolbar-body">
-      <a *ngIf="service.url" href="{{service.url}}" target="_blank">{{service.display_url}}</a>
+      <external-link *ngIf="service.url" 
+                     url="{{service.url}}" 
+                     text="{{service.display_url}}">
+      </external-link>
     </div>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>

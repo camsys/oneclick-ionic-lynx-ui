@@ -2,7 +2,6 @@ import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Nav, Platform, Events, ModalController, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -31,6 +30,7 @@ import { ServiceModel} from '../models/service';
 import { OneClickProvider } from '../providers/one-click/one-click';
 import { AuthProvider } from '../providers/auth/auth';
 import { I18nProvider } from '../providers/i18n/i18n';
+import { ExternalNavigationProvider } from '../providers/external-navigation/external-navigation';
 
 
 @Component({
@@ -57,7 +57,6 @@ export class MyApp {
   constructor(public platform: Platform,
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
-              private inAppBrowser: InAppBrowser,
               private auth: AuthProvider,
               private oneClickProvider: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
@@ -65,7 +64,8 @@ export class MyApp {
               private modalCtrl: ModalController,
               private toastCtrl: ToastController,
               private translate: TranslateService,
-              private i18n: I18nProvider) {
+              private i18n: I18nProvider,
+              public exNav: ExternalNavigationProvider) {
 
     this.platform.ready().then(() => {
 
@@ -188,13 +188,13 @@ export class MyApp {
         this.signOut();
         break;
       case "privacy_policy":
-        this.openUrl('http://www.golynx.com/privacy-policy.stml');
+        this.exNav.goTo('http://www.golynx.com/privacy-policy.stml');
         break;
       case "language_selector":
         this.openLanguageSelectorModal();
         break;
       case "live_211_chat":
-        this.openUrl('https://server4.clickandchat.com/chat');
+        this.exNav.goTo('https://server4.clickandchat.com/chat');
         break;
       case "feedback":
         FeedbackModalPage.createModal(this.modalCtrl,
@@ -208,13 +208,6 @@ export class MyApp {
         this.nav.push(page.component, page.params);
     }
 
-  }
-
-  openUrl(url: string) {
-    this.platform.ready().then(() => {
-      let browser = this.inAppBrowser.create(url);
-      browser.show();
-    });
   }
 
   // Check if we're already at the home page; if not, go there.

@@ -63,7 +63,6 @@ export class HelpMeFindPage {
     document.getElementById('messages-button').style.display = "none";
 
     for(let entry of this.alerts) {
-      console.log(entry);
       let alert = this.alertCtrl.create({
         title: entry.subject,
         subTitle: entry.message,

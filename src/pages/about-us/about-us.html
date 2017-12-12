@@ -28,7 +28,7 @@
               <a href="tel:{{agency.phone}}">{{agency.formatted_phone || agency.phone}}</a>
             </h4>
             <p class="item-body" *ngIf="helpers.urlPresent(agency.url)">
-              <b>{{ "lynx.pages.about_us.url" | translate }}: </b><a href="{{agency.url}}">{{agency.url}}</a>
+              <b>{{ "lynx.pages.about_us.url" | translate }}: </b><external-link url="{{agency.url}}"></external-link>
             </p>
             <p class="item-body">
               <b>{{ "lynx.pages.about_us.description" | translate }}: </b>{{agency.description }}

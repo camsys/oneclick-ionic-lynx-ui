@@ -1,0 +1,7 @@
+<!-- Component for linking to an external website. 
+Prevents default a tag behavior and displays a warning before going to the external site. -->
+<a href="javascript:void(0)" 
+   target="_blank" 
+   (click)="exNav.goTo(url)">
+  {{ text || url }}
+</a>

@@ -25,10 +25,10 @@
           <ion-item text-wrap *ngFor="let agency of agencies">
             <h3 class="item-heading">{{agency.name}}</h3>
             <p class="item-body" *ngIf="!!(agency.formatted_phone || agency.phone)">
-              <b>{{ "page.contact_us.phone" | translate }}: </b><a href="tel:{{agency.phone}}">{{agency.formatted_phone || agency.phone}}</a>
+              <b>{{ "lynx.pages.contact_us.phone" | translate }}: </b><a href="tel:{{agency.phone}}">{{agency.formatted_phone || agency.phone}}</a>
             </p>
             <p class="item-body" *ngIf="helpers.urlPresent(agency.url)">
-              <b>{{ "page.contact_us.website" | translate }}: </b><a href="{{agency.url}}">{{agency.url}}</a>
+              <b>{{ "lynx.pages.contact_us.website" | translate }}: </b><external-link url="{{agency.url}}"></external-link>
             </p>
           </ion-item>
         </ion-list>

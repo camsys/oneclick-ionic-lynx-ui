@@ -2,7 +2,6 @@ import { Component, ChangeDetectorRef, ViewChild, HostListener } from '@angular/
 import { IonicPage, NavController, NavParams, 
          Events, ModalController, ToastController,
          Content } from 'ionic-angular';
-import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { TranslateService } from '@ngx-translate/core';
 
 // Pages
@@ -21,6 +20,7 @@ import { GooglePlaceModel } from "../../../models/google-place";
 
 //Providers
 import { OneClickProvider } from '../../../providers/one-click/one-click';
+import { ExternalNavigationProvider } from '../../../providers/external-navigation/external-navigation';
 
 /**
  * Generated class for the ServiceFor211DetailPage page.
@@ -62,11 +62,11 @@ export class ServiceFor211DetailPage {
               public navParams: NavParams,
               public oneClickProvider: OneClickProvider,
               public events: Events,
-              private inAppBrowser: InAppBrowser,
               public changeDetector: ChangeDetectorRef,
               public toastCtrl: ToastController,
               public modalCtrl: ModalController,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              public exNav: ExternalNavigationProvider) {
 
     // Set the service (if present)
     this.service = navParams.data.service;
@@ -144,7 +144,7 @@ export class ServiceFor211DetailPage {
         '&dropoff[longitude]=' + tripResponse.destination.lng
       );
       
-      this.openUrl(uberUrl);
+      this.exNav.goTo(uberUrl);
     }
   }
 
@@ -256,10 +256,6 @@ export class ServiceFor211DetailPage {
     console.log(service);
     let emailModal = this.modalCtrl.create(EmailModalPage, {service: service});
     emailModal.present();
-  }
-
-  openUrl(url: string) {
-    this.inAppBrowser.create(url, '_system');
   }
 
 }

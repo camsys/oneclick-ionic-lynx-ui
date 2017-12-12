@@ -70,6 +70,7 @@ import { GeocodeServiceProvider } from '../providers/google/geocode-service';
 import { GoogleMapsHelpersProvider } from '../providers/google/google-maps-helpers';
 import { HelpersProvider } from '../providers/helpers/helpers';
 import { I18nProvider } from '../providers/i18n/i18n';
+import { ExternalNavigationProvider } from '../providers/external-navigation/external-navigation';
 
 // Models
 import { CategoryFor211Model } from '../models/category-for-211';
@@ -103,6 +104,7 @@ import { ResponsiveTimepickerComponent } from '../components/responsive-timepick
 import { PrettyTableNamePipe } from '../pipes/pretty-table-name';
 import { ServiceDetailsComponent } from '../components/service-details/service-details';
 import { AutocompleteResultsComponent } from '../components/autocomplete-results/autocomplete-results';
+import { ExternalLinkComponent } from '../components/external-link/external-link';
 
 @NgModule({
   declarations: [
@@ -146,7 +148,8 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
     ResponsiveTimepickerComponent,
     PrettyTableNamePipe,
     ServiceDetailsComponent,
-    AutocompleteResultsComponent
+    AutocompleteResultsComponent,
+    ExternalLinkComponent
   ],
   imports: [
     BrowserModule,
@@ -227,7 +230,8 @@ import { AutocompleteResultsComponent } from '../components/autocomplete-results
       provide: LOCALE_ID,   // Angular pipes (date, currency, etc.) get their locale from this
       deps: [I18nProvider],
       useFactory: (i18n) => i18n.currentLocale()
-    }
+    },
+    ExternalNavigationProvider
   ],
   exports: [
     HelpMeFindPage,

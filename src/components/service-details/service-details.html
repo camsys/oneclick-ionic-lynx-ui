@@ -36,7 +36,7 @@
 <!-- WEBSITE -->
 <p class="item-body service-details-section" *ngIf="helpers.urlPresent(service.url)">
   <b>{{ "lynx.pages.transportation_service_details.url" | translate }}: </b>
-  <a href="{{service.url}}">{{service.url}}</a>
+  <external-link url="{{service.url}}"></external-link>
 </p>
 
 <!-- DESCRIPTION -->
