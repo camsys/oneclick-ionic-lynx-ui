@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';
 
 import { GooglePlaceModel } from "../../models/google-place";
 import { AddressComponentModel } from '../../models/address-component';
-import { LocationModel } from '../../models/location';
 
 @Injectable()
 export class GeocodeServiceProvider {
@@ -54,15 +53,15 @@ export class GeocodeServiceProvider {
   }
 
   public getPlaceFromLatLng(lat: number, lng: number): Observable<GooglePlaceModel[]>{
-
-    let request = {location:  { lat: lat, lng: lng }};
-
-    return this.geocode(request)
+    return this.geocode({
+      location: { lat: lat, lng: lng }
+    });
   }
   public getPlaceFromFormattedAddress(place: GooglePlaceModel): Observable<GooglePlaceModel[]>{
-    let request = {address: place.formatted_address, componentRestrictions: {country: 'US'} };
-
-    return this.geocode(request);
+    return this.geocode({ 
+      address: place.formatted_address, 
+      componentRestrictions: {country: 'US'} 
+    });
   }
 
   private geocode(request): Observable<GooglePlaceModel[]>{
@@ -90,18 +89,13 @@ export class GeocodeServiceProvider {
     return placesObservable;
   }
 
-  private buildPlaceModelFromGeoCoderResult(result: google.maps.GeocoderResult): GooglePlaceModel
-  {
-    let resultLocation: LocationModel = {lat: result.geometry.location.lat(), lng: result.geometry.location.lng()};
-
-    let place = new GooglePlaceModel({
+  private buildPlaceModelFromGeoCoderResult(result: google.maps.GeocoderResult): GooglePlaceModel {
+    return new GooglePlaceModel({
       address_components: result.address_components as AddressComponentModel[],
-      geometry: resultLocation,
+      geometry: { location: { lat: result.geometry.location.lat(), lng: result.geometry.location.lng() } },
       formatted_address: result.formatted_address,
       place_id: result.place_id,
       types: result.types
     });
-
-    return place;
   }
 }

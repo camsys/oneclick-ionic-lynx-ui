@@ -183,8 +183,10 @@ export class AuthProvider {
 
   // Pulls the user location out of the session if available
   userLocation(): GooglePlaceModel {
-    return (this.session().user_starting_location ||
-            {geometry: environment.DEFAULT_LOCATION}) as GooglePlaceModel;
+    return new GooglePlaceModel(
+      this.session().user_starting_location ||
+      { geometry: { location: environment.DEFAULT_LOCATION } }
+    );
   }
   
   // Pulls out the user's recent places from the session, if available

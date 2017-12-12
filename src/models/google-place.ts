@@ -6,8 +6,10 @@ export class GooglePlaceModel {
   address_components: AddressComponentModel[];
   formatted_address: string;
   geometry: {
-    lat: number,
-    lng: number
+    location: {
+      lat: number,
+      lng: number
+    }
   };
   place_id: string;
   types: string[];
@@ -24,8 +26,8 @@ export class GooglePlaceModel {
   toOneClickPlace(): OneClickPlaceModel {
     return new OneClickPlaceModel({
       name: this.label(),
-      lat: this.geometry.lat,
-      lng: this.geometry.lng,
+      lat: this.lat(),
+      lng: this.lng(),
       street_number: this.addressComponent("street_number").long_name,
       route: this.addressComponent("route").long_name,
       city: this.addressComponent("locality").long_name,
@@ -49,6 +51,21 @@ export class GooglePlaceModel {
     return this.name || 
            this.addressComponent(this.types[0])["long_name"] || 
            this.formatted_address;
+  }
+  
+  // Pulls out the lat, or null if not present
+  lat() {
+    return this.geometry && this.geometry.location && this.geometry.location.lat;
+  }
+  
+  // Pulls out the lng, or null if not present
+  lng() {
+    return this.geometry && this.geometry.location && this.geometry.location.lng;
+  }
+  
+  // Returns true/false if item has lat and lng present
+  isGeocoded(): Boolean {
+    return !!(this.lat() && this.lng());
   }
   
 }

@@ -149,7 +149,7 @@ export class MyApp {
 
     // Pages to display if user is signed out
     this.signedOutPages = ([
-      { title: 'home', component: HelpMeFindPage }
+      { title: 'home', component: "home" }
     ] as PageModel[]).concat(this.universalPages);
 
     this.signInPage = { title: 'sign_in', component: SignInPage} as PageModel;
@@ -163,6 +163,9 @@ export class MyApp {
     console.log("Routing to page: ", page);
 
     switch(page.component) {
+      case "home":
+        this.goHome();
+        break;
       case "sign_out":
         this.signOut();
         break;
@@ -184,7 +187,7 @@ export class MyApp {
       default:
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
-        this.nav.setRoot(page.component, page.params);
+        this.nav.push(page.component, page.params);
     }
 
   }

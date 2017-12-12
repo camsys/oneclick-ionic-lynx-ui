@@ -37,9 +37,8 @@ export class SubSubcategoriesFor211Page {
 
   getSubSubCategories(): void {
     let userLocation = this.auth.userLocation();
-    let latlng = userLocation.geometry || {};
     this.oneClickServiceProvider
-        .getSubSubcategoryForSubcategoryName(this.subcategory.code, latlng['lat'], latlng['lng'])
+        .getSubSubcategoryForSubcategoryName(this.subcategory.code, userLocation.lat(), userLocation.lng())
         .then(sscs => this.subSubCategories = sscs);
   }
 
@@ -50,10 +49,9 @@ export class SubSubcategoriesFor211Page {
   openToMatchList(subSubCategory: SubSubcategoryFor211Model) {
     this.events.publish('spinner:show'); // Show spinner while results are loading
     let userLocation = this.auth.userLocation();
-    let latlng = userLocation.geometry || {};
 
     this.oneClickServiceProvider
-    .getServicesFromSubSubCategoryName(subSubCategory.code, latlng['lat'], latlng['lng'])
+    .getServicesFromSubSubCategoryName(subSubCategory.code, userLocation.lat(), userLocation.lng())
     .then((value) => {
       this.events.publish('spinner:hide'); // Hide spinner once results come back
       this.navCtrl.push(ServicesPage, {

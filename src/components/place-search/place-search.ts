@@ -99,23 +99,28 @@ export class PlaceSearchComponent {
   }
 
   // Sets the place value and fills in the search bar, but doesn't run it as a query
+  // Hides the spinner, clears the search results, and emits the onSelect output event.
   setPlace(place: GooglePlaceModel) {
     this.place = place;
     this.searchControl.setValue(this.place.formatted_address, {emitEvent: false});
+    this.clear(); // Clear the autocomplete results
+    this.events.publish('spinner:hide'); // Hide spinner once places are returned
+    this.onSelect.emit(this.place); // Emit the onSelect output event
   }
 
   // Select an item from the search results list
   chooseItem(item: any) {
     this.events.publish('spinner:show'); // Show spinner until geocoding call returns
     
-    // Geocode the selected place
-    this.geoServiceProvider.getPlaceFromFormattedAddress(item.result)
-    .subscribe((places) => {
-      this.setPlace(places[0]); // Set the component's place variable to the first result
-      this.clear(); // Clear the autocomplete results
-      this.events.publish('spinner:hide'); // Hide spinner once places are returned
-      this.onSelect.emit(this.place); // Emit the onSelect output event
-    });
+    // If the item already has a lat/lng, save it as the selected place.
+    if(item && item.result && new GooglePlaceModel(item.result).isGeocoded()) {
+      this.setPlace(item.result);
+    } else { // Otherwise, geocode the selected place and then save it.
+      this.geoServiceProvider.getPlaceFromFormattedAddress(item.result)
+      .subscribe((places) => {
+        this.setPlace(places[0]); // Set the component's place variable to the first result
+      });
+    }
   }
   
   // Converts a google place model to an autocomplete item model

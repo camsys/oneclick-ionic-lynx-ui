@@ -62,9 +62,8 @@ export class CategoriesFor211Page {
 
   getCategories(): void {
     let userLocation = this.auth.userLocation();
-    let latlng = userLocation.geometry || {};
     this.oneClickProvider
-        .getCategoriesFor211Services(latlng['lat'], latlng['lng'])
+        .getCategoriesFor211Services(userLocation.lat(), userLocation.lng())
         .then(categories => this.categories = categories);
   }
 
@@ -105,11 +104,10 @@ export class CategoriesFor211Page {
       case "OneclickRefernet::SubSubCategory":
         let ssc = result.result;
         let userLocation = this.auth.userLocation();
-        let latlng = userLocation.geometry || {};
         this.events.publish('spinner:show'); // Show spinner while results are loading
 
         this.oneClickProvider
-        .getServicesFromSubSubCategoryName(ssc.code, latlng['lat'], latlng['lng'])
+        .getServicesFromSubSubCategoryName(ssc.code, userLocation.lat(), userLocation.lng())
         .then((value) => {
           this.events.publish('spinner:hide'); // Hide spinner once results come back
           this.navCtrl.push(ServicesPage, {

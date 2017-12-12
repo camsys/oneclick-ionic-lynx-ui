@@ -160,10 +160,11 @@ export class UserLocatorPage {
 
   // Centers map on a place
   private centerMapOnPlace(place: GooglePlaceModel, originOrDestination: string) {
+    place = new GooglePlaceModel(place);
     if(originOrDestination == 'origin') {
-      this.zoomToOriginLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
+      this.zoomToOriginLocation(new google.maps.LatLng(place.lat(), place.lng()));
     } else if(originOrDestination == 'destination') {
-      this.zoomToDestinationLocation(new google.maps.LatLng(place.geometry.lat, place.geometry.lng));
+      this.zoomToDestinationLocation(new google.maps.LatLng(place.lat(), place.lng()));
     }
   }
 
