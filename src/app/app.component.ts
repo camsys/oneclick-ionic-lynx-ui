@@ -74,6 +74,24 @@ export class MyApp {
       
     });
 
+    // When a server error occurs, show an error message and return to the home page.
+    this.events.subscribe("error", (error) => {
+      
+      // Only catch 500 errors for now, but can add additional error codes to the
+      // if statement (and to translations) to catch additional error types
+      if(error.status === 500) {
+        this.goHome();
+        this.events.publish('spinner:hide'); // stop the spinner once we're back on the home page
+        let errorToast = this.toastCtrl.create({
+          message: this.translate.instant('lynx.global.error_messages.' + error.status),
+          position: 'top',
+          duration: 3000
+        });
+        errorToast.present();
+      }
+
+    })
+    
     // When user is updated, update user info.
     this.events.subscribe("user:updated", (user) => {
       this.updateUserInfo(user);
@@ -199,8 +217,11 @@ export class MyApp {
     });
   }
 
+  // Check if we're already at the home page; if not, go there.
   goHome() {
-    this.nav.setRoot(HelpMeFindPage);
+    if(this.nav.getActive().name !== "HelpMeFindPage") {
+      this.nav.setRoot(HelpMeFindPage);      
+    }
   }
 
   signOut() {

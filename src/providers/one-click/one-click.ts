@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { RequestOptions } from '@angular/http';
-
-// import { Events } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 
 import { Observable } from "rxjs/Rx";
 import 'rxjs/add/operator/map';
@@ -33,7 +32,8 @@ export class OneClickProvider {
 
   constructor(public http: Http,
               private auth: AuthProvider,
-              private i18n: I18nProvider) {}
+              private i18n: I18nProvider,
+              public events: Events) {}
               
   // Constructs a request options hash with auth headers
   requestOptions(): RequestOptions {
@@ -83,7 +83,7 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(json => JSON.parse(json).data.agencies as AgencyModel[])
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   // Gets all paratransit services from OneClick
@@ -97,7 +97,7 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(json => JSON.parse(json).data.services as OneClickServiceModel[])
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   // Gets a User from 1-Click
@@ -106,7 +106,7 @@ export class OneClickProvider {
      return this.http.get(uri, this.requestOptions())
       .toPromise()
       .then((response) => this.unpackUserResponse(response))
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   // Updates a User in 1-Click
@@ -150,7 +150,7 @@ export class OneClickProvider {
     return this.http.put(uri, body, this.requestOptions())
       .toPromise()
       .then((response) => this.unpackUserResponse(response))
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
   
   // Unpacks a OneClick user response and stores the user in the session
@@ -174,7 +174,7 @@ export class OneClickProvider {
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model[])
       .then(categories => this.filterEmptyCategories(categories))
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   getSubcategoryForCategoryName(categoryName: string, lat: number, lng: number): Promise<SubcategoryFor211Model[]> {
@@ -194,7 +194,7 @@ export class OneClickProvider {
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as SubcategoryFor211Model[])
       .then(subCats => this.filterEmptyCategories(subCats))
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   getSubSubcategoryForSubcategoryName(subcategoryName: string, lat: number, lng: number): Promise<SubSubcategoryFor211Model[]>{
@@ -215,7 +215,7 @@ export class OneClickProvider {
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as SubSubcategoryFor211Model[])
       .then(subSubCats => this.filterEmptyCategories(subSubCats))
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   // Gets refernet services based on subsubcategory name, and optional lat/lng
@@ -235,7 +235,7 @@ export class OneClickProvider {
       .toPromise()
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as ServiceModel[])
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   getTripPlan(tripRequest: TripRequestModel): Observable<TripResponseModel>
@@ -257,6 +257,7 @@ export class OneClickProvider {
               
               return trip;
             })
+            .catch(error => this.handleError(error));
   }
 
   getAlerts(): Promise<Alert[]>{
@@ -269,7 +270,7 @@ export class OneClickProvider {
                .toPromise()
                .then(response => response.text())
                .then(json => JSON.parse(json).data.user_alerts as Alert[])
-               .catch(this.handleError);
+               .catch(error => this.handleError(error));
   }
 
   ackAlert(alert: Alert){
@@ -287,7 +288,7 @@ export class OneClickProvider {
     return this.http
                .put(this.oneClickUrl+'alerts/'+alert.id, body, this.requestOptions())
                .toPromise()
-               .catch(this.handleError);
+               .catch(error => this.handleError(error));
   }
 
   // Creates a feedback, including rating and review, for a service
@@ -296,7 +297,7 @@ export class OneClickProvider {
     return this.http
                .post(this.oneClickUrl + 'feedbacks', { feedback: feedback}, this.requestOptions())
                .toPromise()
-               .catch(this.handleError);
+               .catch(error => this.handleError(error));
   }
   
   // Gets a list of the user's feedbacks
@@ -307,7 +308,7 @@ export class OneClickProvider {
                .map( response => {
                  return (response.json().data.feedbacks as FeedbackModel[]);
                })
-               .catch(this.handleError);
+               .catch(error => this.handleError(error));
   }
 
   // Makes a refernet keyword search call, returning the results array
@@ -331,15 +332,23 @@ export class OneClickProvider {
                   { email:  email, "services": id, locale: this.i18n.currentLocale()}, 
                   this.requestOptions())
             .toPromise()
-            .catch(this.handleError);
+            .catch(error => this.handleError(error));
   }
 
-  // Console log the error and pass along a rejected promise... if uncaught
-  // by the calling component, will still raise an error.
+  // Handle errors by console logging the error, and publishing an error event
+  // for consumption by the app's home page.
   private handleError(error: any): any {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error);
+    console.error('An error occurred', error, this); // for demo purposes only
+    this.events.publish('error', error);
+    return Observable.empty(); // return an empty observable so subscribe calls don't break
   }
+
+  // // Console log the error and pass along a rejected promise... if uncaught
+  // // by the calling component, will still raise an error.
+  // private handleError(error: any): any {
+  //   console.error('An error occurred', error); // for demo purposes only
+  //   return Promise.reject(error);
+  // }
   
   // Filters out any categories without associated services
   private filterEmptyCategories(categories: any[]): any[] {

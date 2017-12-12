@@ -60,6 +60,10 @@
         "thu_short": "Thu",
         "fri_short": "Fri",
         "sat_short": "Sat"
+      },
+      
+      "error_messages": {
+        "500": "Sorry! An error occurred. Please try again later."
       }
 
     },
