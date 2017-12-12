@@ -5,7 +5,8 @@
     "global": {
 
       "common": {
-        "to": "es_to"
+        "to": "es_to",
+        "send_email": "es_Send Email"
       },
 
       "languages": {
@@ -59,6 +60,10 @@
         "thu_short": "es_Thu",
         "fri_short": "es_Fri",
         "sat_short": "es_Sat"
+      },
+      
+      "error_messages": {
+        "500": "es_Sorry! An error occurred. Please try again later."
       }
 
     },
@@ -102,7 +107,8 @@
         "home": "es_Home",
         "sign_in": "es_Hello! Log In Now",
         "sign_up": "es_Don't have an account?",
-        "feedback": "es_Leave Feedback"
+        "feedback": "es_Leave Feedback",
+        "feedback_status": "es_Review Feedback Status"
       },
 
       "user_locator": {
@@ -137,7 +143,8 @@
         "list_tab": {
           "header": "es_List",
           "sort_by_header": "es_Sort By",
-          "results_header": "es_Services"
+          "results_header": "es_Services",
+          "email_yourself": "es_Email yourself this list"
         }
       },
 
@@ -146,6 +153,8 @@
         "phone_header": "es_Have Questions?",
         "feedback_header": "es_Have Feedback?",
         "feedback_button": "es_Rate this Service",
+        "email_header": "es_Email Yourself this Service",
+        "email_button": "es_Email",
         "area_served": "es_Area Served",
         "eligibility": "es_Eligibility",
         "fees": "es_Fees",
@@ -235,6 +244,16 @@
         "empty_search_result": "es_No matching services found."
       },
 
+      "email": {
+        "header": "es_Email this Result",
+        "description": "es_Enter your email address to send yourself this result as an email.",
+        "submit_button": "es_Send Email",
+        "cancel_button": "es_Cancel",
+        "placeholder": "es_Enter Your Email Address",
+        "email_send": "es_Email Sent"
+      },
+
+
       "sign_in": {
         "header": "es_Sign In",
         "sign_in_button": "es_Sign In",
@@ -273,6 +292,18 @@
       "language_selector_modal": {
         "header": "es_Preferred Language",
         "form_title": "es_Select Your Language"
+      },
+      
+      "feedback_status": {
+        "header": "es_Status of Your Feedback",
+        "feedback_header_w_subj": "es_Your Feedback about {{subject}} from {{date}}",
+        "feedback_header_no_subj": "es_Your Feedback from {{date}}",
+        "rating": "es_Rating",
+        "review": "es_Review",
+        "status": "es_Status",
+        "status_pending": "es_Pending",
+        "status_acknowledged": "es_Acknowledged by {{commenter}} on {{date}}",
+        "with_comment": "es_with comment"
       }
 
     }
