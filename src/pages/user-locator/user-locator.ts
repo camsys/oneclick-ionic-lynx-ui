@@ -95,8 +95,11 @@ export class UserLocatorPage {
     // Try to automatically geolocate, centering the map and setting the from place
     this.geolocation.getCurrentPosition()
     .then((position) => {
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      this.zoomToOriginLocation(latLng);
+      // Only zoom to location if another location isn't set yet
+      if(!this.userLocation) {
+        let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        this.zoomToOriginLocation(latLng);
+      }
     })
     .catch((err) => {
       console.error("Could not geolocate device position");
