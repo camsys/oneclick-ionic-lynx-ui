@@ -120,7 +120,9 @@
         "destination_search": {
           "label": "es_Where Are You Going?",
           "placeholder": "es_Your Destination"
-        }
+        },
+        "resources_button": "es_Find Services",
+        "transportation_button": "es_Plan Your Trip"
       },
 
       "categories": {
@@ -227,7 +229,8 @@
         "header": "es_Select All That Apply",
         "accommodations_header": "es_What Accommodations do You Need?",
         "eligibilities_header": "es_Which of these Characteristics Apply to You?",
-        "plan_trip_button": "es_See Transportation Options"
+        "plan_trip_button": "es_See Transportation Options",
+        "question_prompt": "es_Help us find you more transportation options by answering a few questions."
       },
 
       "feedback": {

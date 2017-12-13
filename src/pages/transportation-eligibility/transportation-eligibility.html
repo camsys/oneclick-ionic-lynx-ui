@@ -16,6 +16,8 @@
 
 <ion-content>
   
+  <h3 text-center>{{ "lynx.pages.transportation_eligibility.question_prompt" | translate }}</h3>
+  
   <!-- ACCOMMODATIONS -->
   <ion-list class="lynx-list" [hidden]="accommodations.length === 0">
     <ion-list-header>
@@ -23,7 +25,7 @@
     </ion-list-header>
 
     <ion-item *ngFor="let acc of accommodations">
-      <ion-label>{{acc.question}}</ion-label>
+      <ion-label>{{acc.note}}</ion-label>
       <ion-checkbox [(ngModel)]="acc.value"
                     (ionChange)="updateCharacteristic()">
       </ion-checkbox>
@@ -37,7 +39,7 @@
     </ion-list-header>
 
     <ion-item *ngFor="let elig of eligibilities">
-      <ion-label>{{elig.question}}</ion-label>
+      <ion-label>{{elig.note}}</ion-label>
       <ion-checkbox [(ngModel)]="elig.value"
                     (ionChange)="updateCharacteristic()">
       </ion-checkbox>
