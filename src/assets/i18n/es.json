@@ -252,12 +252,8 @@
         "description": "es_Enter your email address to send yourself this result as an email.",
         "submit_button": "es_Send Email",
         "cancel_button": "es_Cancel",
-<<<<<<< HEAD
         "placeholder": "es_Enter Your Email Address",
         "email_send": "es_Email Sent"
-=======
-        "placeholder": "es_Enter Your Email Address"
->>>>>>> 0.6.0
       },
 
 
