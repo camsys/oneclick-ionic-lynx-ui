@@ -18,7 +18,7 @@ export class PrettyDistancePipe implements PipeTransform {
     } else {
       // For longer distances, convert to miles and round to 1 decimal place.
       let distanceInMiles = Math.round(distanceInFeet / 5280 * 10) / 10; 
-      return distanceInMiles + ' ' + this.translate.instant("lynx.global.distance.miles_shor");
+      return distanceInMiles + ' ' + this.translate.instant("lynx.global.distance.miles_short");
     }
   }
   
