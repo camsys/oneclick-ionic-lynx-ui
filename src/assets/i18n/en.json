@@ -120,7 +120,9 @@
         "destination_search": {
           "label": "Where Are You Going?",
           "placeholder": "Your Destination"
-        }
+        },
+        "resources_button": "Find Services",
+        "transportation_button": "Plan Your Trip"
       },
 
       "categories": {
