@@ -137,7 +137,8 @@
         "list_tab": {
           "header": "es_List",
           "sort_by_header": "es_Sort By",
-          "results_header": "es_Services"
+          "results_header": "es_Services",
+          "email_yourself": "es_Email yourself this list"
         }
       },
 
@@ -146,6 +147,8 @@
         "phone_header": "es_Have Questions?",
         "feedback_header": "es_Have Feedback?",
         "feedback_button": "es_Rate this Service",
+        "email_header": "es_Email Yourself this Service",
+        "email_button": "es_Email"
         "area_served": "es_Area Served",
         "eligibility": "es_Eligibility",
         "fees": "es_Fees",
@@ -235,6 +238,15 @@
         "empty_search_result": "es_No matching services found."
       },
 
+      "email": {
+        "header": "es_Email this Result",
+        "description": "es_Enter your email address to send yourself this result as an email.",
+        "submit_button": "es_Send Email",
+        "cancel_button": "es_Cancel",
+        "placeholder": "es_Enter Your Email Address"
+      },
+
+
       "sign_in": {
         "header": "es_Sign In",
         "sign_in_button": "es_Sign In",
@@ -242,7 +254,8 @@
         "error_messages": {
           "default":  "There was a problem signing in. Please check your username and password and try again.",
           "last_attempt": "es_This is your last attempt to sign in before your account is temporarily locked. Please verify your username and password before trying again.",
-          "locked": "es_Your account has been temporarily locked after three failed log in attempts. Wait 10 minutes before trying again."
+          "locked": "es_Your account has been temporarily locked after three failed log in attempts. Wait 10 minutes before trying again.",
+          "unconfirmed": "es_Your account has not yet been confirmed. Before signing in, please click the confirmation link in the email we sent you."
         }
       },
 
