@@ -59,6 +59,8 @@ export class SignInPage {
               errorCode = 'last_attempt';
             } else if (errorBody.locked) {
               errorCode = 'locked';
+            } else if (errorBody.unconfirmed){
+              errorCode = 'unconfirmed';
             } else {
               errorCode = 'default';
             }

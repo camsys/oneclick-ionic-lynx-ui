@@ -7,5 +7,6 @@ export const environment = {
     lng: -81.379234
   },
   AVAILABLE_LOCALES: [ 'en', 'es' ],
-  DEFAULT_LOCALE: 'en'
+  DEFAULT_LOCALE: 'en',
+  GUEST_USER_EMAIL_DOMAIN: 'example.com'
 };
