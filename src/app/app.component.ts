@@ -152,7 +152,7 @@ export class MyApp {
       { title: 'about_us', component: AboutUsPage },
       { title: 'contact_us', component: ContactUsPage },
       { title: 'transportation', component: ParatransitServicesPage },
-      { title: 'resources', component: UserLocatorPage, params: { findServicesView: true}},
+      { title: 'resources', component: UserLocatorPage, params: { viewType: 'services'}},
       { title: 'language_selector', component: "language_selector" },
       { title: 'feedback', component: "feedback" },
       { title: 'feedback_status', component: FeedbackStatusPage },

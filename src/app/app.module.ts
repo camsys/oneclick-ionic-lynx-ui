@@ -49,7 +49,6 @@ import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { DirectionsPage } from '../pages/directions/directions';
 import { DirectionsStepsTabPage } from '../pages/directions-steps-tab/directions-steps-tab';
 import { DirectionsMapTabPage } from '../pages/directions-map-tab/directions-map-tab';
-import { DirectTransporationFinderPage } from '../pages/direct-transporation-finder/direct-transporation-finder';
 import { TransportationEligibilityPage } from '../pages/transportation-eligibility/transportation-eligibility';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { SignUpPage } from '../pages/sign-up/sign-up';
@@ -122,7 +121,6 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
     ParatransitServicesPage,
     AboutUsPage,
     ContactUsPage,
-    DirectTransporationFinderPage,
     DirectionsPage,
     DirectionsStepsTabPage,
     DirectionsMapTabPage,
@@ -154,7 +152,18 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {}, {
+      links: [
+        { component: HelpMeFindPage, name: 'Home', segment: 'home' },
+        { component: AboutUsPage, name: 'About Us', segment: 'about_us', defaultHistory: [HelpMeFindPage] },
+        { component: ContactUsPage, name: 'Contact Us', segment: 'contact_us', defaultHistory: [HelpMeFindPage] },
+        { component: UserLocatorPage, name: 'Locator', segment: 'locator/:viewType', defaultHistory: [HelpMeFindPage] },
+        { component: CategoriesFor211Page, name: 'Categories', segment: 'categories', defaultHistory: [HelpMeFindPage] },
+        { component: SubcategoriesFor211Page, name: 'Sub-Categories', segment: 'sub_categories/:code/:name', defaultHistory: [HelpMeFindPage] },
+        { component: SubSubcategoriesFor211Page, name: 'Sub-Sub-Categories', segment: 'sub_sub_categories/:code/:name', defaultHistory: [HelpMeFindPage] },        
+        { component: ServicesPage, name: 'Services', segment: 'services/:code/:name', defaultHistory: [HelpMeFindPage] },        
+      ]
+    }),
     Ionic2RatingModule,
     HttpModule,
     TranslateModule.forRoot({
@@ -183,7 +192,6 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
     ParatransitServicesPage,
     AboutUsPage,
     ContactUsPage,
-    DirectTransporationFinderPage,
     DirectionsPage,
     DirectionsStepsTabPage,
     DirectionsMapTabPage,
@@ -247,7 +255,6 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
     ParatransitServicesPage,
     AboutUsPage,
     ContactUsPage,
-    DirectTransporationFinderPage,
     DirectionsPage,
     DirectionsStepsTabPage,
     DirectionsMapTabPage,
