@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { ServicesMapTabPage } from '../services-map-tab/services-map-tab';
 import { ServicesListTabPage } from '../services-list-tab/services-list-tab';
 import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
@@ -34,8 +34,9 @@ export class ServicesPage {
               public navParams: NavParams,
               public events: Events,
               private auth: AuthProvider,
-              private oneClick: OneClickProvider) {
-    this.subSubCategory = navParams.data;
+              private oneClick: OneClickProvider,
+              private app: App) {
+    this.subSubCategory = JSON.parse(navParams.data.sub_sub_category);
     this.mapTab = ServicesMapTabPage;
     this.listTab = ServicesListTabPage;
   }
@@ -69,13 +70,14 @@ export class ServicesPage {
   // When a service selected event is fired in one of the child tabs,
   // open the transportation options page, passing along the service, an origin, and a destination
   onServiceSelected(service: ServiceModel) {
-    this.navCtrl.push(ServiceFor211DetailPage, {
-      service: service,
-      origin: this.auth.userLocation(),
-      destination: {
-        formatted_address: service.site_name,
-        geometry: {lat: service.lat, lng: service.lng}
-      }
-    })
+    // Insert the new page underneat the tabs pages, and then pop the tabs pages off the stack
+    this.navCtrl.insert(this.navCtrl.length() - 1, ServiceFor211DetailPage, {
+      service: JSON.stringify(service),
+      origin: JSON.stringify(this.auth.userLocation()),
+      destination: JSON.stringify({
+        name: service.site_name,
+        geometry: { location: { lat: service.lat, lng: service.lng} }
+      })
+    }).then(() => this.navCtrl.pop());
   }
 }

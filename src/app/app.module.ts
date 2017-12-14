@@ -159,9 +159,10 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
         { component: ContactUsPage, name: 'Contact Us', segment: 'contact_us', defaultHistory: [HelpMeFindPage] },
         { component: UserLocatorPage, name: 'Locator', segment: 'locator/:viewType', defaultHistory: [HelpMeFindPage] },
         { component: CategoriesFor211Page, name: 'Categories', segment: 'categories', defaultHistory: [HelpMeFindPage] },
-        { component: SubcategoriesFor211Page, name: 'Sub-Categories', segment: 'sub_categories/:code/:name', defaultHistory: [HelpMeFindPage] },
-        { component: SubSubcategoriesFor211Page, name: 'Sub-Sub-Categories', segment: 'sub_sub_categories/:code/:name', defaultHistory: [HelpMeFindPage] },        
-        { component: ServicesPage, name: 'Services', segment: 'services/:code/:name', defaultHistory: [HelpMeFindPage] },        
+        { component: SubcategoriesFor211Page, name: 'Sub-Categories', segment: 'sub_categories/:category', defaultHistory: [HelpMeFindPage] },
+        { component: SubSubcategoriesFor211Page, name: 'Sub-Sub-Categories', segment: 'sub_sub_categories/:sub_category', defaultHistory: [HelpMeFindPage] },        
+        { component: ServicesPage, name: 'Services', segment: 'services/:sub_sub_category', defaultHistory: [HelpMeFindPage] },
+        { component: ServiceFor211DetailPage, name: 'Trip-Options', segment: 'trip_options/:origin/:destination/:service', defaultHistory: [HelpMeFindPage] },
       ]
     }),
     Ionic2RatingModule,

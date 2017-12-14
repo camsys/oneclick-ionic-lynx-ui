@@ -72,7 +72,7 @@ export class CategoriesFor211Page {
   }
 
   openToSubcategory(category: CategoryFor211Model){
-    this.navCtrl.push(SubcategoriesFor211Page, category );
+    this.navCtrl.push(SubcategoriesFor211Page, { category: JSON.stringify(category) } );
   }
   
   // Updates the search results based on a query string.
@@ -96,34 +96,38 @@ export class CategoriesFor211Page {
   goToSearchResult(result: SearchResultModel) {
     switch(result.type) {
       case "OneclickRefernet::Category":
-        this.navCtrl.push(SubcategoriesFor211Page, result.result);
+        this.navCtrl.push(SubcategoriesFor211Page, { category: JSON.stringify(result.result) } );
         break;
       case "OneclickRefernet::SubCategory":
-        this.navCtrl.push(SubSubcategoriesFor211Page, result.result);
+        this.navCtrl.push(SubSubcategoriesFor211Page, { sub_category: JSON.stringify(result.result) } );
         break;
       case "OneclickRefernet::SubSubCategory":
         let ssc = result.result;
-        let userLocation = this.auth.userLocation();
-        this.events.publish('spinner:show'); // Show spinner while results are loading
+        // let userLocation = this.auth.userLocation();
+        this.navCtrl.push(ServicesPage, { sub_sub_category: JSON.stringify(result.result) });
 
-        this.oneClickProvider
-        .getServicesFromSubSubCategoryName(ssc.code, userLocation.lat(), userLocation.lng())
-        .then((value) => {
-          this.events.publish('spinner:hide'); // Hide spinner once results come back
-          this.navCtrl.push(ServicesPage, ssc);
-          }
-        );
+        // this.events.publish('spinner:show'); // Show spinner while results are loading
+
+
+        // this.oneClickProvider
+        // .getServicesFromSubSubCategoryName(ssc.code, userLocation.lat(), userLocation.lng())
+        // .then((value) => {
+        //   this.events.publish('spinner:hide'); // Hide spinner once results come back
+        //   this.navCtrl.push(ServicesPage, ssc);
+        //   }
+        // );
         break;
       case "OneclickRefernet::Service":
         let service = result.result;
+        // service.url = null;
       
         this.navCtrl.push(ServiceFor211DetailPage, {
-          service: service,
-          origin: this.auth.userLocation(),
-          destination: {
+          service: JSON.stringify(service),
+          origin: JSON.stringify(this.auth.userLocation()),
+          destination: JSON.stringify({
             name: service.site_name,
-            geometry: {lat: service.lat, lng: service.lng}
-          }
+            geometry: { location: { lat: service.lat, lng: service.lng } }
+          })
         });
         break;
       default:

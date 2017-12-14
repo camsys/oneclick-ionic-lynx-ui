@@ -69,7 +69,7 @@ export class ServiceFor211DetailPage {
               public exNav: ExternalNavigationProvider) {
 
     // Set the service (if present)
-    this.service = navParams.data.service;
+    this.service = JSON.parse(this.navParams.data.service) as ServiceModel;
     
     if(this.service) {
       // Set the detail keys to the non-null details
@@ -78,8 +78,8 @@ export class ServiceFor211DetailPage {
     }
     
     // Set origin and destination places
-    this.origin = new GooglePlaceModel(navParams.data.origin);
-    this.destination = new GooglePlaceModel(navParams.data.destination);
+    this.origin = new GooglePlaceModel(JSON.parse(this.navParams.data.origin));
+    this.destination = new GooglePlaceModel(JSON.parse(this.navParams.data.destination));
     
     // Replace newline characters with html break tags in detail strings
     this.detailKeys.forEach((k) => 
@@ -253,7 +253,6 @@ export class ServiceFor211DetailPage {
   }
 
   openEmailModal(service: ServiceModel) {
-    console.log(service);
     let emailModal = this.modalCtrl.create(EmailModalPage, {service: service});
     emailModal.present();
   }

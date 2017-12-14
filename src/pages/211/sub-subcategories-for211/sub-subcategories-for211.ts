@@ -31,7 +31,7 @@ export class SubSubcategoriesFor211Page {
               private oneClickServiceProvider: OneClickProvider,
               public events: Events,
               private auth: AuthProvider ) {
-    this.subcategory = navParams.data;
+    this.subcategory = JSON.parse(navParams.data.sub_category);
     // this.userStartingLocation = this.auth.session().user_starting_location;
   }
 
@@ -47,7 +47,7 @@ export class SubSubcategoriesFor211Page {
   }
 
   openToServices(subSubCategory: SubSubcategoryFor211Model) {
-    this.navCtrl.push(ServicesPage, subSubCategory);
+    this.navCtrl.push(ServicesPage, { sub_sub_category: JSON.stringify(subSubCategory) });
   }
 
 }
