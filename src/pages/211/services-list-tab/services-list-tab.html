@@ -20,7 +20,7 @@
         <ion-list class="lynx-list">
           <ion-list-header>{{ "lynx.pages.services.list_tab.results_header" | translate }}</ion-list-header>
           <ion-item class="lynx-list-inline-item" text-wrap 
-                    *ngFor="let match of matches" 
+                    *ngFor="let match of services" 
                     (click)="selectService(match)">
             <ion-label>
               <h3 class="item-heading"> {{match.agency_name}} </h3>
@@ -49,7 +49,7 @@
         <h3>{{ "lynx.pages.services.list_tab.email_yourself" | translate}}</h3>
         <button ion-button round 
                 class="lynx-button-primary"
-                (click)="openEmailModal(matches)">
+                (click)="openEmailModal(services)">
           {{ "lynx.global.common.send_email" | translate}} 
         </button>
       </ion-col>

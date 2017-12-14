@@ -17,7 +17,7 @@ import { EmailModalPage } from "../../email-modal/email-modal";
 })
 export class ServicesListTabPage {
 
-  matches: ServiceModel[];
+  services: ServiceModel[];
   orderBy: String;
 
   constructor(public navCtrl: NavController,
@@ -25,7 +25,7 @@ export class ServicesListTabPage {
               public modalCtrl: ModalController,
               private helpers: HelpersProvider,
               public events: Events) {
-    this.matches = navParams.data;
+    this.services = navParams.data;
     this.orderMatchList("drive_time");
   }
 
@@ -47,7 +47,7 @@ export class ServicesListTabPage {
   orderByTransitTime()
   {
     let h = this.helpers;
-    return this.matches.sort(function (a : ServiceModel, b : ServiceModel) {
+    return this.services.sort(function (a : ServiceModel, b : ServiceModel) {
       //sorts by shortest transit time
       return h.compareTimes(a.transit_time, b.transit_time);
     })
@@ -56,7 +56,7 @@ export class ServicesListTabPage {
   orderByDriveTime()
   {
     let h = this.helpers;
-    return this.matches.sort(function (a : ServiceModel, b : ServiceModel) {
+    return this.services.sort(function (a : ServiceModel, b : ServiceModel) {
       //sorts by shortest transit time
       return h.compareTimes(a.drive_time, b.drive_time);
     })

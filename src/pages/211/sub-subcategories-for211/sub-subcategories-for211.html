@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar class="lynx-toolbar">
+  <ion-navbar>
     <ion-title>{{subcategory.name}}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -25,7 +25,7 @@
           <ion-item class="lynx-list-inline-item lynx-list-category-item" 
                     text-wrap 
                     *ngFor="let subSubCategory of subSubCategories"
-                    (click)="openToMatchList(subSubCategory)">
+                    (click)="openToServices(subSubCategory)">
             <ion-label>
               <h3 class="item-heading">{{subSubCategory.name}}</h3>
             </ion-label>

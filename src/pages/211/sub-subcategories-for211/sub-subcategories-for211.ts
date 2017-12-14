@@ -31,7 +31,7 @@ export class SubSubcategoriesFor211Page {
               private oneClickServiceProvider: OneClickProvider,
               public events: Events,
               private auth: AuthProvider ) {
-    this.subcategory = navParams.data.selected_subcategory;
+    this.subcategory = navParams.data;
     // this.userStartingLocation = this.auth.session().user_starting_location;
   }
 
@@ -46,21 +46,8 @@ export class SubSubcategoriesFor211Page {
     this.getSubSubCategories();
   }
 
-  openToMatchList(subSubCategory: SubSubcategoryFor211Model) {
-    this.events.publish('spinner:show'); // Show spinner while results are loading
-    let userLocation = this.auth.userLocation();
-
-    this.oneClickServiceProvider
-    .getServicesFromSubSubCategoryName(subSubCategory.code, userLocation.lat(), userLocation.lng())
-    .then((value) => {
-      this.events.publish('spinner:hide'); // Hide spinner once results come back
-      this.navCtrl.push(ServicesPage, {
-          selected_sub_subcategory: subSubCategory,
-          matches_result: value
-        });
-      }
-    );
-
+  openToServices(subSubCategory: SubSubcategoryFor211Model) {
+    this.navCtrl.push(ServicesPage, subSubCategory);
   }
 
 }

@@ -35,7 +35,7 @@ export class UserLocatorPage {
 
   map: google.maps.Map;
   userLocation: GooglePlaceModel;
-  findServicesView: Boolean; // Flag for showing the find svcs view vs. the direct transportation finder view
+  viewType: string; // Flag for showing the find svcs view vs. the direct transportation finder view. Can be set to 'services' or 'transportation'
   originMarker: google.maps.Marker;
   destinationMarker: google.maps.Marker;
   imageForDestinationMarker: string;
@@ -55,7 +55,7 @@ export class UserLocatorPage {
 
     this.map = null;
     this.userLocation = null; // The user's device location
-    this.findServicesView = this.navParams.data.findServicesView;
+    this.viewType = this.navParams.data.viewType; // Find services vs. transportation view
 
     this.events.subscribe('place-search:change', () => {
       this.changeDetector.detectChanges();

@@ -72,7 +72,7 @@ export class CategoriesFor211Page {
   }
 
   openToSubcategory(category: CategoryFor211Model){
-    this.navCtrl.push(SubcategoriesFor211Page, {selected_category: category});
+    this.navCtrl.push(SubcategoriesFor211Page, category );
   }
   
   // Updates the search results based on a query string.
@@ -96,10 +96,10 @@ export class CategoriesFor211Page {
   goToSearchResult(result: SearchResultModel) {
     switch(result.type) {
       case "OneclickRefernet::Category":
-        this.navCtrl.push(SubcategoriesFor211Page, {selected_category: result.result });
+        this.navCtrl.push(SubcategoriesFor211Page, result.result);
         break;
       case "OneclickRefernet::SubCategory":
-        this.navCtrl.push(SubSubcategoriesFor211Page, {selected_subcategory: result.result });
+        this.navCtrl.push(SubSubcategoriesFor211Page, result.result);
         break;
       case "OneclickRefernet::SubSubCategory":
         let ssc = result.result;
@@ -110,10 +110,7 @@ export class CategoriesFor211Page {
         .getServicesFromSubSubCategoryName(ssc.code, userLocation.lat(), userLocation.lng())
         .then((value) => {
           this.events.publish('spinner:hide'); // Hide spinner once results come back
-          this.navCtrl.push(ServicesPage, {
-              selected_sub_subcategory: ssc,
-              matches_result: value
-            });
+          this.navCtrl.push(ServicesPage, ssc);
           }
         );
         break;

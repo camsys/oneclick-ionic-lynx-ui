@@ -7,6 +7,7 @@ import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211
 // import { ReferNet211ServiceProvider } from '../../../providers/refer-net211-service/refer-net211-service';
 import { SubSubcategoryFor211Model } from '../../../models/sub-subcategory-for-211';
 import { ServiceModel } from '../../../models/service';
+import { OneClickProvider } from '../../../providers/one-click/one-click';
 
 import { AuthProvider } from '../../../providers/auth/auth';
 
@@ -24,23 +25,32 @@ import { AuthProvider } from '../../../providers/auth/auth';
 })
 export class ServicesPage {
   subSubCategory: SubSubcategoryFor211Model;
-  matches_result: ServiceModel[];
+  services: ServiceModel[] = [];
 
   mapTab: any;
-  servicesFromMatchListTab: any;
+  listTab: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public events: Events,
-              private auth: AuthProvider) {
-    this.subSubCategory = navParams.data.selected_sub_subcategory;
-    this.matches_result = navParams.data.matches_result;
+              private auth: AuthProvider,
+              private oneClick: OneClickProvider) {
+    this.subSubCategory = navParams.data;
     this.mapTab = ServicesMapTabPage;
-    this.servicesFromMatchListTab = ServicesListTabPage;
+    this.listTab = ServicesListTabPage;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ServicesPage');
+    this.events.publish('spinner:show'); // Show spinner while results are loading
+    let userLocation = this.auth.userLocation();
+    
+    this.oneClick
+    .getServicesFromSubSubCategoryName(this.subSubCategory.code, userLocation.lat(), userLocation.lng())
+    .then((svcs) => {
+      this.events.publish('spinner:hide'); // Hide spinner once results come back
+      this.services = svcs;
+    });
   }
   
   ionViewWillEnter() {
@@ -61,7 +71,7 @@ export class ServicesPage {
   onServiceSelected(service: ServiceModel) {
     this.navCtrl.push(ServiceFor211DetailPage, {
       service: service,
-      origin: this.auth.session().user_starting_location,
+      origin: this.auth.userLocation(),
       destination: {
         formatted_address: service.site_name,
         geometry: {lat: service.lat, lng: service.lng}

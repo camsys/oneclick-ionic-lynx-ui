@@ -12,17 +12,17 @@
   <ion-toolbar id="go-toolbar"
                class="lynx-toolbar lynx-toolbar-overlay" 
                text-center 
-               *ngIf="selectedMatch != null"
-               (click)="selectService(selectedMatch)">
-    <ion-title text-wrap>{{selectedMatch.agency_name}}</ion-title>
+               *ngIf="selectedService != null"
+               (click)="selectService(selectedService)">
+    <ion-title text-wrap>{{selectedService.agency_name}}</ion-title>
     
-    <span class="travel-time-container" *ngIf="selectedMatch.drive_time">
+    <span class="travel-time-container" *ngIf="selectedService.drive_time">
       <ion-icon class="icon-lg" name="car"></ion-icon>
-      {{selectedMatch.drive_time | prettyTime}}
+      {{selectedService.drive_time | prettyTime}}
     </span>
-    <span class="travel-time-container" *ngIf="selectedMatch.transit_time">
+    <span class="travel-time-container" *ngIf="selectedService.transit_time">
       <ion-icon class="icon-lg" name="bus"></ion-icon>
-      {{selectedMatch.transit_time | prettyTime}}
+      {{selectedService.transit_time | prettyTime}}
     </span>   
 
     <ion-buttons id="go-button-container" end>

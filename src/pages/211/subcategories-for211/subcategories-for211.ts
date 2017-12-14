@@ -29,7 +29,7 @@ export class SubcategoriesFor211Page {
               public navParams: NavParams,
               private oneClickProvider: OneClickProvider,
               private auth: AuthProvider) {
-    this.category = navParams.data.selected_category;
+    this.category = navParams.data as CategoryFor211Model;
   }
 
   getSubcategories(): void {
@@ -44,7 +44,7 @@ export class SubcategoriesFor211Page {
   }
 
   openToSubSubCategories(subcategory: SubcategoryFor211Model){
-    this.navCtrl.push(SubSubcategoriesFor211Page, {selected_subcategory: subcategory});
+    this.navCtrl.push(SubSubcategoriesFor211Page, subcategory);
   }
 
 }
