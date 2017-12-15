@@ -122,12 +122,12 @@ export class CategoriesFor211Page {
         // service.url = null;
       
         this.navCtrl.push(ServiceFor211DetailPage, {
-          service: JSON.stringify(service),
-          origin: JSON.stringify(this.auth.userLocation()),
-          destination: JSON.stringify({
+          service: service,
+          origin: this.auth.userLocation(),
+          destination: {
             name: service.site_name,
             geometry: { location: { lat: service.lat, lng: service.lng } }
-          })
+          }
         });
         break;
       default:

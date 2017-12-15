@@ -72,12 +72,12 @@ export class ServicesPage {
   onServiceSelected(service: ServiceModel) {
     // Insert the new page underneat the tabs pages, and then pop the tabs pages off the stack
     this.navCtrl.insert(this.navCtrl.length() - 1, ServiceFor211DetailPage, {
-      service: JSON.stringify(service),
-      origin: JSON.stringify(this.auth.userLocation()),
-      destination: JSON.stringify({
+      service: service,
+      origin: this.auth.userLocation(),
+      destination: {
         name: service.site_name,
         geometry: { location: { lat: service.lat, lng: service.lng} }
-      })
+      }
     }).then(() => this.navCtrl.pop());
   }
 }

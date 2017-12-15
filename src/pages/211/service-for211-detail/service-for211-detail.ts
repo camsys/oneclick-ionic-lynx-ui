@@ -1,4 +1,5 @@
 import { Component, ChangeDetectorRef, ViewChild, HostListener } from '@angular/core';
+import { Location } from '@angular/common';
 import { IonicPage, NavController, NavParams, 
          Events, ModalController, ToastController,
          Content } from 'ionic-angular';
@@ -10,12 +11,12 @@ import { EmailModalPage } from "../../email-modal/email-modal";
 import { DirectionsPage } from '../../directions/directions';
 import { TransportationEligibilityPage } from '../../transportation-eligibility/transportation-eligibility';
 import { TaxiServicesPage } from '../../taxi-services/taxi-services';
+import { HelpMeFindPage } from '../../help-me-find/help-me-find';
 
 // Models
 import { ServiceModel } from '../../../models/service';
 import { TripRequestModel } from "../../../models/trip-request";
 import { TripResponseModel } from "../../../models/trip-response";
-import { Session } from '../../../models/session';
 import { GooglePlaceModel } from "../../../models/google-place";
 
 //Providers
@@ -40,8 +41,8 @@ export class ServiceFor211DetailPage {
   }
 
   service: ServiceModel;
-  origin: GooglePlaceModel;
-  destination: GooglePlaceModel;
+  origin: GooglePlaceModel = new GooglePlaceModel({});
+  destination: GooglePlaceModel = new GooglePlaceModel({});
   basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
   allModes:string[] = ['transit', 'car', 'taxi', 'uber', 'paratransit'] // All modes
   returnedModes:string[] = [] // All the basic modes returned from the plan call
@@ -53,58 +54,60 @@ export class ServiceFor211DetailPage {
   transitTime: number = 0;
   driveTime: number = 0;
 
-  // Pulls the current session from local storage
-  session(): Session {
-    return (JSON.parse(localStorage.session || null) as Session);
-  }
-
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public oneClickProvider: OneClickProvider,
+              public oneClick: OneClickProvider,
               public events: Events,
               public changeDetector: ChangeDetectorRef,
               public toastCtrl: ToastController,
               public modalCtrl: ModalController,
               private translate: TranslateService,
-              public exNav: ExternalNavigationProvider) {
-
-    // Set the service (if present)
-    this.service = JSON.parse(this.navParams.data.service) as ServiceModel;
-    
-    if(this.service) {
-      // Set the detail keys to the non-null details
-      this.detailKeys = Object.keys(this.service.details)
-                              .filter((k) => this.service.details[k] !== null);
-    }
-    
-    // Set origin and destination places
-    this.origin = new GooglePlaceModel(JSON.parse(this.navParams.data.origin));
-    this.destination = new GooglePlaceModel(JSON.parse(this.navParams.data.destination));
-    
-    // Replace newline characters with html break tags in detail strings
-    this.detailKeys.forEach((k) => 
-      { 
-        this.service.details[k] = this.service.details[k]
-                                              .replace(/(?:\r\n|\r|\n)/g, '<br />');
-      }
-    );
-
-    // Show the spinner until the trip plan call returns
+              public exNav: ExternalNavigationProvider,
+              private location: Location) {
+                
+    // Show the spinner until a trip is present
     this.events.publish('spinner:show');
 
-    // Plan a trip and store the result.
-    // Once response comes in, update the UI with travel times and allow
-    // user to select a mode to view directions.
-    this.tripPlanSubscription = this.oneClickProvider // Store the subscription in a property so it can be unsubscribed from if necessary
-    .planTrip(this.buildTripRequest(this.allModes))
-    .subscribe((resp) => {
-      this.tripResponse = new TripResponseModel(resp);
-      this.updateTravelTimesFromTripResponse(this.tripResponse);
-      this.updateReturnedModes(this.tripResponse);
-      this.events.publish('spinner:hide');
-      this.changeDetector.detectChanges();
-    });
+    // If a Trip ID is present, use that to fetch the already-planned trip
+    if(this.navParams.data.trip_id) {
+      this.oneClick.getTrip(this.navParams.data.trip_id)
+          .subscribe((tripResponse) => this.loadTripResponse(tripResponse))
+
+    // If an origin and destination are passed, make a trip request based on those
+    } else if(this.navParams.data.origin && this.navParams.data.destination) {
+      
+      // Set origin and destination places
+      this.origin = new GooglePlaceModel(this.navParams.data.origin);
+      this.destination = new GooglePlaceModel(this.navParams.data.destination);
+
+      // Plan a trip and store the result.
+      // Once response comes in, update the UI with travel times and allow
+      // user to select a mode to view directions.
+      this.tripPlanSubscription = this.oneClick // Store the subscription in a property so it can be unsubscribed from if necessary
+      .planTrip(this.buildTripRequest(this.allModes))
+      .subscribe((tripResponse) => {
+        this.loadTripResponse(tripResponse);
+        this.location.replaceState("/trip_options/" + this.tripResponse.id); // populate the URL with the returned trip's ID
+      });
+      
+    // Otherwise, go to home page
+    } else {
+      this.navCtrl.setRoot(HelpMeFindPage);
+    }
     
+    // If a service is passed in the navParams, load it onto the page
+    if(this.navParams.data.service) {
+      // Set the service (if present)
+      this.service = this.navParams.data.service as ServiceModel;
+      
+      if(this.service) {
+        // Set the detail keys to the non-null details
+        this.detailKeys = Object.keys(this.service.details)
+                                .filter((k) => this.service.details[k] !== null);
+      }
+
+    }
+
   }
 
   ionViewDidEnter() {
@@ -116,6 +119,16 @@ export class ServiceFor211DetailPage {
     if(this.tripPlanSubscription) {
       this.tripPlanSubscription.unsubscribe();
     }
+  }
+  
+  // Loads the page from a OneClick trip response
+  loadTripResponse(tripResponse: TripResponseModel) {
+    this.tripResponse = new TripResponseModel(tripResponse);
+    this.updateTravelTimesFromTripResponse(this.tripResponse);
+    this.updateReturnedModes(this.tripResponse);
+    this.updateTripPlaces(this.tripResponse);
+    this.changeDetector.detectChanges();
+    this.events.publish('spinner:hide');
   }
 
   // Opens the directions page for the desired mode, passing a clone of the
@@ -200,6 +213,12 @@ export class ServiceFor211DetailPage {
     this.returnedModes = this.basicModes.filter((mode) => {
       return tripResponse.includesTripType(mode);
     })
+  }
+  
+  // Updates the origin and destination based on the trip response
+  updateTripPlaces(tripResponse: TripResponseModel) {
+    this.origin = new GooglePlaceModel(tripResponse.origin);
+    this.destination = new GooglePlaceModel(tripResponse.destination);
   }
 
   // Returns duration in seconds for the given mode

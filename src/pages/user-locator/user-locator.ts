@@ -142,9 +142,9 @@ export class UserLocatorPage {
   findTransportation(origin: GooglePlaceModel,
                      destination: GooglePlaceModel) {
     this.navCtrl.push(ServiceFor211DetailPage, {
-      service: JSON.stringify(null),
-      origin: JSON.stringify(origin),
-      destination: JSON.stringify(destination)
+      service: null,
+      origin: origin,
+      destination: destination
     });
 
   }
