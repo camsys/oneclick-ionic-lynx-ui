@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TripResponseModel } from '../../models/trip-response';
 import { OneClickServiceModel } from '../../models/one-click-service';
 
+import { HelpMeFindPage } from '../help-me-find/help-me-find';
 
 /**
  * Generated class for the TaxiServicesPage page.
@@ -23,13 +24,18 @@ export class TaxiServicesPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams) {
-    this.trip = navParams.data.trip_response;
-    this.mode = navParams.data.mode;
-    this.taxiServices = this.trip.itineraries.map((itin) => {
-      let svc = new OneClickServiceModel(itin.service);
-      svc.fare = itin.cost;
-      return svc;
-    })
+                
+    if(navParams.data.trip_response && navParams.data.mode) {
+      this.trip = navParams.data.trip_response;
+      this.mode = navParams.data.mode;
+      this.taxiServices = this.trip.itineraries.map((itin) => {
+        let svc = new OneClickServiceModel(itin.service);
+        svc.fare = itin.cost;
+        return svc;
+      })
+    } else {
+      this.navCtrl.setRoot(HelpMeFindPage); // If necessary navParams aren't present, go back to the home page
+    }
 
   }
 

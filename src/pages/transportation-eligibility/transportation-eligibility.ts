@@ -7,6 +7,7 @@ import { User } from '../../models/user';
 import { Eligibility } from '../../models/eligibility';
 import { Accommodation } from '../../models/accommodation';
 import { ParatransitServicesPage } from '../paratransit-services/paratransit-services';
+import { HelpMeFindPage } from '../help-me-find/help-me-find';
 
 import { TripRequestModel } from "../../models/trip-request";
 import { TripResponseModel } from "../../models/trip-response";
@@ -33,22 +34,28 @@ export class TransportationEligibilityPage {
               public oneClickProvider: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
               public events: Events) {
-    
-    // Pull the trip response out of nav params and pull out the relevant accommodations and eligibilities
-    this.tripResponse = new TripResponseModel(navParams.data.trip_response);
-    this.accommodations = this.tripResponse.accommodations;
-    this.eligibilities = this.tripResponse.eligibilities;
-    
-    // If user is logged in, set the values for the eligibilities and accommodations based on their saved info
-    if(this.auth.isSignedIn() && this.auth.session().user) {
-      this.user = this.auth.session().user;
-      this.setAccomAndEligValues();
-    }
+                
+    if(!navParams.data.trip_response) {
+      // If necessary NavParams are not present, go to home page
+      this.navCtrl.setRoot(HelpMeFindPage);
+    } else {
+      // Pull the trip response out of nav params and pull out the relevant accommodations and eligibilities
+      this.tripResponse = new TripResponseModel(navParams.data.trip_response);
+      this.accommodations = this.tripResponse.accommodations;
+      this.eligibilities = this.tripResponse.eligibilities;
+      
+      // If user is logged in, set the values for the eligibilities and accommodations based on their saved info
+      if(this.auth.isSignedIn() && this.auth.session().user) {
+        this.user = this.auth.session().user;
+        this.setAccomAndEligValues();
+      }
 
-    // Set up a tripRequest to make if any of the accommodation or eligibility values are changed
-    this.tripRequest = navParams.data.trip_request;
-    this.tripRequest.trip_types = ["paratransit"]; // Update trip request to only request paratransit
-    this.tripRequest.except_filters = ["schedule"]; // Don't filter by schedule, because we aren't letting the user pick a time
+      // Set up a tripRequest to make if any of the accommodation or eligibility values are changed
+      this.tripRequest = navParams.data.trip_request;
+      this.tripRequest.trip_types = ["paratransit"]; // Update trip request to only request paratransit
+      this.tripRequest.except_filters = ["schedule"]; // Don't filter by schedule, because we aren't letting the user pick a time      
+    }
+    
   }
 
   ionViewDidLoad() {
@@ -81,7 +88,7 @@ export class TransportationEligibilityPage {
     this.events.publish('spinner:show');
     this.buildUserProfileParams();
     this.oneClickProvider
-    .getTripPlan(this.tripRequest)
+    .planTrip(this.tripRequest)
     .forEach((resp) => {
       this.events.publish('spinner:hide');
       this.navCtrl.push(ParatransitServicesPage, { trip_response: resp });

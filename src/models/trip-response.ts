@@ -50,5 +50,12 @@ export class TripResponseModel {
                .map((itin) => itin.trip_type)
                .findIndex((tt) => tt === tripType) >= 0
   }
+  
+  // returns a copy of the trip object with only the filtered itineraries (by trip type)
+  withFilteredItineraries(tripType: string): TripResponseModel {
+    let newTrip = new TripResponseModel(this);
+    newTrip.itineraries = this.itinerariesByTripType(tripType);
+    return newTrip;
+  }
 
 }

@@ -89,7 +89,7 @@ export class DirectionsStepsTabPage {
   replanTrip() {
     this.events.publish('spinner:show');
 
-    this.oneClickProvider.getTripPlan(this.tripRequest)
+    this.oneClickProvider.planTrip(this.tripRequest)
     .subscribe((resp) => {
       let nav = this.app.getRootNav();
       

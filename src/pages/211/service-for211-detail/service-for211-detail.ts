@@ -96,7 +96,7 @@ export class ServiceFor211DetailPage {
     // Once response comes in, update the UI with travel times and allow
     // user to select a mode to view directions.
     this.tripPlanSubscription = this.oneClickProvider // Store the subscription in a property so it can be unsubscribed from if necessary
-    .getTripPlan(this.buildTripRequest(this.allModes))
+    .planTrip(this.buildTripRequest(this.allModes))
     .subscribe((resp) => {
       this.tripResponse = new TripResponseModel(resp);
       this.updateTravelTimesFromTripResponse(this.tripResponse);
@@ -121,16 +121,18 @@ export class ServiceFor211DetailPage {
   // Opens the directions page for the desired mode, passing a clone of the
   // trip response with all the irrelevant itineraries filtered out.
   openDirectionsPage(mode: string) {
-    let tripResponse = this.tripResponseWithFilteredItineraries(this.tripResponse, mode);
+    let tripResponse = this.tripResponse.withFilteredItineraries(mode);
 
     if (mode === 'car' || mode === 'transit'){
       this.navCtrl.push(DirectionsPage, {
         trip_response: tripResponse,
+        trip_id: tripResponse.id,
         mode: mode
       });
     } else if (mode === 'taxi') {
       this.navCtrl.push(TaxiServicesPage, {
         trip_response: tripResponse,
+        trip_id: tripResponse.id,
         mode: mode
       });
     } else if (mode === 'uber') {
@@ -150,7 +152,7 @@ export class ServiceFor211DetailPage {
 
   openOtherTransportationOptions(){
     this.navCtrl.push(TransportationEligibilityPage, {
-      trip_response: this.tripResponseWithFilteredItineraries(this.tripResponse, 'paratransit'),
+      trip_response: this.tripResponse.withFilteredItineraries('paratransit'),
       trip_request: this.tripRequest
     })
   }
@@ -198,15 +200,6 @@ export class ServiceFor211DetailPage {
     this.returnedModes = this.basicModes.filter((mode) => {
       return tripResponse.includesTripType(mode);
     })
-  }
-
-  // Returns a trip response object but with only the itineraries of the passed mode
-  tripResponseWithFilteredItineraries(tripResponse: TripResponseModel,
-                                      mode: string) {
-    if(!tripResponse) { return null; } // Return null if no tripResponse is present
-    let newTripResponse = new TripResponseModel(tripResponse);
-    newTripResponse.itineraries = newTripResponse.itinerariesByTripType(mode);
-    return newTripResponse;
   }
 
   // Returns duration in seconds for the given mode

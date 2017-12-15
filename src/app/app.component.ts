@@ -32,7 +32,6 @@ import { AuthProvider } from '../providers/auth/auth';
 import { I18nProvider } from '../providers/i18n/i18n';
 import { ExternalNavigationProvider } from '../providers/external-navigation/external-navigation';
 
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -73,9 +72,9 @@ export class MyApp {
       this.getUserInfo();
       
     });
-
+    
     // When a server error occurs, show an error message and return to the home page.
-    this.events.subscribe("error", (error) => {
+    this.events.subscribe("error:http", (error) => {
       
       // Only catch 500 errors for now, but can add additional error codes to the
       // if statement (and to translations) to catch additional error types
@@ -90,12 +89,12 @@ export class MyApp {
         errorToast.present();
       }
 
-    })
+    });
     
     // When user is updated, update user info.
     this.events.subscribe("user:updated", (user) => {
       this.updateUserInfo(user);
-    })
+    });
   }
 
   initializeApp() {
@@ -212,8 +211,8 @@ export class MyApp {
 
   // Check if we're already at the home page; if not, go there.
   goHome() {
-    if(this.nav.getActive().name !== "HelpMeFindPage") {
-      this.nav.setRoot(HelpMeFindPage);      
+    if((this.nav.getActive() && this.nav.getActive().name) !== "HelpMeFindPage") {
+      this.nav.setRoot(HelpMeFindPage);
     }
   }
 

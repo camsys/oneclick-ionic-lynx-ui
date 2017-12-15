@@ -238,26 +238,27 @@ export class OneClickProvider {
       .catch(error => this.handleError(error));
   }
 
-  getTripPlan(tripRequest: TripRequestModel): Observable<TripResponseModel>
-  {
+  // Plans a trip via OneClick, and returns the result
+  planTrip(tripRequest: TripRequestModel): Observable<TripResponseModel> {
     let uri = encodeURI(this.oneClickUrl + 
                         'trips/plan?locale=' +
-                        this.i18n.currentLocale())
+                        this.i18n.currentLocale());
 
     return this.http
             .post(uri, tripRequest, this.requestOptions())
-            .map( response => {
-              let trip = (response.json().data.trip as TripResponseModel);
-              let user = trip.user as User;
-              // If no user is signed in, OR the user is signed in as the user
-              // returned by the trip plan call, store returned user info in the session.
-              if(!this.auth.isSignedIn() || this.auth.isSignedIn(user)) {
-                this.auth.updateSessionUser(user);
-              }
-              
-              return trip;
-            })
+            .map(response => this.unpackTripResponse(response))
             .catch(error => this.handleError(error));
+  }
+  
+  // Gets an already-planned trip, based on trip ID (and user auth)
+  getTrip(tripId: number): Observable<TripResponseModel> {
+    let uri = encodeURI(this.oneClickUrl + 
+                        'trips/' + tripId +
+                        '?locale=' + this.i18n.currentLocale());
+                        
+    return this.http.get(uri, this.requestOptions())
+               .map(response => this.unpackTripResponse(response))
+               .catch(error => this.handleError(error));
   }
 
   getAlerts(): Promise<Alert[]>{
@@ -339,7 +340,7 @@ export class OneClickProvider {
   // for consumption by the app's home page.
   private handleError(error: any): any {
     console.error('An error occurred', error, this); // for demo purposes only
-    this.events.publish('error', error);
+    this.events.publish('error:http', error);
     return Observable.empty(); // return an empty observable so subscribe calls don't break
   }
 
@@ -353,6 +354,18 @@ export class OneClickProvider {
   // Filters out any categories without associated services
   private filterEmptyCategories(categories: any[]): any[] {
     return categories.filter(cat => cat.service_count > 0);
+  }
+  
+  private unpackTripResponse(response: any): TripResponseModel {
+    let trip = (response.json().data.trip as TripResponseModel);
+    let user = trip.user as User;
+    // If no user is signed in, OR the user is signed in as the user
+    // returned by the trip plan call, store returned user info in the session.
+    if(!this.auth.isSignedIn() || this.auth.isSignedIn(user)) {
+      this.auth.updateSessionUser(user);
+    }
+    
+    return trip;
   }
 
 }
