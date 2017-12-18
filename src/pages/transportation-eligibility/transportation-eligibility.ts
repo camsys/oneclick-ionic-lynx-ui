@@ -27,39 +27,71 @@ export class TransportationEligibilityPage {
   eligibilities: Eligibility[] = [];
   tripResponse: TripResponseModel=null;
   tripRequest: TripRequestModel;
+  
+  trip_id: number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private auth: AuthProvider,
-              public oneClickProvider: OneClickProvider,
+              public oneClick: OneClickProvider,
               private changeDetector: ChangeDetectorRef,
               public events: Events) {
-                
-    if(!navParams.data.trip_response) {
-      // If necessary NavParams are not present, go to home page
-      this.navCtrl.setRoot(HelpMeFindPage);
-    } else {
-      // Pull the trip response out of nav params and pull out the relevant accommodations and eligibilities
-      this.tripResponse = new TripResponseModel(navParams.data.trip_response);
-      this.accommodations = this.tripResponse.accommodations;
-      this.eligibilities = this.tripResponse.eligibilities;
-      
-      // If user is logged in, set the values for the eligibilities and accommodations based on their saved info
-      if(this.auth.isSignedIn() && this.auth.session().user) {
-        this.user = this.auth.session().user;
-        this.setAccomAndEligValues();
-      }
-
-      // Set up a tripRequest to make if any of the accommodation or eligibility values are changed
-      this.tripRequest = navParams.data.trip_request;
-      this.tripRequest.trip_types = ["paratransit"]; // Update trip request to only request paratransit
-      this.tripRequest.except_filters = ["schedule"]; // Don't filter by schedule, because we aren't letting the user pick a time      
-    }
+    
+    this.events.publish('spinner:show');            
+    this.trip_id = parseInt(navParams.data.trip_id);
     
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TransportationEligibilityPage');
+        
+    if(this.navParams.data.trip_response && this.navParams.data.trip_request) {
+
+      this.loadTripResponse(this.navParams.data.trip_response);
+      this.loadTripRequest(this.navParams.data.trip_request);
+
+    } else if(this.trip_id) {
+      this.oneClick.getTrip(this.trip_id)
+          .subscribe((tripResponse) => {
+            
+            let tripRequest = new TripResponseModel(tripResponse).buildTripRequest({except_filters: ["schedule", "eligibility"]});
+            this.loadTripRequest(tripRequest);
+            
+            // Have to re-plan trip in order to get relevant eligibilities and accommodations
+            this.oneClick.planTrip(tripRequest)
+            .subscribe(trip => this.loadTripResponse(trip));
+          });
+    } else {
+      // If necessary NavParams are not present, go to home page
+      this.navCtrl.setRoot(HelpMeFindPage);
+    }
+    
+  }
+  
+  // Loads trip response data onto the page
+  loadTripResponse(tripResponse: TripResponseModel) {
+    this.tripResponse = new TripResponseModel(tripResponse);
+
+    // Pull out the relevant accommodations and eligibilities
+    this.accommodations = this.tripResponse.accommodations;
+    this.eligibilities = this.tripResponse.eligibilities;
+    
+    // If user is logged in, set the values for the eligibilities and accommodations based on their saved info
+    if(this.auth.isSignedIn() && this.auth.session().user) {
+      this.user = this.auth.session().user;
+      this.setAccomAndEligValues();
+    }
+    
+    this.events.publish("spinner:hide");
+    this.changeDetector.detectChanges();
+  }
+  
+  // Loads trip request data into the page
+  loadTripRequest(tripRequest: TripRequestModel) {
+    // Set up a tripRequest to make if any of the accommodation or eligibility values are changed
+    this.tripRequest = tripRequest;
+    this.tripRequest.trip_types = ["paratransit"]; // Update trip request to only request paratransit
+    this.tripRequest.except_filters = ["schedule"]; // Don't filter by schedule, because we aren't letting the user pick a time      
   }
   
   // Method fires every time an accommodation or eligibility is selected or unselected
@@ -87,11 +119,10 @@ export class TransportationEligibilityPage {
   viewParatransitOptions() {
     this.events.publish('spinner:show');
     this.buildUserProfileParams();
-    this.oneClickProvider
-    .planTrip(this.tripRequest)
-    .forEach((resp) => {
+    this.oneClick.planTrip(this.tripRequest)
+    .subscribe((trip) => {
       this.events.publish('spinner:hide');
-      this.navCtrl.push(ParatransitServicesPage, { trip_response: resp });
+      this.navCtrl.push(ParatransitServicesPage, { trip_id: trip.id, trip_response: trip });
     });
   }
   

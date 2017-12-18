@@ -66,28 +66,19 @@ export class MyApp {
               private i18n: I18nProvider,
               public exNav: ExternalNavigationProvider) {
 
-    this.platform.ready().then(() => {
+    this.initializeApp();
 
-      this.initializeApp();
-      this.getUserInfo();
-      
-    });
-    
     // When a server error occurs, show an error message and return to the home page.
     this.events.subscribe("error:http", (error) => {
-      
-      // Only catch 500 errors for now, but can add additional error codes to the
-      // if statement (and to translations) to catch additional error types
-      if(error.status.toString()[0] === "5") {
-        this.goHome();
-        this.events.publish('spinner:hide'); // stop the spinner once we're back on the home page
-        let errorToast = this.toastCtrl.create({
-          message: this.translate.instant('lynx.global.error_messages.500'),
-          position: 'top',
-          duration: 3000
-        });
-        errorToast.present();
-      }
+
+      this.goHome();
+      this.events.publish('spinner:hide'); // stop the spinner once we're back on the home page
+      let errorToast = this.toastCtrl.create({
+        message: this.translate.instant('lynx.global.error_messages.' + error.status),
+        position: 'top',
+        duration: 3000
+      });
+      errorToast.present();
 
     });
     
@@ -98,14 +89,6 @@ export class MyApp {
   }
 
   initializeApp() {
-    // Okay, so the platform is ready and our plugins are available.
-    // Here you can do any higher level native things you might need.
-
-    this.i18n.initializeApp(); // Sets the default language based on device or browser
-
-    // Set the locale to whatever's in storage, or use the default
-    this.i18n.setLocale(this.auth.preferredLocale());
-
     this.statusBar.styleDefault();
     this.splashScreen.hide();
     
@@ -114,6 +97,21 @@ export class MyApp {
     
     // Set up the spinner div
     this.setupSpinner();
+    
+    // Get info about signed-in user
+    this.getUserInfo();
+    
+    // Okay, so the platform is ready and our plugins are available.
+    // Here you can do any higher level native things you might need.
+    this.platform.ready().then(() => {
+      
+      this.i18n.initializeApp(); // Sets the default language based on device or browser
+
+      // Set the locale to whatever's in storage, or use the default
+      this.i18n.setLocale(this.auth.preferredLocale());
+      
+    });
+
   }
 
   // Make a call to OneClick to get the user's details

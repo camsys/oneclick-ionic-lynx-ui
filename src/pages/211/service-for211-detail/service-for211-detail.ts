@@ -68,21 +68,18 @@ export class ServiceFor211DetailPage {
               private translate: TranslateService,
               public exNav: ExternalNavigationProvider,
               private location: Location) {
-                
-    console.log("CONSTRUCTING 211 PAGE");
-                
-    // Show the spinner until a trip is present
-    this.events.publish('spinner:show');
     
     this.trip_id = parseInt(this.navParams.data.trip_id);
     this.service_id = parseInt(this.navParams.data.service_id);
     this.location_id = parseInt(this.navParams.data.location_id);
-    
-    console.log("CONSTRUCTOR FUNCTION END");
 
   }
 
   ionViewDidEnter() {
+        
+    // Show the spinner until a trip is present
+    this.events.publish('spinner:show');
+
   
     // If a Trip ID is present, use that to fetch the already-planned trip
     if(this.trip_id) {
@@ -219,7 +216,8 @@ export class ServiceFor211DetailPage {
   openOtherTransportationOptions(){
     this.navCtrl.push(TransportationEligibilityPage, {
       trip_response: this.tripResponse.withFilteredItineraries('paratransit'),
-      trip_request: this.tripRequest
+      trip_request: this.tripRequest,
+      trip_id: this.trip_id
     })
   }
 

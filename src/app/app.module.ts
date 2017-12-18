@@ -165,9 +165,10 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
         { component: ServiceFor211DetailPage, name: 'Trip Options', segment: 'trip_options/:trip_id', defaultHistory: [HelpMeFindPage] },
         { component: ServiceFor211DetailPage, name: 'Service Details', segment: 'trip_options/:trip_id/:service_id/:location_id', defaultHistory: [HelpMeFindPage] },
         { component: DirectionsPage, name: 'Directions', segment: 'trip_directions/:mode/:trip_id', defaultHistory: [HelpMeFindPage] },
-        { component: TaxiServicesPage, name: 'Taxi Options', segment: 'taxi_services', defaultHistory: [HelpMeFindPage] },        
-        { component: TransportationEligibilityPage, name: 'Transportation Eligibility', segment: 'transportation_eligibility', defaultHistory: [HelpMeFindPage] },        
+        { component: TaxiServicesPage, name: 'Taxi Options', segment: 'taxi_services/:trip_id', defaultHistory: [HelpMeFindPage] },        
+        { component: TransportationEligibilityPage, name: 'Transportation Eligibility', segment: 'transportation_eligibility/:trip_id', defaultHistory: [HelpMeFindPage] },        
         { component: ParatransitServicesPage, name: 'Other Transportation Options', segment: 'paratransit_services', defaultHistory: [HelpMeFindPage] },        
+        { component: ParatransitServicesPage, name: 'Other Transportation Options', segment: 'paratransit_services/:trip_id', defaultHistory: [HelpMeFindPage] },        
       ]
     }),
     Ionic2RatingModule,
