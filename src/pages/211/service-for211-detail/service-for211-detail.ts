@@ -40,7 +40,7 @@ export class ServiceFor211DetailPage {
     this.content && this.content.resize();
   }
 
-  service: ServiceModel;
+  service: ServiceModel = {} as ServiceModel;
   origin: GooglePlaceModel = new GooglePlaceModel({});
   destination: GooglePlaceModel = new GooglePlaceModel({});
   basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
@@ -50,6 +50,10 @@ export class ServiceFor211DetailPage {
   tripResponse: TripResponseModel = new TripResponseModel({});
   tripPlanSubscription: any;
   detailKeys: string[] = []; // Array of the non-null detail keys in the details hash
+  
+  trip_id: number;
+  service_id: number;
+  location_id: number;
 
   transitTime: number = 0;
   driveTime: number = 0;
@@ -65,11 +69,23 @@ export class ServiceFor211DetailPage {
               public exNav: ExternalNavigationProvider,
               private location: Location) {
                 
+    console.log("CONSTRUCTING 211 PAGE");
+                
     // Show the spinner until a trip is present
     this.events.publish('spinner:show');
+    
+    this.trip_id = parseInt(this.navParams.data.trip_id);
+    this.service_id = parseInt(this.navParams.data.service_id);
+    this.location_id = parseInt(this.navParams.data.location_id);
+    
+    console.log("CONSTRUCTOR FUNCTION END");
 
+  }
+
+  ionViewDidEnter() {
+  
     // If a Trip ID is present, use that to fetch the already-planned trip
-    if(this.navParams.data.trip_id) {
+    if(this.trip_id) {
       this.oneClick.getTrip(this.navParams.data.trip_id)
           .subscribe((tripResponse) => this.loadTripResponse(tripResponse))
 
@@ -87,7 +103,6 @@ export class ServiceFor211DetailPage {
       .planTrip(this.buildTripRequest(this.allModes))
       .subscribe((tripResponse) => {
         this.loadTripResponse(tripResponse);
-        this.location.replaceState("/trip_options/" + this.tripResponse.id); // populate the URL with the returned trip's ID
       });
       
     // Otherwise, go to home page
@@ -95,22 +110,17 @@ export class ServiceFor211DetailPage {
       this.navCtrl.setRoot(HelpMeFindPage);
     }
     
-    // If a service is passed in the navParams, load it onto the page
-    if(this.navParams.data.service) {
-      // Set the service (if present)
-      this.service = this.navParams.data.service as ServiceModel;
+    // If a service_id and location_id are passed, get its details and load it into the page
+    if(this.service_id && this.location_id) {
+      this.oneClick
+          .get211ServiceDetails(this.navParams.data.service_id, this.navParams.data.location_id)
+          .subscribe((svc) => this.loadServiceDetails(svc));
       
-      if(this.service) {
-        // Set the detail keys to the non-null details
-        this.detailKeys = Object.keys(this.service.details)
-                                .filter((k) => this.service.details[k] !== null);
-      }
-
+    // If a service is passed in the navParams, load it onto the page
+    } else if(this.navParams.data.service) {
+      this.loadServiceDetails(this.navParams.data.service);
     }
-
-  }
-
-  ionViewDidEnter() {
+    
     this.content.resize(); // Make sure content isn't covered by navbar
   }
 
@@ -121,14 +131,57 @@ export class ServiceFor211DetailPage {
     }
   }
   
+  // Populates the URL based on the trip and service ids
+  updateURL() {
+    this.trip_id = this.tripResponse && this.tripResponse.id;
+    this.service_id = this.service && this.service.service_id;
+    this.location_id = this.service && this.service.location_id;
+    
+    let path = "/trip_options/";
+    
+    // If trip ID is present, add that to the path.
+    if(this.trip_id) {
+      path += this.trip_id;
+
+      // If service is also present, add it as well.
+      if(this.service_id && this.location_id) {
+        path += "/" + this.service_id + "/" + this.location_id;
+      }
+    }
+    
+    // Update the URL with the path string.
+    this.location.replaceState(path);
+      
+  }
+  
   // Loads the page from a OneClick trip response
-  loadTripResponse(tripResponse: TripResponseModel) {
+  loadTripResponse(tripResponse: TripResponseModel) {    
     this.tripResponse = new TripResponseModel(tripResponse);
     this.updateTravelTimesFromTripResponse(this.tripResponse);
     this.updateReturnedModes(this.tripResponse);
     this.updateTripPlaces(this.tripResponse);
+    this.content.resize(); // Make sure content isn't covered by navbar
+    this.updateURL();
     this.changeDetector.detectChanges();
     this.events.publish('spinner:hide');
+  }
+  
+  // Loads the page's service details based on a service object
+  loadServiceDetails(service: ServiceModel) {
+    
+    // Set the service (if present)
+    this.service = service as ServiceModel;
+    
+    if(this.service) {
+      // Set the detail keys to the non-null details
+      this.detailKeys = Object.keys(this.service.details)
+                              .filter((k) => this.service.details[k] !== null);
+    }
+    
+    // Update the URL now that the service ID is present
+    this.updateURL();
+    this.changeDetector.detectChanges();
+
   }
 
   // Opens the directions page for the desired mode, passing a clone of the

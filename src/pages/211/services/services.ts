@@ -70,6 +70,7 @@ export class ServicesPage {
   // When a service selected event is fired in one of the child tabs,
   // open the transportation options page, passing along the service, an origin, and a destination
   onServiceSelected(service: ServiceModel) {
+    
     // Insert the new page underneat the tabs pages, and then pop the tabs pages off the stack
     this.navCtrl.insert(this.navCtrl.length() - 1, ServiceFor211DetailPage, {
       service: service,
@@ -78,6 +79,7 @@ export class ServicesPage {
         name: service.site_name,
         geometry: { location: { lat: service.lat, lng: service.lng} }
       }
-    }).then(() => this.navCtrl.pop());
+    })
+    .then(() => this.navCtrl.pop());
   }
 }

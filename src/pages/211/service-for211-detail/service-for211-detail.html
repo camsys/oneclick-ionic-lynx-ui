@@ -2,7 +2,7 @@
 <ion-header>
 
   <!-- If there's a service present, put its name and address in the header -->
-  <ion-navbar class="lynx-toolbar" *ngIf="service; else noServiceHeader">
+  <ion-navbar class="lynx-toolbar" *ngIf="service_id && location_id; else noServiceHeader">
     <ion-title class="dynamic-toolbar-title"><b>{{service.agency_name}}</b></ion-title>
     <div class="lynx-toolbar-body">{{service.address}}</div>
     <div *ngIf="service" class="lynx-toolbar-body">
@@ -80,7 +80,7 @@
     <!-- SERVICE DETAILS -->
 
     <!-- Show service details only if service is present -->
-    <ion-row *ngIf="service">
+    <ion-row *ngIf="service_id && location_id">
       <ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2>
         <h3>{{ "lynx.pages.service_details.details_header" | translate }}</h3>
         
@@ -93,7 +93,7 @@
     </ion-row>
     
     <!-- Show feedback and questions buttons only if service is present -->
-    <ion-row *ngIf="service">
+    <ion-row *ngIf="service_id && location_id">
       
       <!-- Questions? button -->
       <!-- Show questions? button only if service phone # is present -->

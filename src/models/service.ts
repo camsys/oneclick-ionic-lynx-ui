@@ -27,4 +27,6 @@ export class ServiceModel {
     travel_instructions: string;
     area_served: string;
   };
+  service_id:number;
+  location_id:number;
 }

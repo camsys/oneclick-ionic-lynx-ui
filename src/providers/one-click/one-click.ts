@@ -217,6 +217,23 @@ export class OneClickProvider {
       .then(subSubCats => this.filterEmptyCategories(subSubCats))
       .catch(error => this.handleError(error));
   }
+  
+  // Gets ReferNET 211 service details
+  get211ServiceDetails(serviceId: number, locationId: number): Observable<ServiceModel> {
+    let url = encodeURI(
+      this.oneClickUrl +
+      'oneclick_refernet/services/details?' +
+      'location_id=' + locationId + 
+      '&service_id=' + serviceId +
+      '&locale=' + this.i18n.currentLocale()
+    );
+    
+    return this.http.get(url)
+      .map((response) => {
+        return JSON.parse(response.text()) as ServiceModel;
+      })
+      .catch(error => this.handleError(error));
+  }
 
   // Gets refernet services based on subsubcategory name, and optional lat/lng
   getServicesFromSubSubCategoryName(subSubCategoryName: string, lat: number, lng: number): Promise<ServiceModel[]>{
