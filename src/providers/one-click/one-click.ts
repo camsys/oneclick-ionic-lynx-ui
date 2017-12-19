@@ -158,6 +158,18 @@ export class OneClickProvider {
     let user = JSON.parse(response.text()).data.user as User;
     return this.auth.updateSessionUser(user); // store user info in session storage
   }
+  
+  getCategoryByCode(code: string): Observable<CategoryFor211Model> {    
+    let url: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/categories/' + code +
+      '?locale=' + this.i18n.currentLocale()
+    );
+    
+    return this.http.get(url)
+      .map(resp => JSON.parse(resp.text()) as CategoryFor211Model)
+      .catch(error => this.handleError(error));
+  }
 
   getCategoriesFor211Services(lat: number, lng: number): Promise<CategoryFor211Model[]> {
     let uri: string = encodeURI(
@@ -174,6 +186,18 @@ export class OneClickProvider {
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model[])
       .then(categories => this.filterEmptyCategories(categories))
+      .catch(error => this.handleError(error));
+  }
+  
+  getSubCategoryByCode(code: string): Observable<SubcategoryFor211Model> {    
+    let url: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/sub_categories/' + code +
+      '?locale=' + this.i18n.currentLocale()
+    );
+    
+    return this.http.get(url)
+      .map(resp => JSON.parse(resp.text()) as SubcategoryFor211Model)
       .catch(error => this.handleError(error));
   }
 
@@ -194,6 +218,18 @@ export class OneClickProvider {
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as SubcategoryFor211Model[])
       .then(subCats => this.filterEmptyCategories(subCats))
+      .catch(error => this.handleError(error));
+  }
+  
+  getSubSubCategoryByCode(code: string): Observable<SubSubcategoryFor211Model> {    
+    let url: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/sub_sub_categories/' + code +
+      '?locale=' + this.i18n.currentLocale()
+    );
+    
+    return this.http.get(url)
+      .map(resp => JSON.parse(resp.text()) as SubSubcategoryFor211Model)
       .catch(error => this.handleError(error));
   }
 
@@ -217,6 +253,23 @@ export class OneClickProvider {
       .then(subSubCats => this.filterEmptyCategories(subSubCats))
       .catch(error => this.handleError(error));
   }
+  
+  // Gets ReferNET 211 service details
+  get211ServiceDetails(serviceId: number, locationId: number): Observable<ServiceModel> {
+    let url = encodeURI(
+      this.oneClickUrl +
+      'oneclick_refernet/services/details?' +
+      'location_id=' + locationId + 
+      '&service_id=' + serviceId +
+      '&locale=' + this.i18n.currentLocale()
+    );
+    
+    return this.http.get(url)
+      .map((response) => {
+        return JSON.parse(response.text()) as ServiceModel;
+      })
+      .catch(error => this.handleError(error));
+  }
 
   // Gets refernet services based on subsubcategory name, and optional lat/lng
   getServicesFromSubSubCategoryName(subSubCategoryName: string, lat: number, lng: number): Promise<ServiceModel[]>{
@@ -238,26 +291,27 @@ export class OneClickProvider {
       .catch(error => this.handleError(error));
   }
 
-  getTripPlan(tripRequest: TripRequestModel): Observable<TripResponseModel>
-  {
+  // Plans a trip via OneClick, and returns the result
+  planTrip(tripRequest: TripRequestModel): Observable<TripResponseModel> {
     let uri = encodeURI(this.oneClickUrl + 
                         'trips/plan?locale=' +
-                        this.i18n.currentLocale())
+                        this.i18n.currentLocale());
 
     return this.http
             .post(uri, tripRequest, this.requestOptions())
-            .map( response => {
-              let trip = (response.json().data.trip as TripResponseModel);
-              let user = trip.user as User;
-              // If no user is signed in, OR the user is signed in as the user
-              // returned by the trip plan call, store returned user info in the session.
-              if(!this.auth.isSignedIn() || this.auth.isSignedIn(user)) {
-                this.auth.updateSessionUser(user);
-              }
-              
-              return trip;
-            })
+            .map(response => this.unpackTripResponse(response))
             .catch(error => this.handleError(error));
+  }
+  
+  // Gets an already-planned trip, based on trip ID (and user auth)
+  getTrip(tripId: number): Observable<TripResponseModel> {
+    let uri = encodeURI(this.oneClickUrl + 
+                        'trips/' + tripId +
+                        '?locale=' + this.i18n.currentLocale());
+                        
+    return this.http.get(uri, this.requestOptions())
+               .map(response => this.unpackTripResponse(response))
+               .catch(error => this.handleError(error));
   }
 
   getAlerts(): Promise<Alert[]>{
@@ -339,7 +393,7 @@ export class OneClickProvider {
   // for consumption by the app's home page.
   private handleError(error: any): any {
     console.error('An error occurred', error, this); // for demo purposes only
-    this.events.publish('error', error);
+    this.events.publish('error:http', error);
     return Observable.empty(); // return an empty observable so subscribe calls don't break
   }
 
@@ -353,6 +407,18 @@ export class OneClickProvider {
   // Filters out any categories without associated services
   private filterEmptyCategories(categories: any[]): any[] {
     return categories.filter(cat => cat.service_count > 0);
+  }
+  
+  private unpackTripResponse(response: any): TripResponseModel {
+    let trip = (response.json().data.trip as TripResponseModel);
+    let user = trip.user as User;
+    // If no user is signed in, OR the user is signed in as the user
+    // returned by the trip plan call, store returned user info in the session.
+    if(!this.auth.isSignedIn() || this.auth.isSignedIn(user)) {
+      this.auth.updateSessionUser(user);
+    }
+    
+    return trip;
   }
 
 }

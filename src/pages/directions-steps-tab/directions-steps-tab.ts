@@ -33,7 +33,7 @@ export class DirectionsStepsTabPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public oneClickProvider: OneClickProvider,
-              private _app: App,
+              private app: App,
               public events: Events,
               public helpers: HelpersProvider,
               public changeDetector: ChangeDetectorRef) {
@@ -89,16 +89,19 @@ export class DirectionsStepsTabPage {
   replanTrip() {
     this.events.publish('spinner:show');
 
-    this.oneClickProvider.getTripPlan(this.tripRequest).
-      forEach(value => {
-        this._app.getRootNav().pop(); // Remove the directions pages and reload them
+    this.oneClickProvider.planTrip(this.tripRequest)
+    .subscribe((resp) => {
+      let nav = this.app.getRootNav();
+      
+      // Insert the new directions page underneat the root page, then pop off the old page.
+      nav.insert(nav.length() - 1, DirectionsPage, {
+        trip_response: resp,
+        mode: this.mode
+      }).then(() => {
+        nav.pop();
         this.events.publish('spinner:hide');
-        this._app.getRootNav()      // Load the new directions page on top of the parent page, not within the tab
-        .push(DirectionsPage, {
-          trip_response: value,
-          mode: this.mode
-        });
       });
+    });
   }
 
   // Fires every time a new itinerary is selected

@@ -27,7 +27,7 @@
       </place-search>
     </div>
 
-    <div id="destination-search-container" [hidden]="findServicesView">
+    <div id="destination-search-container" [hidden]="viewType === 'services'">
       <ion-title>{{ "lynx.pages.user_locator.destination_search.label" | translate }}</ion-title>
       <place-search #destinationSearch
                     placeholder="{{ 'lynx.pages.user_locator.destination_search.placeholder' | translate }}"
@@ -56,7 +56,7 @@
   </autocomplete-results>
 
   <!-- 211 SERVICE FINDER BUTTON -->
-  <div text-center id="find-services-button-container" *ngIf="findServicesView">
+  <div text-center id="find-services-button-container" *ngIf="viewType === 'services'">
     <button ion-button large round
             class="lynx-button-primary"
             id="find-services-button"
@@ -68,7 +68,7 @@
   </div>
 
   <!-- PLAN TRIP BUTTON -->
-  <div text-center id="find-transportation-button-container" *ngIf="!findServicesView">
+  <div text-center id="find-transportation-button-container" *ngIf="viewType === 'transportation'">
     <button ion-button large round
             class="lynx-button-primary"
             id="find-transportation-button"

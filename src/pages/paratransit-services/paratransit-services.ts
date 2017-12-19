@@ -19,32 +19,45 @@ import { FeedbackModalPage } from "../feedback-modal/feedback-modal";
   templateUrl: 'paratransit-services.html'
 })
 export class ParatransitServicesPage {
-
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams,
-              private oneClickProvider: OneClickProvider,
-              public modalCtrl: ModalController,
-              public toastCtrl: ToastController,
-              private translate: TranslateService) {}
-              
+  
   tripResponse: TripResponseModel;
   transportationServices: OneClickServiceModel[];
 
+  trip_id: number;
+
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private oneClick: OneClickProvider,
+              public modalCtrl: ModalController,
+              public toastCtrl: ToastController,
+              private translate: TranslateService) {
+  
+    this.trip_id = this.navParams.data.trip_id;              
+  }
+
   ionViewDidLoad() {
-    this.tripResponse = this.navParams.data.trip_response;
     
-    if(this.tripResponse) { 
-      // If a trip response was sent via NavParams, pull the services out of it
-      this.transportationServices = this.tripResponse.itineraries.map((itin) => {
-        let svc = new OneClickServiceModel(itin.service);
-        svc.fare = itin.cost;
-        return svc;
-      })
-    } else {
-      // Otherwise, make a call to OneClick for an index of all services
-      this.oneClickProvider.getParatransitServices()
+    if(this.navParams.data.trip_response) { // If a trip object is passed, load its services
+      this.loadTripResponse(this.navParams.data.trip_response);
+    } else if(this.trip_id) { // If a trip_id is passed, get the trip from OneClick and load its services
+      this.oneClick.getTrip(this.trip_id)
+      .subscribe(trip => this.loadTripResponse(trip));
+    } else { // Otherwise, make a call to OneClick for an index of all services
+      this.oneClick.getParatransitServices()
       .then(tps => this.transportationServices = tps);
     }
+  }
+  
+  // Loads trip response data onto the page
+  loadTripResponse(tripResponse: TripResponseModel) {
+    this.tripResponse = new TripResponseModel(tripResponse).withFilteredItineraries('paratransit');
+    
+    // If a trip response was sent via NavParams, pull the services out of it
+    this.transportationServices = this.tripResponse.itineraries.map((itin) => {
+      let svc = new OneClickServiceModel(itin.service);
+      svc.fare = itin.cost;
+      return svc;
+    })
   }
   
   // Open the feedback modal for rating the service

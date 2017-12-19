@@ -32,7 +32,6 @@ import { AuthProvider } from '../providers/auth/auth';
 import { I18nProvider } from '../providers/i18n/i18n';
 import { ExternalNavigationProvider } from '../providers/external-navigation/external-navigation';
 
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -67,46 +66,31 @@ export class MyApp {
               private i18n: I18nProvider,
               public exNav: ExternalNavigationProvider) {
 
-    this.platform.ready().then(() => {
-
-      this.initializeApp();
-      this.getUserInfo();
-      
-    });
+    this.initializeApp();
 
     // When a server error occurs, show an error message and return to the home page.
-    this.events.subscribe("error", (error) => {
-      
-      // Only catch 500 errors for now, but can add additional error codes to the
-      // if statement (and to translations) to catch additional error types
-      if(error.status.toString()[0] === "5") {
-        this.goHome();
-        this.events.publish('spinner:hide'); // stop the spinner once we're back on the home page
-        let errorToast = this.toastCtrl.create({
-          message: this.translate.instant('lynx.global.error_messages.500'),
-          position: 'top',
-          duration: 3000
-        });
-        errorToast.present();
-      }
+    this.events.subscribe("error:http", (error) => {
 
-    })
+      this.goHome();
+      this.events.publish('spinner:hide'); // stop the spinner once we're back on the home page
+      let errorToast = this.toastCtrl.create({
+        message: this.translate.instant('lynx.global.error_messages.' + error.status),
+        position: 'top',
+        duration: 3000
+      });
+      errorToast.present();
+
+    });
     
     // When user is updated, update user info.
     this.events.subscribe("user:updated", (user) => {
       this.updateUserInfo(user);
-    })
+    });
   }
 
   initializeApp() {
-    // Okay, so the platform is ready and our plugins are available.
-    // Here you can do any higher level native things you might need.
-
-    this.i18n.initializeApp(); // Sets the default language based on device or browser
-
-    // Set the locale to whatever's in storage, or use the default
-    this.i18n.setLocale(this.auth.preferredLocale());
-
+    console.log("INITIALIZING APP...");
+    
     this.statusBar.styleDefault();
     this.splashScreen.hide();
     
@@ -115,6 +99,21 @@ export class MyApp {
     
     // Set up the spinner div
     this.setupSpinner();
+    
+    // Get info about signed-in user
+    this.getUserInfo();
+    
+    // Okay, so the platform is ready and our plugins are available.
+    // Here you can do any higher level native things you might need.
+    this.platform.ready().then(() => {
+      
+      this.i18n.initializeApp(); // Sets the default language based on device or browser
+
+      // Set the locale to whatever's in storage, or use the default
+      this.i18n.setLocale(this.auth.preferredLocale());
+      
+    });
+
   }
 
   // Make a call to OneClick to get the user's details
@@ -152,7 +151,7 @@ export class MyApp {
       { title: 'about_us', component: AboutUsPage },
       { title: 'contact_us', component: ContactUsPage },
       { title: 'transportation', component: ParatransitServicesPage },
-      { title: 'resources', component: UserLocatorPage, params: { findServicesView: true}},
+      { title: 'resources', component: UserLocatorPage, params: { viewType: 'services'}},
       { title: 'language_selector', component: "language_selector" },
       { title: 'feedback', component: "feedback" },
       { title: 'feedback_status', component: FeedbackStatusPage },
@@ -212,8 +211,10 @@ export class MyApp {
 
   // Check if we're already at the home page; if not, go there.
   goHome() {
-    if(this.nav.getActive().name !== "HelpMeFindPage") {
-      this.nav.setRoot(HelpMeFindPage);      
+    console.log("GOING HOME");
+    
+    if((this.nav.getActive() && this.nav.getActive().name) !== "HelpMeFindPage") {
+      this.nav.setRoot(HelpMeFindPage);
     }
   }
 

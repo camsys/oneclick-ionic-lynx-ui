@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMapsHelpersProvider } from '../../../providers/google/google-maps-helpers';
@@ -19,8 +19,8 @@ export class ServicesMapTabPage {
 
   // This is needed to dynamically change the div containing the marker's information
   service_map: google.maps.Map;
-  matches: ServiceModel[];
-  selectedMatch: ServiceModel;
+  services: ServiceModel[];
+  selectedService: ServiceModel;
   markerSelected: boolean;
 
 
@@ -29,17 +29,16 @@ export class ServicesMapTabPage {
               public platform: Platform,
               public geolocation: Geolocation,
               private googleMapsHelpers: GoogleMapsHelpersProvider,
-              public events: Events) {
+              public events: Events,
+              private changeDetector: ChangeDetectorRef) {
     this.service_map = null;
-    this.matches = navParams.data;
-    this.selectedMatch = null;
+    this.services = navParams.data;
+    this.selectedService = null;
     this.markerSelected = false;
   }
 
   ionViewDidLoad() {
     this.platform.ready().then(() => { this.initializeMap();});
-    // this.markerSelected = true;
-
   }
 
   initializeMap(): void {
@@ -48,7 +47,7 @@ export class ServicesMapTabPage {
     let me = this;
 
     // Draw service markers, with event handlers that open details window on click    
-    let markers = this.matches
+    let markers = this.services
         .filter((service) => {
           return (typeof service.lat!='undefined' && service.lat) &&
                  (typeof service.lng!='undefined' && service.lng);
@@ -59,7 +58,6 @@ export class ServicesMapTabPage {
           let marker : google.maps.Marker = new google.maps.Marker;
           marker.setPosition(service_location);
           marker.setMap(this.service_map);
-          // marker.setLabel(service.Name_Agency);
           marker.setValues(service);
           marker.setTitle(service.agency_name);
           marker.setClickable(true);
@@ -75,14 +73,15 @@ export class ServicesMapTabPage {
     // Add event handler for clicking OFF a service marker, closing the details window
     google.maps.event.addListener(this.service_map, "click", function(event) {
       me.markerSelected = false;
-      me.selectedMatch = null;
+      me.selectedService = null;
     });
 
   }
 
-  addServiceInfo(serviceMatch: ServiceModel){
+  addServiceInfo(svc: ServiceModel){
     this.markerSelected = true;
-    this.selectedMatch = serviceMatch;
+    this.selectedService = svc;
+    this.changeDetector.detectChanges();
   }
 
   selectService(match : ServiceModel){

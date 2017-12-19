@@ -63,6 +63,8 @@
       },
       
       "error_messages": {
+        "401": "es_Sorry! An error occurred. Please try again later.",
+        "404": "es_Sorry! An error occurred. Please try again later.",
         "500": "es_Sorry! An error occurred. Please try again later."
       }
 
@@ -149,7 +151,7 @@
           "email_yourself": "es_Email yourself this list"
         }
       },
-
+      
       "service_details": {
         "details_header": "es_About this Service",
         "phone_header": "es_Have Questions?",

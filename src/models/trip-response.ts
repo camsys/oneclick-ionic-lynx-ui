@@ -4,6 +4,7 @@ import { Accommodation } from './accommodation';
 import { Purpose } from './purpose';
 import { ItineraryModel } from "./itinerary";
 import { OneClickPlaceModel } from './one-click-place';
+import { TripRequestModel } from './trip-request';
 
 export class TripResponseModel {
   id: number;
@@ -49,6 +50,33 @@ export class TripResponseModel {
     return this.itineraries
                .map((itin) => itin.trip_type)
                .findIndex((tt) => tt === tripType) >= 0
+  }
+  
+  // returns a copy of the trip object with only the filtered itineraries (by trip type)
+  withFilteredItineraries(tripType: string): TripResponseModel {
+    let newTrip = new TripResponseModel(this);
+    newTrip.itineraries = this.itinerariesByTripType(tripType);
+    return newTrip;
+  }
+  
+  // Builds a trip request for replanning this trip
+  buildTripRequest(options?: any): TripRequestModel {
+    options = options || {};
+    
+    let tripRequest = new TripRequestModel();
+    
+    // Set trip attributes
+    tripRequest.trip.origin_attributes = this.origin;
+    tripRequest.trip.destination_attributes = this.destination;
+    tripRequest.trip.trip_time = this.trip_time;
+    tripRequest.trip.arrive_by = this.arrive_by;
+
+    // Pull out options from hash
+    tripRequest.trip_types = options.modes || options.trip_types || ['transit', 'car', 'taxi', 'uber', 'paratransit'];
+    tripRequest.except_filters = options.except_filters || null;
+    tripRequest.only_filters = options.only_filters || null;
+    
+    return tripRequest;
   }
 
 }

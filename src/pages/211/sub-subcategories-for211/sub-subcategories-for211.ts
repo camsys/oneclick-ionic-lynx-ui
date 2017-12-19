@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, Platform } from 'ionic-angular';
 
-import { ServicesPage } from '../services/services'
+import { ServicesPage } from '../services/services';
+import { HelpMeFindPage } from '../../help-me-find/help-me-find';
 
 import { OneClickProvider } from '../../../providers/one-click/one-click';
 import { SubcategoryFor211Model } from '../../../models/subcategory-for-211'
@@ -23,44 +24,47 @@ import { AuthProvider } from '../../../providers/auth/auth';
 })
 export class SubSubcategoriesFor211Page {
 
+  code: string;
   subcategory: SubcategoryFor211Model;
   subSubCategories: SubSubcategoryFor211Model[];
-  // userStartingLocation: GooglePlaceModel;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private oneClickServiceProvider: OneClickProvider,
+              private oneClick: OneClickProvider,
               public events: Events,
-              private auth: AuthProvider ) {
-    this.subcategory = navParams.data.selected_subcategory;
-    // this.userStartingLocation = this.auth.session().user_starting_location;
+              private auth: AuthProvider,
+              public platform: Platform) {
+                
+    this.code = this.navParams.data.code;
+    
+    // Wait for platform to be ready so proper language is set
+    this.platform.ready().then(() => {
+      
+      // Fetch the subcategories based on the passed category code
+      this.getSubSubCategories(this.code);
+      
+      // If subcategory object is passed, set it as the subcategory
+      if(this.navParams.data.subcategory) {
+        this.subcategory = this.navParams.data.subcategory as SubcategoryFor211Model;
+      } else if(this.code) { // Otherwise, get subcategory details based on the code
+        this.oneClick.getSubCategoryByCode(this.code)
+            .subscribe(subcat => this.subcategory = subcat);
+      } else { // Or, if necessary nav params not passed, go home.
+        this.navCtrl.setRoot(HelpMeFindPage);
+      }
+      
+    })
   }
 
-  getSubSubCategories(): void {
+  getSubSubCategories(code: string): void {
     let userLocation = this.auth.userLocation();
-    this.oneClickServiceProvider
-        .getSubSubcategoryForSubcategoryName(this.subcategory.code, userLocation.lat(), userLocation.lng())
+    this.oneClick
+        .getSubSubcategoryForSubcategoryName(code, userLocation.lat(), userLocation.lng())
         .then(sscs => this.subSubCategories = sscs);
   }
 
-  ionViewDidLoad() {
-    this.getSubSubCategories();
-  }
-
-  openToMatchList(subSubCategory: SubSubcategoryFor211Model) {
-    this.events.publish('spinner:show'); // Show spinner while results are loading
-    let userLocation = this.auth.userLocation();
-
-    this.oneClickServiceProvider
-    .getServicesFromSubSubCategoryName(subSubCategory.code, userLocation.lat(), userLocation.lng())
-    .then((value) => {
-      this.events.publish('spinner:hide'); // Hide spinner once results come back
-      this.navCtrl.push(ServicesPage, {
-          selected_sub_subcategory: subSubCategory,
-          matches_result: value
-        });
-      }
-    );
-
+  openToServices(subSubCategory: SubSubcategoryFor211Model) {
+    this.navCtrl.push(ServicesPage, { sub_sub_category: subSubCategory, code: subSubCategory.code });
   }
 
 }

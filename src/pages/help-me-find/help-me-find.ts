@@ -51,12 +51,13 @@ export class HelpMeFindPage {
   }
 
   openResourcesPage() {
-    this.navCtrl.push(UserLocatorPage, { findServicesView: true});
+    this.navCtrl.push(UserLocatorPage, { viewType: 'services'});
   }
 
   openTransportationPage() {
-    this.navCtrl.push(UserLocatorPage, { findServicesView: false});
+    this.navCtrl.push(UserLocatorPage, { viewType: 'transportation'});
   }
+
 
   presentAlerts() {
 

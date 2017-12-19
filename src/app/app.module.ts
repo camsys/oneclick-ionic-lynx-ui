@@ -49,7 +49,6 @@ import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { DirectionsPage } from '../pages/directions/directions';
 import { DirectionsStepsTabPage } from '../pages/directions-steps-tab/directions-steps-tab';
 import { DirectionsMapTabPage } from '../pages/directions-map-tab/directions-map-tab';
-import { DirectTransporationFinderPage } from '../pages/direct-transporation-finder/direct-transporation-finder';
 import { TransportationEligibilityPage } from '../pages/transportation-eligibility/transportation-eligibility';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { SignUpPage } from '../pages/sign-up/sign-up';
@@ -122,7 +121,6 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
     ParatransitServicesPage,
     AboutUsPage,
     ContactUsPage,
-    DirectTransporationFinderPage,
     DirectionsPage,
     DirectionsStepsTabPage,
     DirectionsMapTabPage,
@@ -154,7 +152,32 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {}, {
+      links: [
+        { component: HelpMeFindPage, name: 'Home', segment: 'home' },
+        { component: AboutUsPage, name: 'About Us', segment: 'about_us', defaultHistory: [HelpMeFindPage] },
+        { component: ContactUsPage, name: 'Contact Us', segment: 'contact_us', defaultHistory: [HelpMeFindPage] },
+        { component: UserLocatorPage, name: 'Locator', segment: 'locator/:viewType', defaultHistory: [HelpMeFindPage] },
+        { component: CategoriesFor211Page, name: 'Categories', segment: 'categories', defaultHistory: [HelpMeFindPage] },
+        { component: SubcategoriesFor211Page, name: 'Sub-Categories', segment: 'sub_categories/:code', defaultHistory: [HelpMeFindPage] },
+        { component: SubcategoriesFor211Page, name: 'Sub-Categories', segment: 'sub_categories', defaultHistory: [HelpMeFindPage] },
+        { component: SubSubcategoriesFor211Page, name: 'Sub-Sub-Categories', segment: 'sub_sub_categories/:code', defaultHistory: [HelpMeFindPage] },        
+        { component: ServicesPage, name: 'Services', segment: 'services/:code', defaultHistory: [HelpMeFindPage] },
+        { component: ServiceFor211DetailPage, name: 'Trip Options', segment: 'trip_options', defaultHistory: [HelpMeFindPage] },
+        { component: ServiceFor211DetailPage, name: 'Trip Options', segment: 'trip_options/:trip_id', defaultHistory: [HelpMeFindPage] },
+        { component: ServiceFor211DetailPage, name: 'Service Details', segment: 'trip_options/:trip_id/:service_id/:location_id', defaultHistory: [HelpMeFindPage] },
+        { component: DirectionsPage, name: 'Directions', segment: 'trip_directions/:mode/:trip_id', defaultHistory: [HelpMeFindPage] },
+        { component: TaxiServicesPage, name: 'Taxi Options', segment: 'taxi_services/:trip_id', defaultHistory: [HelpMeFindPage] },        
+        { component: TransportationEligibilityPage, name: 'Transportation Eligibility', segment: 'transportation_eligibility/:trip_id', defaultHistory: [HelpMeFindPage] },        
+        { component: ParatransitServicesPage, name: 'All Paratransit Options', segment: 'paratransit_services', defaultHistory: [HelpMeFindPage] },        
+        { component: ParatransitServicesPage, name: 'Paratransit Options for Trip', segment: 'paratransit_services/:trip_id', defaultHistory: [HelpMeFindPage] },        
+        { component: UserProfilePage, name: 'User Profile', segment: 'profile', defaultHistory: [HelpMeFindPage] },
+        { component: SignInPage, name: 'Sign In', segment: 'sign_in', defaultHistory: [HelpMeFindPage] },
+        { component: ResetPasswordPage, name: 'Reset Password', segment: 'reset_password', defaultHistory: [HelpMeFindPage] },
+        { component: SignUpPage, name: 'Sign Up', segment: 'sign_up', defaultHistory: [HelpMeFindPage] },
+        { component: FeedbackStatusPage, name: 'Feedback Status', segment: 'feedback_status', defaultHistory: [HelpMeFindPage] },
+      ]
+    }),
     Ionic2RatingModule,
     HttpModule,
     TranslateModule.forRoot({
@@ -183,7 +206,6 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
     ParatransitServicesPage,
     AboutUsPage,
     ContactUsPage,
-    DirectTransporationFinderPage,
     DirectionsPage,
     DirectionsStepsTabPage,
     DirectionsMapTabPage,
@@ -203,7 +225,7 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
     SplashScreen,
     InAppBrowser,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: ErrorHandler, useClass: IonicErrorHandler },
     OneClickProvider,
     GeocodeServiceProvider,
     GoogleMapsHelpersProvider,
@@ -247,7 +269,6 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
     ParatransitServicesPage,
     AboutUsPage,
     ContactUsPage,
-    DirectTransporationFinderPage,
     DirectionsPage,
     DirectionsStepsTabPage,
     DirectionsMapTabPage,

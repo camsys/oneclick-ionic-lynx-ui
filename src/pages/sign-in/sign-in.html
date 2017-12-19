@@ -11,7 +11,7 @@
 
 <ion-content padding>
 
-  <div>
+  <ion-grid>
     <form (ngSubmit)="signIn()" #signInForm="ngForm">
 
       <ion-row>
@@ -49,13 +49,13 @@
 
       <ion-row>
         <ion-col text-center>
-          <a href="#" class="lynx-button-link link-black" (click)="resetPassword()">
+          <button type="button" class="lynx-button-link link-black" (click)="resetPassword()">
             {{ "lynx.pages.sign_in.reset_password_button" | translate }}
-          </a>
+          </button>
         </ion-col>
       </ion-row>
 
     </form>
-  </div>
+  </ion-grid>
 
 </ion-content>

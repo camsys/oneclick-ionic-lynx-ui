@@ -60,7 +60,7 @@ export class I18nProvider {
   
   // Returns the current locale being used (or the default one)
   currentLocale(): string {
-    return this.translate.currentLang || this.translate.getDefaultLang();
+    return this.translate.currentLang || this.translate.getDefaultLang() || environment.DEFAULT_LOCALE;
   }
   
   // Sets the locale, defaulting to default language.
