@@ -163,6 +163,7 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
         { component: SubcategoriesFor211Page, name: 'Sub-Categories', segment: 'sub_categories', defaultHistory: [HelpMeFindPage] },
         { component: SubSubcategoriesFor211Page, name: 'Sub-Sub-Categories', segment: 'sub_sub_categories/:code', defaultHistory: [HelpMeFindPage] },        
         { component: ServicesPage, name: 'Services', segment: 'services/:code', defaultHistory: [HelpMeFindPage] },
+        { component: ServiceFor211DetailPage, name: 'Trip Options', segment: 'trip_options', defaultHistory: [HelpMeFindPage] },
         { component: ServiceFor211DetailPage, name: 'Trip Options', segment: 'trip_options/:trip_id', defaultHistory: [HelpMeFindPage] },
         { component: ServiceFor211DetailPage, name: 'Service Details', segment: 'trip_options/:trip_id/:service_id/:location_id', defaultHistory: [HelpMeFindPage] },
         { component: DirectionsPage, name: 'Directions', segment: 'trip_directions/:mode/:trip_id', defaultHistory: [HelpMeFindPage] },

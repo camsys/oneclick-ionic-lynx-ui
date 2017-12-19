@@ -130,6 +130,7 @@ export class ServiceFor211DetailPage {
   
   // Populates the URL based on the trip and service ids
   updateURL() {
+    
     this.trip_id = this.tripResponse && this.tripResponse.id;
     this.service_id = this.service && this.service.service_id;
     this.location_id = this.service && this.service.location_id;
@@ -144,10 +145,10 @@ export class ServiceFor211DetailPage {
       if(this.service_id && this.location_id) {
         path += "/" + this.service_id + "/" + this.location_id;
       }
+      
+      // Update the URL with the path string.
+      this.location.replaceState(path);
     }
-    
-    // Update the URL with the path string.
-    this.location.replaceState(path);
       
   }
   
