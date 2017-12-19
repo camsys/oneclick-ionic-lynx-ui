@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import {  IonicPage, NavController, NavParams, ToastController, Toast } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
 // Pages
@@ -30,6 +30,8 @@ export class SignUpPage {
   // formControlPasswordConfirm: FormControl;
   signUpFormGroup: FormGroup;
   submitAttempt: boolean = false;
+  errorToast: Toast;
+
 
   constructor(public navCtrl: NavController,
               public formBuilder: FormBuilder,
@@ -44,6 +46,7 @@ export class SignUpPage {
       formControlPassword: ['', Validators.compose([Validators.required])],
       formControlPasswordConfirm: ['', Validators.compose([Validators.required])]
     });
+    this.errorToast = this.toastCtrl.create({});
   }
 
   ionViewDidLoad() {
@@ -63,7 +66,8 @@ export class SignUpPage {
         .subscribe(
           data => {this.navCtrl.push(HelpMeFindPage);},
           error => {
-            let errors: string = this.translate.instant("lynx.pages.sign_up.error_messages.default");
+            let errors: string = '';
+            errors = this.translate.instant("lynx.pages.sign_up.error_messages.default");
 
             if(error.json().data.errors.email == 'is invalid')
             {
@@ -82,13 +86,15 @@ export class SignUpPage {
               errors += this.translate.instant("lynx.pages.sign_up.error_messages.password_mismatch");
             }
 
+            this.errorToast.dismissAll();
             console.error(error.json().data.errors);
-            let errorToast = this.toastCtrl.create({
+            this.errorToast = this.toastCtrl.create({
               message: errors,
+              dismissOnPageChange: true,
               position: "top",
-              duration: 25000
+              duration: 10000
             });
-            errorToast.present();
+            this.errorToast.present();
           });
     }
   }
