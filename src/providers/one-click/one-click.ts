@@ -158,6 +158,18 @@ export class OneClickProvider {
     let user = JSON.parse(response.text()).data.user as User;
     return this.auth.updateSessionUser(user); // store user info in session storage
   }
+  
+  getCategoryByCode(code: string): Observable<CategoryFor211Model> {    
+    let url: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/categories/' + code +
+      '?locale=' + this.i18n.currentLocale()
+    );
+    
+    return this.http.get(url)
+      .map(resp => JSON.parse(resp.text()) as CategoryFor211Model)
+      .catch(error => this.handleError(error));
+  }
 
   getCategoriesFor211Services(lat: number, lng: number): Promise<CategoryFor211Model[]> {
     let uri: string = encodeURI(
@@ -174,6 +186,18 @@ export class OneClickProvider {
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as CategoryFor211Model[])
       .then(categories => this.filterEmptyCategories(categories))
+      .catch(error => this.handleError(error));
+  }
+  
+  getSubCategoryByCode(code: string): Observable<SubcategoryFor211Model> {    
+    let url: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/sub_categories/' + code +
+      '?locale=' + this.i18n.currentLocale()
+    );
+    
+    return this.http.get(url)
+      .map(resp => JSON.parse(resp.text()) as SubcategoryFor211Model)
       .catch(error => this.handleError(error));
   }
 
@@ -194,6 +218,18 @@ export class OneClickProvider {
       .then(response => response.text())
       .then(jsonable => JSON.parse(jsonable) as SubcategoryFor211Model[])
       .then(subCats => this.filterEmptyCategories(subCats))
+      .catch(error => this.handleError(error));
+  }
+  
+  getSubSubCategoryByCode(code: string): Observable<SubSubcategoryFor211Model> {    
+    let url: string = encodeURI(
+      this.oneClickUrl + 
+      'oneclick_refernet/sub_sub_categories/' + code +
+      '?locale=' + this.i18n.currentLocale()
+    );
+    
+    return this.http.get(url)
+      .map(resp => JSON.parse(resp.text()) as SubSubcategoryFor211Model)
       .catch(error => this.handleError(error));
   }
 

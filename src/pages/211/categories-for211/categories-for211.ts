@@ -72,7 +72,7 @@ export class CategoriesFor211Page {
   }
 
   openToSubcategory(category: CategoryFor211Model){
-    this.navCtrl.push(SubcategoriesFor211Page, { category: JSON.stringify(category) } );
+    this.navCtrl.push(SubcategoriesFor211Page, { category: category, code: category.code } );
   }
   
   // Updates the search results based on a query string.
