@@ -89,6 +89,8 @@ export class MyApp {
   }
 
   initializeApp() {
+    console.log("INITIALIZING APP...");
+    
     this.statusBar.styleDefault();
     this.splashScreen.hide();
     
@@ -209,6 +211,8 @@ export class MyApp {
 
   // Check if we're already at the home page; if not, go there.
   goHome() {
+    console.log("GOING HOME");
+    
     if((this.nav.getActive() && this.nav.getActive().name) !== "HelpMeFindPage") {
       this.nav.setRoot(HelpMeFindPage);
     }

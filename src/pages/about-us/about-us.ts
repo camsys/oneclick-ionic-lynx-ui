@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { OneClickProvider } from '../../providers/one-click/one-click';
 import { HelpersProvider } from '../../providers/helpers/helpers';
 
+
 // Models
 import { AgencyModel } from '../../models/agency';
 
@@ -18,7 +19,8 @@ export class AboutUsPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private oneClickProvider: OneClickProvider,
-              public helpers: HelpersProvider) {}
+              public helpers: HelpersProvider) {
+  }
 
   agencies: AgencyModel[];
 
@@ -26,5 +28,5 @@ export class AboutUsPage {
     this.oneClickProvider.getPartnerAgencies()
     .then(agencies => this.agencies = agencies);
   }
-
+  
 }

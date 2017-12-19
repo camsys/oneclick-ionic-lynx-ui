@@ -58,6 +58,7 @@ export class HelpMeFindPage {
     this.navCtrl.push(UserLocatorPage, { viewType: 'transportation'});
   }
 
+
   presentAlerts() {
 
     document.getElementById('messages-button').style.display = "none";
