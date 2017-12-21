@@ -13,11 +13,17 @@
         "translated": {
           "en": "English",
           "es": "Spanish",
+          "pt": "Portuguese",
+          "vi": "Vietnamese",
+          "ht": "Haitian Creole",
           "keys": "View Translation Keys"
         },
         "native": {
           "en": "English",
           "es": "Espanol",
+          "pt": "Português",
+          "vi": "Tiếng Việt",
+          "ht": "Kreyòl Ayisyen",
           "keys": "View Translation Keys"
         }
 
