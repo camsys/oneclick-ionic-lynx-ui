@@ -58,7 +58,7 @@ export class UserLocatorPage {
     this.viewType = this.navParams.data.viewType; // Find services vs. transportation view
 
     this.events.subscribe('place-search:change', () => {
-      this.changeDetector.markForChanges();
+      this.changeDetector.markForCheck();
     });
   }
 

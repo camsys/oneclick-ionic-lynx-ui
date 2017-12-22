@@ -107,7 +107,7 @@ export class DirectionsStepsTabPage {
   // Fires every time a new itinerary is selected
   selectItinerary(evt) {
     this.setArriveByAndDepartAtTimes(); // Update datepicker times based on newly selected itinerary
-    this.changeDetector.markForChanges();
+    this.changeDetector.markForCheck();
   }
 
   // Sets the arrive by and depart at times in the time pickers based on trip and selected itinerary

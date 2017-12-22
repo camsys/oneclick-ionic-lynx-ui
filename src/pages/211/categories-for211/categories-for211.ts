@@ -88,11 +88,11 @@ export class CategoriesFor211Page {
             if(this.searchResults.length === 0) {
               this.searchResults = [ this.emptySearchResult() ];
             }
-            this.changeDetector.markForChanges();
+            this.changeDetector.markForCheck();
           });
     } else { // If query is empty, clear the results.
       this.searchResults = [];
-      this.changeDetector.markForChanges();
+      this.changeDetector.markForCheck();
     }
   }
   
@@ -137,7 +137,7 @@ export class CategoriesFor211Page {
       default:
         // If result can't link to a page, just clear the results
         this.searchResults = [];
-        this.changeDetector.markForChanges();
+        this.changeDetector.markForCheck();
     }
   }
   

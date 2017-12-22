@@ -83,7 +83,7 @@ export class TransportationEligibilityPage {
     }
     
     this.events.publish("spinner:hide");
-    this.changeDetector.markForChanges();
+    this.changeDetector.markForCheck();
   }
   
   // Loads trip request data into the page
@@ -96,7 +96,7 @@ export class TransportationEligibilityPage {
   
   // Method fires every time an accommodation or eligibility is selected or unselected
   updateCharacteristic() {
-    this.changeDetector.markForChanges();
+    this.changeDetector.markForCheck();
   }
   
   // Builds a user_profile update hash based on the accommodations and eligiblities hashes

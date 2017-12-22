@@ -145,7 +145,7 @@ export class FeedbackModalPage {
     if(this.searchResults.length === 0) {
       this.searchResults = [ this.emptySearchResult() ];
     }
-    this.changeDetector.markForChanges();
+    this.changeDetector.markForCheck();
   }
   
   // Empties out all search results arrays
