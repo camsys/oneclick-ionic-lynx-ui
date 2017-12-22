@@ -309,7 +309,8 @@
         "status": "Status",
         "status_pending": "Pending",
         "status_acknowledged": "Acknowledged by {{commenter}} on {{date}}",
-        "with_comment": "with comment"
+        "with_comment": "with comment",
+        "no_feedback": "You have not submitted any feedback."
       },
       
       "external_navigation": {

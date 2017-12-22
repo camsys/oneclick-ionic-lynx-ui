@@ -24,6 +24,10 @@
         
         <ion-list class="lynx-list">
           
+          <ion-list-header *ngIf="feedbacks.length === 0">
+            {{ "lynx.pages.feedback_status.no_feedback" | translate }}
+          </ion-list-header>
+          
           <!-- FEEDBACK DETAILS -->
           <ion-item class="feedback-details" text-wrap *ngFor="let feedback of feedbacks">
             
