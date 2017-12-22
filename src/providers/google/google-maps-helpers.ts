@@ -161,8 +161,8 @@ export class GoogleMapsHelpersProvider {
   }
 
   // Drops a pin at the given latLng
-  dropUserLocationPin(map: google.maps.Map, latLng: google.maps.LatLng) {
-    let marker : google.maps.Marker = new google.maps.Marker;
+  dropUserLocationPin(map: google.maps.Map, latLng: google.maps.LatLng):google.maps.Marker {
+    let marker = new google.maps.Marker;
     marker.setPosition(latLng);
     marker.setMap(map);
     marker.setValues('Your Location');

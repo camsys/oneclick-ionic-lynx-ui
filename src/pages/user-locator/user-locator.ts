@@ -99,6 +99,7 @@ export class UserLocatorPage {
       if(!this.userLocation) {
         let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         this.zoomToOriginLocation(latLng);
+        this.setUserPlaceFromLatLng(latLng);
       }
     })
     .catch((err) => {
@@ -109,16 +110,13 @@ export class UserLocatorPage {
 
   // Updates the userLocation, and centers the map at the given latlng
   zoomToOriginLocation(latLng: google.maps.LatLng) {
-    if (this.originMarker != undefined && this.originMarker.getMap() != null)
-    {
+    if (this.originMarker != undefined && this.originMarker.getMap() != null) {
       this.originMarker.setMap(null);
     }
-
-
-    this.setUserPlaceFromLatLng(latLng.lat(), latLng.lng());
-    this.map.setCenter(latLng);
+    
     this.originMarker = this.googleMapsHelpers.dropUserLocationPin(this.map, latLng);
     this.originMarker.setLabel('A');
+    this.setMapCenter();
   }
 
   zoomToDestinationLocation(latLng: google.maps.LatLng) {
@@ -126,10 +124,25 @@ export class UserLocatorPage {
       this.destinationMarker.setMap(null);
     }
 
-    this.map.setCenter(latLng);
     this.destinationMarker = this.googleMapsHelpers.dropUserLocationPin(this.map, latLng);
     this.destinationMarker.setIcon(this.imageForDestinationMarker);
     this.destinationMarker.setLabel('B');
+    this.setMapCenter();
+  }
+  
+  // Sets map center to origin and/or destination points
+  setMapCenter() {
+    let pts: google.maps.LatLng[] = [];
+    
+    if(this.originMarker) {
+      pts.push(this.originMarker.getPosition());
+    }
+    
+    if(this.destinationMarker) {
+      pts.push(this.destinationMarker.getPosition());
+    }
+    
+    this.googleMapsHelpers.zoomToPoints(this.map, pts);
   }
 
   // Goes on to the categories/services page, using the given location as the center point
@@ -150,7 +163,10 @@ export class UserLocatorPage {
   }
 
   // After device geolocation, update the userLocation property
-  private setUserPlaceFromLatLng(lat: number, lng: number) : void{
+  private setUserPlaceFromLatLng(latLng: google.maps.LatLng) : void{
+    let lat = latLng.lat();
+    let lng = latLng.lng();
+    
     this.geoServiceProvider.getPlaceFromLatLng(lat, lng)
     .subscribe( (places) => {
       this.userLocation = places[0];
