@@ -210,8 +210,6 @@ export class MyApp {
 
   // Check if we're already at the home page; if not, go there.
   goHome() {
-    console.log("GOING HOME");
-    
     if((this.nav.getActive() && this.nav.getActive().name) !== "HelpMeFindPage") {
       this.nav.setRoot(HelpMeFindPage);
     }
@@ -221,17 +219,19 @@ export class MyApp {
     this.auth.signOut()
     .subscribe(
       data => {
-        // On successful response, redirect the user to find page
         console.log('Signed Out');
-        this.setMenu();
-        this.goHome();
+        this.onSignOut();
       },
       error => {
-        console.log('Error Signing Out');
-        this.setMenu();
-        this.goHome();
+        console.error('Error Signing Out');
+        this.onSignOut();
       }
     );
+  }
+  
+  onSignOut() {
+    this.setMenu();
+    this.goHome();
   }
 
   // Creates and presents a modal for changing the locale.
