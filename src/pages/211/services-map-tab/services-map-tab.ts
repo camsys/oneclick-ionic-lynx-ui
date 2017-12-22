@@ -81,7 +81,7 @@ export class ServicesMapTabPage {
   addServiceInfo(svc: ServiceModel){
     this.markerSelected = true;
     this.selectedService = svc;
-    this.changeDetector.detectChanges();
+    this.changeDetector.markForChanges();
   }
 
   selectService(match : ServiceModel){

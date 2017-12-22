@@ -72,7 +72,6 @@ export class ServiceFor211DetailPage {
     this.trip_id = parseInt(this.navParams.data.trip_id);
     this.service_id = parseInt(this.navParams.data.service_id);
     this.location_id = parseInt(this.navParams.data.location_id);
-
   }
 
   ionViewDidEnter() {
@@ -83,7 +82,7 @@ export class ServiceFor211DetailPage {
   
     // If a Trip ID is present, use that to fetch the already-planned trip
     if(this.trip_id) {
-      this.oneClick.getTrip(this.navParams.data.trip_id)
+      this.oneClick.getTrip(this.trip_id)
           .subscribe((tripResponse) => this.loadTripResponse(tripResponse))
 
     // If an origin and destination are passed, make a trip request based on those
@@ -160,7 +159,7 @@ export class ServiceFor211DetailPage {
     this.updateTripPlaces(this.tripResponse);
     this.content.resize(); // Make sure content isn't covered by navbar
     this.updateURL();
-    this.changeDetector.detectChanges();
+    this.changeDetector.markForCheck(); // using markForCheck instead of detectChanges fixes view destroyed error
     this.events.publish('spinner:hide');
   }
   
@@ -178,7 +177,7 @@ export class ServiceFor211DetailPage {
     
     // Update the URL now that the service ID is present
     this.updateURL();
-    this.changeDetector.detectChanges();
+    this.changeDetector.markForCheck();
 
   }
 

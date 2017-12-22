@@ -258,11 +258,11 @@ export class MyApp {
   setupSpinner() {
     this.events.subscribe('spinner:show', () => {
       this.showSpinner = true;
-      this.changeDetector.detectChanges(); // Makes sure spinner doesn't lag
+      this.changeDetector.markForChanges(); // Makes sure spinner doesn't lag
     });
     this.events.subscribe('spinner:hide', () => {
       this.showSpinner = false;
-      this.changeDetector.detectChanges(); // Makes sure spinner doesn't lag
+      this.changeDetector.markForChanges(); // Makes sure spinner doesn't lag
     });
   }
 

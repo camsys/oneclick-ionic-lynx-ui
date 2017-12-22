@@ -66,6 +66,10 @@ export class CategoriesFor211Page {
         .getCategoriesFor211Services(userLocation.lat(), userLocation.lng())
         .then(categories => this.categories = categories);
   }
+  
+  ngOnDestroy() {
+    this.changeDetector.detach();
+  }
 
   ionViewDidLoad() {
     this.getCategories();
@@ -84,11 +88,11 @@ export class CategoriesFor211Page {
             if(this.searchResults.length === 0) {
               this.searchResults = [ this.emptySearchResult() ];
             }
-            this.changeDetector.detectChanges();
+            this.changeDetector.markForChanges();
           });
     } else { // If query is empty, clear the results.
       this.searchResults = [];
-      this.changeDetector.detectChanges();
+      this.changeDetector.markForChanges();
     }
   }
   
@@ -133,7 +137,7 @@ export class CategoriesFor211Page {
       default:
         // If result can't link to a page, just clear the results
         this.searchResults = [];
-        this.changeDetector.detectChanges();
+        this.changeDetector.markForChanges();
     }
   }
   
