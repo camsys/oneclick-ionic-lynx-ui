@@ -89,7 +89,6 @@ export class MyApp {
   }
 
   initializeApp() {
-    console.log("INITIALIZING APP...");
     
     this.statusBar.styleDefault();
     this.splashScreen.hide();

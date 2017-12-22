@@ -23,7 +23,7 @@ export class AutocompleteResultsComponent {
   // Index of the item currently focused on.
   focusItem: number = null;
   
-  @Input() hidden: Boolean = false; // Show results list by default
+  @Input() hidden: Boolean = true; // Hide results list by default
   @Input() items: SearchResultModel[] = []; // Autocomplete items list
   
   // Output event emitters for setting callbacks outside of the component

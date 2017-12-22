@@ -63,10 +63,6 @@ export class PlaceSearchComponent {
 
   // Updates the search items list based on the response from OneClick and Google
   updateAddressSearch(query) {
-    if(!query || query === '') {
-      this.autocompleteItems = [];
-      return;
-    }
 
     this.oneClickProvider
     .getPlaces(query)
@@ -76,13 +72,20 @@ export class PlaceSearchComponent {
       this.refresh();
     });
 
-    this.geoServiceProvider
-    .getGooglePlaces(query)
-    .subscribe(places => {
-      // Set googleAutocompleteItems to the places call results and refresh the search results
-      this.googleAutocompleteItems = places.map((p) => this.convertPlaceToSearchResult(p));
+    // Only get google places if a query is present.
+    if(query && query.length > 0) {
+      this.geoServiceProvider
+      .getGooglePlaces(query)
+      .subscribe(places => {
+        // Set googleAutocompleteItems to the places call results and refresh the search results
+        this.googleAutocompleteItems = places.map((p) => this.convertPlaceToSearchResult(p));
+        this.refresh();
+      });
+    } else {
+      this.googleAutocompleteItems = [];
       this.refresh();
-    });
+    }
+
 
   }
 
@@ -102,7 +105,7 @@ export class PlaceSearchComponent {
   // Hides the spinner, clears the search results, and emits the onSelect output event.
   setPlace(place: GooglePlaceModel) {
     this.place = place;
-    this.searchControl.setValue(this.place.formatted_address, {emitEvent: false});
+    this.searchControl.setValue(this.place.name || this.place.formatted_address, {emitEvent: false});
     this.clear(); // Clear the autocomplete results
     this.events.publish('spinner:hide'); // Hide spinner once places are returned
     this.onSelect.emit(this.place); // Emit the onSelect output event
