@@ -134,6 +134,7 @@
       },
 
       "categories": {
+        "no_categories": "We couldn't find any resources in your area.",
         "resources_search": {
           "label": "Resources in Your Area",
           "placeholder": "Find Resources",

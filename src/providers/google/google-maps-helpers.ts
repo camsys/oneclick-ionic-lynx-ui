@@ -157,7 +157,10 @@ export class GoogleMapsHelpersProvider {
     var bounds = new google.maps.LatLngBounds();
     points.forEach((p) => bounds.extend(p));
     map.fitBounds(bounds); // fit the map to the bounds
-    map.setZoom(Math.min(map.getZoom(), this.maxZoom)); // reduce zoom to the max zoom if necessary
+    map.setZoom(this.maxZoom);
+    setTimeout(() => {
+      map.setZoom(Math.min(map.getZoom(), this.maxZoom)); // reduce zoom to the max zoom if necessary
+    }, 150);
   }
 
   // Drops a pin at the given latLng
