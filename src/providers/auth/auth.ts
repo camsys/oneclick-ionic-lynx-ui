@@ -154,11 +154,11 @@ export class AuthProvider {
       });
 
       localStorage.removeItem('session');
+      this.events.publish("user:signed_out");
 
       return this.http
           .delete(uri, options)
           .map((response: Response) => {
-            console.log(response);
             return response;
           });
     } else { // If not signed in, return an empty observable

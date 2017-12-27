@@ -69,6 +69,7 @@
       },
       
       "error_messages": {
+        "400": "Sorry! An error occurred. Please try again later.",
         "401": "Sorry! An error occurred. Please try again later.",
         "404": "Sorry! An error occurred. Please try again later.",
         "500": "Sorry! An error occurred. Please try again later."
@@ -316,7 +317,8 @@
         "status": "Status",
         "status_pending": "Pending",
         "status_acknowledged": "Acknowledged by {{commenter}} on {{date}}",
-        "with_comment": "with comment"
+        "with_comment": "with comment",
+        "no_feedback": "You have not submitted any feedback."
       },
       
       "external_navigation": {
@@ -324,6 +326,10 @@
         "message": "Are you sure you'd like to leave the site?",
         "cancel_button": "Back",
         "confirm_button": "Continue"
+      },
+      
+      "unsubscribe": {
+        "success_message": "{{email}} has been successfully unsubscribed from email updates."
       }
 
     }

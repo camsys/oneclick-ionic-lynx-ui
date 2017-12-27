@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, Events } from 'ionic-angular';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from 'ionic-angular';
 import { environment } from '../../app/environment';
@@ -37,17 +37,31 @@ export class HelpMeFindPage {
               private alertCtrl: AlertController,
               public oneClickProvider: OneClickProvider,
               public sanitizer: DomSanitizer,
-              public translate: TranslateService) {
+              public translate: TranslateService,
+              public events: Events) {
   }
 
   ionViewDidLoad() {
     this.awsImageLocation = this.sanitizer.bypassSecurityTrustStyle('url(' + environment.AWS_IMAGE_ASSET_BUCKET + 'find-page-background.jpg)');
-    console.log(this.awsImageLocation);
+
     // Wait until after platform is ready, so we have the user's preferred locale
     this.platform.ready().then(() => {
       this.oneClickProvider.getAlerts()
         .then(alerts => this.alerts = alerts);
     });
+  }
+  
+  ionViewWillEnter() {
+    // Subscribe to sign out event and refresh alerts when user is signed out
+    this.events.subscribe("user:signed_out", () => {
+      this.oneClickProvider.getAlerts()
+        .then(alerts => this.alerts = alerts);
+    });      
+  }
+  
+  ionViewWillLeave() {
+    // Unsubscribe from sign out event when page is no longer active
+    this.events.unsubscribe("user:signed_out");
   }
 
   openResourcesPage() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { RequestOptions } from '@angular/http';
+import { RequestOptions, Headers } from '@angular/http';
 import { Events } from 'ionic-angular';
 
 import { Observable } from "rxjs/Rx";
@@ -388,6 +388,25 @@ export class OneClickProvider {
             .toPromise()
             .catch(error => this.handleError(error));
   }
+  
+  // Unsubscribes user from email updates
+  unsubscribeUser(email: string): Observable<Boolean> {
+    let uri = encodeURI(this.oneClickUrl + 
+                        'users/unsubscribe?locale=' +
+                        this.i18n.currentLocale());
+    
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'X-User-Email': email
+    });
+    let requestOpts = new RequestOptions({ headers: headers });
+    
+    console.log("REQUEST HEADERS", requestOpts);
+
+    return this.http
+            .post(uri, {}, requestOpts)
+            .map(response => response.status === 200)
+            .catch(error => this.handleError(error));  }
 
   // Handle errors by console logging the error, and publishing an error event
   // for consumption by the app's home page.

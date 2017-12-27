@@ -89,7 +89,6 @@ export class MyApp {
   }
 
   initializeApp() {
-    console.log("INITIALIZING APP...");
     
     this.statusBar.styleDefault();
     this.splashScreen.hide();
@@ -154,13 +153,13 @@ export class MyApp {
       { title: 'resources', component: UserLocatorPage, params: { viewType: 'services'}},
       { title: 'language_selector', component: "language_selector" },
       { title: 'feedback', component: "feedback" },
-      { title: 'feedback_status', component: FeedbackStatusPage },
       { title: 'privacy_policy', component: "privacy_policy" },
       { title: 'live_211_chat', component: "live_211_chat" }
     ] as PageModel[];
 
     // Pages to display if user is signed in
     this.signedInPages = this.universalPages.concat([
+      { title: 'feedback_status', component: FeedbackStatusPage },
       { title: 'sign_out', component: "sign_out"}
     ] as PageModel[]);
 
@@ -211,8 +210,6 @@ export class MyApp {
 
   // Check if we're already at the home page; if not, go there.
   goHome() {
-    console.log("GOING HOME");
-    
     if((this.nav.getActive() && this.nav.getActive().name) !== "HelpMeFindPage") {
       this.nav.setRoot(HelpMeFindPage);
     }
@@ -222,17 +219,19 @@ export class MyApp {
     this.auth.signOut()
     .subscribe(
       data => {
-        // On successful response, redirect the user to find page
         console.log('Signed Out');
-        this.setMenu();
-        this.goHome();
+        this.onSignOut();
       },
       error => {
-        console.log('Error Signing Out');
-        this.setMenu();
-        this.goHome();
+        console.error('Error Signing Out');
+        this.onSignOut();
       }
     );
+  }
+  
+  onSignOut() {
+    this.setMenu();
+    this.goHome();
   }
 
   // Creates and presents a modal for changing the locale.
@@ -259,11 +258,11 @@ export class MyApp {
   setupSpinner() {
     this.events.subscribe('spinner:show', () => {
       this.showSpinner = true;
-      this.changeDetector.detectChanges(); // Makes sure spinner doesn't lag
+      this.changeDetector.markForCheck(); // Makes sure spinner doesn't lag
     });
     this.events.subscribe('spinner:hide', () => {
       this.showSpinner = false;
-      this.changeDetector.detectChanges(); // Makes sure spinner doesn't lag
+      this.changeDetector.markForCheck(); // Makes sure spinner doesn't lag
     });
   }
 
