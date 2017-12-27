@@ -61,6 +61,7 @@ import { EmailModalPage } from '../pages/email-modal/email-modal';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { LanguageSelectorModalPage } from '../pages/language-selector-modal/language-selector-modal';
 import { FeedbackStatusPage } from '../pages/feedback-status/feedback-status';
+import { UnsubscribePage } from '../pages/unsubscribe/unsubscribe';
 
 // Providers
 import { OneClickProvider } from '../providers/one-click/one-click';
@@ -134,6 +135,7 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
     ResetPasswordPage,
     LanguageSelectorModalPage,
     FeedbackStatusPage,
+    UnsubscribePage,
     PrettyTimePipe,
     PrettyDistancePipe,
     ToStringPipe,
@@ -176,6 +178,7 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
         { component: ResetPasswordPage, name: 'Reset Password', segment: 'reset_password', defaultHistory: [HelpMeFindPage] },
         { component: SignUpPage, name: 'Sign Up', segment: 'sign_up', defaultHistory: [HelpMeFindPage] },
         { component: FeedbackStatusPage, name: 'Feedback Status', segment: 'feedback_status', defaultHistory: [HelpMeFindPage] },
+        { component: UnsubscribePage , name: 'Unsubscribe', segment: 'unsubscribe/:email', defaultHistory: [HelpMeFindPage]},
       ]
     }),
     Ionic2RatingModule,
@@ -218,7 +221,8 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
     EmailModalPage,
     ResetPasswordPage,
     LanguageSelectorModalPage,
-    FeedbackStatusPage
+    FeedbackStatusPage,
+    UnsubscribePage
   ],
   providers: [
     StatusBar,
@@ -282,6 +286,7 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
     ResetPasswordPage,
     LanguageSelectorModalPage,
     FeedbackStatusPage,
+    UnsubscribePage,
     PlaceSearchComponent,
     ResponsiveDatepickerComponent,
     ResponsiveTimepickerComponent,

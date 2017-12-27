@@ -63,6 +63,7 @@
       },
       
       "error_messages": {
+        "400": "Sorry! An error occurred. Please try again later.",
         "401": "Sorry! An error occurred. Please try again later.",
         "404": "Sorry! An error occurred. Please try again later.",
         "500": "Sorry! An error occurred. Please try again later."
@@ -318,6 +319,10 @@
         "message": "Are you sure you'd like to leave the site?",
         "cancel_button": "Back",
         "confirm_button": "Continue"
+      },
+      
+      "unsubscribe": {
+        "success_message": "{{email}} has been successfully unsubscribed from email updates."
       }
 
     }
