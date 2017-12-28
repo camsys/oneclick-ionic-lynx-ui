@@ -70,22 +70,45 @@ export class MyApp {
 
     // When a server error occurs, show an error message and return to the home page.
     this.events.subscribe("error:http", (error) => {
-
-      this.goHome();
-      this.events.publish('spinner:hide'); // stop the spinner once we're back on the home page
-      let errorToast = this.toastCtrl.create({
-        message: this.translate.instant('lynx.global.error_messages.' + error.status),
-        position: 'top',
-        duration: 3000
-      });
-      errorToast.present();
-
+      this.handleError(error);
     });
     
     // When user is updated, update user info.
     this.events.subscribe("user:updated", (user) => {
       this.updateUserInfo(user);
     });
+  }
+
+  // Handles errors based on their status code
+  handleError(error) {
+
+    switch(error.status) {
+      case 401: // Unauthorized--sign user out and send to sign in page
+        console.error("USER TOKEN EXPIRED");
+        this.signOut();
+        this.nav.push(SignInPage);
+        this.showErrorToast('lynx.global.error_message.auth_needed');
+        break;
+      default:
+        this.goHome();
+        this.showErrorToast('lynx.global.error_messages.default');            
+        break;
+    }
+    
+    this.events.publish('spinner:hide'); // stop the spinner once we're back on the home page
+
+  }
+  
+  // Shows an error toast at the top of the screen for 3 sec, with the given (translated) message
+  showErrorToast(messageCode: string) {
+    let errorToast = this.toastCtrl.create({
+      message: this.translate.instant(messageCode),
+      position: 'top',
+      duration: 3000
+    });
+    errorToast.present();
+    
+    return errorToast;
   }
 
   initializeApp() {
@@ -121,15 +144,6 @@ export class MyApp {
     // If User email and token are stored in session, make a call to 1click to get up-to-date user profile
     if(this.auth.isRegisteredUser()){
       this.oneClickProvider.getProfile()
-      .catch((error) => {
-        // If the user token is expired, sign the user out automatically
-        if(error.status === 401) {
-          console.error("USER TOKEN EXPIRED", error);
-          this.signOut();
-        } else {
-          console.error(error);
-        }
-      })
     }
     
   }
@@ -231,7 +245,6 @@ export class MyApp {
   
   onSignOut() {
     this.setMenu();
-    this.goHome();
   }
 
   // Creates and presents a modal for changing the locale.
