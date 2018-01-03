@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMapsHelpersProvider } from '../../../providers/google/google-maps-helpers';
@@ -46,7 +46,7 @@ export class ServicesMapTabPage {
 
     let me = this;
 
-    // Draw service markers, with event handlers that open details window on click    
+    // Draw service markers, with event handlers that open details window on click
     let markers = this.services
         .filter((service) => {
           return (typeof service.lat!='undefined' && service.lat) &&
@@ -54,7 +54,7 @@ export class ServicesMapTabPage {
         })
         .map((service) => {
           let service_location : google.maps.LatLng = new google.maps.LatLng(Number(service.lat), Number(service.lng));
-      
+
           let marker : google.maps.Marker = new google.maps.Marker;
           marker.setPosition(service_location);
           marker.setMap(this.service_map);
@@ -66,10 +66,10 @@ export class ServicesMapTabPage {
           });
           return marker;
         });
-    
+
     // Zoom the map to fit all the services
     this.googleMapsHelpers.zoomToObjects(this.service_map, markers);
-    
+
     // Add event handler for clicking OFF a service marker, closing the details window
     google.maps.event.addListener(this.service_map, "click", function(event) {
       me.markerSelected = false;

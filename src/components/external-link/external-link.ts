@@ -1,6 +1,5 @@
-import { Component, Input, Output, EventEmitter, 
-         ChangeDetectorRef, HostListener } from '@angular/core';
-         
+import { Component, Input } from '@angular/core';
+
 import { ExternalNavigationProvider } from '../../providers/external-navigation/external-navigation';
 
 /**
@@ -15,7 +14,7 @@ import { ExternalNavigationProvider } from '../../providers/external-navigation/
 })
 export class ExternalLinkComponent {
 
-  @Input() url: string;  
+  @Input() url: string;
   @Input() text: string;
 
   constructor(public exNav: ExternalNavigationProvider) { }

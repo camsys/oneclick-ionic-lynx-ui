@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 import { environment } from '../../app/environment';
-import { I18nProvider } from '../../providers/i18n/i18n';
 
 
 /**
@@ -17,14 +16,14 @@ import { I18nProvider } from '../../providers/i18n/i18n';
   templateUrl: 'language-selector-modal.html',
 })
 export class LanguageSelectorModalPage {
-  
+
   locale: string = null; // Selected locale
   available_locales: string[];
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
-              private i18n: I18nProvider) {
+              ) {
 
     // Include all available locales (including translation keys)
     // TODO: Set this to filter out keys locale unless admin user is logged in.
@@ -36,17 +35,17 @@ export class LanguageSelectorModalPage {
   ionViewDidLoad() {
     this.locale = this.navParams.data.locale;
   }
-  
+
   // Dismiss the modal with the selected locale as data returned
   submit() {
     this.viewCtrl.dismiss(this.locale);
   }
-  
+
   // Dismiss the modal without the selected locale returned as data
   cancel() {
     this.viewCtrl.dismiss(null);
   }
-  
+
   // Submit the modal automatically when a new locale is selected
   onLocaleChange() {
     this.submit();

@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, ModalController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, ModalController } from 'ionic-angular';
 import { ServiceModel } from '../../../models/service';
 import { HelpersProvider } from '../../../providers/helpers/helpers';
 import { EmailModalPage } from "../../email-modal/email-modal";

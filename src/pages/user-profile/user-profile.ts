@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -37,12 +37,12 @@ export class UserProfilePage {
   trip_types: TripType[];
   filtered_trip_types: TripType[];
   available_locales: string[];
-  
+
   @ViewChild('updateProfileForm') updateProfileForm: NgForm = {} as NgForm;
   public passwordFieldType = "password";
   public showPassword = false;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public toastCtrl: ToastController,
               public oneClickProvider: OneClickProvider,
@@ -67,7 +67,7 @@ export class UserProfilePage {
     .then((user) => this.updateUserData(user))
     .catch((error) => this.handleError(error))
   }
-  
+
   updateUserData(user: User) {
     this.user = user;
     this.eligibilities = this.user.eligibilities;
@@ -87,21 +87,21 @@ export class UserProfilePage {
     this.trip_types = this.filtered_trip_types;
     this.user.trip_types = this.filtered_trip_types;
   }
-  
+
   handleError(error) {
     // If the user token is expired, redirect to the sign in page and display a notification
     if(error.status === 401) {
       console.error("USER TOKEN EXPIRED", error);
       this.navCtrl.push(SignInPage);
       this.toastCtrl.create({
-        message: this.translate.instant("lynx.pages.user_profile.sign_in_required_message"), 
+        message: this.translate.instant("lynx.pages.user_profile.sign_in_required_message"),
         duration: 5000}
       ).present();
     } else {
       console.error(error);
     }
   }
-  
+
   toggleShowPassword() {
     this.showPassword = !this.showPassword;
     if (this.showPassword){
