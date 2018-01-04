@@ -85,7 +85,7 @@ export class SignUpPage {
             }
 
             this.errorToast.dismissAll();
-            console.error(error.json().data.errors);
+
             this.errorToast = this.toastCtrl.create({
               message: errors,
               dismissOnPageChange: true,

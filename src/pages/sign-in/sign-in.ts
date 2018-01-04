@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {  IonicPage, 
-          NavController, 
+import {  IonicPage,
+          NavController,
           NavParams,
           Events,
-          ToastController } from 'ionic-angular';
+          ToastController,
+          Toast} from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
 // Pages
@@ -26,21 +27,23 @@ export class SignInPage {
 
   user: User = { email: null, password: null } as User;
   signInSubscription: any;
+  errorToast: Toast;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private authProvider: AuthProvider,
               private oneClickProvider: OneClickProvider,
               private toastCtrl: ToastController,
               private translate: TranslateService,
               private events: Events) {
+    this.errorToast = this.toastCtrl.create({});
   }
 
   signIn() {
     this.authProvider
         .signIn(this.user.email, this.user.password)
         .subscribe(
-          data => { 
+          data => {
             // Get the user's profile data and store it in the session
             this.oneClickProvider.getProfile()
                 // Then, redirect the user to the home page
@@ -48,11 +51,11 @@ export class SignInPage {
                   this.navCtrl.push(HelpMeFindPage);
                 });
           },
-          error => {            
+          error => {
             // On failed response, display a pop-up error message and remain on page.
             console.error(error.json().data.errors);
             let errorBody = error.json().data.errors;
-            
+
             // Based on which log in attempt this is, customize the error message
             let errorCode = '';
             if (errorBody.last_attempt) {
@@ -64,7 +67,9 @@ export class SignInPage {
             } else {
               errorCode = 'default';
             }
-            
+
+            this.errorToast.dismissAll();
+
             let errorToast = this.toastCtrl.create({
               message: this.translate.instant("lynx.pages.sign_in.error_messages." + errorCode),
               position: "top",
@@ -74,7 +79,7 @@ export class SignInPage {
           }
         );
   }
-  
+
   resetPassword() {
     this.navCtrl.push(ResetPasswordPage);
   }
