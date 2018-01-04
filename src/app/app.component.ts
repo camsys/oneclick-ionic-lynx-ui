@@ -41,7 +41,7 @@ export class MyApp {
 
   signedInPages: PageModel[];
   signedOutPages: PageModel[];
-  universalPages: PageModel[]; // Pages for both signed in and signed out users
+  universalPages: PageModel[]; //Pages for both signed in and signed out users
   signInPage: PageModel;
   signUpPage: PageModel;
   profilePage: PageModel;
