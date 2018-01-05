@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ "lynx.pages.email.header" | translate}}</ion-title>
+    <ion-title text-center>{{ "lynx.pages.email.header" | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -25,7 +25,7 @@
       <ion-item>
         <ion-input type="email" formControlName="email" placeholder="{{'lynx.pages.email.placeholder' | translate}}"></ion-input>
       </ion-item>
-      
+
       <!-- Submit button creates a feedback, cancel discards data without leaving feedback-->
       <div id="email-modal-buttons">
         <ion-col col-md-6 text-center>
@@ -35,7 +35,7 @@
         </ion-col>
         <ion-col col-md-6 text-center>
         <!-- Submit button creates a feedback, cancel discards data without leaving feedback-->
-        <button ion-button round 
+        <button ion-button round
                 class="lynx-button-white"
                 type="button"
                 (click)="cancel()">{{ "lynx.pages.email.cancel_button" | translate }}

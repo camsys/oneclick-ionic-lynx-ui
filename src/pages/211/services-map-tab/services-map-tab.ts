@@ -1,8 +1,11 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMapsHelpersProvider } from '../../../providers/google/google-maps-helpers';
 import { ServiceModel } from '../../../models/service';
+import { Session } from '../../../models/session';
+import { GooglePlaceModel } from "../../../models/google-place";
+import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 
 /**
  * Generated class for the ServicesMapTabPage page.
@@ -46,7 +49,7 @@ export class ServicesMapTabPage {
 
     let me = this;
 
-    // Draw service markers, with event handlers that open details window on click    
+    // Draw service markers, with event handlers that open details window on click
     let markers = this.services
         .filter((service) => {
           return (typeof service.lat!='undefined' && service.lat) &&
@@ -54,7 +57,7 @@ export class ServicesMapTabPage {
         })
         .map((service) => {
           let service_location : google.maps.LatLng = new google.maps.LatLng(Number(service.lat), Number(service.lng));
-      
+
           let marker : google.maps.Marker = new google.maps.Marker;
           marker.setPosition(service_location);
           marker.setMap(this.service_map);
@@ -66,10 +69,10 @@ export class ServicesMapTabPage {
           });
           return marker;
         });
-    
+
     // Zoom the map to fit all the services
     this.googleMapsHelpers.zoomToObjects(this.service_map, markers);
-    
+
     // Add event handler for clicking OFF a service marker, closing the details window
     google.maps.event.addListener(this.service_map, "click", function(event) {
       me.markerSelected = false;
@@ -85,6 +88,20 @@ export class ServicesMapTabPage {
   }
 
   selectService(match : ServiceModel){
-    this.events.publish('service:selected', match);
+    let startLocation = this.session().user_starting_location;
+    let destination_location = new GooglePlaceModel({
+      address_components: null,
+      geometry: {location: {lat: match.lat, lng: match.lng}},
+      formatted_address: null,
+      id: null,
+      name: null
+    });
+
+    this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage, {service_id: match.service_id, location_id: match.location_id, origin: startLocation, destination: destination_location});
+  }
+
+  // Pulls the current session from local storage
+  session(): Session {
+    return (JSON.parse(localStorage.session || null) as Session);
   }
 }

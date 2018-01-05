@@ -4,12 +4,10 @@ import { TranslateService } from '@ngx-translate/core';
 
 // Pages
 import { HelpMeFindPage } from '../help-me-find/help-me-find';
-import { SignInPage } from '../sign-in/sign-in';
 
 // Providers
 import { AuthProvider } from '../../providers/auth/auth';
-import { OneClickProvider } from '../../providers/one-click/one-click';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmailAddressValidator } from '../../validators/email-address'
 
 /**
@@ -37,7 +35,6 @@ export class SignUpPage {
               public formBuilder: FormBuilder,
               public navParams: NavParams,
               private authProvider: AuthProvider,
-              private oneClickProvider: OneClickProvider,
               private toastCtrl: ToastController,
               private translate: TranslateService) {
 
@@ -60,6 +57,7 @@ export class SignUpPage {
         duration: 3000
       });
       errorToast.present();
+
     }else {
       this.authProvider
         .signUp(this.signUpFormGroup.controls.formControlEmail.value, this.signUpFormGroup.controls.formControlPassword.value, this.signUpFormGroup.controls.formControlPasswordConfirm.value)
@@ -87,7 +85,7 @@ export class SignUpPage {
             }
 
             this.errorToast.dismissAll();
-            console.error(error.json().data.errors);
+
             this.errorToast = this.toastCtrl.create({
               message: errors,
               dismissOnPageChange: true,

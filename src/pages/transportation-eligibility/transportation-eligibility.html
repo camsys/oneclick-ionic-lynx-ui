@@ -4,7 +4,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>
+    <ion-title text-center>
       {{ "lynx.pages.transportation_eligibility.header" | translate }}
     </ion-title>
     <button ion-button end menuToggle>
@@ -15,9 +15,9 @@
 </ion-header>
 
 <ion-content>
-  
+
   <h3 text-center>{{ "lynx.pages.transportation_eligibility.question_prompt" | translate }}</h3>
-  
+
   <!-- ACCOMMODATIONS -->
   <ion-list class="lynx-list" [hidden]="accommodations.length === 0">
     <ion-list-header>
@@ -31,7 +31,7 @@
       </ion-checkbox>
     </ion-item>
   </ion-list>
-  
+
   <!-- ELIGIBILITIES -->
   <ion-list class="lynx-list" [hidden]="eligibilities.length === 0">
     <ion-list-header>
@@ -45,10 +45,10 @@
       </ion-checkbox>
     </ion-item>
   </ion-list>
-  
+
   <!-- PLAN TRIP -->
   <div text-center id="view-paratransit-options-button-container" >
-    <button ion-button round 
+    <button ion-button round
             class="lynx-button-primary"
             id="view-paratransit-options-button"
             (click)="viewParatransitOptions()">

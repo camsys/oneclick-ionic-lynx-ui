@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ServiceModel } from "../../models/service";
-import { IonicPage, ViewController, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { IonicPage, ViewController, NavParams, ToastController } from 'ionic-angular';
 import { OneClickProvider } from '../../providers/one-click/one-click';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 /**
@@ -22,9 +22,9 @@ export class EmailModalPage {
   service: ServiceModel;
   services: ServiceModel[];
 
-  constructor(public navParams: NavParams, 
-              public viewCtrl: ViewController, 
-              public oneClick: OneClickProvider, 
+  constructor(public navParams: NavParams,
+              public viewCtrl: ViewController,
+              public oneClick: OneClickProvider,
               private formBuilder: FormBuilder,
               private toastCtrl: ToastController,
               private translate: TranslateService) {
@@ -42,10 +42,10 @@ export class EmailModalPage {
   send(){
 
     var ids = new Array();
-    
+
     // Get Ids of Services Array if it was passed
     if(this.services != null){
-      for (var i = 0; i < this.services.length; i++) { 
+      for (var i = 0; i < this.services.length; i++) {
         ids.push(this.services[i].id);
       }
     }
@@ -54,7 +54,7 @@ export class EmailModalPage {
     if(this.service != null){
       ids.push(this.service.id);
     }
-    
+
     this.oneClick.email211Service(this.emailForm.value['email'],ids);
     this.viewCtrl.dismiss(null);
     let toast = this.toastCtrl.create({

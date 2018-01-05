@@ -7,7 +7,6 @@ import { TranslateService } from '@ngx-translate/core';
 
 // PAGES
 import { HelpMeFindPage } from '../pages/help-me-find/help-me-find';
-import { CategoriesFor211Page }    from '../pages/211/categories-for211/categories-for211';
 import { ParatransitServicesPage } from '../pages/paratransit-services/paratransit-services';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
@@ -24,7 +23,6 @@ import { User } from '../models/user';
 import { Eligibility } from '../models/eligibility';
 import { Accommodation } from '../models/accommodation';
 import { PageModel } from '../models/page';
-import { ServiceModel} from '../models/service';
 
 // PROVIDERS
 import { OneClickProvider } from '../providers/one-click/one-click';
@@ -43,7 +41,7 @@ export class MyApp {
 
   signedInPages: PageModel[];
   signedOutPages: PageModel[];
-  universalPages: PageModel[]; // Pages for both signed in and signed out users
+  universalPages: PageModel[]; //Pages for both signed in and signed out users
   signInPage: PageModel;
   signUpPage: PageModel;
   profilePage: PageModel;
@@ -72,7 +70,7 @@ export class MyApp {
     this.events.subscribe("error:http", (error) => {
       this.handleError(error);
     });
-    
+
     // When user is updated, update user info.
     this.events.subscribe("user:updated", (user) => {
       this.updateUserInfo(user);
@@ -112,28 +110,28 @@ export class MyApp {
   }
 
   initializeApp() {
-    
+
     this.statusBar.styleDefault();
     this.splashScreen.hide();
-    
+
     // Set up the page links for the sidebar menu
     this.setMenu();
-    
+
     // Set up the spinner div
     this.setupSpinner();
-    
+
     // Get info about signed-in user
     this.getUserInfo();
-    
+
     // Okay, so the platform is ready and our plugins are available.
     // Here you can do any higher level native things you might need.
     this.platform.ready().then(() => {
-      
+
       this.i18n.initializeApp(); // Sets the default language based on device or browser
 
       // Set the locale to whatever's in storage, or use the default
       this.i18n.setLocale(this.auth.preferredLocale());
-      
+
     });
 
   }
@@ -145,7 +143,7 @@ export class MyApp {
     if(this.auth.isRegisteredUser()){
       this.oneClickProvider.getProfile()
     }
-    
+
   }
 
   // Updates this component's user model based on the information stored in the session
@@ -242,7 +240,7 @@ export class MyApp {
       }
     );
   }
-  
+
   onSignOut() {
     this.setMenu();
   }

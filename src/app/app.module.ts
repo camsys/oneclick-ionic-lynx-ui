@@ -106,6 +106,10 @@ import { ServiceDetailsComponent } from '../components/service-details/service-d
 import { AutocompleteResultsComponent } from '../components/autocomplete-results/autocomplete-results';
 import { ExternalLinkComponent } from '../components/external-link/external-link';
 
+export function translateFactory() {
+  (i18n) => i18n.currentLocale()
+}
+
 @NgModule({
   declarations: [
     MyApp,
@@ -154,6 +158,7 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    // IonicModule.forRoot(MyApp),
     IonicModule.forRoot(MyApp, {}, {
       links: [
         { component: HelpMeFindPage, name: 'Home', segment: 'home' },
@@ -163,16 +168,16 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
         { component: CategoriesFor211Page, name: 'Categories', segment: 'categories', defaultHistory: [HelpMeFindPage] },
         { component: SubcategoriesFor211Page, name: 'Sub-Categories', segment: 'sub_categories/:code', defaultHistory: [HelpMeFindPage] },
         { component: SubcategoriesFor211Page, name: 'Sub-Categories', segment: 'sub_categories', defaultHistory: [HelpMeFindPage] },
-        { component: SubSubcategoriesFor211Page, name: 'Sub-Sub-Categories', segment: 'sub_sub_categories/:code', defaultHistory: [HelpMeFindPage] },        
+        { component: SubSubcategoriesFor211Page, name: 'Sub-Sub-Categories', segment: 'sub_sub_categories/:code', defaultHistory: [HelpMeFindPage] },
         { component: ServicesPage, name: 'Services', segment: 'services/:code', defaultHistory: [HelpMeFindPage] },
         { component: ServiceFor211DetailPage, name: 'Trip Options', segment: 'trip_options', defaultHistory: [HelpMeFindPage] },
         { component: ServiceFor211DetailPage, name: 'Trip Options', segment: 'trip_options/:trip_id', defaultHistory: [HelpMeFindPage] },
         { component: ServiceFor211DetailPage, name: 'Service Details', segment: 'trip_options/:trip_id/:service_id/:location_id', defaultHistory: [HelpMeFindPage] },
         { component: DirectionsPage, name: 'Directions', segment: 'trip_directions/:mode/:trip_id', defaultHistory: [HelpMeFindPage] },
-        { component: TaxiServicesPage, name: 'Taxi Options', segment: 'taxi_services/:trip_id', defaultHistory: [HelpMeFindPage] },        
-        { component: TransportationEligibilityPage, name: 'Transportation Eligibility', segment: 'transportation_eligibility/:trip_id', defaultHistory: [HelpMeFindPage] },        
-        { component: ParatransitServicesPage, name: 'All Paratransit Options', segment: 'paratransit_services', defaultHistory: [HelpMeFindPage] },        
-        { component: ParatransitServicesPage, name: 'Paratransit Options for Trip', segment: 'paratransit_services/:trip_id', defaultHistory: [HelpMeFindPage] },        
+        { component: TaxiServicesPage, name: 'Taxi Options', segment: 'taxi_services/:trip_id', defaultHistory: [HelpMeFindPage] },
+        { component: TransportationEligibilityPage, name: 'Transportation Eligibility', segment: 'transportation_eligibility/:trip_id', defaultHistory: [HelpMeFindPage] },
+        { component: ParatransitServicesPage, name: 'All Paratransit Options', segment: 'paratransit_services', defaultHistory: [HelpMeFindPage] },
+        { component: ParatransitServicesPage, name: 'Paratransit Options for Trip', segment: 'paratransit_services/:trip_id', defaultHistory: [HelpMeFindPage] },
         { component: UserProfilePage, name: 'User Profile', segment: 'profile', defaultHistory: [HelpMeFindPage] },
         { component: SignInPage, name: 'Sign In', segment: 'sign_in', defaultHistory: [HelpMeFindPage] },
         { component: ResetPasswordPage, name: 'Reset Password', segment: 'reset_password', defaultHistory: [HelpMeFindPage] },
@@ -255,7 +260,7 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
     {
       provide: LOCALE_ID,   // Angular pipes (date, currency, etc.) get their locale from this
       deps: [I18nProvider],
-      useFactory: (i18n) => i18n.currentLocale()
+      useFactory: translateFactory
     },
     ExternalNavigationProvider
   ],
@@ -295,3 +300,6 @@ import { ExternalLinkComponent } from '../components/external-link/external-link
 })
 
 export class AppModule {}
+
+
+
