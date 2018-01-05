@@ -401,8 +401,6 @@ export class OneClickProvider {
     });
     let requestOpts = new RequestOptions({ headers: headers });
     
-    console.log("REQUEST HEADERS", requestOpts);
-
     return this.http
             .post(uri, {}, requestOpts)
             .map(response => response.status === 200)

@@ -69,10 +69,8 @@
       },
       
       "error_messages": {
-        "400": "Sorry! An error occurred. Please try again later.",
-        "401": "Sorry! An error occurred. Please try again later.",
-        "404": "Sorry! An error occurred. Please try again later.",
-        "500": "Sorry! An error occurred. Please try again later."
+        "auth_needed": "Please sign in before continuing.",
+        "default": "Sorry! An error occurred. Please try again later." 
       }
 
     },
