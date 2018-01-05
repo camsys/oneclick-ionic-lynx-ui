@@ -158,6 +158,7 @@ export function translateFactory() {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    // IonicModule.forRoot(MyApp),
     IonicModule.forRoot(MyApp, {}, {
       links: [
         { component: HelpMeFindPage, name: 'Home', segment: 'home' },

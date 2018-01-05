@@ -19,10 +19,10 @@
   <!-- If no service is present, put the origin and destination in the header -->
   <ng-template #noServiceHeader>
     <ion-navbar class="lynx-toolbar">
-      <ion-title class="dynamic-toolbar-title">
+      <ion-title text-center class="dynamic-toolbar-title">
         <b>{{ origin.label() }}</b> {{ "lynx.global.common.to" | translate}}
       </ion-title>
-      <ion-title class="dynamic-toolbar-title">
+      <ion-title text-center class="dynamic-toolbar-title">
         <b>{{ destination.label() }}</b>
       </ion-title>
       <button ion-button end menuToggle>

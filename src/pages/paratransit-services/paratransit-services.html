@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ "lynx.pages.paratransit_services.header" | translate }}</ion-title>
+    <ion-title text-center>{{ "lynx.pages.paratransit_services.header" | translate }}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -16,31 +16,31 @@
 </ion-header>
 
 <ion-content>
-  
+
   <ion-grid no-padding>
     <ion-row>
       <ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2>
-        
+
         <ion-list class="lynx-list">
-          
+
           <!-- SERVICE DETAILS -->
           <ion-item class="service-details" text-wrap *ngFor="let svc of transportationServices">
-            
+
             <!-- Service name, url, schedules, etc. found in ServiceDetailsComponent -->
             <service-details [service]="svc"></service-details>
-            
+
             <!-- FEEDBACK -->
-            <button ion-button round 
+            <button ion-button round
                     class="lynx-button-dark"
                     (click)="rateService(svc)">
               {{ "lynx.pages.paratransit_services.feedback_button" | translate }}
             </button>
-            
+
           </ion-item>
         </ion-list>
-        
+
       </ion-col>
     </ion-row>
   </ion-grid>
-  
+
 </ion-content>

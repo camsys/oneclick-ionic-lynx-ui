@@ -6,13 +6,13 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ "lynx.pages.categories.resources_search.label" | translate }}</ion-title>
+    <ion-title text-center>{{ "lynx.pages.categories.resources_search.label" | translate }}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
   </ion-navbar>
   <ion-toolbar class="lynx-toolbar" text-center>
-    <ion-searchbar placeholder="{{ 'lynx.pages.categories.resources_search.placeholder' | translate}}" 
+    <ion-searchbar placeholder="{{ 'lynx.pages.categories.resources_search.placeholder' | translate}}"
                    [formControl]="searchControl"
                    (ionFocus)="searchResultsList.show()">
     </ion-searchbar>
@@ -21,7 +21,7 @@
 
 
 <ion-content>
-  
+
   <!-- KEYWORD SEARCH RESULTS LISTS -->
   <autocomplete-results #searchResultsList
     [items]="searchResults"
@@ -35,9 +35,9 @@
           <ion-list-header *ngIf="!categories || categories.length <= 0">
             {{ "lynx.pages.categories.no_categories" | translate }}
           </ion-list-header>
-          <ion-item class="lynx-list-inline-item lynx-list-category-item" 
-                    text-wrap 
-                    *ngFor="let category of categories" 
+          <ion-item class="lynx-list-inline-item lynx-list-category-item"
+                    text-wrap
+                    *ngFor="let category of categories"
                     (click)="openToSubcategory(category)">
             <ion-label>
               <h3 class="item-heading">{{category.name}}</h3>
@@ -48,5 +48,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  
+
 </ion-content>

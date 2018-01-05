@@ -3,6 +3,9 @@ import { IonicPage, Platform, NavController, NavParams, Events } from 'ionic-ang
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMapsHelpersProvider } from '../../../providers/google/google-maps-helpers';
 import { ServiceModel } from '../../../models/service';
+import { Session } from '../../../models/session';
+import { GooglePlaceModel } from "../../../models/google-place";
+import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 
 /**
  * Generated class for the ServicesMapTabPage page.
@@ -85,6 +88,20 @@ export class ServicesMapTabPage {
   }
 
   selectService(match : ServiceModel){
-    this.events.publish('service:selected', match);
+    let startLocation = this.session().user_starting_location;
+    let destination_location = new GooglePlaceModel({
+      address_components: null,
+      geometry: {location: {lat: match.lat, lng: match.lng}},
+      formatted_address: null,
+      id: null,
+      name: null
+    });
+
+    this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage, {service_id: match.service_id, location_id: match.location_id, origin: startLocation, destination: destination_location});
+  }
+
+  // Pulls the current session from local storage
+  session(): Session {
+    return (JSON.parse(localStorage.session || null) as Session);
   }
 }

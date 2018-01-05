@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar class="lynx-toolbar">
-    <ion-title>{{subSubCategory && subSubCategory.name}}</ion-title>
+    <ion-title text-center>{{subSubCategory && subSubCategory.name}}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -20,15 +20,15 @@
   <ion-grid>
     <ion-row>
       <ion-tabs tabsPlacement="top" *ngIf="this.services.length > 0">
-        
+
         <!-- Map results tab -->
-        <ion-tab  [root]="mapTab" 
+        <ion-tab  [root]="mapTab"
                   tabTitle="{{ 'lynx.pages.services.map_tab.header' | translate }}"
                   [rootParams]="this.services">
         </ion-tab>
 
         <!-- List results tab -->
-        <ion-tab  [root]="listTab" 
+        <ion-tab  [root]="listTab"
                   tabTitle="{{ 'lynx.pages.services.list_tab.header' | translate }}"
                   [rootParams]="this.services">
         </ion-tab>
