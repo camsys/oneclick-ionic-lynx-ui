@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ "lynx.pages.directions.header" | translate }}</ion-title>
+    <ion-title text-center>{{ "lynx.pages.directions.header" | translate }}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -20,13 +20,13 @@
   <ion-grid>
     <ion-row>
       <ion-tabs *ngIf="trip && mode" tabsPlacement="top">
-        <ion-tab [root]="stepsTab" 
+        <ion-tab [root]="stepsTab"
                  tabTitle="{{ 'lynx.pages.directions.steps_tab.header' | translate }}"
                  [rootParams]="directionsParams">
           >
          </ion-tab>
-        <ion-tab [root]="mapTab" 
-                 tabTitle="{{ 'lynx.pages.directions.map_tab.header' | translate }}" 
+        <ion-tab [root]="mapTab"
+                 tabTitle="{{ 'lynx.pages.directions.map_tab.header' | translate }}"
                  [rootParams]="directionsParams">
           >
         </ion-tab>

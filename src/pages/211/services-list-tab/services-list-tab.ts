@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Events, ModalController } from 'io
 import { ServiceModel } from '../../../models/service';
 import { HelpersProvider } from '../../../providers/helpers/helpers';
 import { EmailModalPage } from "../../email-modal/email-modal";
+import { ServiceFor211DetailPage } from '../service-for211-detail/service-for211-detail';
 
 /**
  * Generated class for the ServicesListTabPage page.
@@ -63,7 +64,7 @@ export class ServicesListTabPage {
   }
 
   selectService(match : ServiceModel){
-    this.events.publish('service:selected', match);
+    this.navCtrl.parent.viewCtrl._nav.push(ServiceFor211DetailPage, {service: match});
   }
 
   openEmailModal(services: ServiceModel[]) {

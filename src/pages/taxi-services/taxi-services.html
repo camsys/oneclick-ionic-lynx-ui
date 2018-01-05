@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ "lynx.pages.taxi_services.header" | translate }}</ion-title>
+    <ion-title text-center>{{ "lynx.pages.taxi_services.header" | translate }}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -24,7 +24,7 @@
 
           <!-- For each available taxi service, display contact info -->
           <ion-item class="service-details" *ngFor="let taxiService of taxiServices">
-            
+
             <!-- Service name, url, phone, etc. found in ServiceDetailsComponent -->
             <service-details [service]="taxiService"></service-details>
 

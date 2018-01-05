@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{"lynx.pages.feedback_status.header" | translate}}</ion-title>
+    <ion-title text-center>{{"lynx.pages.feedback_status.header" | translate}}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -17,23 +17,23 @@
 
 
 <ion-content>
-  
+
   <ion-grid no-padding>
     <ion-row>
       <ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2>
-        
+
         <ion-list class="lynx-list">
-          
+
           <ion-list-header *ngIf="feedbacks.length === 0">
             {{ "lynx.pages.feedback_status.no_feedback" | translate }}
           </ion-list-header>
-          
+
           <!-- FEEDBACK DETAILS -->
           <ion-item class="feedback-details" text-wrap *ngFor="let feedback of feedbacks">
-            
+
             <!-- SUBJECT/DATE HEADER -->
             <h2 *ngIf="feedback.subject !== 'General'; else generalFeedbackHeader">
-              {{ 
+              {{
                 "lynx.pages.feedback_status.feedback_header_w_subj" |
                 translate:{
                   subject: feedback.subject,
@@ -43,29 +43,29 @@
             </h2>
             <ng-template #generalFeedbackHeader>
               <h2>
-                {{ 
+                {{
                   "lynx.pages.feedback_status.feedback_header_no_subj" |
                   translate:{ date: (feedback.created_at | date:'mediumDate') }
                 }}
               </h2>
             </ng-template>
-            
+
             <!-- RATING -->
             <div *ngIf="feedback.rating">
               <b>{{ "lynx.pages.feedback_status.rating" | translate }}: </b><rating class="lynx-rating lynx-rating-sm" [ngModel]="feedback.rating"></rating>
             </div>
-            
+
             <!-- REVIEW -->
             <div *ngIf="feedback.review">
               <b>{{ "lynx.pages.feedback_status.review" | translate }}: </b>{{ feedback.review }}
             </div>
-            
+
             <!-- STATUS -->
             <div *ngIf="feedback.acknowledged; else notAcknowledged">
-              
+
               <b>{{ "lynx.pages.feedback_status.status" | translate }}: </b>
-              {{ 
-                "lynx.pages.feedback_status.status_acknowledged" | 
+              {{
+                "lynx.pages.feedback_status.status_acknowledged" |
                 translate:{
                   date: (feedback.acknowledged_at | date:"mediumDate"),
                   commenter: feedback.acknowledged_by
@@ -78,12 +78,12 @@
             <ng-template #notAcknowledged>
               <b>{{ "lynx.pages.feedback_status.status" | translate }}: </b>{{ "lynx.pages.feedback_status.status_pending" | translate }}
             </ng-template>
-            
+
           </ion-item>
         </ion-list>
-        
+
       </ion-col>
     </ion-row>
   </ion-grid>
-  
+
 </ion-content>
