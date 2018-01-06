@@ -7,7 +7,7 @@ import { environment } from '../../app/environment';
 */
 @Injectable()
 export class GoogleMapsHelpersProvider {
-  
+
   minZoom: number = 10;
   maxZoom: number = 16;
 
@@ -90,7 +90,7 @@ export class GoogleMapsHelpersProvider {
 
   // Builds a routeline with default formatting, and returns it. Takes an array
   // of google maps latlngs and a string of the leg's mode
-  drawRouteLine(routePoints: google.maps.LatLng[], 
+  drawRouteLine(routePoints: google.maps.LatLng[],
                 mode: string="BUS"): google.maps.Polyline {
 
     switch(mode) {
@@ -134,7 +134,6 @@ export class GoogleMapsHelpersProvider {
   // Zooms map view to fit each object in the passed array.
   // Accepts a map and an array of objects to zoom to.
   zoomToObjects(map: google.maps.Map, objs: any[]): void {
-
     // Map objects to arrays of points, then flatten into a flat array of points
     let points:google.maps.LatLng[] = objs.map((obj):google.maps.LatLng[] => {
       if(obj instanceof google.maps.Polyline) {
@@ -147,20 +146,21 @@ export class GoogleMapsHelpersProvider {
         return [];
       }
     }).reduce((acc, cur) => acc.concat(cur), []);
-  
+
     // Then, zoom the map to the array of points
     this.zoomToPoints(map, points);
   }
-  
+
   // Zooms the passed map to the minimum box encompassing all of the passed latlngs
   zoomToPoints(map: google.maps.Map, points: google.maps.LatLng[]) {
     var bounds = new google.maps.LatLngBounds();
     points.forEach((p) => bounds.extend(p));
+    console.log('bounds');
+    console.log(bounds);
     map.fitBounds(bounds); // fit the map to the bounds
-    map.setZoom(this.maxZoom);
     setTimeout(() => {
       map.setZoom(Math.min(map.getZoom(), this.maxZoom)); // reduce zoom to the max zoom if necessary
-    }, 150);
+    }, 150, console.log(map.getZoom()) );
   }
 
   // Drops a pin at the given latLng
@@ -176,3 +176,4 @@ export class GoogleMapsHelpersProvider {
   }
 
 }
+
