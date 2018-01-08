@@ -1,7 +1,7 @@
 <ion-header no-border>
 
   <ion-navbar transparent>
-    <ion-title text-center>{{ "lynx.pages.reset_password.header" | translate }}</ion-title>
+    <ion-title text-center>{{ "lynx.pages.resend_email_confirmation.header" | translate }}</ion-title>
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -11,12 +11,12 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="resetPassword()" #resetPasswordForm="ngForm">
+  <form (ngSubmit)="resendEmailConfirmation()" #resendEmailConfirmationForm="ngForm">
 
     <ion-row>
       <ion-col>
-        <h3 id="reset-password-description">
-          {{ "lynx.pages.reset_password.reset_password_description" | translate }}
+        <h3 id="resend-email-confirmation-description">
+          {{ "lynx.pages.resend_email_confirmation.resend_email_confirmation_description" | translate }}
         </h3>
       </ion-col>
     </ion-row>
@@ -32,11 +32,11 @@
     <ion-row>
       <ion-col>
         <button ion-button round
-                id="reset-password-button"
+                id="resend-email-confirmation-button"
                 class="lynx-button-dark center"
                 type="submit"
-                [disabled]="!resetPasswordForm.form.valid">
-          {{ "lynx.pages.reset_password.reset_password_button" | translate }}
+                [disabled]="!resendEmailConfirmationForm.form.valid">
+          {{ "lynx.pages.resend_email_confirmation.resend_email_confirmation_button" | translate }}
         </button>
       </ion-col>
     </ion-row>

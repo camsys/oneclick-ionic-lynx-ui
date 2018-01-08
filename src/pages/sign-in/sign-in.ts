@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 // Pages
 import { HelpMeFindPage } from '../help-me-find/help-me-find';
 import { ResetPasswordPage } from '../reset-password/reset-password';
+import { ResendEmailConfirmationPage } from '../resend-email-confirmation/resend-email-confirmation';
 
 // Providers
 import { AuthProvider } from '../../providers/auth/auth';
@@ -48,7 +49,7 @@ export class SignInPage {
             this.oneClickProvider.getProfile()
                 // Then, redirect the user to the home page
                 .then((usr) => {
-                  this.navCtrl.push(HelpMeFindPage);
+                  this.navCtrl.setRoot(HelpMeFindPage);
                 });
           },
           error => {
@@ -82,6 +83,10 @@ export class SignInPage {
 
   resetPassword() {
     this.navCtrl.push(ResetPasswordPage);
+  }
+
+  resendConfirmation() {
+    this.navCtrl.push(ResendEmailConfirmationPage);
   }
 
 }

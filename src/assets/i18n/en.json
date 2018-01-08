@@ -67,10 +67,10 @@
         "fri_short": "Fri",
         "sat_short": "Sat"
       },
-      
+
       "error_messages": {
         "auth_needed": "Please sign in before continuing.",
-        "default": "Sorry! An error occurred. Please try again later." 
+        "default": "Sorry! An error occurred. Please try again later."
       }
 
     },
@@ -157,7 +157,7 @@
           "email_yourself": "Email yourself this list"
         }
       },
-      
+
       "service_details": {
         "details_header": "About this Service",
         "phone_header": "Have Questions?",
@@ -269,6 +269,7 @@
         "header": "Sign In",
         "sign_in_button": "Sign In",
         "reset_password_button": "Forgot your Password?",
+        "resend_confirmation_button": "Resend Email Confirmation?",
         "error_messages": {
           "default":  "There was a problem signing in. Please check your username and password and try again.",
           "last_attempt": "This is your last attempt to sign in before your account is temporarily locked. Please verify your username and password before trying again.",
@@ -301,11 +302,20 @@
 
       },
 
+      "resend_email_confirmation": {
+        "header": "Reseend Email Confirmation",
+        "resend_email_confirmation_button": "Resend Email Confirmation",
+        "resend_email_confirmation_description": "To resend the email confirmation and complete your singup, enter your email address. You will be sent an email with new confirmation details.",
+        "success_message": "Your confrimation email has been successfully resent. An email has been sent to {{email}}.",
+        "error_message": "There was a problem resending your email confirmation. Please verify your email address and try again."
+
+      },
+
       "language_selector_modal": {
         "header": "Preferred Language",
         "form_title": "Select Your Language"
       },
-      
+
       "feedback_status": {
         "header": "Status of Your Feedback",
         "feedback_header_w_subj": "Your Feedback about {{subject}} from {{date}}",
@@ -318,14 +328,14 @@
         "with_comment": "with comment",
         "no_feedback": "You have not submitted any feedback."
       },
-      
+
       "external_navigation": {
         "header": "Leaving LYNX VTracs",
         "message": "Are you sure you'd like to leave the site?",
         "cancel_button": "Back",
         "confirm_button": "Continue"
       },
-      
+
       "unsubscribe": {
         "success_message": "{{email}} has been successfully unsubscribed from email updates."
       }

@@ -103,13 +103,9 @@ export class ServiceFor211DetailPage {
       // Set origin and destination places
       this.origin = new GooglePlaceModel(this.navParams.data.origin);
       if (this.navParams.data.destination){
-        console.log('getting data.destination nav params');
-        console.log(this.navParams.data);
         this.destination = new GooglePlaceModel(this.navParams.data.destination);
       }
       else if (this.service){
-        console.log('this.service');
-        console.log(this.service);
         this.destination = new GooglePlaceModel({
           address_components: null,
           geometry: {location: {lat: this.service.lat, lng: this.service.lng}},
@@ -118,9 +114,6 @@ export class ServiceFor211DetailPage {
           name: null
         });
       }
-
-      console.log('this.destination');
-      console.log(this.destination);
 
       // Plan a trip and store the result.
       // Once response comes in, update the UI with travel times and allow

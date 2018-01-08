@@ -61,7 +61,7 @@
         "fri_short": "es_Fri",
         "sat_short": "es_Sat"
       },
-      
+
       "error_messages": {
         "401": "es_Sorry! An error occurred. Please try again later.",
         "404": "es_Sorry! An error occurred. Please try again later.",
@@ -151,7 +151,7 @@
           "email_yourself": "es_Email yourself this list"
         }
       },
-      
+
       "service_details": {
         "details_header": "es_About this Service",
         "phone_header": "es_Have Questions?",
@@ -263,6 +263,7 @@
         "header": "es_Sign In",
         "sign_in_button": "es_Sign In",
         "reset_password_button": "es_Forgot your Password?",
+        "resend_confirmation_button": "es_Resend Email Confirmation?",
         "error_messages": {
           "default":  "There was a problem signing in. Please check your username and password and try again.",
           "last_attempt": "es_This is your last attempt to sign in before your account is temporarily locked. Please verify your username and password before trying again.",
@@ -299,7 +300,7 @@
         "header": "es_Preferred Language",
         "form_title": "es_Select Your Language"
       },
-      
+
       "feedback_status": {
         "header": "es_Status of Your Feedback",
         "feedback_header_w_subj": "es_Your Feedback about {{subject}} from {{date}}",
@@ -311,7 +312,7 @@
         "status_acknowledged": "es_Acknowledged by {{commenter}} on {{date}}",
         "with_comment": "es_with comment"
       },
-      
+
       "external_navigation": {
         "header": "es_Leaving LYNX VTracs",
         "message": "es_Are you sure you'd like to leave the site?",

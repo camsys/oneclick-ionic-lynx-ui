@@ -1,0 +1,15 @@
+page-resend-email-confirmation {
+  .content-ios,.content-md,.content-wp {
+    background-color: $lynxPink;
+  }
+
+  #resend-email-confirmation-description {
+    margin-top: size(5);
+    margin-bottom: size(4);
+    color: $lynxWhite;
+  }
+
+  #resend-email-confirmation-button {
+    margin-top: size(2);
+  }
+}

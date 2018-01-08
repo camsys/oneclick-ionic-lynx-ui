@@ -59,6 +59,7 @@ import { TaxiServicesPage } from '../pages/taxi-services/taxi-services';
 import { FeedbackModalPage } from '../pages/feedback-modal/feedback-modal';
 import { EmailModalPage } from '../pages/email-modal/email-modal';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
+import { ResendEmailConfirmationPage } from '../pages/resend-email-confirmation/resend-email-confirmation';
 import { LanguageSelectorModalPage } from '../pages/language-selector-modal/language-selector-modal';
 import { FeedbackStatusPage } from '../pages/feedback-status/feedback-status';
 import { UnsubscribePage } from '../pages/unsubscribe/unsubscribe';
@@ -137,6 +138,7 @@ export function translateFactory() {
     FeedbackModalPage,
     EmailModalPage,
     ResetPasswordPage,
+    ResendEmailConfirmationPage,
     LanguageSelectorModalPage,
     FeedbackStatusPage,
     UnsubscribePage,
@@ -173,6 +175,7 @@ export function translateFactory() {
         { component: ServiceFor211DetailPage, name: 'Trip Options', segment: 'trip_options', defaultHistory: [HelpMeFindPage] },
         { component: ServiceFor211DetailPage, name: 'Trip Options', segment: 'trip_options/:trip_id', defaultHistory: [HelpMeFindPage] },
         { component: ServiceFor211DetailPage, name: 'Service Details', segment: 'trip_options/:trip_id/:service_id/:location_id', defaultHistory: [HelpMeFindPage] },
+        { component: ServiceFor211DetailPage, name: 'Service Details', segment: 'trip_options/:service_id/:location_id', defaultHistory: [HelpMeFindPage] },
         { component: DirectionsPage, name: 'Directions', segment: 'trip_directions/:mode/:trip_id', defaultHistory: [HelpMeFindPage] },
         { component: TaxiServicesPage, name: 'Taxi Options', segment: 'taxi_services/:trip_id', defaultHistory: [HelpMeFindPage] },
         { component: TransportationEligibilityPage, name: 'Transportation Eligibility', segment: 'transportation_eligibility/:trip_id', defaultHistory: [HelpMeFindPage] },
@@ -181,6 +184,7 @@ export function translateFactory() {
         { component: UserProfilePage, name: 'User Profile', segment: 'profile', defaultHistory: [HelpMeFindPage] },
         { component: SignInPage, name: 'Sign In', segment: 'sign_in', defaultHistory: [HelpMeFindPage] },
         { component: ResetPasswordPage, name: 'Reset Password', segment: 'reset_password', defaultHistory: [HelpMeFindPage] },
+        { component: ResendEmailConfirmationPage, name: 'Resend Email Confirmation', segment: 'resend_email_confirmation', defaultHistory: [HelpMeFindPage] },
         { component: SignUpPage, name: 'Sign Up', segment: 'sign_up', defaultHistory: [HelpMeFindPage] },
         { component: FeedbackStatusPage, name: 'Feedback Status', segment: 'feedback_status', defaultHistory: [HelpMeFindPage] },
         { component: UnsubscribePage , name: 'Unsubscribe', segment: 'unsubscribe/:email', defaultHistory: [HelpMeFindPage]},
@@ -225,6 +229,7 @@ export function translateFactory() {
     FeedbackModalPage,
     EmailModalPage,
     ResetPasswordPage,
+    ResendEmailConfirmationPage,
     LanguageSelectorModalPage,
     FeedbackStatusPage,
     UnsubscribePage
@@ -289,6 +294,7 @@ export function translateFactory() {
     FeedbackModalPage,
     EmailModalPage,
     ResetPasswordPage,
+    ResendEmailConfirmationPage,
     LanguageSelectorModalPage,
     FeedbackStatusPage,
     UnsubscribePage,

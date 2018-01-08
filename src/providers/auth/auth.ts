@@ -45,7 +45,7 @@ export class AuthProvider {
   setSession(session: Session): void {
     localStorage.setItem('session', JSON.stringify(session));
   }
-  
+
   // Returns true/false if user is signed in (guest or registered)
   // If optional User param, checks if that particular user is signed in
   isSignedIn(user?: User): Boolean {
@@ -53,15 +53,15 @@ export class AuthProvider {
     if(user) {
       return !!(session && session.email && session.email === user.email);
     } else {
-      return !!(session && session.email);      
+      return !!(session && session.email);
     }
   }
-  
+
   // Returns true/false if email address matches guest email addresses
   isGuestEmail(email: string): Boolean {
     return email.search(this.guestUserEmailDomain) >= 0;
   }
-  
+
   // Returns true/false if user is signed in and is a registered user
   isRegisteredUser(): Boolean {
     return this.isSignedIn() && !this.isGuestEmail(this.session().email);
@@ -165,20 +165,35 @@ export class AuthProvider {
       return Observable.of();
     }
   }
-  
+
   // Resets the password of the provided user (only email required)
-  resetPassword(email: string): Observable<Response>{    
+  resetPassword(email: string): Observable<Response>{
     let uri: string = encodeURI(this.baseUrl + 'users/reset_password');
     let body = JSON.stringify({user: { email: email }});
     let options: RequestOptions = new RequestOptions({
       headers: this.defaultHeaders
     });
-    
+
     return this.http
         .post(uri, body, options)
         .map((response: Response) => {
           return response;
         });
+  }
+
+  // Resets the password of the provided user (only email required)
+  resendEmailConfirmation(email: string): Observable<Response>{
+    let uri: string = encodeURI(this.baseUrl + 'users/resend_email_confirmation');
+    let body = JSON.stringify({user: { email: email }});
+    let options: RequestOptions = new RequestOptions({
+      headers: this.defaultHeaders
+    });
+
+    return this.http
+      .post(uri, body, options)
+      .map((response: Response) => {
+        return response;
+      });
   }
 
   // Pulls the user location out of the session if available
@@ -188,12 +203,12 @@ export class AuthProvider {
       { geometry: { location: environment.DEFAULT_LOCATION } }
     );
   }
-  
+
   // Pulls out the user's recent places from the session, if available
   recentPlaces(): GooglePlaceModel[] {
     return (this.session().recent_places || []) as GooglePlaceModel[];
   }
-  
+
   // Sets the recent places array to a new array of google places
   setRecentPlaces(places: GooglePlaceModel[]): GooglePlaceModel[] {
     let session = this.session();
@@ -201,7 +216,7 @@ export class AuthProvider {
     this.setSession(session);
     return this.recentPlaces();
   }
-  
+
   // Adds a single recent place to the array of recent places, at the top of the list
   addRecentPlace(place: GooglePlaceModel): GooglePlaceModel[] {
     let recentPlaces = this.recentPlaces();
@@ -218,7 +233,7 @@ export class AuthProvider {
     this.events.publish('user:updated', user);  // Publish user updated event for pages to listen to
     return this.user();
   }
-  
+
   // Sets the preferred locale, regardless of whether or not user is logged in
   setPreferredLocale(locale: string): User {
     let user = (this.user() || {}) as User;

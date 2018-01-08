@@ -62,7 +62,7 @@ export class SignUpPage {
       this.authProvider
         .signUp(this.signUpFormGroup.controls.formControlEmail.value, this.signUpFormGroup.controls.formControlPassword.value, this.signUpFormGroup.controls.formControlPasswordConfirm.value)
         .subscribe(
-          data => {this.navCtrl.push(HelpMeFindPage);},
+          data => {this.navCtrl.setRoot(HelpMeFindPage);},
           error => {
             let errors: string = '';
             errors = this.translate.instant("lynx.pages.sign_up.error_messages.default");
