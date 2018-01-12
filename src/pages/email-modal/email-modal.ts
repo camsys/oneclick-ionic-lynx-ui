@@ -67,7 +67,6 @@ export class EmailModalPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EmailModalPage');
   }
 
 }

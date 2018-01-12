@@ -13,7 +13,7 @@ import { AuthProvider } from '../../providers/auth/auth';
   templateUrl: 'reset-password.html',
 })
 export class ResetPasswordPage {
-  
+
   email: string;
 
   constructor(public navCtrl: NavController,
@@ -21,13 +21,11 @@ export class ResetPasswordPage {
               private auth: AuthProvider,
               private toastCtrl: ToastController,
               private translate: TranslateService) {
-    console.log("CREATING RESET PASSWORD PAGE");
   }
 
   ionViewDidLoad() {
-    console.log("RESET PASSWORD PAGE LOADED");
   }
-  
+
   resetPassword() {
     this.auth.resetPassword(this.email)
              .subscribe(
@@ -39,7 +37,7 @@ export class ResetPasswordPage {
           });
           successToast.present();
         },
-        error => { 
+        error => {
           console.error(error);
           let errorToast = this.toastCtrl.create({
             message: this.translate.instant("lynx.pages.reset_password.error_message"),

@@ -34,7 +34,7 @@ export class PlaceSearchComponent {
   @Output() onBlur: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFocus: EventEmitter<any> = new EventEmitter<any>();
   @Output() onSelect: EventEmitter<GooglePlaceModel> = new EventEmitter<GooglePlaceModel>();
-  
+
   @HostListener('keydown', ['$event'])
   keyboardInput(event: KeyboardEvent) {
     if(event.code === "ArrowDown") {
@@ -114,7 +114,7 @@ export class PlaceSearchComponent {
   // Select an item from the search results list
   chooseItem(item: any) {
     this.events.publish('spinner:show'); // Show spinner until geocoding call returns
-    
+
     // If the item already has a lat/lng, save it as the selected place.
     if(item && item.result && new GooglePlaceModel(item.result).isGeocoded()) {
       this.setPlace(item.result);
@@ -125,7 +125,7 @@ export class PlaceSearchComponent {
       });
     }
   }
-  
+
   // Converts a google place model to an autocomplete item model
   convertPlaceToSearchResult(place: GooglePlaceModel): SearchResultModel {
     return {
@@ -134,11 +134,11 @@ export class PlaceSearchComponent {
       result: place
     } as SearchResultModel;
   }
-  
+
   // Pass through the ion-search focus and blur events
   ionFocus() {
     this.onFocus.emit();
-  }  
+  }
   ionBlur() {
     this.onBlur.emit();
   }

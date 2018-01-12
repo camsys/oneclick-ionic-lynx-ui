@@ -79,7 +79,6 @@ export class ServicesListTabPage {
   }
 
   openEmailModal(services: ServiceModel[]) {
-    console.log(services);
     let emailModal = this.modalCtrl.create(EmailModalPage, {service: services});
     emailModal.present();
   }

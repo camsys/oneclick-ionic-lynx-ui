@@ -155,12 +155,10 @@ export class GoogleMapsHelpersProvider {
   zoomToPoints(map: google.maps.Map, points: google.maps.LatLng[]) {
     var bounds = new google.maps.LatLngBounds();
     points.forEach((p) => bounds.extend(p));
-    console.log('bounds');
-    console.log(bounds);
     map.fitBounds(bounds); // fit the map to the bounds
     setTimeout(() => {
       map.setZoom(Math.min(map.getZoom(), this.maxZoom)); // reduce zoom to the max zoom if necessary
-    }, 150, console.log(map.getZoom()) );
+    }, 150 );
   }
 
   // Drops a pin at the given latLng

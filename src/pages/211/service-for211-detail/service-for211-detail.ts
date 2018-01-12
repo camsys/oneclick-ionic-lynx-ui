@@ -166,7 +166,6 @@ export class ServiceFor211DetailPage {
   // Loads the page from a OneClick trip response
   loadTripResponse(tripResponse: TripResponseModel) {
     this.tripResponse = new TripResponseModel(tripResponse);
-    console.log(this.tripResponse);
     this.updateTravelTimesFromTripResponse(this.tripResponse);
     this.updateReturnedModes(this.tripResponse);
     this.updateTripPlaces(this.tripResponse);
@@ -255,8 +254,6 @@ export class ServiceFor211DetailPage {
     // Don't filter by schedule, because we aren't letting the user pick a time for paratransit or taxi
     // Also don't filter by eligibility, as doing so may exclude relevant results from the fare preview
     this.tripRequest.except_filters = ["schedule", "eligibility"];
-
-    console.log(tripRequest);
 
     return tripRequest;
   }

@@ -25,11 +25,9 @@ export class ResendEmailConfirmationPage {
               private auth: AuthProvider,
               private toastCtrl: ToastController,
               private translate: TranslateService) {
-    console.log("CREATING RESET PASSWORD PAGE");
   }
 
   ionViewDidLoad() {
-    console.log("RESET PASSWORD PAGE LOADED");
   }
 
   resendEmailConfirmation() {

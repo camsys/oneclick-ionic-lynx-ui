@@ -89,14 +89,14 @@ export class MyApp {
         break;
       default:
         this.goHome();
-        this.showErrorToast('lynx.global.error_messages.default');            
+        this.showErrorToast('lynx.global.error_messages.default');
         break;
     }
-    
+
     this.events.publish('spinner:hide'); // stop the spinner once we're back on the home page
 
   }
-  
+
   // Shows an error toast at the top of the screen for 3 sec, with the given (translated) message
   showErrorToast(messageCode: string) {
     let errorToast = this.toastCtrl.create({
@@ -105,7 +105,7 @@ export class MyApp {
       duration: 3000
     });
     errorToast.present();
-    
+
     return errorToast;
   }
 
@@ -187,9 +187,6 @@ export class MyApp {
 
   // Open the appropriate page, or do something special for certain pages
   openPage(page) {
-
-    console.log("Routing to page: ", page);
-
     switch(page.component) {
       case "home":
         this.goHome();
@@ -231,7 +228,6 @@ export class MyApp {
     this.auth.signOut()
     .subscribe(
       data => {
-        console.log('Signed Out');
         this.onSignOut();
       },
       error => {
@@ -273,7 +269,7 @@ export class MyApp {
     });
     this.events.subscribe('spinner:hide', () => {
       this.showSpinner = false;
-      this.changeDetector.markForCheck(); // Makes sure spinner doesn't lag
+      this.changeDetector.detectChanges(); // Makes sure spinner doesn't lag
     });
   }
 

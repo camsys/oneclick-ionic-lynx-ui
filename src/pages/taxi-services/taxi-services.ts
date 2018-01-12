@@ -22,17 +22,17 @@ import { HelpMeFindPage } from '../help-me-find/help-me-find';
 export class TaxiServicesPage {
   trip: TripResponseModel;
   taxiServices: OneClickServiceModel[];
-  
+
   trip_id: number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public oneClick: OneClickProvider) {
-      
+
     this.trip_id = parseInt(navParams.data.trip_id);
 
   }
-  
+
   // Loads the page with trip response data
   loadTrip(trip: TripResponseModel) {
     this.trip = new TripResponseModel(trip).withFilteredItineraries('taxi');
@@ -44,8 +44,7 @@ export class TaxiServicesPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TaxiServicesPage');
-    
+
     if(this.navParams.data.trip_response) {
       this.loadTrip(this.navParams.data.trip_response);
     } else if (this.trip_id) {
