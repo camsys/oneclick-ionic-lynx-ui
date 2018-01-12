@@ -37,6 +37,14 @@
         "paratransit": "Paratransit",
         "find_other_options": "Find Other Options"
       },
+      
+      "profile_modes": {
+        "mode_transit_name": "Bus and Train",
+        "mode_paratransit_mane": "Paratransit",
+        "mode_taxi_name": "Taxi",
+        "mode_car_name": "Drive",
+        "mode_uber_name": "Uber"
+      },
 
       "time": {
         "hour_short": "hr",
