@@ -26,36 +26,64 @@ import { Network } from 'ionic-native';
 import { TranslateModule, TranslateLoader, MissingTranslationHandler} from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
+const myPromise = request();
+
 export function createTranslateLoader(http: Http){
-  // var translationLoader : TranslateHttpLoader;
-  var useLocalTranslation = null;
-  console.log('thing about to be set;');
-  // findInternationalizationResources(http, function (returnValue) {
-  //   console.log(returnValue);
-  //   return returnValue;
-  // });
+  console.log('IN createTranslateLoader');
+  return myPromise
+    .then(function (response) {
+      console.log('IN SUCCESS THEN');
+      console.log(response);
 
-  testForInternationalizationEndpoints(http,function(returnValue){
-    let translationsContain = 'pages.home.welcome_message_1';
-    if(returnValue.indexOf(translationsContain) !== -1){
-      useLocalTranslation = false;
-    }else{
-      useLocalTranslation = true
-    }
-  });
+      var test = returnRemoteLoader(http);
+      console.log(test);
 
-  if(useLocalTranslation === true)
-  {
-    console.log('useLocalTranslation = true');
-    new TranslateHttpLoader(http, 'assets/i18n/', '.json');
-  }else if (useLocalTranslation === false)
-  {
-    console.log('useLocalTranslation = false');
-    return  new TranslateHttpLoader(http, environment.AWS_LOCALE_BUCKET, '.json');
-  }
+      return returnRemoteLoader(http);
+    })
+    .catch(function (err) {
+      console.log('IN ERROR THEN');
+      console.log(err);
 
-  // return translationLoader
+      var test = returnLocalLoader(http);
+      console.log(test);
+      // console.log(new TranslateHttpLoader(http, 'assets/i18n/', '.json'));
+
+      return returnLocalLoader(http);
+    })
 }
+
+function request() {
+  return new Promise(function (resolve, reject) {
+    const xhr = new XMLHttpRequest();
+    xhr.timeout = 2000;
+    xhr.onreadystatechange = function(e) {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          resolve(xhr.response)
+        } else {
+          console.log('xhr.status != 200');
+          reject('Failed Call')
+        }
+      }
+    };
+
+    xhr.open('get', environment.AWS_LOCALE_BUCKET+'en.json', true);
+    xhr.send();
+  })
+}
+
+function returnRemoteLoader(http: Http)
+{
+  return new TranslateHttpLoader(http, environment.AWS_LOCALE_BUCKET, '.json');
+}
+
+function returnLocalLoader(http: Http)
+{
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
+
+
+
 
 function findInternationalizationResources(http: Http, callback){
 
