@@ -7,7 +7,6 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { ElasticModule } from 'angular2-elastic';
 import { DatePicker } from '@ionic-native/date-picker';
 import { LOCALE_ID } from '@angular/core';
-// import { Observable } from 'rxjs/Rx';
 
 // Environment
 import { environment } from './environment';
@@ -18,17 +17,78 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Network } from 'ionic-native';
+
 
 // Other 3rd-Party Imports
 
 // Translations
-import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateModule, TranslateLoader, MissingTranslationHandler} from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 export function createTranslateLoader(http: Http){
-  // return new TranslateStaticLoader(http, 'assets/i18n', '.json');
-  // return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
-  return new TranslateHttpLoader(http, environment.AWS_LOCALE_BUCKET, '.json');
+  // var translationLoader : TranslateHttpLoader;
+  var useLocalTranslation = null;
+  console.log('thing about to be set;');
+  // findInternationalizationResources(http, function (returnValue) {
+  //   console.log(returnValue);
+  //   return returnValue;
+  // });
+
+  testForInternationalizationEndpoints(http,function(returnValue){
+    let translationsContain = 'pages.home.welcome_message_1';
+    if(returnValue.indexOf(translationsContain) !== -1){
+      useLocalTranslation = false;
+    }else{
+      useLocalTranslation = true
+    }
+  });
+
+  if(useLocalTranslation === true)
+  {
+    console.log('useLocalTranslation = true');
+    new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+  }else if (useLocalTranslation === false)
+  {
+    console.log('useLocalTranslation = false');
+    return  new TranslateHttpLoader(http, environment.AWS_LOCALE_BUCKET, '.json');
+  }
+
+  // return translationLoader
+}
+
+function findInternationalizationResources(http: Http, callback){
+
+  testForInternationalizationEndpoints(http,function(returnValue){
+    let translationsContain = 'pages.home.welcome_message_1';
+    if(returnValue.indexOf(translationsContain) !== -1){
+      callback (new TranslateHttpLoader(http, environment.AWS_LOCALE_BUCKET, '.json'));
+    }else{
+      callback (new TranslateHttpLoader(http, 'assets/i18n/', '.json'));
+    }
+  });
+}
+
+function testForInternationalizationEndpoints(http: Http, callback){
+  let xhr = new XMLHttpRequest();
+
+  xhr.onreadystatechange = function (rs) {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        callback(xhr.response)
+      } else {
+        callback('');
+      }
+    }
+  };
+
+  xhr.ontimeout = function () {
+    callback('');
+  };
+
+  xhr.open("GET", environment.AWS_LOCALE_BUCKET+'en.json', true);
+  xhr.send()
+
 }
 
 // Ratings
@@ -72,6 +132,7 @@ import { GoogleMapsHelpersProvider } from '../providers/google/google-maps-helpe
 import { HelpersProvider } from '../providers/helpers/helpers';
 import { I18nProvider } from '../providers/i18n/i18n';
 import { ExternalNavigationProvider } from '../providers/external-navigation/external-navigation';
+import { MyMissingTranslationHandler } from '../providers/i18n/MyMissingTranslationHandler'
 
 // Models
 import { CategoryFor211Model } from '../models/category-for-211';
@@ -106,6 +167,9 @@ import { PrettyTableNamePipe } from '../pipes/pretty-table-name';
 import { ServiceDetailsComponent } from '../components/service-details/service-details';
 import { AutocompleteResultsComponent } from '../components/autocomplete-results/autocomplete-results';
 import { ExternalLinkComponent } from '../components/external-link/external-link';
+import {Observable} from "rxjs/Rx";
+import {GooglePlaceModel} from "../models/google-place";
+
 
 export function translateFactory() {
   (i18n) => i18n.currentLocale()
@@ -196,7 +260,7 @@ export function translateFactory() {
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
-        deps: [Http]
+        deps: [Http],
       }
     }),
     TextMaskModule,
@@ -236,6 +300,7 @@ export function translateFactory() {
   ],
   providers: [
     StatusBar,
+    Network,
     SplashScreen,
     InAppBrowser,
     Geolocation,
