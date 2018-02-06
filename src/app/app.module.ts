@@ -26,99 +26,6 @@ import { Network } from 'ionic-native';
 import { TranslateModule, TranslateLoader, MissingTranslationHandler} from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
-const myPromise = request();
-
-export function createTranslateLoader(http: Http){
-  console.log('IN createTranslateLoader');
-  return myPromise
-    .then(function (response) {
-      console.log('IN SUCCESS THEN');
-      console.log(response);
-
-      var test = returnRemoteLoader(http);
-      console.log(test);
-
-      return returnRemoteLoader(http);
-    })
-    .catch(function (err) {
-      console.log('IN ERROR THEN');
-      console.log(err);
-
-      var test = returnLocalLoader(http);
-      console.log(test);
-      // console.log(new TranslateHttpLoader(http, 'assets/i18n/', '.json'));
-
-      return returnLocalLoader(http);
-    })
-}
-
-function request() {
-  return new Promise(function (resolve, reject) {
-    const xhr = new XMLHttpRequest();
-    xhr.timeout = 2000;
-    xhr.onreadystatechange = function(e) {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          resolve(xhr.response)
-        } else {
-          console.log('xhr.status != 200');
-          reject('Failed Call')
-        }
-      }
-    };
-
-    xhr.open('get', environment.AWS_LOCALE_BUCKET+'en.json', true);
-    xhr.send();
-  })
-}
-
-function returnRemoteLoader(http: Http)
-{
-  return new TranslateHttpLoader(http, environment.AWS_LOCALE_BUCKET, '.json');
-}
-
-function returnLocalLoader(http: Http)
-{
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
-}
-
-
-
-
-function findInternationalizationResources(http: Http, callback){
-
-  testForInternationalizationEndpoints(http,function(returnValue){
-    let translationsContain = 'pages.home.welcome_message_1';
-    if(returnValue.indexOf(translationsContain) !== -1){
-      callback (new TranslateHttpLoader(http, environment.AWS_LOCALE_BUCKET, '.json'));
-    }else{
-      callback (new TranslateHttpLoader(http, 'assets/i18n/', '.json'));
-    }
-  });
-}
-
-function testForInternationalizationEndpoints(http: Http, callback){
-  let xhr = new XMLHttpRequest();
-
-  xhr.onreadystatechange = function (rs) {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        callback(xhr.response)
-      } else {
-        callback('');
-      }
-    }
-  };
-
-  xhr.ontimeout = function () {
-    callback('');
-  };
-
-  xhr.open("GET", environment.AWS_LOCALE_BUCKET+'en.json', true);
-  xhr.send()
-
-}
-
 // Ratings
 import { Ionic2RatingModule } from 'ionic2-rating'; // https://www.npmjs.com/package/ionic2-rating
 
@@ -199,9 +106,77 @@ import {Observable} from "rxjs/Rx";
 import {GooglePlaceModel} from "../models/google-place";
 
 
+const myPromise = requestInternationalizationCheck();
+let loader: TranslateHttpLoader;
+
+export async function createTranslateLoader(http: Http){
+  var loader;
+
+  return myPromise
+    .then(function (response) {
+      console.log('IN SUCCESS THEN');
+      loader = returnRemoteLoader(http);
+      return returnRemoteLoader(http);
+    })
+    .catch(function (err) {
+      loader = returnLocalLoader(http);
+      return returnLocalLoader(http);
+    })
+}
+
+function test(http: Http)
+{
+  return myPromise
+    .then(function () {
+      loader = returnRemoteLoader(http);
+      return returnRemoteLoader(http);
+    })
+    .catch(function () {
+      loader = returnLocalLoader(http);
+      return returnLocalLoader(http);
+    })
+}
+
+function requestInternationalizationCheck() {
+  return new Promise(function (resolve, reject) {
+    const xhr = new XMLHttpRequest();
+    xhr.timeout = 20000;
+    xhr.onreadystatechange = function(e) {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          resolve(xhr.response)
+        } else {
+          console.log('xhr.status != 200');
+          reject('Failed Call')
+        }
+      }
+    };
+
+    xhr.ontimeout = function () {
+      console.log('TIMEOUT');
+      reject('Failed Call')
+    };
+
+    xhr.open('get', environment.AWS_LOCALE_BUCKET+'en.json', true);
+    xhr.send();
+  })
+}
+
+function returnRemoteLoader(http: Http)
+{
+  return new TranslateHttpLoader(http, environment.AWS_LOCALE_BUCKET, '.json');
+}
+
+function returnLocalLoader(http: Http)
+{
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
+
 export function translateFactory() {
   (i18n) => i18n.currentLocale()
 }
+
+
 
 @NgModule({
   declarations: [
@@ -287,8 +262,17 @@ export function translateFactory() {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
         deps: [Http],
+        useFactory: async function (http: Http) {
+          return test(http).then(a => {
+            console.log(a);
+            return loader = a;
+          }).catch(b => {
+            console.log(b);
+            return loader = b;
+          });
+        },
+
       }
     }),
     TextMaskModule,
