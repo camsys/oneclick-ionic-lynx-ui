@@ -33,7 +33,7 @@
         "car": "Drive",
         "transit": "Bus & Train",
         "taxi": "Taxi",
-        "uber": "Uber",
+        "lyft": "Lyft",
         "paratransit": "Paratransit",
         "find_other_options": "Find Other Options"
       },
@@ -43,7 +43,7 @@
         "mode_paratransit_mane": "Paratransit",
         "mode_taxi_name": "Taxi",
         "mode_car_name": "Drive",
-        "mode_uber_name": "Uber"
+        "mode_lyft_name": "Lyft"
       },
 
       "time": {

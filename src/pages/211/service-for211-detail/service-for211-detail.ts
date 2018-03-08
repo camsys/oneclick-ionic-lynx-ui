@@ -45,8 +45,8 @@ export class ServiceFor211DetailPage {
   service: ServiceModel = {} as ServiceModel;
   origin: GooglePlaceModel = new GooglePlaceModel({});
   destination: GooglePlaceModel = new GooglePlaceModel({});
-  basicModes:string[] = ['transit', 'car', 'taxi', 'uber'] // All available modes except paratransit
-  allModes:string[] = ['transit', 'car', 'taxi', 'uber', 'paratransit'] // All modes
+  basicModes:string[] = ['transit', 'car', 'taxi', 'lyft'] // All available modes except paratransit
+  allModes:string[] = ['transit', 'car', 'taxi', 'lyft', 'paratransit'] // All modes
   returnedModes:string[] = [] // All the basic modes returned from the plan call
   tripRequest: TripRequestModel;
   tripResponse: TripResponseModel = new TripResponseModel({});
@@ -210,18 +210,17 @@ export class ServiceFor211DetailPage {
         trip_id: tripResponse.id,
         mode: mode
       });
-    } else if (mode === 'uber') {
-      let uberUrl = encodeURI(
-        'https://m.uber.com/ul/?' +
-        'action=setPickup' +
-        '&client_id=Qu7RDPXW65A6G-JqqIgnbsfYglolUTIm' +
-        '&pickup[latitude]=' + tripResponse.origin.lat +
+    } else if (mode === 'lyft') {
+      let lyftUrl = encodeURI(
+        'https://lyft.com/ride?id=lyft&' +
+        'pickup[latitude]=' + tripResponse.origin.lat +
         '&pickup[longitude]=' + tripResponse.origin.lng +
-        '&dropoff[latitude]=' + tripResponse.destination.lat +
-        '&dropoff[longitude]=' + tripResponse.destination.lng
+        '&partner=w_W2xgvUud_Y' +
+        '&destination[latitude]=' + tripResponse.destination.lat +
+        '&destination[longitude]=' + tripResponse.destination.lng
       );
 
-      this.exNav.goTo(uberUrl);
+      this.exNav.goTo(lyftUrl);
     }
   }
 
@@ -292,7 +291,7 @@ export class ServiceFor211DetailPage {
       case 'car':
       case 'taxi':
         return this.driveTime;
-      case 'uber':
+      case 'lyft':
         return this.driveTime;
       case 'paratransit':
         return this.driveTime;
@@ -310,8 +309,8 @@ export class ServiceFor211DetailPage {
         return "Drive";
       case 'taxi':
         return "Taxi";
-      case 'uber':
-        return "Uber";
+      case 'lyft':
+        return "Lyft";
       case 'paratransit':
         return "Other Transportation Options";
       default:
