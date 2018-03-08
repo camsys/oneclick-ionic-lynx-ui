@@ -27,7 +27,7 @@
         "car": "es_Drive",
         "transit": "es_Bus & Train",
         "taxi": "es_Taxi",
-        "uber": "es_Uber",
+        "lyft": "Lyft",
         "paratransit": "es_Paratransit",
         "find_other_options": "es_Find Other Options"
       },
