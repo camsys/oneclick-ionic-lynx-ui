@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { HelpMeFindPage } from '../help-me-find/help-me-find';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { ResendEmailConfirmationPage } from '../resend-email-confirmation/resend-email-confirmation';
+import { SignUpPage } from '../sign-up/sign-up';
 
 // Providers
 import { AuthProvider } from '../../providers/auth/auth';
@@ -79,6 +80,10 @@ export class SignInPage {
             errorToast.present();
           }
         );
+  }
+
+  signUp(){
+    this.navCtrl.push(SignUpPage);
   }
 
   resetPassword() {
