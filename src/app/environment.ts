@@ -1,5 +1,5 @@
 export const environment = {  
-  BASE_ONECLICK_URL: 'http://localhost:3000/api/v2/',
+  BASE_ONECLICK_URL: 'https://occ-lynx-prod.herokuapp.com/api/v2/',
   AWS_LOCALE_BUCKET: 'https://s3.us-east-1.amazonaws.com/occ-lynx-prod/i18n/',
   AWS_IMAGE_ASSET_BUCKET: 'https://s3.us-east-1.amazonaws.com/occ-lynx-prod/assets/img/',
   DEFAULT_LOCATION: {
