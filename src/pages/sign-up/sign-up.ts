@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  IonicPage, NavController, NavParams, ToastController, Toast } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Toast } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
 // Pages
@@ -9,6 +9,7 @@ import { HelpMeFindPage } from '../help-me-find/help-me-find';
 import { AuthProvider } from '../../providers/auth/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmailAddressValidator } from '../../validators/email-address'
+import { ExternalNavigationProvider } from '../../providers/external-navigation/external-navigation';
 
 /**
  * Generated class for the SignUpPage page.
@@ -36,7 +37,8 @@ export class SignUpPage {
               public navParams: NavParams,
               private authProvider: AuthProvider,
               private toastCtrl: ToastController,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              public exNav: ExternalNavigationProvider) {
 
     this.signUpFormGroup = formBuilder.group({
       formControlEmail: ['', Validators.compose([Validators.required, EmailAddressValidator.isValid, Validators.maxLength(30),])],
