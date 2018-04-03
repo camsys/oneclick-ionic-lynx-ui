@@ -75,7 +75,7 @@ export class HelpMeFindPage {
 
   presentAlerts() {
 
-    document.getElementById('messages-button').style.display = "none";
+    //document.getElementById('messages-button').style.display = "none";
 
     for(let entry of this.alerts) {
       let alert = this.alertCtrl.create({
@@ -93,7 +93,7 @@ export class HelpMeFindPage {
   }
 
   ackAlert(alert: Alert){
-    this.oneClickProvider.ackAlert(alert);
+    //this.oneClickProvider.ackAlert(alert);
   }
 
 }
