@@ -21,17 +21,18 @@
     <ion-row>
       <ion-tabs tabsPlacement="top" *ngIf="this.services.length > 0">
 
-        <!-- Map results tab -->
-        <ion-tab  [root]="mapTab"
-                  tabTitle="{{ 'lynx.pages.services.map_tab.header' | translate }}"
-                  [rootParams]="this.services">
-        </ion-tab>
-
         <!-- List results tab -->
         <ion-tab  [root]="listTab"
                   tabTitle="{{ 'lynx.pages.services.list_tab.header' | translate }}"
                   [rootParams]="this.services">
         </ion-tab>
+
+        <!-- Map results tab -->
+        <ion-tab  [root]="mapTab"
+                  tabTitle="{{ 'lynx.pages.services.map_tab.header' | translate }}"
+                  [rootParams]="this.services">
+        </ion-tab>
+        
       </ion-tabs>
     </ion-row>
   </ion-grid>

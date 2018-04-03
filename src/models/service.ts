@@ -29,4 +29,5 @@ export class ServiceModel {
   };
   service_id:number;
   location_id:number;
+
 }
