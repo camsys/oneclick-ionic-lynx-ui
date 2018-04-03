@@ -159,6 +159,7 @@ export class MyApp {
 
     // Pages to display regardless of whether or not user is signed in or not
     this.universalPages = [
+      { title: 'home', component: "home" },
       { title: 'about_us', component: AboutUsPage },
       { title: 'contact_us', component: ContactUsPage },
       { title: 'transportation', component: ParatransitServicesPage },
@@ -177,7 +178,7 @@ export class MyApp {
 
     // Pages to display if user is signed out
     this.signedOutPages = ([
-      { title: 'home', component: "home" }
+      
     ] as PageModel[]).concat(this.universalPages);
 
     this.signInPage = { title: 'sign_in', component: SignInPage} as PageModel;
