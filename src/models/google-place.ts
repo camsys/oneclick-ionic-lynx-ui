@@ -15,9 +15,9 @@ export class GooglePlaceModel {
   types: string[];
   
   constructor(attrs: any) { 
-    this.name = attrs.name;   
+    this.name = (attrs.name || "").replace(/, USA$/, "");
     this.address_components = attrs.address_components || [];
-    this.formatted_address = attrs.formatted_address || "";
+    this.formatted_address = (attrs.formatted_address || "").replace(/, USA$/, "");
     this.geometry = attrs.geometry || {};
     this.place_id = attrs.place_id || null;
     this.types = attrs.types || [];
@@ -48,9 +48,9 @@ export class GooglePlaceModel {
   
   // Returns a label for the place, either from the address components or using the formatted address
   label() {
-    return this.name || 
+    return (this.name || 
            this.addressComponent(this.types[0])["long_name"] || 
-           this.formatted_address;
+           this.formatted_address).replace(/, USA$/, "");
   }
   
   // Pulls out the lat, or null if not present

@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 
 import { environment } from '../../app/environment';
 
-
 /**
  * Generated class for the LanguageSelectorModalPage page.
  *
@@ -22,7 +21,7 @@ export class LanguageSelectorModalPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public viewCtrl: ViewController,
+              public viewCtrl: ViewController
               ) {
 
     // Include all available locales (including translation keys)
@@ -50,5 +49,6 @@ export class LanguageSelectorModalPage {
   onLocaleChange() {
     this.submit();
   }
+
 
 }
