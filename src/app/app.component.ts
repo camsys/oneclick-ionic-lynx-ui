@@ -165,9 +165,9 @@ export class MyApp {
       { title: 'transportation', component: ParatransitServicesPage },
       { title: 'resources', component: UserLocatorPage, params: { viewType: 'services'}},
       { title: 'language_selector', component: "language_selector" },
-      { title: 'feedback', component: "feedback" },
       { title: 'privacy_policy', component: "privacy_policy" },
-      { title: 'live_211_chat', component: "live_211_chat" }
+      { title: 'live_211_chat', component: "live_211_chat" },
+      { title: 'feedback', component: "feedback" }
     ] as PageModel[];
 
     // Pages to display if user is signed in
@@ -178,7 +178,6 @@ export class MyApp {
 
     // Pages to display if user is signed out
     this.signedOutPages = ([
-      
     ] as PageModel[]).concat(this.universalPages);
 
     this.signInPage = { title: 'sign_in', component: SignInPage} as PageModel;
