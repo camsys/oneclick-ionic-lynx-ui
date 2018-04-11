@@ -388,6 +388,16 @@ export class OneClickProvider {
             .toPromise()
             .catch(error => this.handleError(error));
   }
+
+  // SMS 211 Services
+  sms211Service(phone: string, id: number[]): Promise<any> {
+    return this.http
+            .post(this.oneClickUrl + 'oneclick_refernet/sms', 
+                  { phone:  phone, "services": id, locale: this.i18n.currentLocale()}, 
+                  this.requestOptions())
+            .toPromise()
+            .catch(error => this.handleError(error));
+  }
   
   // Unsubscribes user from email updates
   unsubscribeUser(email: string): Observable<Boolean> {

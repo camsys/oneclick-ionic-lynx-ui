@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title text-center>{{ "lynx.pages.sms.header" | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-item>
+      {{ "lynx.pages.sms.description" | translate}}
+    </ion-item>
+
+
+    <form [formGroup]="smsForm" (ngSubmit)="send()">
+      <ion-item>
+        <ion-input type="tel" formControlName="sms" placeholder="{{'lynx.pages.sms.placeholder' | translate}}"></ion-input>
+      </ion-item>
+
+      <!-- Submit button creates a feedback, cancel discards data without leaving feedback-->
+      <div id="sms-modal-buttons">
+        <ion-col col-md-6 text-center>
+        <button ion-button round
+                type="submit"
+                class="lynx-button-dark">{{ "lynx.pages.sms.submit_button" | translate }}</button>
+        </ion-col>
+        <ion-col col-md-6 text-center>
+        <!-- Submit button creates a feedback, cancel discards data without leaving feedback-->
+        <button ion-button round
+                class="lynx-button-white"
+                type="button"
+                (click)="cancel()">{{ "lynx.pages.sms.cancel_button" | translate }}
+        </button>
+        </ion-col>
+      </div>
+    </form>
+
+
+
+</ion-content>

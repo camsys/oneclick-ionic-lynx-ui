@@ -331,6 +331,11 @@ export class ServiceFor211DetailPage {
     emailModal.present();
   }
 
+  openSmsModal(service: ServiceModel) {
+    let smsModal = this.modalCtrl.create(SmsModalPage, {service: service});
+    smsModal.present();
+  }
+
   // Pulls the current session from local storage
   session(): Session {
     return (JSON.parse(localStorage.session || null) as Session);
