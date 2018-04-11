@@ -239,6 +239,9 @@ export class MyApp {
 
   onSignOut() {
     this.setMenu();
+    this.nav.push(this.rootPage);
+    // This isn't an error, but there is no difference in the toast
+    this.showErrorToast('lynx.global.sign_out_successful');
   }
 
   // Creates and presents a modal for changing the locale.
