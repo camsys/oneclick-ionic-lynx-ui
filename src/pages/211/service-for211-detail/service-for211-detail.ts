@@ -46,8 +46,8 @@ export class ServiceFor211DetailPage {
   service: ServiceModel = {} as ServiceModel;
   origin: GooglePlaceModel = new GooglePlaceModel({});
   destination: GooglePlaceModel = new GooglePlaceModel({});
-  basicModes:string[] = ['transit', 'car', 'taxi', 'lyft'] // All available modes except paratransit
-  allModes:string[] = ['transit', 'car', 'taxi', 'lyft', 'paratransit'] // All modes
+  basicModes:string[] = ['transit', 'car', 'taxi', 'lyft', 'bicycle'] // All available modes except paratransit
+  allModes:string[] = ['transit', 'car', 'taxi', 'lyft', 'bicycle', 'paratransit'] // All modes
   returnedModes:string[] = [] // All the basic modes returned from the plan call
   tripRequest: TripRequestModel;
   tripResponse: TripResponseModel = new TripResponseModel({});
@@ -61,6 +61,7 @@ export class ServiceFor211DetailPage {
 
   transitTime: number = 0;
   driveTime: number = 0;
+  bicycleTime: number = 0;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -199,7 +200,7 @@ export class ServiceFor211DetailPage {
   openDirectionsPage(mode: string) {
     let tripResponse = this.tripResponse.withFilteredItineraries(mode);
 
-    if (mode === 'car' || mode === 'transit'){
+    if (mode === 'car' || mode === 'transit' || mode === 'bicycle'){
       this.navCtrl.push(DirectionsPage, {
         trip_response: tripResponse,
         trip_id: tripResponse.id,
@@ -269,6 +270,11 @@ export class ServiceFor211DetailPage {
     if(driveItin && driveItin.duration) {
       this.driveTime = driveItin.duration;
     }
+
+    let bicycleItin = tripResponse.itinerariesByTripType('bicycle')[0];
+    if(bicycleItin && bicycleItin.duration) {
+      this.bicycleTime = bicycleItin.duration;
+    }
   }
 
   // Updates the returned modes list with the modes returned from the given response
@@ -296,6 +302,8 @@ export class ServiceFor211DetailPage {
         return this.driveTime;
       case 'paratransit':
         return this.driveTime;
+      case 'bicycle':
+        return this.bicycleTime;
       default:
         return this.driveTime;
     }

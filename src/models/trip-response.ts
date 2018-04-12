@@ -72,7 +72,7 @@ export class TripResponseModel {
     tripRequest.trip.arrive_by = this.arrive_by;
 
     // Pull out options from hash
-    tripRequest.trip_types = options.modes || options.trip_types || ['transit', 'car', 'taxi', 'lyft', 'paratransit'];
+    tripRequest.trip_types = options.modes || options.trip_types || ['transit', 'car', 'taxi', 'lyft', 'bicycle', 'paratransit'];
     tripRequest.except_filters = options.except_filters || null;
     tripRequest.only_filters = options.only_filters || null;
     
