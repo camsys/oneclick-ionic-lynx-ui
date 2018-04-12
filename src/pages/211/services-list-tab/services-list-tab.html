@@ -32,12 +32,23 @@
                 <div *ngIf="orderBy == 'transit_time'; then orderByTransitTime else orderByDriveTime"></div>
               </div>
               <ng-template #orderByDriveTime>
-                <ion-icon name="car"></ion-icon>
-                <label>{{match.drive_time | prettyTime}}</label>
+                <div *ngIf="match.drive_time != null">
+                  <ion-icon name="car"></ion-icon>
+                  <label>{{match.drive_time | prettyTime}}</label>
+                </div>
+                <div *ngIf="match.drive_time == null">
+                  <label>{{ "lynx.global.driving_unavailable" | translate }}</label>
+                </div>
+
               </ng-template>
               <ng-template #orderByTransitTime  class="icon-wrapper">
-                <ion-icon center name="bus"></ion-icon>
-                <label>{{match.transit_time | prettyTime}}</label>
+                <div *ngIf="match.transit_time != null">
+                  <ion-icon center name="bus"></ion-icon>
+                  <label>{{match.transit_time | prettyTime}}</label>
+                </div>
+                <div *ngIf="match.transit_time == null">
+                  <label>{{ "lynx.global.transit_unavailable" | translate }}</label>
+                </div>
               </ng-template>
             </div>
           </ion-item>
