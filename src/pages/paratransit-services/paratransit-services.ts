@@ -32,7 +32,8 @@ export class ParatransitServicesPage {
               public toastCtrl: ToastController,
               private translate: TranslateService) {
   
-    this.trip_id = this.navParams.data.trip_id;              
+    this.trip_id = this.navParams.data.trip_id;
+    this.transportationServices = null;              
   }
 
   ionViewDidLoad() {
@@ -57,7 +58,7 @@ export class ParatransitServicesPage {
       let svc = new OneClickServiceModel(itin.service);
       svc.fare = itin.cost;
       return svc;
-    })
+     })
   }
   
   // Open the feedback modal for rating the service

@@ -20,8 +20,11 @@
   <ion-grid no-padding>
     <ion-row>
       <ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2>
-      <h3 class="item-heading">
+      <h3 *ngIf="transportationServices && (transportationServices.length > 0)" class="item-heading">
         {{ "paratransit_services.title" | translate }}
+      </h3>
+      <h3 *ngIf="transportationServices && (transportationServices.length == 0)" class="item-heading">
+        {{ "paratransit_services.no_services_found" | translate }}
       </h3>
       </ion-col>
     </ion-row>
