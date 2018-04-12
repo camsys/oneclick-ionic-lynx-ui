@@ -13,6 +13,8 @@ import { SearchResultModel } from "../../models/search-result";
 import { OneClickProvider } from '../../providers/one-click/one-click';
 import { AutocompleteResultsComponent } from "../../components/autocomplete-results/autocomplete-results";
 
+import { AuthProvider } from '../../providers/auth/auth';
+
 
 /**
  * Generated class for the FeedbackModalPage page.
@@ -55,7 +57,8 @@ export class FeedbackModalPage {
               public events: Events,
               public translate: TranslateService,
               private changeDetector: ChangeDetectorRef,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private auth: AuthProvider) {
 
     // Pull the subject(service) and subject type out of the navParams
     this.subject = this.navParams.data.subject;
@@ -65,7 +68,7 @@ export class FeedbackModalPage {
     this.feedbackForm = this.formBuilder.group({
       rating: [0],
       review: [''],
-      email: [''],
+      email: [this.auth.presentableEmail()],
       phone: [''],
       feedbackable_id: [null],
       feedbackable_type: [null]

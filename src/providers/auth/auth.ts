@@ -72,6 +72,14 @@ export class AuthProvider {
     return this.isSignedIn() && this.isGuestEmail(this.session().email);
   }
 
+  // Returns the email address if the user is signed in, otherwise return an empty string
+  presentableEmail(): string {
+    if(this.isRegisteredUser())
+      return this.session().email;
+    else
+      return '';
+  }
+
   // Constructs a hash of necessary Auth Headers for communicating with OneClick
   authHeaders(): Headers {
     if(this.isRegisteredUser()) {

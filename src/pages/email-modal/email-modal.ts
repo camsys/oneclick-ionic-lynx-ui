@@ -4,6 +4,7 @@ import { IonicPage, ViewController, NavParams, ToastController } from 'ionic-ang
 import { OneClickProvider } from '../../providers/one-click/one-click';
 import { FormBuilder, FormGroup, } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthProvider } from '../../providers/auth/auth';
 
 /**
  * Generated class for the EmailModalPage page.
@@ -27,11 +28,12 @@ export class EmailModalPage {
               public oneClick: OneClickProvider,
               private formBuilder: FormBuilder,
               private toastCtrl: ToastController,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private auth: AuthProvider,) {
      this.service = navParams.get('service');
      this.services = navParams.get('services');
      this.emailForm = this.formBuilder.group({
-      email: ['']
+      email: [this.auth.presentableEmail()]
     });
   }
 
