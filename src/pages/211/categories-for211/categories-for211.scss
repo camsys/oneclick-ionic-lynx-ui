@@ -4,6 +4,12 @@ page-categories-for211 {
 }
 
 .lynx-list-category-item{
-   cursor: pointer;
+  cursor: pointer;
 }
+
+.lynx-list-category-item div:hover {
+    background-color: $lynxLtGray;
+}
+
+
 

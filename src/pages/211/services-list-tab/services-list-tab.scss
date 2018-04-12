@@ -3,3 +3,15 @@ page-services-list-tab {
     margin-top: 0 !important;
   }
 }
+
+.lynx-list-inline-item div:hover {
+    background-color: $lynxLtGray;
+}
+
+.sort-by-header div:hover {
+    background-color: $lynxLtGray;
+}
+
+.lynx-list-inline-item{
+  cursor: pointer;
+}

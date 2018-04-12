@@ -4,11 +4,11 @@
       <ion-col col-sm-8 offset-sm-2 col-md-4 offset-md-4>
         <ion-list class="lynx-list" radio-group>
           <ion-list-header>{{ "lynx.pages.services.list_tab.sort_by_header" | translate }}</ion-list-header>
-          <ion-item>
+          <ion-item class="sort-by-header">
             <ion-label><ion-icon name="car"></ion-icon>{{ "lynx.global.modes.car" | translate }}</ion-label>
             <ion-radio checked="true" value="driveTime" (ionSelect)="orderMatchList('drive_time')"></ion-radio>
           </ion-item>
-          <ion-item>
+          <ion-item class="sort-by-header">
             <ion-label><ion-icon name="bus"></ion-icon>{{ "lynx.global.modes.transit" | translate }}</ion-label>
             <ion-radio value="transitTime" (ionSelect)="orderMatchList('transit_time')"></ion-radio>
           </ion-item>
