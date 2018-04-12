@@ -52,15 +52,7 @@ export class SignUpPage {
   }
 
   signUp() {
-    if(!this.signUpFormGroup.valid) {
-      let errorToast = this.toastCtrl.create({
-        message: this.signUpFormGroup.errors.toString(),
-        position: "top",
-        duration: 3000
-      });
-      errorToast.present();
 
-    }else {
       this.authProvider
         .signUp(this.signUpFormGroup.controls.formControlEmail.value, this.signUpFormGroup.controls.formControlPassword.value, this.signUpFormGroup.controls.formControlPasswordConfirm.value)
         .subscribe(
@@ -85,7 +77,23 @@ export class SignUpPage {
             {
               errors += this.translate.instant("lynx.pages.sign_up.error_messages.password_mismatch");
             }
-
+            if(error.json().data.errors.password == "must include at least one letter and one digit")
+            {
+              errors += this.translate.instant("lynx.pages.sign_up.error_messages.password_not_complex");
+            }
+            if(error.json().data.errors.email == "can't be blank")
+            {
+              errors += this.translate.instant("lynx.pages.sign_up.error_messages.email_cant_be_blank");
+            }
+            if(error.json().data.errors.password == "can't be blank")
+            {
+              errors += this.translate.instant("lynx.pages.sign_up.error_messages.password_cant_be_blank");
+            }
+            if(error.json().data.errors.password_confirmation == "can't be blank")
+            {
+              errors += this.translate.instant("lynx.pages.sign_up.error_messages.password_confirmation_cant_be_blank");
+            }
+            
             this.errorToast.dismissAll();
 
             this.errorToast = this.toastCtrl.create({
@@ -96,7 +104,6 @@ export class SignUpPage {
             });
             this.errorToast.present();
           });
-    }
   }
 
 }

@@ -29,7 +29,7 @@ export class EmailModalPage {
               private formBuilder: FormBuilder,
               private toastCtrl: ToastController,
               private translate: TranslateService,
-              private auth: AuthProvider,) {
+              private auth: AuthProvider) {
      this.service = navParams.get('service');
      this.services = navParams.get('services');
      this.emailForm = this.formBuilder.group({
