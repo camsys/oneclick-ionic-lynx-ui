@@ -57,7 +57,7 @@
                        (click)="departAtTimepicker.open()"
                        *ngIf="j === 0; else notFirstLeg">
                        
-                <ion-col col-9 no-padding text-center class="leg-header-content">
+                <ion-col col-12 no-padding text-center class="leg-header-content">
                   <div  *ngIf="!trip.arrive_by" class="leg-time-header-content-description">
                     {{ "lynx.global.directions.depart_at" | translate }}
                   </div>
@@ -65,10 +65,10 @@
                     {{ leg.startTime | date:'shortTime'}}
                   </div>
                   
-                </ion-col>
-                
-                <ion-col col-3 no-padding text-center class="leg-header-content leg-header-clickable">
-                  <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="clock"></ion-icon>
+
+                  <div no-padding text-center class="leg-header-content leg-header-clickable">
+                    <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="create"></ion-icon>
+                  </div>
                 </ion-col>
                 
                 <!-- opens native timepicker on mobile, select menu on browser -->
@@ -83,10 +83,8 @@
               <!-- All other legs are static -->
               <ng-template  #notFirstLeg>
                 <ion-row class="leg-header-container">
-                  <ion-col col-9 no-padding text-center class="leg-header-container">
+                  <ion-col col-12 no-padding text-center class="leg-header-container">
                     {{leg.startTime | date:'shortTime'}}
-                  </ion-col>
-                  <ion-col col-3 no-padding>
                   </ion-col>
                 </ion-row>
               </ng-template>
@@ -201,7 +199,7 @@
             <ion-col no-padding col-3 class="leg-time-col">
               <ion-row class="leg-header-container" (click)="arriveByTimepicker.open($event)">
                 
-                <ion-col col-9 no-padding text-center class="leg-header-content">
+                <ion-col col-12 no-padding text-center class="leg-header-content">
                   
                   <div *ngIf="trip.arrive_by" class="leg-time-header-content-description">
                     {{ "lynx.global.directions.arrive_by" | translate }}
@@ -209,11 +207,11 @@
                   <div class="leg-time-header-content-time">
                     {{ itin.legs[itin.legs.length - 1].endTime | date:'shortTime' }}
                   </div>
-                  
-                </ion-col>
+
                 
-                <ion-col col-3 no-padding text-center class="leg-header-content leg-header-clickable">
-                  <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="clock"></ion-icon>
+                <div no-padding text-center class="leg-header-content leg-header-clickable">
+                  <ion-icon class="leg-time-header-content-edit-icon icon-sm clickable" name="create"></ion-icon>
+                </div>
                 </ion-col>
                 
                 <!-- opens native timepicker on mobile, select menu on browser -->
