@@ -78,7 +78,7 @@ export class UserProfilePage {
 
   filterTripTypes() {
     this.filtered_trip_types = [];
-    var allowed = ["transit", "paratransit", "car", "taxi", "lyft"];
+    var allowed = ["transit", "paratransit", "car", "taxi", "lyft", "bicycle"];
     for (var i = 0; i < this.user.trip_types.length; i++) {
       if(allowed.indexOf(this.user.trip_types[i].code) > -1){
         this.filtered_trip_types.push(this.user.trip_types[i]);
