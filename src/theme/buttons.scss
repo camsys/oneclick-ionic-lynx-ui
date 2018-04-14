@@ -57,6 +57,16 @@ button.lynx-button-white {
   }
 }
 
+button.lynx-button-clear {
+  background: rgba(black, 0.0);
+  color: $lynxWhite;
+
+  &:active, &:hover {
+    background-color: $lynxDarkPink;
+    color: $lynxWhite;
+  }
+}
+
 // Circular Buttons
 button.lynx-button-circle {
   border-radius: 50%;

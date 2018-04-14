@@ -1,17 +1,9 @@
 <ion-header no-border>
   <ion-navbar transparent>
-
-    <div *ngIf="alerts" id="messages-button">
-    <button *ngIf="alerts.length > 0" ion-button
-            round
-            class="lynx-button-primary"
-            tabindex="10"
-            (click)="presentAlerts()">
-      <ion-icon class="padded" name="mail"></ion-icon>
-      <ion-label>{{ "lynx.pages.home.alerts_button" | translate }}</ion-label>
+    <button text-right end class="text-right end bar-buttons bar-buttons-md bar-button bar-button-md bar-button-default bar-button-default-md bar-button-menutoggle bar-button-menutoggle-md activate"
+          (click)="openLanguageSelectorModal();">
+      <ion-icon name="globe"></ion-icon> {{ "lynx.global.languages.native." + i18n.currentLocale() | translate }}
     </button>
-    </div>
-
     <button ion-button end menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -21,7 +13,22 @@
 <ion-content fullscreen padding [style.background-image]="awsImageLocation">
 
   <ion-grid>
+    <ion-row align-items-center text-center center>
+      <ion-col align-self-center>
+      <div *ngIf="alerts" id="messages-button">
+        <button *ngIf="alerts.length > 0" ion-button
+            round text-center
+            class="lynx-button-primary"
+            tabindex="10"
+            (click)="presentAlerts()">
+          <ion-icon class="padded" name="mail"></ion-icon>
+          <ion-label>{{ "lynx.pages.home.alerts_button" | translate }}</ion-label>
+        </button>
+      </div>
+    </ion-col>
+    </ion-row>
     <ion-row>
+
       <ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2>
 
         <ion-card class="lynx-card-help-me-find">

@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, Events, ModalController } from 'ionic-angular';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from 'ionic-angular';
 import { environment } from '../../app/environment';
 
 import { UserLocatorPage }    from '../user-locator/user-locator';
+import { LanguageSelectorModalPage } from '../language-selector-modal/language-selector-modal';
 
 // PROVIDERS
 import { OneClickProvider } from '../../providers/one-click/one-click';
+import { I18nProvider } from '../../providers/i18n/i18n';
+import { AuthProvider } from '../../providers/auth/auth';
 
 // MODELS
 import { Alert } from '../../models/alert';
-
 import { TranslateService } from '@ngx-translate/core';
+import { User } from '../../models/user';
 
 /**
  * Generated class for the HelpMeFindPage page.
@@ -28,6 +31,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class HelpMeFindPage {
 
   alerts: Alert[];
+  user: User;
 
   awsImageLocation;
 
@@ -38,7 +42,10 @@ export class HelpMeFindPage {
               public oneClickProvider: OneClickProvider,
               public sanitizer: DomSanitizer,
               public translate: TranslateService,
-              public events: Events) {
+              public events: Events,
+              private modalCtrl: ModalController,
+              private i18n: I18nProvider,
+              private auth: AuthProvider) {
   }
 
   ionViewDidLoad() {
@@ -65,6 +72,8 @@ export class HelpMeFindPage {
   }
 
   openResourcesPage() {
+     console.log(this);
+
     this.navCtrl.push(UserLocatorPage, { viewType: 'services'});
   }
 
@@ -95,5 +104,31 @@ export class HelpMeFindPage {
   ackAlert(alert: Alert){
     //this.oneClickProvider.ackAlert(alert);
   }
+
+    // Creates and presents a modal for changing the locale.
+  openLanguageSelectorModal() {
+    let languageSelectorModal = this.modalCtrl.create(
+      LanguageSelectorModalPage,
+      { locale: this.i18n.currentLocale() }
+    );
+    languageSelectorModal.onDidDismiss(locale => {
+      if(locale) {
+        // If a new locale was selected, store it as the preferred locale in the session
+        this.user = this.auth.setPreferredLocale(locale);
+
+        // If user is signed in, update their information with the new locale.
+        if(this.auth.isSignedIn()) {
+          this.oneClickProvider.updateProfile(this.user);
+        }
+      }
+    })
+    languageSelectorModal.present();
+  }
+
+  // Updates this component's user model based on the information stored in the session
+  updateUserInfo(usr) {
+    this.user = usr;
+  }
+
 
 }

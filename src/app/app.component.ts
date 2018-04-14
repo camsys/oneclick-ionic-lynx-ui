@@ -138,7 +138,6 @@ export class MyApp {
 
   // Make a call to OneClick to get the user's details
   getUserInfo() {
-
     // If User email and token are stored in session, make a call to 1click to get up-to-date user profile
     if(this.auth.isRegisteredUser()){
       this.oneClickProvider.getProfile()
