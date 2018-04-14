@@ -40,6 +40,8 @@ export class UserLocatorPage {
   destinationMarker: google.maps.Marker;
   imageForDestinationMarker: string;
   selectedOriginItem: number = null;
+  lastClicked: string; // used for the map clicking logic
+  //myLatLng: google.maps.LatLng = null;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -54,6 +56,7 @@ export class UserLocatorPage {
             ) {
 
     this.map = null;
+    this.lastClicked = null;
     this.userLocation = null; // The user's device location
     this.viewType = this.navParams.data.viewType; // Find services vs. transportation view
 
@@ -78,6 +81,9 @@ export class UserLocatorPage {
   // Sets up the google map and geolocation services
   initializeMap() {
     this.map = this.googleMapsHelpers.buildGoogleMap('user-locator-map-canvas');
+
+
+    this.setMapClickListener()
 
     // Add a location geolocator button that centers the map and sets the from place
     this.googleMapsHelpers
@@ -193,5 +199,56 @@ export class UserLocatorPage {
     session.user_starting_location = place;
     this.auth.setSession(session);
   }
+
+
+  ////////// Support Clicking the Map ///////////////////////////////////
+  // Depending on some logic, assume this click is either setting the Origin or the Destination
+  private setPlaceFromClick(latLng: google.maps.LatLng): void{
+    if(this.viewType == 'services' || this.originSearch.place == null || this.lastClicked == 'destination')
+      this.setOriginFromClick(latLng);
+    else
+      this.setDestinationFromClick(latLng);
+  }
+
+  // Update the Origin from a Map Click
+  private setOriginFromClick(latLng: google.maps.LatLng) : void{
+    let lat = latLng.lat();
+    let lng = latLng.lng();
+    
+    this.geoServiceProvider.getPlaceFromLatLng(lat, lng)
+    .subscribe( (places) => {
+      this.userLocation = places[0];
+      this.originSearch.searchControl.setValue(this.userLocation.formatted_address);
+      this.zoomToOriginLocation(latLng);
+      // Set the origin to the user location 
+      this.originSearch.place = this.userLocation;
+      this.lastClicked = 'origin';
+    });
+  }
+
+  // Update the Destination from a Map Click
+  private setDestinationFromClick(latLng: google.maps.LatLng) : void{
+    let lat = latLng.lat();
+    let lng = latLng.lng();
+    
+    this.geoServiceProvider.getPlaceFromLatLng(lat, lng)
+    .subscribe( (places) => {
+      //this.userLocation = places[0];
+      this.destinationSearch.searchControl.setValue(places[0].formatted_address);
+      this.zoomToDestinationLocation(latLng);
+      // Set the origin to the user location 
+      this.destinationSearch.place = places[0];
+      this.lastClicked = 'destination';
+    });
+  }
+
+  // Detect the Click and Grab the LatLng
+  private setMapClickListener(){
+    let me = this;
+    google.maps.event.addDomListener(this.map, 'click', function(event) {
+      me.setPlaceFromClick(event.latLng);
+    });
+  }
+  //////////////////////////////////////////////////////////////////////
 
 }
