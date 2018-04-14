@@ -37,7 +37,7 @@
       </div>
       
       <!-- Social media links -->
-      <ion-item>
+      <ion-item  text-center>
         <button class="lynx-button-link link-white" (click)="exNav.goTo('https://twitter.com/lynxbusorlando')">
           <ion-icon name="logo-twitter"></ion-icon>
         </button>
@@ -45,6 +45,20 @@
           <ion-icon name="logo-facebook"></ion-icon>
         </button>        
       </ion-item>
+
+      <!-- Other External Links -->
+      <ion-item text-center>
+        <button (click)="exNav.goTo('http://www.golynx.com')">
+            <img class="lynx-logo-ms" src="assets/img/Lynx-logo-white-med.png" alt="LYNX logo" />
+        </button> 
+      </ion-item>
+      <ion-item text-center> 
+        <button (click)="exNav.goTo('https://www.hfuw.org/')">
+            <img class="lynx-logo-md" src="assets/img/hfuw_small.jpg" alt="HFUW logo" />
+        </button> 
+      </ion-item> 
+
+
 
       <!-- If not signed in... -->
       <ng-template #notRegistered>
