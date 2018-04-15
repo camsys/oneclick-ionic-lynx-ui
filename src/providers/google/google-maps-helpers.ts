@@ -95,23 +95,13 @@ export class GoogleMapsHelpersProvider {
 
     switch(mode) {
 
-      // Dotted Gray Line
+      // Solid Gray Line (because IE can't handle the dotted gray line)
       case 'WALK':
-        let dotIcon = {
-          path: 'M 0,0 0,0',
-          strokeColor: '#5C5C5C', // Dark Gray
-          strokeOpacity: 1,
-          scale: 7
-        };
-
         return new google.maps.Polyline({
           path: routePoints,
-          strokeOpacity: 0,
-          icons: [{
-            icon: dotIcon,
-            offset: '0',
-            repeat: '12px'
-          }],
+          strokeColor: '#696969', // Lynx Dark Pink
+          strokeOpacity: 0.7,
+          strokeWeight: 6
         });
 
       // Solid Pink Line
