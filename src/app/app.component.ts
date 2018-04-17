@@ -68,7 +68,8 @@ export class MyApp {
 
     // When a server error occurs, show an error message and return to the home page.
     this.events.subscribe("error:http", (error) => {
-      this.handleError(error);
+      if(error.status == 500)
+        this.handleError(error);
     });
 
     // When user is updated, update user info.

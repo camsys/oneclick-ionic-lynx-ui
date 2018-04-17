@@ -64,8 +64,21 @@ export class UserProfilePage {
       this.user.password_confirmation = this.user.password;
     }
     this.oneClickProvider.updateProfile(this.user)
-    .then((user) => this.updateUserData(user))
+    .then((user) => this.updateUserDataAndShowMessage(user))
     .catch((error) => this.handleError(error))
+  }
+
+  showSuccess() {
+    // If the user token is expired, redirect to the sign in page and display a notification
+    this.toastCtrl.create({
+      message: this.translate.instant("lynx.pages.user_profile.update_profile_success"),
+      duration: 5000}
+    ).present();
+  }
+
+  updateUserDataAndShowMessage(user: User) {
+    this.updateUserData(user);
+    this.showSuccess();
   }
 
   updateUserData(user: User) {
@@ -97,8 +110,12 @@ export class UserProfilePage {
         message: this.translate.instant("lynx.pages.user_profile.sign_in_required_message"),
         duration: 5000}
       ).present();
-    } else {
-      console.error(error);
+    } else { 
+      this.toastCtrl.create({
+        message: this.translate.instant("lynx.pages.user_profile.generic_error_message"),
+        duration: 5000}
+      ).present();
+      this.ionViewDidLoad();
     }
   }
 
