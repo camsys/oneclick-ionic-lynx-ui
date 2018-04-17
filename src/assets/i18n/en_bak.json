@@ -1,0 +1,397 @@
+{
+
+
+  "lynx": {
+
+    "global": {
+
+      "transportation": {
+        help: "Transportation options for you"
+      },
+
+      "common": {
+        "to": "to",
+        "send_email": "Send Email"
+      },
+
+      "languages": {
+        "translated": {
+          "en": "English",
+          "es": "Spanish",
+          "pt": "Portuguese",
+          "vi": "Vietnamese",
+          "ht": "Haitian Creole",
+          "keys": "View Translation Keys"
+        },
+        "native": {
+          "en": "English",
+          "es": "Espanol",
+          "pt": "Português",
+          "vi": "Tiếng Việt",
+          "ht": "Kreyòl Ayisyen",
+          "keys": "View Translation Keys"
+        }
+
+      },
+
+      "modes": {
+        "car": "Drive",
+        "transit": "Bus & Train",
+        "taxi": "Taxi",
+        "lyft": "Lyft",
+        "paratransit": "Paratransit",
+        "find_other_options": "Find Other Options"
+      },
+      
+      "profile_modes": {
+        "mode_transit_name": "Bus and Train",
+        "mode_paratransit_mane": "Paratransit",
+        "mode_taxi_name": "Taxi",
+        "mode_car_name": "Drive",
+        "mode_lyft_name": "Lyft"
+      },
+
+      "time": {
+        "hour_short": "hr",
+        "minute_short": "min",
+        "unknown": ""
+      },
+
+      "distance": {
+        "feet_short": "ft",
+        "miles_short": "mi"
+      },
+
+      "directions": {
+        "depart_at": "depart at",
+        "arrive_by": "arrive by"
+      },
+
+      "fare": {
+        "no_fare": "n/a"
+      },
+
+      "weekdays": {
+        "sun_short": "Sun",
+        "mon_short": "Mon",
+        "tue_short": "Tue",
+        "wed_short": "Wed",
+        "thu_short": "Thu",
+        "fri_short": "Fri",
+        "sat_short": "Sat"
+      },
+
+      "error_messages": {
+        "auth_needed": "Please sign in before continuing.",
+        "default": "Sorry! An error occurred. Please try again later."
+      }
+
+    },
+
+    "pages": {
+
+      "about_us": {
+        "header": "About Us",
+        "url": "website",
+        "description": "description"
+      },
+
+      "contact_us": {
+        "header": "Contact Us",
+        "url": "website",
+        "phone": "phone"
+      },
+
+      "home": {
+        "welcome_message_1": "Welcome to LYNX",
+        "welcome_message_2": "How can we help you?",
+        "alerts_button": "Alerts",
+        "resources_button": "Find Services",
+        "transportation_button": "Find Transportation",
+        "transportation_subtitle": "Directions and Transit Options",
+        "resources_subtitle": "211 Services for Medical, Housing, VA, and Other Needs"
+      },
+
+      "menu": {
+        "welcome_user": "Welcome {{user}}!",
+        "profile": "Edit My Profile",
+        "about_us": "About Us",
+        "contact_us": "Contact Us",
+        "transportation": "Transportation Options",
+        "categories": "Browse Services by Category",
+        "resources": "Find Services by Location",
+        "privacy_policy": "Privacy Policy",
+        "sign_out": "Sign Out",
+        "language_selector": "Select Language",
+        "live_211_chat": "Need Help? Live 2-1-1 Chat",
+        "home": "Home",
+        "sign_in": "Hello! Log In Now",
+        "sign_up": "Don't have an account?",
+        "feedback": "Leave Feedback",
+        "feedback_status": "Review Feedback Status"
+      },
+
+      "user_locator": {
+        "origin_search": {
+          "label": "Where Are You?",
+          "placeholder_pending": "Finding Your Location...",
+          "placeholder_found": "Your Location: "
+        },
+        "destination_search": {
+          "label": "Where Are You Going?",
+          "placeholder": "Your Destination"
+        },
+        "resources_button": "Find Services",
+        "transportation_button": "Plan Your Trip"
+      },
+
+      "categories": {
+        "no_categories": "We couldn't find any resources in your area.",
+        "resources_search": {
+          "label": "Resources in Your Area",
+          "placeholder": "Find Resources",
+          "category": "Category",
+          "sub_category": "Category",
+          "sub_sub_category": "Category",
+          "service": "Service",
+          "empty_search_result": "No results found."
+        }
+      },
+
+      "services": {
+        "map_tab": {
+          "header": "Map",
+          "go_button": "Go"
+        },
+        "list_tab": {
+          "header": "List",
+          "sort_by_header": "Sort By",
+          "results_header": "Services",
+          "email_yourself": "Email yourself this list"
+        }
+      },
+
+      "service_details": {
+        "details_header": "About this Service",
+        "phone_header": "Have Questions?",
+        "feedback_header": "Have Feedback?",
+        "feedback_button": "Rate this Service",
+        "email_header": "Email Yourself this Service",
+        "email_button": "Email",
+        "area_served": "Area Served",
+        "eligibility": "Eligibility",
+        "fees": "Fees",
+        "intake_procedure": "Intake Procedure",
+        "service_description": "Service Description",
+        "services": "Services",
+        "site_hours": "Site Hours",
+        "program_service_hours": "Program Service Hours",
+        "documents_required": "Documents Required",
+        "payment_options": "Payment Options",
+        "languages_spoken": "Languages Spoken",
+        "travel_instructions": "Travel Instructions",
+        "area_served": "Area Served"
+      },
+
+      "transportation_service_details": {
+        "fare": "fare",
+        "phone": "phone",
+        "email": "email",
+        "url": "website",
+        "description": "description",
+        "schedule": "schedule",
+        "purposes_header": "eligible purposes",
+        "accommodations_header": "accommodations provided",
+        "eligibilities_header": "eligibility requirements (any one)"
+      },
+
+      "directions": {
+        "header": "Directions",
+        "map_tab": {
+          "header": "Map"
+        },
+        "steps_tab": {
+          "header": "Step by Step",
+          "option": "Option",
+          "trip_date_label": "Your trip on ",
+          "first_nontransit_step": "HEAD {{direction}} on {{street_name}} for {{distance}}",
+          "other_nontransit_step": "{{direction}} on {{street_name}} for {{distance}}",
+          "transit_step": "BOARD {{service_name}} Route {{route}} and ride it {{stops}} stops",
+          "last_transit_step": "GET OFF at stop: {{destination}}"
+        }
+      },
+
+      "taxi_services": {
+        "header": "Taxi Options"
+      },
+
+      "paratransit_services": {
+        "header": "Transportation Options",
+        "feedback_button": "Rate this Service"
+      },
+
+      "user_profile": {
+        "update_button": "Save Profile",
+        "sign_in_required_message": "Please sign in to continue.",
+        "header": "My Profile",
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "email": "Email Address",
+        "password": "Password",
+        "language": "Language",
+        "accommodations": "Accommodations",
+        "eligibilities": "Rider Characteristics",
+        "trip_types": "Preferred Trip Types",
+        "show_pw": "show",
+        "hide_pw": "hide"
+      },
+
+      "transportation_eligibility": {
+        "header": "Select All That Apply",
+        "accommodations_header": "What Accommodations do You Need?",
+        "eligibilities_header": "Which of these Characteristics Apply to You?",
+        "plan_trip_button": "See Transportation Options",
+        "question_prompt": "Help us find you more transportation options by answering a few questions."
+      },
+
+      "feedback": {
+        "contact": "In case we need to contact you",
+        "header": "Leave Feedback",
+        "review_placeholder": "Write a Review",
+        "email": "Your Email",
+        "phone": "Your Phone",
+        "submit_button": "Submit",
+        "cancel_button": "Cancel",
+        "success_message": "Feedback successfully created.",
+        "error_message": "Error creating feedback",
+        "subject_picker_placeholder": "What is this feedback about?",
+        "empty_search_result": "No matching services found."
+      },
+
+      "email": {
+        "header": "Email this Result",
+        "description": "Enter your email address to send yourself this result as an email.",
+        "submit_button": "Send Email",
+        "cancel_button": "Cancel",
+        "placeholder": "Enter Your Email Address",
+        "email_send": "Email Sent"
+      },
+
+
+      "sign_in": {
+        "header": "Sign In",
+        "sign_in_button": "Sign In",
+        "reset_password_button": "Forgot your Password?",
+        "resend_confirmation_button": "Resend Email Confirmation?",
+        "error_messages": {
+          "default":  "There was a problem signing in. Please check your username and password and try again.",
+          "last_attempt": "This is your last attempt to sign in before your account is temporarily locked. Please verify your username and password before trying again.",
+          "locked": "Your account has been temporarily locked after three failed log in attempts. Wait 10 minutes before trying again.",
+          "unconfirmed": "Your account has not yet been confirmed. Before signing in, please click the confirmation link in the email we sent you."
+        }
+      },
+
+      "sign_up": {
+        "header": "Sign Up",
+        "sign_up_button": "Sign Up",
+        "error_messages": {
+          "default":  "There was a problem signing up. Please correct the following errors.",
+          "email_bad": "This email address is invalid.",
+          "email_used": "User email addresses must be unique.",
+          "password_bad": "Your password must be at least 6 characters.",
+          "password_mismatch": "The passwords do not match."
+        },
+        "email_placeholder": "email address",
+        "password_placeholder": "password must be 6 characters long",
+        "confirm_password_placeholder": "confirm password"
+      },
+
+      "reset_password": {
+        "header": "Reset Password",
+        "reset_password_button": "Reset Password",
+        "reset_password_description": "To reset your password, enter your email address. You will be sent an email with your new password.",
+        "success_message": "Your password has been successfully reset. An email has been sent to {{email}}.",
+        "error_message": "There was a problem resetting your password. Please verify your email address and try again."
+
+      },
+
+      "resend_email_confirmation": {
+        "header": "Reseend Email Confirmation",
+        "resend_email_confirmation_button": "Resend Email Confirmation",
+        "resend_email_confirmation_description": "To resend the email confirmation and complete your singup, enter your email address. You will be sent an email with new confirmation details.",
+        "success_message": "Your confrimation email has been successfully resent. An email has been sent to {{email}}.",
+        "error_message": "There was a problem resending your email confirmation. Please verify your email address and try again."
+
+      },
+
+      "language_selector_modal": {
+        "header": "Preferred Language",
+        "form_title": "Select Your Language"
+      },
+
+      "feedback_status": {
+        "header": "Status of Your Feedback",
+        "feedback_header_w_subj": "Your Feedback about {{subject}} from {{date}}",
+        "feedback_header_no_subj": "Your Feedback from {{date}}",
+        "rating": "Rating",
+        "review": "Review",
+        "status": "Status",
+        "status_pending": "Pending",
+        "status_acknowledged": "Acknowledged by {{commenter}} on {{date}}",
+        "with_comment": "with comment",
+        "no_feedback": "You have not submitted any feedback."
+      },
+
+      "external_navigation": {
+        "header": "Leaving LYNX VTracs",
+        "message": "Are you sure you'd like to leave the site?",
+        "cancel_button": "Back",
+        "confirm_button": "Continue"
+      },
+
+      "unsubscribe": {
+        "success_message": "{{email}} has been successfully unsubscribed from email updates."
+      }
+
+    }
+
+  },
+
+  "otp": {
+
+    "relativeDirection": {
+
+      "DEPART": "DEPART",
+      "HARD_LEFT": "HARD LEFT",
+      "LEFT": "LEFT",
+      "SLIGHTLY_LEFT": "SLIGHTLY LEFT",
+      "CONTINUE": "CONTINUE",
+      "SLIGHTLY_RIGHT": "SLIGHTLY RIGHT",
+      "RIGHT": "RIGHT",
+      "HARD_RIGHT": "HARD RIGHT",
+      "CIRCLE_CLOCKWISE": "CIRCLE CLOCKWISE",
+      "CIRCLE_COUNTERCLOCKWISE": "CIRCLE COUNTERCLOCKWISE",
+      "ELEVATOR": "ELEVATOR",
+      "UTURN_LEFT": "UTURN LEFT",
+      "UTURN_RIGHT": "UTURN RIGHT"
+
+    },
+
+    "absoluteDirection": {
+
+      "NORTH": "NORTH",
+      "NORTHEAST": "NORTHEAST",
+      "EAST": "EAST",
+      "SOUTHEAST": "SOUTHEAST",
+      "SOUTH": "SOUTH",
+      "SOUTHWEST": "SOUTHWEST",
+      "WEST": "WEST",
+      "NORTHWEST": "NORTHWEST"
+
+    }
+
+
+  }
+
+
+}
