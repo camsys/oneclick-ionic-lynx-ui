@@ -13,6 +13,7 @@ export class ServiceModel {
   transit_time: number;
   phone: string;
   url: string;
+  email: string;
   display_url: string; 
   details: {
     service_description: string;
