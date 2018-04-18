@@ -11,14 +11,14 @@
       <!-- If signed in... -->
       <div *ngIf="auth.isRegisteredUser(); else notRegistered">
 
-          <button ion-item menuClose
+          <button style="background-color:#000000;" ion-item menuClose
                   class="item-heading"
                   id="menu-welcome-button"
                   (click)="goHome()">
             {{ "lynx.pages.menu.welcome_user" | translate:user_name }}
           </button>
 
-          <button ion-item menuClose
+          <button style="background-color:#000000;" ion-item menuClose
                   class="item-heading"
                   id="menu-profile-button"
                   (click)="openPage(profilePage)">
@@ -26,7 +26,7 @@
           </button>
 
           <!-- Build a button for each page listed in the signedInPages attribute -->
-          <button ion-item menuClose
+          <button style="background-color:#000000;" ion-item menuClose
                   class="item-heading"
                   *ngFor="let p of signedInPages"
                   (click)="openPage(p)">
@@ -48,12 +48,12 @@
 
       <!-- Other External Links -->
       <ion-item text-center>
-        <button (click)="exNav.goTo('http://www.golynx.com')">
+        <button style="background-color:#000000;" (click)="exNav.goTo('http://www.golynx.com')">
             <img class="lynx-logo-ms" src="assets/img/Lynx-logo-white-med.png" alt="LYNX logo" />
         </button> 
       </ion-item>
       <ion-item text-center> 
-        <button (click)="exNav.goTo('https://www.hfuw.org/')">
+        <button style="background-color:#000000;" (click)="exNav.goTo('https://www.hfuw.org/')">
             <img class="lynx-logo-md" src="assets/img/hfuw_small.jpg" alt="HFUW logo" />
         </button> 
       </ion-item> 
@@ -63,14 +63,14 @@
       <!-- If not signed in... -->
       <ng-template #notRegistered>
 
-        <button ion-item menuClose
+        <button style="background-color:#000000;" ion-item menuClose
                 class="item-heading"
                 id="menu-sign-in-button"
                 (click)="openPage(signInPage)">
           {{ "lynx.pages.menu.sign_in" | translate }}
         </button>
 
-        <button ion-item menuClose
+        <button style="background-color:#000000;" ion-item menuClose
                 class="item-heading"
                 id="menu-sign-up-button"
                 (click)="openPage(signUpPage)">
@@ -78,7 +78,7 @@
         </button>
 
         <!-- Build a button for each page listed in the signedOutPages attribute -->
-        <button ion-item menuClose
+        <button style="background-color:#000000;" ion-item menuClose
                 class="item-heading"
                 *ngFor="let p of signedOutPages"
                 (click)="openPage(p)">
