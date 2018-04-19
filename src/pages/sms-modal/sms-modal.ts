@@ -49,7 +49,7 @@ export class SmsModalPage {
       ids.push(this.service.id);
     }
 
-    this.oneClick.sms211Service(this.smsForm.value['sms'],ids);
+    var result = this.oneClick.sms211Service(this.smsForm.value['sms'],ids);
     this.viewCtrl.dismiss(null);
     let toast = this.toastCtrl.create({
       message: this.translate.instant('lynx.pages.sms.sms_sent'),

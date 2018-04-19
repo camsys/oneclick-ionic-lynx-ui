@@ -396,7 +396,7 @@ export class OneClickProvider {
                   { phone:  phone, "services": id, locale: this.i18n.currentLocale()}, 
                   this.requestOptions())
             .toPromise()
-            .catch(error => this.handleError(error));
+            .catch(error => null);
   }
   
   // Unsubscribes user from email updates
