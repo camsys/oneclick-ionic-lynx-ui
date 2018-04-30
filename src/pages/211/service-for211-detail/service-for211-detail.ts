@@ -160,7 +160,8 @@ export class ServiceFor211DetailPage {
       }
 
       // Update the URL with the path string.
-      this.location.replaceState(path);
+      //this.location.replaceState(path);
+      // DEREK removed this because it was causing the back button to disappear.
     }
 
   }
