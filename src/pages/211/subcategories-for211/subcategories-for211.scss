@@ -1,3 +1,9 @@
 page-subcategories-for211 {
 
+.toolbar-title {
+  text-overflow: ellipsis !important;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 }
