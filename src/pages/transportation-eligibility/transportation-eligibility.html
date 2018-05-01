@@ -19,7 +19,7 @@
   <h3 text-center>{{ "lynx.pages.transportation_eligibility.question_prompt" | translate }}</h3>
 
   <!-- ACCOMMODATIONS -->
-  <ion-list class="lynx-list" [hidden]="accommodations.length === 0">
+  <ion-list text-wrap class="lynx-list" [hidden]="accommodations.length === 0">
     <ion-list-header>
       {{ "lynx.pages.transportation_eligibility.accommodations_header" | translate }}
     </ion-list-header>
@@ -33,7 +33,7 @@
   </ion-list>
 
   <!-- ELIGIBILITIES -->
-  <ion-list class="lynx-list" [hidden]="eligibilities.length === 0">
+  <ion-list text-wrap class="lynx-list" [hidden]="eligibilities.length === 0">
     <ion-list-header>
       {{ "lynx.pages.transportation_eligibility.eligibilities_header" | translate }}
     </ion-list-header>
