@@ -7,7 +7,7 @@
               [compareWith]="compareTimes">
     <ion-option *ngFor="let t of times; let i = index"
                 [value]="t">
-      {{t | date:'h:mm a'}}
+      {{t | date:'shortTime'}}
     </ion-option>
   </ion-select>
 </ion-item>
