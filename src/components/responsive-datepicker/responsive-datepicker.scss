@@ -1,3 +1,11 @@
 responsive-datepicker {
 
 }
+
+/* Hack to work around IE11 ion-datetime bug in Ionic 3. Overrides generated inline style. */
+_:-ms-fullscreen, :root {
+	/* IE11 and above */
+	ion-picker-cmp .picker-columns .picker-col:nth-of-type(3) {
+		max-width: none !important;
+	}
+}
