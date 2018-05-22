@@ -99,7 +99,10 @@ export class UserLocatorPage {
     });
 
     // Try to automatically geolocate, centering the map and setting the from place
-    this.geolocation.getCurrentPosition()
+    var options = {
+      timeout: 5000,
+    };
+    this.geolocation.getCurrentPosition(options)
     .then((position) => {
       // Only zoom to location if another location isn't set yet
       if(!this.userLocation) {
