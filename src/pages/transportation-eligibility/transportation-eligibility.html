@@ -46,6 +46,27 @@
     </ion-item>
   </ion-list>
 
+  <!-- AGE -->
+  <ion-list text-wrap class="lynx-list">
+    <ion-list-header>
+      {{ "lynx.pages.transportation_eligibility.age_header" | translate }}
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>{{"lynx.pages.user_profile.age" | translate}}</ion-label>
+      <ion-input  class="lynx-input" 
+                  type="number" 
+                  placeholder=""
+                  name="age" 
+                  [(ngModel)]="age" 
+                  required>
+      </ion-input>
+    </ion-item>
+
+
+  </ion-list>
+
+
   <!-- PLAN TRIP -->
   <div text-center id="view-paratransit-options-button-container" >
     <button ion-button round

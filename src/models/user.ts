@@ -14,6 +14,7 @@ export class User {
   trip_types: TripType[];
   password: string;
   password_confirmation: string;
+  age: number;
 }
 
 export class TripType {

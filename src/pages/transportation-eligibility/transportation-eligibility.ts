@@ -23,6 +23,7 @@ import { TripResponseModel } from "../../models/trip-response";
 export class TransportationEligibilityPage {
 
   user: User;
+  age: number;
   accommodations: Accommodation[] = [];
   eligibilities: Eligibility[] = [];
   tripResponse: TripResponseModel=null;
@@ -78,6 +79,7 @@ export class TransportationEligibilityPage {
     if(this.auth.isSignedIn() && this.auth.session().user) {
       this.user = this.auth.session().user;
       this.setAccomAndEligValues();
+      this.age = this.user.age;
     }
 
     this.events.publish("spinner:hide");
@@ -107,9 +109,12 @@ export class TransportationEligibilityPage {
       eligHash[elig.code] = elig.value;
       return eligHash;
     }, {});
+    let age = this.age;
     this.tripRequest.user_profile = {
+      attributes: {age: age},
       accommodations: accs,
-      eligibilities: eligs
+      eligibilities: eligs,
+      age: age
     };
   }
 
