@@ -64,13 +64,19 @@ export class PlaceSearchComponent {
   // Updates the search items list based on the response from OneClick and Google
   updateAddressSearch(query) {
 
-    this.oneClickProvider
-    .getPlaces(query)
-    .subscribe(places => {
-      // Set oneClickAutocompleteItems to the places call results and refresh the search results
-      this.oneClickAutocompleteItems = places.map((p) => this.convertPlaceToSearchResult(p));
+    // Only get 1-Click places if a query is present.
+    if(query && query.length > 0) {
+      this.oneClickProvider
+      .getPlaces(query)
+      .subscribe(places => {
+        // Set oneClickAutocompleteItems to the places call results and refresh the search results
+        this.oneClickAutocompleteItems = places.map((p) => this.convertPlaceToSearchResult(p));
+        this.refresh();
+      });
+    } else {
+      this.oneClickAutocompleteItems = [];
       this.refresh();
-    });
+    }
 
     // Only get google places if a query is present.
     if(query && query.length > 0) {

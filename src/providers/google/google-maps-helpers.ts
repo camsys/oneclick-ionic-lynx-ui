@@ -42,11 +42,19 @@ export class GoogleMapsHelpersProvider {
       locationBoxElement.addEventListener('click', function() {
 
         if(navigator.geolocation) {
+          // Timeout if the geolocation takes too long.
+          var options = {
+            timeout: 5000,
+          };
           navigator.geolocation.getCurrentPosition(function(position) {
             let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(latLng);
             onClickCallback(latLng);
-          });
+          },
+          function(error) {
+            console.error("The browser or device does not support geolocation.");
+          },
+          options);
         }
       });
 
