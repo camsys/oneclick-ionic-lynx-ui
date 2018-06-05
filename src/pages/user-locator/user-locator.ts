@@ -85,6 +85,49 @@ export class UserLocatorPage {
 
     this.setMapClickListener()
 
+    // Check if we're on a mobile device (as opposed to browser) or a non-Windows browser.
+    // Geolocation features are only enabled for those platforms.
+    // (The Windows check doesn't actually work, but leaving in for now.)
+    if (this.platform.is('cordova') || !this.platform.is('windows')) {
+      this.checkGeolocationSupportAndSetupFeatures();
+    } else {
+      this.originSearch.placeholder = this.translate.instant("lynx.pages.user_locator.origin_search.placeholder_found");
+    }
+  }
+
+  checkGeolocationSupportAndSetupFeatures() {
+    // Check if the Permissions API is supported.
+    // (The Permissions API is not supported on IE11, so this check isn't that useful.)
+    //if (navigator['permissions']) {
+
+      // Check if device has permission to geolocate.         
+      //navigator['permissions'].query({
+      //  name: 'geolocation'
+      //}).then(permission => {
+      //  if (permission.state === "granted") {
+
+            // Check if the Geolocation API is supported
+            if (this.geolocation) {
+              this.setupGeolocationFeatures();
+            } else {
+              console.error("The browser or device does not support geolocation.");
+              this.originSearch.placeholder = this.translate.instant("lynx.pages.user_locator.origin_search.placeholder_found");
+            }
+      //  } else if (permission.state === "prompt") {
+      //    console.log("The browser or device needs to prompt the user for geolocation permission. Won't geolocate initially.");
+      //    this.originSearch.placeholder = this.translate.instant("lynx.pages.user_locator.origin_search.placeholder_found");
+      //  } else {
+      //    console.error("The browser or device does not have permission for geolocation.");
+      //    this.originSearch.placeholder = this.translate.instant("lynx.pages.user_locator.origin_search.placeholder_found");
+      //  }
+      //});
+    //} else {
+    //  console.error("The browser or device does not support checking permissions for geolocation.");
+    //  this.originSearch.placeholder = this.translate.instant("lynx.pages.user_locator.origin_search.placeholder_found");
+    //}
+  }
+
+  setupGeolocationFeatures() {
     // Add a location geolocator button that centers the map and sets the from place
     this.googleMapsHelpers
     .addYourLocationButton(this.map, (latLng) => {
@@ -99,6 +142,7 @@ export class UserLocatorPage {
     });
 
     // Try to automatically geolocate, centering the map and setting the from place
+    // Timeout if the geolocation takes too long.
     var options = {
       timeout: 5000,
     };
@@ -113,8 +157,8 @@ export class UserLocatorPage {
     })
     .catch((err) => {
       console.error("Could not geolocate device position");
+      this.originSearch.placeholder = this.translate.instant("lynx.pages.user_locator.origin_search.placeholder_found");
     });
-
   }
 
   // Updates the userLocation, and centers the map at the given latlng
@@ -182,7 +226,10 @@ export class UserLocatorPage {
       this.originSearch.placeholder = this.translate.instant("lynx.pages.user_locator.origin_search.placeholder_found") + this.userLocation.formatted_address;
 
       // Set the origin to the user location if it isn't already set
-      this.originSearch.place = this.originSearch.place || this.userLocation;
+      //this.originSearch.place = this.originSearch.place || this.userLocation;
+      if (this.originSearch.place == null) {
+        this.originSearch.setPlace(this.userLocation);
+      }
     });
   }
 
@@ -240,7 +287,8 @@ export class UserLocatorPage {
       this.destinationSearch.searchControl.setValue(places[0].formatted_address);
       this.zoomToDestinationLocation(latLng);
       // Set the origin to the user location 
-      this.destinationSearch.place = places[0];
+      //this.destinationSearch.place = places[0];
+      this.destinationSearch.setPlace(places[0]);
       this.lastClicked = 'destination';
     });
   }

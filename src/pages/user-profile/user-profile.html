@@ -77,6 +77,18 @@
             </div>
           </ion-item>
 
+          <!-- Age -->
+          <ion-item>
+            <ion-label>{{"lynx.pages.user_profile.age" | translate}}</ion-label>
+            <ion-input  class="lynx-input" 
+                        type="number" 
+                        placeholder=""
+                        name="age" 
+                        [(ngModel)]="user.age" 
+                        required>
+            </ion-input>
+          </ion-item>
+
       </ion-col>   
     </ion-row>
     
