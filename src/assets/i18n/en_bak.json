@@ -109,7 +109,8 @@
         "resources_button": "Find Services",
         "transportation_button": "Find Transportation",
         "transportation_subtitle": "Directions and Transit Options",
-        "resources_subtitle": "211 Services for Medical, Housing, VA, and Other Needs"
+        "resources_subtitle": "211 Services for Medical, Housing, VA, and Other Needs",
+        "lynx.pages.home.disclaimer_subtitle":"LYNX Trip Planner does not have trip booking capability, it is the user's responsibility to contact and arrange for transportation from the appropriate provider. *Tip* Plan ahead of time for more possible options!"
       },
 
       "menu": {

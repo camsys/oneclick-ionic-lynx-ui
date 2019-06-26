@@ -49,7 +49,7 @@ export class HelpMeFindPage {
   }
 
   ionViewDidLoad() {
-    this.awsImageLocation = this.sanitizer.bypassSecurityTrustStyle('url(' + environment.AWS_IMAGE_ASSET_BUCKET + 'find-page-background.jpg)');
+    this.awsImageLocation = this.sanitizer.bypassSecurityTrustStyle('url(' + environment.AWS_IMAGE_ASSET_BUCKET + 'find-page-background-bus.jpg)');
 
     // Wait until after platform is ready, so we have the user's preferred locale
     this.platform.ready().then(() => {
