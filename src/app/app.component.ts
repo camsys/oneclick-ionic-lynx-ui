@@ -166,7 +166,8 @@ export class MyApp {
       { title: 'resources', component: UserLocatorPage, params: { viewType: 'services'}},
       { title: 'language_selector', component: "language_selector" },
       { title: 'privacy_policy', component: "privacy_policy" },
-      { title: 'live_211_chat', component: "live_211_chat" },
+      // Disabling chat based on feedback.
+      //{ title: 'live_211_chat', component: "live_211_chat" },
       { title: 'feedback', component: "feedback" }
     ] as PageModel[];
 
