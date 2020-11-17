@@ -3,3 +3,11 @@
 .scroll-content {
   overflow-y: auto !important;
 }
+
+// allow content to be highlighted
+body {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
