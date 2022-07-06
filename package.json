@@ -52,7 +52,7 @@
         "ionic2-rating": "^1.2.2",
         "ionicons": "3.0.0",
         "ios-sim": "^6.1.2",
-        "moment": "^2.19.0",
+        "moment": "^2.29.4",
         "ng2-translate": "^5.0.0",
         "rxjs": "5.4.0",
         "sw-toolbox": "3.6.0",
